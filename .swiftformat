@@ -1,0 +1,75 @@
+# Linger · SwiftFormat config — pairs with .swiftlint.yml.
+
+--swiftversion 6.0
+--exclude .build,DerivedData,Linger.xcodeproj,**/*.generated.swift
+
+# Layout
+--maxwidth 110
+--indent 4
+--tabwidth 4
+--linebreaks lf
+--semicolons never
+--trimwhitespace always
+--commas inline
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--wrapconditions after-first
+--closingparen balanced
+
+# Imports & ordering
+--importgrouping testable-bottom
+--organizetypes class,struct,enum,extension,protocol
+
+# Naming / style
+--header strip
+--self init-only
+--selfrequired log,assert,precondition
+--patternlet inline
+--funcattributes prev-line
+--typeattributes prev-line
+--varattributes same-line
+--enumthreshold 20
+
+# Rules — enabled
+--enable                        \
+    blankLinesBetweenScopes,    \
+    blankLinesBetweenImports,   \
+    consecutiveBlankLines,      \
+    consistentSwitchCaseSpacing,\
+    duplicateImports,           \
+    initCoderUnavailable,       \
+    isEmpty,                    \
+    redundantBackticks,         \
+    redundantBreak,             \
+    redundantClosure,           \
+    redundantExtensionACL,      \
+    redundantFileprivate,       \
+    redundantGet,               \
+    redundantInit,              \
+    redundantInternal,          \
+    redundantLet,               \
+    redundantLetError,          \
+    redundantNilInit,           \
+    redundantObjc,              \
+    redundantParens,            \
+    redundantPattern,           \
+    redundantRawValues,         \
+    redundantReturn,            \
+    redundantSelf,              \
+    redundantType,              \
+    redundantVoidReturnType,    \
+    sortImports,                \
+    spaceAroundOperators,       \
+    spaceInsideBraces,          \
+    spaceInsideBrackets,        \
+    spaceInsideParens,          \
+    strongifiedSelf,            \
+    trailingCommas,             \
+    typeSugar,                  \
+    unusedArguments,            \
+    void,                       \
+    wrapMultilineStatementBraces
+
+# Rules — disabled (would conflict with our intent)
+--disable wrapEnumCases,sortedSwitchCases

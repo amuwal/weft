@@ -1,0 +1,1439 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Linger — UI Framework</title>
+  <meta name="description" content="A quiet place for the people who matter. iOS 26 / Liquid Glass mockup framework." />
+  <link rel="icon" type="image/svg+xml" href="assets/app-icon.svg" />
+
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/liquid-glass.css" />
+  <link rel="stylesheet" href="css/motion.css" />
+  <link rel="stylesheet" href="css/components.css" />
+
+  <!-- Google fonts: cross-platform fallback for New York serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
+
+  <style>
+  /* ── showcase chrome (around the phones) ───────────────────── */
+  body {
+    background:
+      radial-gradient(70% 60% at 50% 0%, #FBF8F0 0%, var(--bg) 60%);
+    min-height: 100vh;
+  }
+  :root[data-theme="dark"] body,
+  :root[data-allow-dark] body {
+    background:
+      radial-gradient(80% 70% at 50% 0%, #1F1D18 0%, var(--bg) 55%);
+  }
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: saturate(160%) blur(18px);
+    -webkit-backdrop-filter: saturate(160%) blur(18px);
+    background: rgba(248, 245, 239, 0.7);
+    border-bottom: 0.5px solid var(--line);
+  }
+  :root[data-theme="dark"] .topbar,
+  :root[data-allow-dark] .topbar {
+    background: rgba(22, 20, 16, 0.7);
+  }
+  .topbar-inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: -.012em;
+  }
+  .brand .icon {
+    width: 30px; height: 30px;
+    border-radius: 7px;
+    overflow: hidden;
+  }
+  .topbar nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 28px;
+    font-family: var(--rounded);
+    font-size: 13px;
+    letter-spacing: .02em;
+    color: var(--muted);
+  }
+  .topbar nav a { color: inherit; text-decoration: none; transition: color .2s ease; }
+  .topbar nav a:hover { color: var(--ink); }
+  .topbar .actions { display: inline-flex; align-items: center; gap: 12px; }
+  .topbar .toggle-theme {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 0.5px solid var(--line-strong);
+    background: var(--surface);
+    font-size: 16px;
+  }
+
+  /* hero */
+  .hero-band {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 64px 32px 30px;
+  }
+  .hero-band h1 {
+    font-family: var(--serif);
+    font-size: clamp(40px, 6vw, 76px);
+    font-weight: 500;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    margin: 0 0 18px;
+    color: var(--ink);
+    max-width: 16ch;
+  }
+  .hero-band h1 em {
+    font-style: italic;
+    color: var(--sage);
+    font-weight: 500;
+  }
+  .hero-band p {
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0;
+    max-width: 56ch;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 28px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+    font-family: var(--rounded);
+    font-size: 13px;
+    letter-spacing: .03em;
+    color: var(--whisper);
+  }
+  .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+  .hero-meta .marker {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--sage);
+  }
+
+  /* section labels */
+  .frame-band {
+    max-width: 1320px;
+    margin: 56px auto 0;
+    padding: 0 32px 120px;
+  }
+  .frame-label {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin: 64px 0 32px;
+    padding: 0 6px;
+  }
+  .frame-label .index {
+    font-family: var(--rounded);
+    font-size: 12px;
+    color: var(--whisper);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    min-width: 36px;
+  }
+  .frame-label h2 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 28px;
+    margin: 0;
+    color: var(--ink);
+    letter-spacing: -.015em;
+  }
+  .frame-label .desc {
+    font-family: var(--serif);
+    font-size: 17px;
+    color: var(--muted);
+    margin-left: auto;
+    max-width: 44ch;
+    text-align: right;
+    font-style: italic;
+  }
+  @media (max-width: 720px) {
+    .frame-label { flex-direction: column; gap: 4px; }
+    .frame-label .desc { text-align: left; margin-left: 0; }
+  }
+
+  /* phone grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+    gap: 56px 40px;
+    justify-items: center;
+    padding: 0 0 32px;
+  }
+  .grid.single { grid-template-columns: 1fr; }
+  .grid.pair { grid-template-columns: repeat(auto-fit, minmax(390px, 460px)); justify-content: center; }
+  .frame-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .frame-caption {
+    font-family: var(--rounded);
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--whisper);
+  }
+
+  /* footer */
+  .foot {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 60px 32px 80px;
+    border-top: 0.5px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+    color: var(--muted);
+    font-family: var(--rounded);
+    font-size: 13px;
+  }
+  .foot .links a { color: inherit; margin-right: 18px; text-decoration: none; }
+  .foot .links a:hover { color: var(--ink); }
+
+  /* watch frame */
+  .watch {
+    width: 198px; height: 246px;
+    background: #0A0907;
+    border-radius: 50px;
+    padding: 12px;
+    box-shadow: 0 0 0 5px #2D2A24, 0 30px 50px -20px rgba(27,26,23,.4);
+    position: relative;
+  }
+  .watch-screen {
+    width: 100%; height: 100%;
+    border-radius: 38px;
+    background: #000;
+    color: #EDE8DC;
+    padding: 24px 14px 18px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+  .watch .crown {
+    position: absolute;
+    right: -5px;
+    top: 60px;
+    width: 6px; height: 28px;
+    background: #4A463E;
+    border-radius: 0 4px 4px 0;
+  }
+  .watch .side-btn {
+    position: absolute;
+    right: -5px;
+    top: 130px;
+    width: 6px; height: 40px;
+    background: #4A463E;
+    border-radius: 0 3px 3px 0;
+  }
+
+  /* widget frames */
+  .widget-stage {
+    width: 100%;
+    max-width: 460px;
+    background: linear-gradient(180deg, #34302B 0%, #1B1A17 100%);
+    border-radius: 32px;
+    padding: 28px 24px 24px;
+    aspect-ratio: 1 / 1.05;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 14px;
+    box-shadow: 0 30px 60px -20px rgba(27,26,23,.5);
+  }
+  .widget-stage .wallpaper-label {
+    font-family: var(--rounded);
+    font-size: 12px;
+    color: rgba(237,232,220,.4);
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    text-align: center;
+  }
+
+  .w-small, .w-medium, .w-large {
+    background: rgba(255, 250, 240, 0.92);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-radius: 22px;
+    padding: 14px 16px;
+    color: var(--ink);
+    box-shadow: 0 8px 22px -10px rgba(0,0,0,.4), 0 0.5px 0 rgba(255,255,255,.4) inset;
+  }
+  .w-small {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .w-medium {
+    aspect-ratio: 2.1 / 1;
+    grid-column: 1 / -1;
+  }
+  .w-large {
+    grid-column: 1 / -1;
+    aspect-ratio: 2.1 / 2.1;
+  }
+  </style>
+</head>
+<body>
+  <!-- inline SVG icon sprite (synchronous via XHR) -->
+  <div id="sprite-host" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"></div>
+  <script>
+    // synchronously inject icon sprite so all <use href="#…"> resolve before render
+    (function injectSprite() {
+      try {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'assets/icons.svg', false);  // sync
+        xhr.send(null);
+        if (xhr.status === 200) {
+          document.getElementById('sprite-host').innerHTML = xhr.responseText;
+        }
+      } catch (e) {
+        // fall back to async
+        fetch('assets/icons.svg').then(r => r.text()).then(t => {
+          document.getElementById('sprite-host').innerHTML = t;
+        });
+      }
+    })();
+  </script>
+
+  <!-- ── TOP BAR ─────────────────────────────────────────── -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="icon">
+          <img src="assets/app-icon.svg" alt="" />
+        </span>
+        Linger
+      </div>
+      <nav>
+        <a href="#today">Today</a>
+        <a href="#people">People</a>
+        <a href="#detail">Detail</a>
+        <a href="#notes">Notes</a>
+        <a href="#settings">Settings</a>
+        <a href="#paywall">Premium</a>
+        <a href="#widget">Widget</a>
+        <a href="#watch">Watch</a>
+        <a href="components.html">System</a>
+      </nav>
+      <div class="actions">
+        <button class="toggle-theme" data-toggle-theme aria-label="Toggle theme">☾</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── HERO ────────────────────────────────────────────── -->
+  <section class="hero-band">
+    <h1 class="animate-words">A <em>quiet</em><br/>place for<br/>the people who matter.</h1>
+    <p>Linger is a calm, on-device journal for the 5–25 humans you love most. This is the v1 UI framework — iOS 26 Liquid Glass, New York serif, sage on warm cream, with the motion and haptic vocabulary documented in <span class="serif" style="font-style:italic">design/motion-and-haptics.md</span>.</p>
+    <div class="hero-meta">
+      <span><span class="marker"></span>10 screens · responsive iPhone frames</span>
+      <span><span class="marker"></span>Liquid Glass tab bars · spring motion</span>
+      <span><span class="marker"></span>System fonts · SF-Symbols-style SVG sprite</span>
+      <span><span class="marker"></span>Light · Dark · Tinted icon</span>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       FRAMES — each screen rendered in an iPhone frame
+       ════════════════════════════════════════════════════════════ -->
+  <main class="frame-band">
+
+    <!-- ─── 01 · ONBOARDING ─────────────────────────────────── -->
+    <section id="onboarding">
+      <div class="frame-label">
+        <span class="index">01</span>
+        <h2>Onboarding</h2>
+        <span class="desc">No signup. No tour. Three light steps then you're in.</span>
+      </div>
+      <div class="grid pair">
+
+        <div class="frame-wrap">
+          <div class="phone">
+            <div class="island"></div>
+            <div class="phone-screen">
+              <div class="status-bar">
+                <span class="time">9:41</span>
+                <span class="right">
+                  <svg width="18" height="11"><use href="#i-cell"/></svg>
+                  <svg width="16" height="11"><use href="#i-wifi"/></svg>
+                  <span class="battery"><i></i></span>
+                </span>
+              </div>
+              <div class="canvas" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 36px;">
+                <div class="rise" style="margin-bottom:80px;animation-delay:60ms">
+                  <img src="assets/app-icon.svg" alt="" style="width:84px;height:84px;border-radius:22%;box-shadow:var(--shadow-card);" />
+                </div>
+                <div class="rise" style="animation-delay:240ms">
+                  <div class="display-l serif" style="margin-bottom:18px;font-size:46px">Linger.</div>
+                  <p class="serif" style="font-size:21px;line-height:1.42;color:var(--muted);margin:0 0 56px;max-width:18ch">A quiet place for the people who matter.</p>
+                </div>
+                <button class="btn primary block rise pressable" style="animation-delay:420ms;max-width:280px;">Begin</button>
+                <p class="cap rise" style="animation-delay:560ms;margin-top:38px;font-size:13px;line-height:1.55;color:var(--whisper);max-width:24ch;">
+                  No account, no cloud.<br/>Everything stays on your phone.
+                </p>
+              </div>
+              <div class="home-indicator"></div>
+            </div>
+          </div>
+          <span class="frame-caption">01 · Welcome</span>
+        </div>
+
+        <div class="frame-wrap">
+          <div class="phone">
+            <div class="island"></div>
+            <div class="phone-screen">
+              <div class="status-bar">
+                <span class="time">9:41</span>
+                <span class="right">
+                  <svg width="18" height="11"><use href="#i-cell"/></svg>
+                  <svg width="16" height="11"><use href="#i-wifi"/></svg>
+                  <span class="battery"><i></i></span>
+                </span>
+              </div>
+              <div class="canvas">
+                <div class="hero rise">
+                  <div class="eyebrow">Step 3 of 3</div>
+                  <h1>How often<br/>would you like to<br/>think of them?</h1>
+                </div>
+                <div class="chips stagger" data-group>
+                  <button class="pill lg" role="button" aria-selected="false">weekly</button>
+                  <button class="pill lg" role="button" aria-selected="false">biweekly</button>
+                  <button class="pill lg" role="button" aria-selected="true">monthly</button>
+                  <button class="pill lg" role="button" aria-selected="false">quarterly</button>
+                  <button class="pill lg" role="button" aria-selected="false">no schedule</button>
+                </div>
+                <p class="serif rise" style="margin-top:28px;font-size:16px;color:var(--muted);line-height:1.55;animation-delay:380ms">
+                  Don't worry about getting this right.<br/>You can change it per person, anytime.
+                </p>
+                <div style="margin-top:auto;padding-top:48px;display:flex;gap:12px;">
+                  <button class="btn ghost block pressable rise" style="animation-delay:440ms">Skip</button>
+                  <button class="btn primary block pressable rise" style="animation-delay:480ms">Continue</button>
+                </div>
+              </div>
+              <div class="home-indicator"></div>
+            </div>
+          </div>
+          <span class="frame-caption">01b · Rhythm picker</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── 02 · TODAY ───────────────────────────────────────── -->
+    <section id="today">
+      <div class="frame-label">
+        <span class="index">02</span>
+        <h2>Today</h2>
+        <span class="desc">Two or three names, one reason each. Empty calm when nobody's overdue.</span>
+      </div>
+      <div class="grid pair">
+
+        <div class="frame-wrap">
+          <div class="phone">
+            <div class="island"></div>
+            <div class="phone-screen">
+              <div class="status-bar">
+                <span class="time">9:41</span>
+                <span class="right">
+                  <svg width="18" height="11"><use href="#i-cell"/></svg>
+                  <svg width="16" height="11"><use href="#i-wifi"/></svg>
+                  <span class="battery"><i></i></span>
+                </span>
+              </div>
+              <div class="canvas">
+                <div class="nav">
+                  <span class="word-mark">Linger.</span>
+                  <button class="icon-btn subtle pressable" aria-label="Settings">
+                    <svg width="22" height="22"><use href="#i-gear"/></svg>
+                  </button>
+                </div>
+                <div class="hero rise">
+                  <div class="eyebrow tabular">Wednesday, May 13</div>
+                  <h1>Who's on your<br/>mind today?</h1>
+                </div>
+
+                <div class="stagger" style="margin-top:14px">
+
+                  <article class="p-card today pressable swipe-card liftable rise">
+                    <div class="avatar a-rose">S</div>
+                    <div class="who">
+                      <span class="name">Sarah</span>
+                      <span class="reason">It's been three weeks. Her mom's surgery was on the 14th — ask how recovery is going.</span>
+                    </div>
+                    <div class="meta">
+                      <span class="dot late"></span>
+                      <span class="cap tabular">3w</span>
+                    </div>
+                  </article>
+
+                  <article class="p-card pressable swipe-card liftable rise">
+                    <div class="avatar a-slate">D</div>
+                    <div class="who">
+                      <span class="name">David</span>
+                      <span class="reason">He starts the new job Monday — wish him luck.</span>
+                    </div>
+                    <div class="meta">
+                      <span class="dot recent"></span>
+                      <span class="cap tabular">soon</span>
+                    </div>
+                  </article>
+
+                  <article class="p-card pressable swipe-card liftable rise">
+                    <div class="avatar a-warm">P</div>
+                    <div class="who">
+                      <span class="name">Priya</span>
+                      <span class="reason">Last note open: "the book recommendation"</span>
+                    </div>
+                    <div class="meta">
+                      <span class="dot"></span>
+                      <span class="cap tabular">2w</span>
+                    </div>
+                  </article>
+
+                </div>
+
+                <p class="cap rise" style="margin-top:18px;color:var(--whisper);font-size:12px;letter-spacing:.04em;text-align:center;animation-delay:500ms">
+                  Swipe right to mark caught up · left to snooze
+                </p>
+              </div>
+
+              <!-- tab bar -->
+              <div class="tabbar-host">
+                <div class="glass tab-bar fab-tabbar refraction">
+                  <div class="tabbar">
+                    <button class="tab" aria-selected="true">
+                      <svg width="19" height="19"><use href="#i-home"/></svg>
+                      <span class="label">Today</span>
+                    </button>
+                    <button class="tab">
+                      <svg width="19" height="19"><use href="#i-people"/></svg>
+                      <span class="label">People</span>
+                    </button>
+                  </div>
+                </div>
+                <button class="fab pressable" aria-label="Add">
+                  <svg width="20" height="20"><use href="#i-plus"/></svg>
+                </button>
+              </div>
+
+              <div class="home-indicator"></div>
+            </div>
+          </div>
+          <span class="frame-caption">02 · Today</span>
+        </div>
+
+        <div class="frame-wrap">
+          <div class="phone">
+            <div class="island"></div>
+            <div class="phone-screen">
+              <div class="status-bar">
+                <span class="time">9:41</span>
+                <span class="right">
+                  <svg width="18" height="11"><use href="#i-cell"/></svg>
+                  <svg width="16" height="11"><use href="#i-wifi"/></svg>
+                  <span class="battery"><i></i></span>
+                </span>
+              </div>
+              <div class="canvas" style="justify-content:center;align-items:center;display:flex;flex-direction:column;text-align:center;padding-bottom:130px">
+                <div class="nav" style="width:100%;justify-content:space-between">
+                  <span class="word-mark">Linger.</span>
+                  <button class="icon-btn subtle pressable" aria-label="Settings">
+                    <svg width="22" height="22"><use href="#i-gear"/></svg>
+                  </button>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 24px">
+                  <div class="serif rise" style="font-size:34px;line-height:1.18;color:var(--ink);font-weight:500;letter-spacing:-.02em;max-width:18ch">
+                    Nothing pressing.<br/>
+                    <span style="color:var(--muted);font-style:italic">Enjoy your day.</span>
+                  </div>
+                  <p class="serif rise" style="font-size:16px;color:var(--whisper);margin-top:28px;animation-delay:260ms">Everyone you care about has been thought of, recently.</p>
+
+                  <svg width="120" height="60" viewBox="0 0 240 120" fill="none" class="rise breathe" style="margin-top:60px;animation-delay:420ms">
+                    <path d="M 30 90 Q 120 12 210 90" stroke="var(--sage)" stroke-width="3.2" stroke-linecap="round" fill="none" opacity=".85"/>
+                    <circle cx="30" cy="90" r="6.5" fill="var(--sage)"/>
+                    <circle cx="210" cy="90" r="6.5" fill="var(--sage)"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="tabbar-host">
+                <div class="glass tab-bar fab-tabbar refraction">
+                  <div class="tabbar">
+                    <button class="tab" aria-selected="true">
+                      <svg width="19" height="19"><use href="#i-home"/></svg>
+                      <span class="label">Today</span>
+                    </button>
+                    <button class="tab">
+                      <svg width="19" height="19"><use href="#i-people"/></svg>
+                      <span class="label">People</span>
+                    </button>
+                  </div>
+                </div>
+                <button class="fab pressable" aria-label="Add">
+                  <svg width="20" height="20"><use href="#i-plus"/></svg>
+                </button>
+              </div>
+              <div class="home-indicator"></div>
+            </div>
+          </div>
+          <span class="frame-caption">02b · Empty calm state</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── 03 · PEOPLE ──────────────────────────────────────── -->
+    <section id="people">
+      <div class="frame-label">
+        <span class="index">03</span>
+        <h2>People</h2>
+        <span class="desc">Grouped by relationship. One dot, one rhythm. Long-press for quick actions.</span>
+      </div>
+      <div class="grid pair">
+
+        <div class="frame-wrap">
+          <div class="phone">
+            <div class="island"></div>
+            <div class="phone-screen">
+              <div class="status-bar">
+                <span class="time">9:41</span>
+                <span class="right">
+                  <svg width="18" height="11"><use href="#i-cell"/></svg>
+                  <svg width="16" height="11"><use href="#i-wifi"/></svg>
+                  <span class="battery"><i></i></span>
+                </span>
+              </div>
+              <div class="canvas">
+                <div class="nav">
+                  <span class="display serif" style="font-size:28px">People</span>
+                  <div class="right">
+                    <button class="icon-btn pressable" aria-label="Search">
+                      <svg width="20" height="20"><use href="#i-search"/></svg>
+                    </button>
+                    <button class="icon-btn pressable" aria-label="Add">
+                      <svg width="20" height="20"><use href="#i-plus"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="section-label rise">Inner circle</div>
+                <div class="stagger">
+                  <div class="row rise pressable">
+                    <div class="av-sm a-rose">S</div>
+                    <div class="name">Sarah</div>
+                    <div class="meta"><span class="dot late"></span>weekly</div>
+                  </div>
+                  <div class="row rise pressable">
+                    <div class="av-sm a-warm">M</div>
+                    <div class="name">Mom</div>
+                    <div class="meta"><span class="dot recent"></span>weekly</div>
+                  </div>
+                  <div class="row rise pressable">
+                    <div class="av-sm a-slate">D</div>
+                    <div class="name">David</div>
+                    <div class="meta"><span class="dot"></span>biweekly</div>
+                  </div>
+                </div>
+
+                <div class="section-label rise" style="animation-delay:200ms">Close friends</div>
+                <div class="stagger">
+                  <div class="row rise pressable">
+                    <div class="av-sm a-clay">A</div>
+                    <div class="name">Alex</div>
+                    <div class="meta"><span class="dot"></span>monthly</div>
+                  </div>
+                  <div class="row rise pressable">
+                    <div class="av-sm a-blue">P</div>
+                    <div class="name">Priya</div>
+                    <div class="meta"><span class="dot recent"></span>monthly</div>
+                  </div>
+                  <div class="row rise pressable">
+                    <div class="av-sm a-lilac">J</div>
+                    <div class="name">Jules</div>
+                    <div class="meta"><span class="dot late"></span>monthly</div>
+                  </div>
+                </div>
+
+                <div class="section-label rise" style="animation-delay:340ms">Family</div>
+                <div class="stagger">
+                  <div class="row rise pressable">
+                    <div class="av-sm a-clay">D</div>
+                    <div class="name">Dad</div>
+                    <div class="meta"><span class="dot"></span>biweekly</div>
+                  </div>
+                  <div class="row rise pressable">
+                    <div class="av-sm a-warm">A</div>
+                    <div class="name">Sis</div>
+                    <div class="meta"><span class="dot recent"></span>monthly</div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="tabbar-host">
+                <div class="glass tab-bar fab-tabbar refraction">
+                  <div class="tabbar">
+                    <button class="tab">
+                      <svg width="19" height="19"><use href="#i-home"/></svg>
+                      <span class="label">Today</span>
+                    </button>
+                    <button class="tab" aria-selected="true">
+                      <svg width="19" height="19"><use href="#i-people"/></svg>
+                      <span class="label">People</span>
+                    </button>
+                  </div>
+                </div>
+                <button class="fab pressable" aria-label="Add">
+                  <svg width="20" height="20"><use href="#i-plus"/></svg>
+                </button>
+              </div>
+              <div class="home-indicator"></div>
+            </div>
+          </div>
+          <span class="frame-caption">03 · People list</span>
+        </div>
+
+        <div class="frame-wrap">
+          <div class="phone">
+            <div class="island"></div>
+            <div class="phone-screen">
+              <div class="status-bar">
+                <span class="time">9:41</span>
+                <span class="right">
+                  <svg width="18" height="11"><use href="#i-cell"/></svg>
+                  <svg width="16" height="11"><use href="#i-wifi"/></svg>
+                  <span class="battery"><i></i></span>
+                </span>
+              </div>
+              <div class="canvas" style="padding-top:6px;">
+                <div class="nav">
+                  <button class="back pressable" aria-label="Back">
+                    <svg width="20" height="20"><use href="#i-chev-l"/></svg>
+                    <span style="font-family:var(--sans);font-size:17px">People</span>
+                  </button>
+                  <div class="right">
+                    <button class="icon-btn pressable subtle"><svg width="20" height="20"><use href="#i-search"/></svg></button>
+                  </div>
+                </div>
+
+                <div class="field" style="margin-top:6px">
+                  <div style="position:relative">
+                    <input type="text" placeholder="Search Sarah, conversations, threads…" value="mom"/>
+                    <svg width="18" height="18" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--whisper);display:none"><use href="#i-search"/></svg>
+                  </div>
+                </div>
+
+                <div class="section-label">3 matches</div>
+                <div class="stagger">
+                  <div class="row rise pressable">
+                    <div class="av-sm a-warm">M</div>
+                    <div style="display:flex;flex-direction:column;gap:2px">
+                      <span class="name">Mom</span>
+                      <span class="serif" style="font-size:14px;color:var(--muted);">…heading to her doctor next Tuesday…</span>
+                    </div>
+                    <div class="meta"><svg width="14" height="14"><use href="#i-chev-small"/></svg></div>
+                  </div>
+                  <div class="row rise pressable">
+                    <div class="av-sm a-rose">S</div>
+                    <div style="display:flex;flex-direction:column;gap:2px">
+                      <span class="name">Sarah</span>
+                      <span class="serif" style="font-size:14px;color:var(--muted);">…her mom's surgery on the 14th…</span>
+                    </div>
+                    <div class="meta"><svg width="14" height="14"><use href="#i-chev-small"/></svg></div>
+                  </div>
+                  <div class="row rise pressable">
+                    <div class="av-sm a-clay">D</div>
+                    <div style="display:flex;flex-direction:column;gap:2px">
+                      <span class="name">Dad</span>
+                      <span class="serif" style="font-size:14px;color:var(--muted);">…his mom's letter from 1973…</span>
+                    </div>
+                    <div class="meta"><svg width="14" height="14"><use href="#i-chev-small"/></svg></div>
+                  </div>
+                </div>
+              </div>
+              <div class="home-indicator"></div>
+            </div>
+          </div>
+          <span class="frame-caption">03b · Search</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── 04 · PERSON DETAIL ───────────────────────────────── -->
+    <section id="detail">
+      <div class="frame-label">
+        <span class="index">04</span>
+        <h2>Person detail</h2>
+        <span class="desc">Their name in serif. Three quiet tabs: Notes, Threads, Log.</span>
+      </div>
+      <div class="grid pair">
+
+        <div class="frame-wrap">
+          <div class="phone">
+            <div class="island"></div>
+            <div class="phone-screen">
+              <div class="status-bar">
+                <span class="time">9:41</span>
+                <span class="right">
+                  <svg width="18" height="11"><use href="#i-cell"/></svg>
+                  <svg width="16" height="11"><use href="#i-wifi"/></svg>
+                  <span class="battery"><i></i></span>
+                </span>
+              </div>
+              <div class="canvas">
+                <div class="nav">
+                  <button class="back pressable" aria-label="Back">
+                    <svg width="20" height="20"><use href="#i-chev-l"/></svg>
+                    <span style="font-family:var(--sans);font-size:17px">People</span>
+                  </button>
+                  <div class="right">
+                    <button class="icon-btn pressable subtle" aria-label="Edit">
+                      <svg width="20" height="20"><use href="#i-pencil"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="hero rise">
+                  <h1 style="font-size:40px;letter-spacing:-.02em">Sarah</h1>
+                  <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+                    <span class="pill sage">Inner circle</span>
+                    <span class="pill">weekly</span>
+                    <span class="pill ghost"><span class="dot late"></span> 3 weeks</span>
+                  </div>
+                </div>
+
+                <div class="seg" data-group>
+                  <button aria-selected="true" role="button">Notes</button>
+                  <button role="button">Threads <span class="cap" style="margin-left:6px;color:inherit;opacity:.7">2</span></button>
+                  <button role="button">Log</button>
+                </div>
+
+                <div class="stagger">
+                  <div class="note rise">
+                    <div class="date">Apr 22 · Tuesday</div>
+                    <div class="body">Coffee at <em>Verve</em>. She's been worried about her mom's upcoming surgery on the 14th. Started a new book on grief — Joan Didion. She lit up describing the prose.</div>
+                    <span class="thread-chip">
+                      <svg width="12" height="12"><use href="#i-thread"/></svg>
+                      Follow up on surgery · May 16
+                    </span>
+                  </div>
+                  <div class="note rise">
+                    <div class="date">Mar 30 · Saturday</div>
+                    <div class="body">Quick check-in by text. She's loving the new job. Mentioned wanting to plan a weekend in Marin if I'm free in May.</div>
+                  </div>
+                  <div class="note rise">
+                    <div class="date">Feb 18 · Tuesday</div>
+                    <div class="body">Dinner. Long talk about her sister and how the holidays went. She seems lighter than December.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- sticky add-note bar -->
+              <div style="position:absolute;left:24px;right:24px;bottom:96px;z-index:20" class="rise" style="animation-delay:420ms">
+                <button class="btn sage block pressable" data-open="sheet-add-note">
+                  <svg width="18" height="18"><use href="#i-plus"/></svg>
+                  New note
+                </button>
+              </div>
+
+              <div class="home-indicator"></div>
+            </div>
+          </div>
+          <span class="frame-caption">04 · Notes tab</span>
+        </div>
+
+        <div class="frame-wrap">
+          <div class="phone">
+            <div class="island"></div>
+            <div class="phone-screen">
+              <div class="status-bar">
+                <span class="time">9:41</span>
+                <span class="right">
+                  <svg width="18" height="11"><use href="#i-cell"/></svg>
+                  <svg width="16" height="11"><use href="#i-wifi"/></svg>
+                  <span class="battery"><i></i></span>
+                </span>
+              </div>
+              <div class="canvas">
+                <div class="nav">
+                  <button class="back pressable" aria-label="Back">
+                    <svg width="20" height="20"><use href="#i-chev-l"/></svg>
+                    <span style="font-family:var(--sans);font-size:17px">People</span>
+                  </button>
+                  <div class="right">
+                    <button class="icon-btn pressable subtle" aria-label="Edit">
+                      <svg width="20" height="20"><use href="#i-pencil"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="hero rise">
+                  <h1 style="font-size:40px;letter-spacing:-.02em">Sarah</h1>
+                  <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+                    <span class="pill sage">Inner circle</span>
+                    <span class="pill">weekly</span>
+                  </div>
+                </div>
+
+                <div class="seg" data-group>
+                  <button role="button">Notes</button>
+                  <button aria-selected="true" role="button">Threads</button>
+                  <button role="button">Log</button>
+                </div>
+
+                <div class="stagger">
+                  <div class="rise" style="padding:18px;border-radius:16px;background:var(--surface);border:0.5px solid var(--line);margin-bottom:12px">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+                      <div>
+                        <div class="cap" style="color:var(--sage);font-weight:600;letter-spacing:.06em;text-transform:uppercase">Open</div>
+                        <div class="serif" style="font-size:17px;line-height:1.45;margin-top:4px">Follow up on her mom's surgery</div>
+                      </div>
+                      <span class="pill warm tabular">May 16</span>
+                    </div>
+                    <div class="cap" style="margin-top:8px">from note · Apr 22</div>
+                  </div>
+                  <div class="rise" style="padding:18px;border-radius:16px;background:var(--surface);border:0.5px solid var(--line);margin-bottom:12px">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+                      <div>
+                        <div class="cap" style="color:var(--sage);font-weight:600;letter-spacing:.06em;text-transform:uppercase">Open</div>
+                        <div class="serif" style="font-size:17px;line-height:1.45;margin-top:4px">Plan Marin weekend</div>
+                      </div>
+                      <span class="pill tabular">May 25</span>
+                    </div>
+                    <div class="cap" style="margin-top:8px">from note · Mar 30</div>
+                  </div>
+                  <div class="rise" style="padding:18px;border-radius:16px;background:var(--surface-2);border:0.5px solid var(--line);margin-bottom:12px;opacity:.7">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+                      <div>
+                        <div class="cap" style="color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase">Resolved</div>
+                        <div class="serif" style="font-size:17px;line-height:1.45;margin-top:4px;text-decoration:line-through;text-decoration-color:var(--whisper)">Send Didion book quote</div>
+                      </div>
+                      <svg width="20" height="20" style="color:var(--sage)"><use href="#i-check"/></svg>
+                    </div>
+                    <div class="cap" style="margin-top:8px">closed Apr 24</div>
+                  </div>
+                </div>
+              </div>
+              <div class="home-indicator"></div>
+            </div>
+          </div>
+          <span class="frame-caption">04b · Threads tab</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── 05 · ADD NOTE / ADD PERSON MODALS ────────────────── -->
+    <section id="notes">
+      <div class="frame-label">
+        <span class="index">05</span>
+        <h2>Quick-add sheets</h2>
+        <span class="desc">Five-second capture. Modal sheets. No formatting toolbar.</span>
+      </div>
+      <div class="grid pair">
+
+        <div class="frame-wrap">
+          <div class="phone">
+            <div class="island"></div>
+            <div class="phone-screen" style="background:rgba(27,26,23,.18)">
+              <div class="status-bar">
+                <span class="time">9:41</span>
+                <span class="right">
+                  <svg width="18" height="11"><use href="#i-cell"/></svg>
+                  <svg width="16" height="11"><use href="#i-wifi"/></svg>
+                  <span class="battery"><i></i></span>
+                </span>
+              </div>
+              <!-- behind: dimmed Today, blurred -->
+              <div style="position:absolute;inset:0;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);background:rgba(27,26,23,.25);pointer-events:none"></div>
+
+              <!-- the sheet, sized to ~70% -->
+              <div style="position:absolute;left:0;right:0;bottom:0;height:560px;background:var(--surface);border-radius:var(--r-sheet) var(--r-sheet) 0 0;padding:14px 24px 28px;box-shadow:0 -10px 30px -10px rgba(27,26,23,.18);display:flex;flex-direction:column">
+                <div class="grabber"></div>
+                <div class="hero" style="padding:6px 0 18px">
+                  <h1 style="font-size:24px">Note about…</h1>
+                </div>
+
+                <button class="pressable" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;background:var(--surface-2);border:0.5px solid var(--line-strong);margin-bottom:18px;text-align:left">
+                  <div class="av-sm a-rose" style="width:32px;height:32px;font-size:14px">S</div>
+                  <span style="flex:1;font-size:17px">Sarah</span>
+                  <svg width="18" height="18" style="color:var(--muted)"><use href="#i-chev-small"/></svg>
+                </button>
+
+                <div class="field" style="flex:1">
+                  <textarea placeholder="Coffee at Verve. She mentioned…">Coffee at Verve. She mentioned her mom's surgery is finally scheduled for the 14th. Wants to read Didion together — said it would help.</textarea>
+                </div>
+
+                <div class="toggle-row" style="border-bottom:0;padding:8px 0 16px">
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <svg width="18" height="18" style="color:var(--sage)"><use href="#i-thread"/></svg>
+                    <span style="font-size:15px">Follow up on this</span>
+                  </div>
+                  <div class="toggle on"></div>
+                </div>
+                <div class="toggle-row" style="padding:8px 0 14px">
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <svg width="18" height="18" style="color:var(--muted)"><use href="#i-cal"/></svg>
+                    <span style="font-size:15px">Remind on</span>
+                  </div>
+                  <span class="pill warm tabular">May 16</span>
+                </div>
+
+                <button class="btn primary block pressable">Save</button>
+              </div>
+              <div class="home-indicator" style="background:#fff"></div>
+            </div>
+          </div>
+          <span class="frame-caption">05 · Add note sheet</span>
+        </div>
+
+        <div class="frame-wrap">
+          <div class="phone">
+            <div class="island"></div>
+            <div class="phone-screen" style="background:rgba(27,26,23,.18)">
+              <div class="status-bar">
+                <span class="time">9:41</span>
+                <span class="right">
+                  <svg width="18" height="11"><use href="#i-cell"/></svg>
+                  <svg width="16" height="11"><use href="#i-wifi"/></svg>
+                  <span class="battery"><i></i></span>
+                </span>
+              </div>
+              <div style="position:absolute;inset:0;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);background:rgba(27,26,23,.25);pointer-events:none"></div>
+
+              <div style="position:absolute;left:0;right:0;bottom:0;height:600px;background:var(--surface);border-radius:var(--r-sheet) var(--r-sheet) 0 0;padding:14px 24px 28px;box-shadow:0 -10px 30px -10px rgba(27,26,23,.18);display:flex;flex-direction:column">
+                <div class="grabber"></div>
+                <div class="hero" style="padding:6px 0 24px">
+                  <h1 style="font-size:24px">Add a person</h1>
+                </div>
+
+                <div class="field">
+                  <label>Name</label>
+                  <input type="text" placeholder="Their name" value="Priya"/>
+                </div>
+
+                <div class="field">
+                  <label>Relationship</label>
+                  <div class="chips" data-group>
+                    <button class="pill lg" role="button" aria-selected="false">Inner</button>
+                    <button class="pill lg" role="button" aria-selected="true">Close</button>
+                    <button class="pill lg" role="button" aria-selected="false">Family</button>
+                    <button class="pill lg" role="button" aria-selected="false">Work</button>
+                    <button class="pill lg" role="button" aria-selected="false">Other</button>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label>How often?</label>
+                  <div class="chips" data-group>
+                    <button class="pill lg" role="button" aria-selected="false">Weekly</button>
+                    <button class="pill lg" role="button" aria-selected="false">Biweekly</button>
+                    <button class="pill lg" role="button" aria-selected="true">Monthly</button>
+                    <button class="pill lg" role="button" aria-selected="false">Quarterly</button>
+                    <button class="pill lg" role="button" aria-selected="false">No schedule</button>
+                  </div>
+                </div>
+
+                <div style="margin-top:auto">
+                  <button class="btn primary block pressable">Save</button>
+                </div>
+              </div>
+              <div class="home-indicator" style="background:#fff"></div>
+            </div>
+          </div>
+          <span class="frame-caption">06 · Add person sheet</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── 07 · SETTINGS ─────────────────────────────────────── -->
+    <section id="settings">
+      <div class="frame-label">
+        <span class="index">07</span>
+        <h2>Settings</h2>
+        <span class="desc">Plain rows. iCloud is off by default if you're not signed in.</span>
+      </div>
+      <div class="grid pair">
+
+        <div class="frame-wrap">
+          <div class="phone">
+            <div class="island"></div>
+            <div class="phone-screen">
+              <div class="status-bar">
+                <span class="time">9:41</span>
+                <span class="right">
+                  <svg width="18" height="11"><use href="#i-cell"/></svg>
+                  <svg width="16" height="11"><use href="#i-wifi"/></svg>
+                  <span class="battery"><i></i></span>
+                </span>
+              </div>
+              <div class="canvas">
+                <div class="nav">
+                  <button class="back pressable">
+                    <svg width="20" height="20"><use href="#i-chev-l"/></svg>
+                    <span style="font-family:var(--sans);font-size:17px">Done</span>
+                  </button>
+                  <span class="display serif" style="font-size:18px">Settings</span>
+                  <span style="width:36px"></span>
+                </div>
+
+                <div class="section-label">Sync</div>
+                <div class="toggle-row">
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <svg width="20" height="20" style="color:var(--sage)"><use href="#i-cloud"/></svg>
+                    <div>
+                      <div style="font-size:16px">iCloud sync</div>
+                      <div class="cap" style="margin-top:2px">Last synced 2 min ago</div>
+                    </div>
+                  </div>
+                  <div class="toggle on"></div>
+                </div>
+
+                <div class="section-label">Reminders</div>
+                <div class="toggle-row">
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <svg width="20" height="20" style="color:var(--muted)"><use href="#i-bell"/></svg>
+                    <span style="font-size:16px">Daily nudge time</span>
+                  </div>
+                  <span class="pill tabular">9:00 AM</span>
+                </div>
+                <div class="toggle-row">
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <svg width="20" height="20" style="color:var(--muted)"><use href="#i-cal"/></svg>
+                    <span style="font-size:16px">Quiet days</span>
+                  </div>
+                  <span style="color:var(--muted)">None</span>
+                </div>
+
+                <div class="section-label">Appearance</div>
+                <div class="toggle-row">
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <svg width="20" height="20" style="color:var(--muted)"><use href="#i-text"/></svg>
+                    <span style="font-size:16px">Theme</span>
+                  </div>
+                  <div class="seg" style="margin:0;padding:3px" data-group>
+                    <button aria-selected="false">Light</button>
+                    <button aria-selected="false">Dark</button>
+                    <button aria-selected="true">Auto</button>
+                  </div>
+                </div>
+                <div class="toggle-row">
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <svg width="20" height="20" style="color:var(--sage)"><use href="#i-drop"/></svg>
+                    <span style="font-size:16px">Accent</span>
+                  </div>
+                  <div style="display:flex;gap:6px">
+                    <span style="width:22px;height:22px;border-radius:50%;background:var(--sage);box-shadow:0 0 0 2px var(--surface),0 0 0 3px var(--sage)"></span>
+                    <span style="width:22px;height:22px;border-radius:50%;background:#7C8FA7"></span>
+                    <span style="width:22px;height:22px;border-radius:50%;background:#C68A3A"></span>
+                    <span style="width:22px;height:22px;border-radius:50%;background:#A56F8B"></span>
+                  </div>
+                </div>
+
+                <div class="section-label">Data</div>
+                <div class="toggle-row">
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <svg width="20" height="20" style="color:var(--muted)"><use href="#i-export"/></svg>
+                    <span style="font-size:16px">Export</span>
+                  </div>
+                  <span class="cap">PDF · Markdown</span>
+                </div>
+                <div class="toggle-row">
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <svg width="20" height="20" style="color:#B5483A"><use href="#i-trash"/></svg>
+                    <span style="font-size:16px;color:#B5483A">Delete all data</span>
+                  </div>
+                  <svg width="16" height="16" style="color:var(--whisper)"><use href="#i-chev-small"/></svg>
+                </div>
+
+                <div class="section-label">About</div>
+                <div class="toggle-row" style="border-bottom:0">
+                  <span style="font-size:16px">Linger Premium</span>
+                  <span class="pill sage">Active</span>
+                </div>
+              </div>
+              <div class="home-indicator"></div>
+            </div>
+          </div>
+          <span class="frame-caption">07 · Settings</span>
+        </div>
+
+        <!-- 08 · PAYWALL -->
+        <div class="frame-wrap" id="paywall">
+          <div class="phone">
+            <div class="island"></div>
+            <div class="phone-screen">
+              <div class="status-bar">
+                <span class="time">9:41</span>
+                <span class="right">
+                  <svg width="18" height="11"><use href="#i-cell"/></svg>
+                  <svg width="16" height="11"><use href="#i-wifi"/></svg>
+                  <span class="battery"><i></i></span>
+                </span>
+              </div>
+              <div class="canvas" style="padding-top:8px;padding-bottom:32px">
+                <div class="nav">
+                  <span></span>
+                  <button class="icon-btn pressable subtle" aria-label="Close">
+                    <svg width="20" height="20" viewBox="0 0 24 24" style="color:var(--muted)">
+                      <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="m6 6 12 12M18 6 6 18"/>
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="rise" style="text-align:center;padding:20px 8px 30px">
+                  <img src="assets/app-icon.svg" alt="" style="width:72px;height:72px;border-radius:22%;box-shadow:var(--shadow-card);margin:0 auto 22px;display:block;"/>
+                  <h1 class="display-l serif" style="font-size:34px;letter-spacing:-.02em;margin:0 0 14px">Linger Premium</h1>
+                  <p class="serif" style="font-size:17px;color:var(--muted);line-height:1.5;max-width:32ch;margin:0 auto">The free version is for 7 people. Premium is for everyone you care about.</p>
+                </div>
+
+                <ul class="stagger" style="list-style:none;padding:0;margin:0 0 28px;display:flex;flex-direction:column;gap:14px">
+                  <li class="rise" style="display:flex;align-items:center;gap:14px;padding:0 4px">
+                    <span style="width:28px;height:28px;border-radius:50%;background:var(--sage-wash);color:var(--sage-ink);display:inline-flex;align-items:center;justify-content:center">
+                      <svg width="16" height="16"><use href="#i-check"/></svg>
+                    </span>
+                    <span class="serif" style="font-size:17px">Unlimited people</span>
+                  </li>
+                  <li class="rise" style="display:flex;align-items:center;gap:14px;padding:0 4px">
+                    <span style="width:28px;height:28px;border-radius:50%;background:var(--sage-wash);color:var(--sage-ink);display:inline-flex;align-items:center;justify-content:center">
+                      <svg width="16" height="16"><use href="#i-check"/></svg>
+                    </span>
+                    <span class="serif" style="font-size:17px">iCloud sync across devices</span>
+                  </li>
+                  <li class="rise" style="display:flex;align-items:center;gap:14px;padding:0 4px">
+                    <span style="width:28px;height:28px;border-radius:50%;background:var(--sage-wash);color:var(--sage-ink);display:inline-flex;align-items:center;justify-content:center">
+                      <svg width="16" height="16"><use href="#i-check"/></svg>
+                    </span>
+                    <span class="serif" style="font-size:17px">Apple Watch · Widgets</span>
+                  </li>
+                  <li class="rise" style="display:flex;align-items:center;gap:14px;padding:0 4px">
+                    <span style="width:28px;height:28px;border-radius:50%;background:var(--sage-wash);color:var(--sage-ink);display:inline-flex;align-items:center;justify-content:center">
+                      <svg width="16" height="16"><use href="#i-check"/></svg>
+                    </span>
+                    <span class="serif" style="font-size:17px">PDF &amp; Markdown export</span>
+                  </li>
+                  <li class="rise" style="display:flex;align-items:center;gap:14px;padding:0 4px">
+                    <span style="width:28px;height:28px;border-radius:50%;background:var(--sage-wash);color:var(--sage-ink);display:inline-flex;align-items:center;justify-content:center">
+                      <svg width="16" height="16"><use href="#i-check"/></svg>
+                    </span>
+                    <span class="serif" style="font-size:17px">Photo memories</span>
+                  </li>
+                </ul>
+
+                <div class="stagger" data-group style="display:flex;flex-direction:column;gap:10px">
+                  <button class="rise pressable" role="button" aria-selected="true" style="text-align:left;padding:18px 20px;border-radius:18px;background:var(--surface);border:1.5px solid var(--sage);box-shadow:0 0 0 4px rgba(92,122,102,.08),var(--shadow-card);display:flex;justify-content:space-between;align-items:center">
+                    <div>
+                      <div style="font-size:16px;font-weight:600">Yearly</div>
+                      <div class="cap" style="margin-top:3px">$2.08/mo · 7-day free trial</div>
+                    </div>
+                    <div style="text-align:right">
+                      <div class="serif tabular" style="font-size:22px;font-weight:500">$24.99</div>
+                      <div class="cap" style="color:var(--sage);font-weight:600">Best value</div>
+                    </div>
+                  </button>
+                  <button class="rise pressable" role="button" aria-selected="false" style="text-align:left;padding:18px 20px;border-radius:18px;background:var(--surface);border:0.5px solid var(--line-strong);display:flex;justify-content:space-between;align-items:center">
+                    <div>
+                      <div style="font-size:16px;font-weight:600">Monthly</div>
+                      <div class="cap" style="margin-top:3px">Cancel anytime</div>
+                    </div>
+                    <div style="text-align:right">
+                      <div class="serif tabular" style="font-size:22px;font-weight:500">$3.99</div>
+                    </div>
+                  </button>
+                </div>
+
+                <button class="btn primary block pressable rise" style="margin-top:22px">Start free trial</button>
+
+                <div class="cap" style="text-align:center;margin-top:16px;color:var(--whisper);display:flex;justify-content:center;gap:18px">
+                  <a style="color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:4px">
+                    <svg width="13" height="13"><use href="#i-restore"/></svg> Restore
+                  </a>
+                  <a style="color:inherit;text-decoration:none">Terms</a>
+                  <a style="color:inherit;text-decoration:none">Privacy</a>
+                </div>
+              </div>
+              <div class="home-indicator"></div>
+            </div>
+          </div>
+          <span class="frame-caption">08 · Paywall</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── 09 · WIDGETS ─────────────────────────────────────── -->
+    <section id="widget">
+      <div class="frame-label">
+        <span class="index">09</span>
+        <h2>Home / lock-screen widget</h2>
+        <span class="desc">Three sizes. Tinted variant for iOS 18+ lock screen.</span>
+      </div>
+      <div class="grid">
+
+        <div class="frame-wrap">
+          <div class="widget-stage">
+            <div class="wallpaper-label">Home screen</div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+
+              <div class="w-small">
+                <div>
+                  <div class="cap" style="color:var(--whisper);font-size:11px;letter-spacing:.08em">LINGER</div>
+                  <div class="serif" style="font-size:22px;font-weight:500;margin-top:6px;letter-spacing:-.01em">Sarah</div>
+                </div>
+                <div>
+                  <div class="serif" style="font-size:14px;line-height:1.36;color:var(--muted);font-style:italic">It's been about three weeks.</div>
+                  <span class="dot late" style="margin-top:8px;display:block"></span>
+                </div>
+              </div>
+
+              <div class="w-small">
+                <div>
+                  <div class="cap" style="color:var(--whisper);font-size:11px;letter-spacing:.08em">TODAY</div>
+                  <div class="serif" style="font-size:22px;font-weight:500;margin-top:6px;letter-spacing:-.01em">2 people</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <div class="av-sm a-rose" style="width:26px;height:26px;font-size:13px">S</div>
+                  <div class="av-sm a-slate" style="width:26px;height:26px;font-size:13px">D</div>
+                  <span class="cap" style="color:var(--muted)">on your mind</span>
+                </div>
+              </div>
+
+              <div class="w-medium">
+                <div class="cap" style="color:var(--whisper);font-size:11px;letter-spacing:.08em;margin-bottom:10px">TODAY</div>
+                <div style="display:flex;flex-direction:column;gap:10px">
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <div class="av-sm a-rose" style="width:34px;height:34px;font-size:14px">S</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-weight:600;font-size:14px">Sarah</div>
+                      <div class="serif" style="font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Her mom's surgery on the 14th</div>
+                    </div>
+                    <span class="dot late"></span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <div class="av-sm a-slate" style="width:34px;height:34px;font-size:14px">D</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-weight:600;font-size:14px">David</div>
+                      <div class="serif" style="font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Starts the new job Monday</div>
+                    </div>
+                    <span class="dot recent"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="w-large">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px">
+                  <div class="cap" style="color:var(--whisper);font-size:11px;letter-spacing:.08em">ON YOUR MIND</div>
+                  <div class="cap tabular" style="color:var(--whisper);font-size:11px">May 13</div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                  <div style="padding:12px;border-radius:14px;background:rgba(244,230,200,.5)">
+                    <div class="av-sm a-rose" style="width:28px;height:28px;font-size:13px;margin-bottom:8px">S</div>
+                    <div style="font-weight:600;font-size:14px">Sarah</div>
+                    <div class="serif" style="font-size:12px;color:var(--muted);margin-top:2px">3 weeks</div>
+                  </div>
+                  <div style="padding:12px;border-radius:14px;background:rgba(228,235,227,.5)">
+                    <div class="av-sm a-slate" style="width:28px;height:28px;font-size:13px;margin-bottom:8px">D</div>
+                    <div style="font-weight:600;font-size:14px">David</div>
+                    <div class="serif" style="font-size:12px;color:var(--muted);margin-top:2px">new job · Mon</div>
+                  </div>
+                  <div style="padding:12px;border-radius:14px;background:rgba(245,238,221,.7)">
+                    <div class="av-sm a-warm" style="width:28px;height:28px;font-size:13px;margin-bottom:8px">P</div>
+                    <div style="font-weight:600;font-size:14px">Priya</div>
+                    <div class="serif" style="font-size:12px;color:var(--muted);margin-top:2px">2 weeks</div>
+                  </div>
+                  <div style="padding:12px;border-radius:14px;background:rgba(241,220,216,.5)">
+                    <div class="av-sm a-clay" style="width:28px;height:28px;font-size:13px;margin-bottom:8px">A</div>
+                    <div style="font-weight:600;font-size:14px">Alex</div>
+                    <div class="serif" style="font-size:12px;color:var(--muted);margin-top:2px">monthly · soon</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <span class="frame-caption">09 · Widgets · S · M · L</span>
+        </div>
+
+        <!-- Tinted lock screen + Watch -->
+        <div class="frame-wrap" id="watch">
+          <div style="display:flex;flex-direction:column;gap:32px;align-items:center">
+
+            <!-- Tinted lock screen widget -->
+            <div style="width:300px;background:#1B1A17;color:#EDE8DC;border-radius:24px;padding:18px 16px;font-family:var(--rounded)">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+                <svg width="22" height="22" style="color:#EDE8DC"><use href="#i-thread"/></svg>
+                <div class="cap" style="color:rgba(237,232,220,.5);font-size:11px;letter-spacing:.12em">LINGER · LOCK SCREEN</div>
+              </div>
+              <div class="serif" style="font-size:19px;line-height:1.35;letter-spacing:-.01em">Sarah · it's been three weeks</div>
+            </div>
+
+            <!-- Apple Watch -->
+            <div class="watch">
+              <div class="crown"></div>
+              <div class="side-btn"></div>
+              <div class="watch-screen">
+                <div class="cap" style="color:rgba(237,232,220,.5);font-size:10px;letter-spacing:.12em">TODAY · 9:41</div>
+                <div class="serif" style="font-size:24px;line-height:1.16;margin-top:10px;letter-spacing:-.01em">Sarah</div>
+                <div class="serif" style="font-size:13px;color:rgba(237,232,220,.65);margin-top:6px;line-height:1.34">3 weeks · her mom's surgery</div>
+
+                <div style="margin-top:auto;display:flex;flex-direction:column;gap:6px">
+                  <button class="pressable" style="background:rgba(127,164,138,.22);color:#C5E0CC;border-radius:999px;padding:8px;font-size:12px;font-weight:600">Saw them</button>
+                  <button class="pressable" style="background:rgba(237,232,220,.08);color:#EDE8DC;border-radius:999px;padding:8px;font-size:12px;font-weight:500">Open on iPhone</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <span class="frame-caption">10 · Lock-screen tinted · Watch</span>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOT ────────────────────────────────────────────── -->
+  <footer class="foot">
+    <div>
+      <div class="serif" style="font-size:18px;color:var(--ink);font-weight:500;margin-bottom:6px">Linger.</div>
+      <div>A quiet place for the people who matter.</div>
+    </div>
+    <div class="links">
+      <a href="components.html">Design System</a>
+      <a href="../README.md">README</a>
+      <a href="../HANDOFF.md">Handoff</a>
+      <a href="../design/screens.md">Wireframes</a>
+      <a href="../spec/non-goals.md">Non-goals</a>
+    </div>
+  </footer>
+
+  <script src="js/interactions.js"></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+# ── Linger · SwiftLint configuration ─────────────────────────────────
+# Strict by design. Most of these rules exist to prevent AI-slop patterns:
+# trivial comments, magic strings, hand-rolled re-implementations of
+# system APIs, and verbose error handling for unreachable cases.
+#
+# Why a custom set? `default` SwiftLint allows hundreds of style lapses
+# Linger actively rejects. See CLAUDE.md → "Comment style" and
+# "Banned patterns" for the human-readable version of these rules.
+
+included:
+  - Linger
+  - LingerWidget
+  - LingerWatch
+  - LingerTests
+  - LingerUITests
+
+excluded:
+  - .build
+  - DerivedData
+  - vendor
+  - Linger.xcodeproj
+  - "**/*.generated.swift"
+
+# Severity bumps. We want errors, not warnings, for the patterns that
+# rot a codebase.
+disabled_rules:
+  - todo                  # replaced by the generic_todo_no_owner custom rule below.
+  - line_length           # handled by SwiftFormat.
+  - attributes            # Swift Testing's `@Test func` and SwiftData's `@Model class` are canonical inline. Style is enforced by SwiftFormat instead.
+  - trailing_closure      # `Button("Label", action: fn)` reads more clearly than the trailing-closure form for simple actions.
+
+analyzer_rules:
+  - unused_declaration
+  - unused_import
+
+opt_in_rules:
+  - anonymous_argument_in_multiline_closure
+  - array_init
+  - attributes
+  - closure_end_indentation
+  - closure_spacing
+  - collection_alignment
+  - contains_over_filter_count
+  - contains_over_filter_is_empty
+  - contains_over_first_not_nil
+  - contains_over_range_nil_comparison
+  - convenience_type
+  - discouraged_object_literal
+  - empty_collection_literal
+  - empty_count
+  - empty_string
+  - empty_xctest_method
+  - enum_case_associated_values_count
+  - explicit_init
+  - fallthrough
+  - fatal_error_message
+  - first_where
+  - flatmap_over_map_reduce
+  - force_unwrapping
+  - implicit_return
+  - last_where
+  - legacy_multiple
+  - literal_expression_end_indentation
+  - modifier_order
+  - multiline_arguments
+  - multiline_parameters
+  - operator_usage_whitespace
+  - overridden_super_call
+  - pattern_matching_keywords
+  - prefer_self_in_static_references
+  - private_action
+  - private_outlet
+  - prohibited_super_call
+  - reduce_into
+  - redundant_nil_coalescing
+  - redundant_type_annotation
+  - sorted_first_last
+  - static_operator
+  - toggle_bool
+  - trailing_closure
+  - unneeded_parentheses_in_closure_argument
+  - vertical_parameter_alignment_on_call
+  - vertical_whitespace_closing_braces
+  - vertical_whitespace_opening_braces
+  - weak_delegate
+  - yoda_condition
+
+force_unwrapping:
+  severity: error
+
+force_cast:
+  severity: error
+
+force_try:
+  severity: error
+
+fatal_error_message:
+  severity: error
+
+cyclomatic_complexity:
+  warning: 12
+  error: 20
+
+function_body_length:
+  warning: 50
+  error: 80
+
+type_body_length:
+  warning: 280
+  error: 400
+
+file_length:
+  warning: 500
+  error: 800
+
+identifier_name:
+  min_length: 1
+  excluded:
+    - id
+    - to
+    - by
+    - of
+    - on
+    - i
+    - x
+    - y
+    - xs
+    - s
+    - m
+    - ml
+    - l
+    - xl
+    - bg
+    - p
+    - p1
+    - p2
+
+large_tuple:
+  warning: 4
+  error: 5
+
+# `attributes` rule is intentionally disabled — see disabled_rules above.
+
+# ── Custom rules — the AI-slop guards ─────────────────────────────────
+custom_rules:
+  redundant_what_comment:
+    name: "Redundant 'what' comment"
+    regex: '^\s*//\s*(Set|Create|Initialize|Define|Declare|Get|Return|Make|Build) (the |a |an )?\w'
+    message: "This comment restates what the code does. Delete it or explain WHY."
+    severity: error
+
+  ai_slop_emoji_comment:
+    name: "Emoji-laden comment"
+    regex: '^\s*//.*(✅|🚀|⚡️|🎉|✨|🔥|💡|🤖|👉|📝)'
+    message: "No emoji-decorated comments. They read as AI-generated filler."
+    severity: error
+
+  divider_comment:
+    name: "ASCII divider with no content"
+    regex: '^\s*//\s*[-=*]{20,}\s*$'
+    message: "Drop the divider. Group code by extension/struct or a one-line heading instead."
+    severity: warning
+
+  redundant_init_doc:
+    name: "Redundant '/// Initializes' doc"
+    regex: '^\s*///\s*Initializes? (a |an |the )?'
+    message: "Stating that an initializer initializes is noise. Document only non-obvious parameters."
+    severity: error
+
+  generic_todo_no_owner:
+    name: "TODO without owner/issue"
+    regex: '//\s*(TODO|FIXME)\b(?!.*\(#\d+\))'
+    message: "TODO/FIXME must reference an issue: // TODO(#123): …"
+    severity: warning
+
+  print_in_release:
+    name: "Stray print()"
+    regex: '\bprint\('
+    message: "Remove print() before shipping. Use Logger or os.signpost."
+    severity: warning
+    included: "Linger/.*\\.swift"
+
+  banned_terms_track:
+    name: "Brand-banned vocabulary"
+    regex: '\b(track|ping|engagement|streak|level up|optimize)\b'
+    message: "Avoid track/ping/engagement/streak/level up/optimize in user-facing strings. See CLAUDE.md."
+    severity: warning
+    included: ".*\\.(swift|xcstrings)$"
+
+reporter: "xcode"

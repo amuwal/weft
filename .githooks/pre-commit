@@ -1,0 +1,9 @@
+#!/bin/sh
+# Linger pre-commit hook: lint + format check.
+set -e
+if command -v swiftformat >/dev/null; then
+  swiftformat --lint . || { echo "✘ swiftformat: file(s) need formatting. Run: swiftformat ." ; exit 1; }
+fi
+if command -v swiftlint >/dev/null; then
+  swiftlint --quiet --strict || { echo "✘ swiftlint: violations found." ; exit 1; }
+fi

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="Linger app icon — dark">
+  <defs>
+    <linearGradient id="ink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#2A3A30"/>
+      <stop offset="60%" stop-color="#1E2A22"/>
+      <stop offset="100%" stop-color="#141B16"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="32%" r="70%">
+      <stop offset="0%"  stop-color="#5C7A66" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#141B16" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="arc-d" x1="0" y1="0" x2="1" y2="0.4">
+      <stop offset="0%"  stop-color="#F1ECDC"/>
+      <stop offset="50%" stop-color="#D8D1BC"/>
+      <stop offset="100%" stop-color="#A39C86"/>
+    </linearGradient>
+    <radialGradient id="dot-d" cx="50%" cy="36%" r="60%">
+      <stop offset="0%"  stop-color="#F8F5EF"/>
+      <stop offset="55%" stop-color="#D8D1BC"/>
+      <stop offset="100%" stop-color="#8A8474"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#ink)"/>
+  <rect width="1024" height="1024" fill="url(#glow)"/>
+
+  <path d="M 252 600 Q 512 320 772 600"
+        fill="none"
+        stroke="url(#arc-d)"
+        stroke-width="34"
+        stroke-linecap="round"/>
+
+  <circle cx="252" cy="600" r="44" fill="url(#dot-d)"/>
+  <circle cx="772" cy="600" r="44" fill="url(#dot-d)"/>
+
+  <line x1="380" y1="700" x2="644" y2="700"
+        stroke="#EDE8DC" stroke-opacity="0.05" stroke-width="3" stroke-linecap="round"/>
+</svg>

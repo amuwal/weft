@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Linger — Design System</title>
+  <link rel="icon" type="image/svg+xml" href="assets/app-icon.svg" />
+
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/liquid-glass.css" />
+  <link rel="stylesheet" href="css/motion.css" />
+  <link rel="stylesheet" href="css/components.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      background:
+        linear-gradient(180deg, #FBF8F0 0%, var(--bg) 320px),
+        var(--bg);
+    }
+    :root[data-theme="dark"] body,
+    :root[data-allow-dark] body {
+      background:
+        linear-gradient(180deg, #1F1D18 0%, var(--bg) 320px),
+        var(--bg);
+    }
+    .topbar {
+      position: sticky;
+      top: 0; z-index: 100;
+      backdrop-filter: saturate(160%) blur(18px);
+      -webkit-backdrop-filter: saturate(160%) blur(18px);
+      background: rgba(248, 245, 239, 0.7);
+      border-bottom: 0.5px solid var(--line);
+    }
+    :root[data-theme="dark"] .topbar,
+    :root[data-allow-dark] .topbar {
+      background: rgba(22, 20, 16, 0.7);
+    }
+    .topbar-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 18px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-family: var(--serif); font-weight: 500; font-size: 22px; }
+    .brand .icon { width: 30px; height: 30px; border-radius: 7px; overflow: hidden; }
+    .topbar nav { display:inline-flex; gap: 28px; font-family: var(--rounded); font-size: 13px; color: var(--muted); letter-spacing:.02em }
+    .topbar nav a { color: inherit; text-decoration: none; transition: color .2s ease }
+    .topbar nav a:hover { color: var(--ink); }
+    .topbar .toggle-theme { width: 36px; height: 36px; border-radius: 50%; border: .5px solid var(--line-strong); background: var(--surface); font-size:16px }
+
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 64px 32px 120px;
+    }
+    .page > header {
+      margin-bottom: 80px;
+      max-width: 760px;
+    }
+    .page > header .eyebrow {
+      font-family: var(--rounded);
+      font-size: 13px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--whisper);
+      margin-bottom: 14px;
+    }
+    .page > header h1 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(40px, 5vw, 64px);
+      letter-spacing: -.025em;
+      margin: 0 0 18px;
+      line-height: 1.04;
+    }
+    .page > header p {
+      font-family: var(--serif);
+      font-size: 20px;
+      line-height: 1.55;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .section {
+      margin-bottom: 96px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 40px 64px;
+    }
+    @media (max-width: 800px) { .section { grid-template-columns: 1fr; gap: 24px; } }
+    .section > .label {
+      position: sticky; top: 110px; align-self: start;
+    }
+    .section > .label .index {
+      font-family: var(--rounded);
+      font-size: 12px;
+      letter-spacing: .12em;
+      color: var(--whisper);
+      text-transform: uppercase;
+    }
+    .section > .label h2 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 30px;
+      margin: 4px 0 6px;
+      letter-spacing: -.018em;
+    }
+    .section > .label p {
+      font-family: var(--serif);
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 0;
+      font-style: italic;
+    }
+
+    /* swatches */
+    .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
+    .sw {
+      border-radius: 16px;
+      padding: 14px;
+      background: var(--surface);
+      box-shadow: var(--shadow-card);
+      border: 0.5px solid var(--line);
+    }
+    .sw .chip {
+      height: 80px;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      box-shadow: 0 0 0 .5px rgba(27,26,23,.05) inset;
+    }
+    .sw .name { font-size: 14px; font-weight: 600; color: var(--ink); }
+    .sw .hex { font-family: var(--rounded); font-size: 12px; color: var(--muted); margin-top: 4px; letter-spacing: 0.02em; }
+
+    /* type scale */
+    .type-scale .row {
+      display: grid;
+      grid-template-columns: 90px 1fr auto;
+      align-items: baseline;
+      gap: 24px;
+      padding: 18px 0;
+      border-bottom: 0.5px solid var(--line);
+    }
+    .type-scale .row:last-child { border-bottom: 0; }
+    .type-scale .row .label-c { font-family: var(--rounded); font-size: 12px; color: var(--whisper); letter-spacing: .08em; text-transform: uppercase; }
+    .type-scale .row .specs { font-family: var(--rounded); font-size: 11px; color: var(--muted); letter-spacing: .03em; text-align: right; }
+
+    /* icons */
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 8px;
+    }
+    .icon-grid .it {
+      aspect-ratio: 1;
+      background: var(--surface);
+      border-radius: 14px;
+      border: 0.5px solid var(--line);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+      color: var(--ink);
+      transition: all var(--d-fast) var(--spring);
+    }
+    .icon-grid .it:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card);
+      color: var(--sage);
+    }
+    .icon-grid .it span {
+      font-family: var(--rounded);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .02em;
+    }
+
+    /* motion demo */
+    .motion-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .demo {
+      background: var(--surface);
+      border-radius: 18px;
+      border: 0.5px solid var(--line);
+      padding: 20px;
+      box-shadow: var(--shadow-card);
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .demo .name { font-size: 14px; font-weight: 600; color: var(--ink); }
+    .demo .code { font-family: ui-monospace, Menlo, monospace; font-size: 11px; color: var(--muted); background: var(--bg-deep); padding: 8px 12px; border-radius: 8px; }
+    .demo .stage {
+      height: 80px;
+      background: var(--bg-deep);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .ball {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--sage);
+      box-shadow: 0 4px 12px rgba(92,122,102,.4);
+    }
+    .demo.run-spring .ball       { animation: bx 1.4s var(--spring) infinite; }
+    .demo.run-press .ball        { animation: bp 0.9s var(--spring-press) infinite; }
+    .demo.run-calm .ball         { animation: bc 1.8s var(--spring-calm)  infinite; }
+    .demo.run-rise .ball         { animation: br 1.6s var(--ease-out)     infinite; }
+    @keyframes bx { 0% { transform: translateX(-60px); } 50%, 70% { transform: translateX(60px); } 100% { transform: translateX(-60px); } }
+    @keyframes bp { 0%, 100% { transform: scale(1); } 30% { transform: scale(.86); } }
+    @keyframes bc { 0% { transform: translateY(-20px); opacity: 0; } 40%, 80% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(20px); opacity: 0; } }
+    @keyframes br { 0% { transform: translateY(20px); opacity: 0; } 30%, 80% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-20px); opacity: 0; } }
+
+    /* component samples */
+    .sample {
+      background: var(--surface);
+      border-radius: 18px;
+      padding: 24px;
+      border: 0.5px solid var(--line);
+      box-shadow: var(--shadow-card);
+    }
+    .sample + .sample { margin-top: 16px; }
+    .sample .head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .sample .head .nm { font-size: 14px; font-weight: 600; color: var(--ink); }
+    .sample .head .specs { font-family: var(--rounded); font-size: 11px; color: var(--whisper); letter-spacing: .04em; }
+
+    .stack { display: flex; flex-direction: column; gap: 12px; }
+    .row-h { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* app icon variants */
+    .icon-variants { display: flex; gap: 24px; flex-wrap: wrap; }
+    .ic-card {
+      background: var(--surface);
+      border-radius: 18px;
+      padding: 18px;
+      border: 0.5px solid var(--line);
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+    }
+    .ic-card .preview {
+      width: 120px; height: 120px;
+      border-radius: 22%;
+      overflow: hidden;
+      box-shadow: 0 10px 24px -10px rgba(27,26,23,.32);
+    }
+    .ic-card .lbl { font-family: var(--rounded); font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+
+    .foot {
+      max-width: 1280px;
+      margin: 80px auto 0;
+      padding: 32px;
+      border-top: 0.5px solid var(--line);
+      color: var(--muted);
+      font-family: var(--rounded);
+      font-size: 13px;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
+    .foot a { color: inherit; text-decoration: none; margin-right: 18px; }
+    .foot a:hover { color: var(--ink); }
+  </style>
+</head>
+<body>
+  <div id="sprite-host" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"></div>
+  <script>
+    (function injectSprite() {
+      try {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'assets/icons.svg', false);
+        xhr.send(null);
+        if (xhr.status === 200) {
+          document.getElementById('sprite-host').innerHTML = xhr.responseText;
+        }
+      } catch (e) {
+        fetch('assets/icons.svg').then(r => r.text()).then(t => {
+          document.getElementById('sprite-host').innerHTML = t;
+        });
+      }
+    })();
+  </script>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="icon"><img src="assets/app-icon.svg" alt="" /></span>
+        Linger
+      </div>
+      <nav>
+        <a href="index.html">Screens</a>
+        <a href="#color">Color</a>
+        <a href="#type">Type</a>
+        <a href="#icons">Icons</a>
+        <a href="#motion">Motion</a>
+        <a href="#components">Components</a>
+        <a href="#app-icon">App icon</a>
+      </nav>
+      <button class="toggle-theme" data-toggle-theme aria-label="Toggle theme">☾</button>
+    </div>
+  </header>
+
+  <div class="page">
+    <header>
+      <div class="eyebrow">Design System · v1</div>
+      <h1>The pieces that make Linger feel like Linger.</h1>
+      <p>Calm before productive. Content first, chrome receding. iOS 26 Liquid Glass where it touches the OS — typography, motion, and haptics where it touches the heart.</p>
+    </header>
+
+    <!-- ─── COLOR ─── -->
+    <section class="section" id="color">
+      <div class="label">
+        <div class="index">01</div>
+        <h2>Color</h2>
+        <p>Warm cream paper. Sage for action. Amber only for "today". Avoid system blue chrome and pure black.</p>
+      </div>
+      <div>
+        <div class="mini" style="margin-bottom:10px">Light · Foundations</div>
+        <div class="swatches">
+          <div class="sw"><div class="chip" style="background:var(--bg)"></div><div class="name">Background</div><div class="hex">#F8F5EF</div></div>
+          <div class="sw"><div class="chip" style="background:var(--surface)"></div><div class="name">Surface</div><div class="hex">#FFFFFF</div></div>
+          <div class="sw"><div class="chip" style="background:var(--surface-2)"></div><div class="name">Surface 2</div><div class="hex">#FAF7F0</div></div>
+          <div class="sw"><div class="chip" style="background:var(--ink)"></div><div class="name">Ink</div><div class="hex">#1B1A17</div></div>
+          <div class="sw"><div class="chip" style="background:var(--muted)"></div><div class="name">Muted</div><div class="hex">#6B6862</div></div>
+          <div class="sw"><div class="chip" style="background:var(--whisper)"></div><div class="name">Whisper</div><div class="hex">#9C988E</div></div>
+        </div>
+
+        <div class="mini" style="margin:32px 0 10px">Accents</div>
+        <div class="swatches">
+          <div class="sw"><div class="chip" style="background:var(--sage)"></div><div class="name">Sage</div><div class="hex">#5C7A66</div></div>
+          <div class="sw"><div class="chip" style="background:var(--sage-soft)"></div><div class="name">Sage soft</div><div class="hex">#B9CBBE</div></div>
+          <div class="sw"><div class="chip" style="background:var(--sage-wash)"></div><div class="name">Sage wash</div><div class="hex">#E4EBE3</div></div>
+          <div class="sw"><div class="chip" style="background:var(--warm)"></div><div class="name">Warm</div><div class="hex">#C68A3A</div></div>
+          <div class="sw"><div class="chip" style="background:var(--warm-soft)"></div><div class="name">Warm soft</div><div class="hex">#E4C58A</div></div>
+          <div class="sw"><div class="chip" style="background:var(--warm-wash)"></div><div class="name">Warm wash</div><div class="hex">#F5E6C8</div></div>
+        </div>
+
+        <div class="mini" style="margin:32px 0 10px">Status dots — "how long has it been"</div>
+        <div class="swatches">
+          <div class="sw"><div class="chip" style="background:var(--dot-recent);height:50px"></div><div class="name">Recent</div><div class="hex">within rhythm</div></div>
+          <div class="sw"><div class="chip" style="background:var(--dot-rhythm);height:50px"></div><div class="name">Steady</div><div class="hex">on schedule</div></div>
+          <div class="sw"><div class="chip" style="background:var(--dot-late);height:50px"></div><div class="name">Lingering</div><div class="hex">a while</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── TYPE ─── -->
+    <section class="section" id="type">
+      <div class="label">
+        <div class="index">02</div>
+        <h2>Type</h2>
+        <p>New York for heart. SF Pro for clarity. SF Pro Rounded for timestamps and quiet pills.</p>
+      </div>
+      <div class="type-scale">
+        <div class="row">
+          <div class="label-c">Display L</div>
+          <div class="display-l serif">A quiet place</div>
+          <div class="specs">New York · 40 / 1.08 / -0.02em</div>
+        </div>
+        <div class="row">
+          <div class="label-c">Display</div>
+          <div class="display serif">Who's on your mind today?</div>
+          <div class="specs">New York · 32 / 1.12 / -0.012em</div>
+        </div>
+        <div class="row">
+          <div class="label-c">Title</div>
+          <div class="title">It's been three weeks.</div>
+          <div class="specs">SF Pro · 22 / 1.18 / 600</div>
+        </div>
+        <div class="row">
+          <div class="label-c">Body — serif</div>
+          <div class="serif body">Coffee at Verve. She's been worried about her mom's upcoming surgery on the 14th.</div>
+          <div class="specs">New York · 17 / 1.5</div>
+        </div>
+        <div class="row">
+          <div class="label-c">Body — sans</div>
+          <div class="body">Sarah · weekly · Inner circle</div>
+          <div class="specs">SF Pro · 17 / 1.5</div>
+        </div>
+        <div class="row">
+          <div class="label-c">Caption</div>
+          <div class="cap">Last seen 3 weeks ago · May 13, 2026</div>
+          <div class="specs">SF Pro Rounded · 13 / 1.4</div>
+        </div>
+        <div class="row">
+          <div class="label-c">Mini</div>
+          <div class="mini">Inner circle</div>
+          <div class="specs">SF Pro Rounded · 11 / 0.06em</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── ICONS ─── -->
+    <section class="section" id="icons">
+      <div class="label">
+        <div class="index">03</div>
+        <h2>Icons</h2>
+        <p>SF Symbols-style. Stroke 1.6, rounded caps, currentColor. One sprite, many sizes.</p>
+      </div>
+      <div class="icon-grid">
+        <div class="it"><svg width="22" height="22"><use href="#i-home"/></svg><span>home</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-people"/></svg><span>people</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-search"/></svg><span>search</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-plus"/></svg><span>plus</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-pencil"/></svg><span>pencil</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-check"/></svg><span>check</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-chev-l"/></svg><span>chev-l</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-chev-r"/></svg><span>chev-r</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-note"/></svg><span>note</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-thread"/></svg><span>thread</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-cal"/></svg><span>calendar</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-bell"/></svg><span>bell</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-cloud"/></svg><span>cloud</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-snooze"/></svg><span>snooze</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-gear"/></svg><span>gear</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-pin"/></svg><span>pin</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-camera"/></svg><span>camera</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-drop"/></svg><span>drop</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-text"/></svg><span>text</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-export"/></svg><span>export</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-restore"/></svg><span>restore</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-trash"/></svg><span>trash</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-watch"/></svg><span>watch</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-heart"/></svg><span>heart</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-sparkle"/></svg><span>sparkle</span></div>
+        <div class="it"><svg width="22" height="22"><use href="#i-more"/></svg><span>more</span></div>
+      </div>
+    </section>
+
+    <!-- ─── MOTION ─── -->
+    <section class="section" id="motion">
+      <div class="label">
+        <div class="index">04</div>
+        <h2>Motion</h2>
+        <p>Springs only, slightly underdamped. Open feels weightier than close. Press is 0.97.</p>
+      </div>
+      <div class="motion-grid">
+        <div class="demo run-spring">
+          <div class="name">linger-spring</div>
+          <div class="stage"><div class="ball"></div></div>
+          <div class="code">response 0.4 · damping 0.78</div>
+        </div>
+        <div class="demo run-press">
+          <div class="name">linger-press</div>
+          <div class="stage"><div class="ball"></div></div>
+          <div class="code">response 0.15 · damping 0.7</div>
+        </div>
+        <div class="demo run-calm">
+          <div class="name">linger-calm</div>
+          <div class="stage"><div class="ball"></div></div>
+          <div class="code">response 0.6 · damping 0.85</div>
+        </div>
+        <div class="demo run-rise">
+          <div class="name">stagger rise</div>
+          <div class="stage"><div class="ball"></div></div>
+          <div class="code">60ms between items</div>
+        </div>
+      </div>
+
+      <div class="sample" style="margin-top:24px">
+        <div class="head">
+          <span class="nm">Haptic vocabulary</span>
+          <span class="specs">UIImpactFeedbackGenerator / UINotificationFeedbackGenerator</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 28px;font-size:14px">
+          <div><span class="muted">Tab switch</span> · selection</div>
+          <div><span class="muted">Tap card</span> · soft</div>
+          <div><span class="muted">Long press</span> · medium</div>
+          <div><span class="muted">Save note</span> · success</div>
+          <div><span class="muted">Caught up</span> · success</div>
+          <div><span class="muted">Snooze</span> · soft</div>
+          <div><span class="muted">Delete confirm</span> · warning</div>
+          <div><span class="muted">Error</span> · error</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── COMPONENTS ─── -->
+    <section class="section" id="components">
+      <div class="label">
+        <div class="index">05</div>
+        <h2>Components</h2>
+        <p>Cards, pills, segmented controls, toggles, the tab bar. Composable, restrained.</p>
+      </div>
+      <div>
+
+        <div class="sample">
+          <div class="head">
+            <span class="nm">Person card</span>
+            <span class="specs">.p-card · radius 22 · shadow card</span>
+          </div>
+          <article class="p-card today pressable">
+            <div class="avatar a-rose">S</div>
+            <div class="who">
+              <span class="name">Sarah</span>
+              <span class="reason">It's been three weeks. Her mom's surgery was on the 14th.</span>
+            </div>
+            <div class="meta">
+              <span class="dot late"></span>
+              <span class="cap tabular">3w</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="sample">
+          <div class="head">
+            <span class="nm">Pills &amp; chips</span>
+            <span class="specs">.pill · capsule · variant: sage, warm, ghost</span>
+          </div>
+          <div class="row-h">
+            <span class="pill">weekly</span>
+            <span class="pill sage">Inner circle</span>
+            <span class="pill warm tabular">May 16</span>
+            <span class="pill ghost"><span class="dot late"></span> 3 weeks</span>
+          </div>
+          <div class="row-h" style="margin-top:14px">
+            <div class="chips" data-group>
+              <button class="pill lg" role="button" aria-selected="false">Weekly</button>
+              <button class="pill lg" role="button" aria-selected="true">Biweekly</button>
+              <button class="pill lg" role="button" aria-selected="false">Monthly</button>
+              <button class="pill lg" role="button" aria-selected="false">Quarterly</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sample">
+          <div class="head">
+            <span class="nm">Buttons</span>
+            <span class="specs">.btn · capsule · spring-press</span>
+          </div>
+          <div class="row-h">
+            <button class="btn primary pressable">Begin</button>
+            <button class="btn sage pressable">Save note</button>
+            <button class="btn ghost pressable">Skip</button>
+            <button class="btn text pressable">Restore</button>
+          </div>
+        </div>
+
+        <div class="sample">
+          <div class="head">
+            <span class="nm">Segmented</span>
+            <span class="specs">.seg · 12px radius · shadow card on active</span>
+          </div>
+          <div class="seg" data-group style="margin:0">
+            <button aria-selected="true" role="button">Notes</button>
+            <button role="button">Threads</button>
+            <button role="button">Log</button>
+          </div>
+        </div>
+
+        <div class="sample">
+          <div class="head">
+            <span class="nm">Toggle</span>
+            <span class="specs">.toggle · 51 × 31 · spring knob</span>
+          </div>
+          <div class="toggle-row">
+            <div style="display:flex;align-items:center;gap:12px">
+              <svg width="20" height="20" style="color:var(--sage)"><use href="#i-cloud"/></svg>
+              <span>iCloud sync</span>
+            </div>
+            <div class="toggle on"></div>
+          </div>
+          <div class="toggle-row" style="border-bottom:0">
+            <div style="display:flex;align-items:center;gap:12px">
+              <svg width="20" height="20" style="color:var(--muted)"><use href="#i-bell"/></svg>
+              <span>Daily nudge</span>
+            </div>
+            <div class="toggle"></div>
+          </div>
+        </div>
+
+        <div class="sample">
+          <div class="head">
+            <span class="nm">Liquid Glass tab bar</span>
+            <span class="specs">backdrop blur 28 · saturate 160 · refraction</span>
+          </div>
+          <div style="position:relative;height:140px;background:linear-gradient(135deg,#E4EBE3,#F5E6C8);border-radius:18px;display:flex;align-items:center;justify-content:center">
+            <div class="glass tab-bar fab-tabbar refraction" style="display:inline-flex">
+              <div class="tabbar">
+                <button class="tab" aria-selected="true">
+                  <svg width="19" height="19"><use href="#i-home"/></svg>
+                  <span class="label">Today</span>
+                </button>
+                <button class="tab">
+                  <svg width="19" height="19"><use href="#i-people"/></svg>
+                  <span class="label">People</span>
+                </button>
+              </div>
+            </div>
+            <button class="fab pressable" aria-label="Add" style="position:relative;margin-left:6px">
+              <svg width="20" height="20"><use href="#i-plus"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── APP ICON ─── -->
+    <section class="section" id="app-icon">
+      <div class="label">
+        <div class="index">06</div>
+        <h2>App icon</h2>
+        <p>One low arc between two soft dots. Sage on cream. Tinted variant inherits its color.</p>
+      </div>
+      <div>
+        <div class="icon-variants">
+          <div class="ic-card">
+            <div class="preview" style="background:#F8F5EF"><img src="assets/app-icon.svg" alt=""/></div>
+            <div class="lbl">Light · 1024 × 1024</div>
+          </div>
+          <div class="ic-card">
+            <div class="preview" style="background:#16140E"><img src="assets/app-icon-dark.svg" alt=""/></div>
+            <div class="lbl">Dark</div>
+          </div>
+          <div class="ic-card">
+            <div class="preview" style="background:linear-gradient(135deg,#3D5A6B 0%,#7A9CB0 100%);color:#FFFFFF">
+              <img src="assets/app-icon-tinted.svg" alt="" style="width:100%;height:100%"/>
+            </div>
+            <div class="lbl">Tinted · iOS 18+</div>
+          </div>
+          <div class="ic-card">
+            <div class="preview" style="background:linear-gradient(135deg,#1B1A17 0%,#3F3A33 100%);color:#EDE8DC;display:flex;align-items:center;justify-content:center;padding:0">
+              <img src="assets/app-icon-tinted.svg" alt="" style="filter:invert(1) brightness(.95)"/>
+            </div>
+            <div class="lbl">Tinted · dark</div>
+          </div>
+        </div>
+
+        <div style="margin-top:48px">
+          <div class="mini" style="margin-bottom:14px;color:var(--whisper)">Marketing renders — for App Store, press, social</div>
+          <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:24px;align-items:start">
+            <div class="ic-card" style="padding:24px">
+              <div class="preview" style="width:200px;height:200px;border-radius:22%;background:transparent;box-shadow:none">
+                <img src="assets/app-icon-render.png" alt="Photographic render of the Linger app icon" style="width:100%;height:100%;object-fit:cover;border-radius:18%"/>
+              </div>
+              <div class="lbl">Photographic render</div>
+            </div>
+            <div style="background:var(--surface);border-radius:18px;padding:24px;border:0.5px solid var(--line);box-shadow:var(--shadow-card)">
+              <div style="border-radius:14px;overflow:hidden;aspect-ratio:3/2;background:var(--bg-deep)">
+                <img src="assets/hero-still.jpg" alt="Editorial still — letter and journal" style="width:100%;height:100%;object-fit:cover;display:block"/>
+              </div>
+              <div class="lbl" style="margin-top:14px">Brand still · for App Store hero, press kit, landing</div>
+              <p class="serif" style="font-size:14px;line-height:1.55;color:var(--muted);margin:10px 0 0;font-style:italic">"The journal you wish you kept about the 15 people you care about most."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="foot">
+    <div>
+      <div class="serif" style="font-size:18px;color:var(--ink);font-weight:500;margin-bottom:6px">Linger.</div>
+      <div>Design tokens · components · motion vocabulary.</div>
+    </div>
+    <div>
+      <a href="index.html">Screens</a>
+      <a href="../README.md">README</a>
+      <a href="../design/design-language.md">design-language.md</a>
+    </div>
+  </footer>
+
+  <script src="js/interactions.js"></script>
+</body>
+</html>

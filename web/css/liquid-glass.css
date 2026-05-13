@@ -1,0 +1,89 @@
+/* ──────────────────────────────────────────────────────────────
+   Linger — iOS 26 Liquid Glass
+   Translucent, refractive surfaces. Use sparingly: tab bar, sheet
+   headers, the "today" warm chip, modal headers. Never over text
+   the user is reading.
+   ────────────────────────────────────────────────────────────── */
+
+.glass {
+  --tint:    rgba(255, 255, 255, 0.55);
+  --rim:     rgba(255, 255, 255, 0.85);
+  --shadow:  0 1px 0 rgba(255,255,255,.7) inset,
+             0 -1px 0 rgba(27,26,23,.05) inset,
+             0 14px 30px -12px rgba(27,26,23,.18);
+  position: relative;
+  background: var(--tint);
+  -webkit-backdrop-filter: saturate(140%) blur(22px);
+  backdrop-filter: saturate(140%) blur(22px);
+  border: 0.5px solid var(--rim);
+  box-shadow: var(--shadow);
+  border-radius: var(--r-pill);
+  isolation: isolate;
+  overflow: hidden;
+}
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 80% at 10% 0%, rgba(255,255,255,.6), transparent 50%),
+    radial-gradient(120% 80% at 90% 100%, rgba(255,255,255,.25), transparent 50%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 1;
+}
+.glass > * { position: relative; z-index: 2; }
+
+/* dark variant auto-flips */
+:root[data-theme="dark"] .glass,
+:root[data-allow-dark] .glass {
+  --tint:   rgba(34, 32, 28, 0.55);
+  --rim:    rgba(237, 232, 220, 0.12);
+  --shadow: 0 1px 0 rgba(237,232,220,.08) inset,
+            0 -1px 0 rgba(0,0,0,.4) inset,
+            0 18px 36px -16px rgba(0,0,0,.6);
+}
+
+/* warmer variant — used for "today" surfaces */
+.glass.warm-tint {
+  --tint: rgba(244, 230, 200, 0.6);
+  --rim:  rgba(255, 240, 210, 0.85);
+}
+
+/* sage tint — used for primary CTA pills inside person detail */
+.glass.sage-tint {
+  --tint: rgba(184, 205, 190, 0.45);
+  --rim:  rgba(220, 232, 224, 0.85);
+}
+
+/* tab bar — uses heavier blur and a soft shadow stub */
+.tab-bar {
+  --tint: rgba(248, 245, 239, 0.62);
+  --rim:  rgba(255, 255, 255, 0.55);
+  -webkit-backdrop-filter: saturate(160%) blur(28px);
+  backdrop-filter: saturate(160%) blur(28px);
+  border-radius: var(--r-pill);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.7) inset,
+    0 -0.5px 0 rgba(27,26,23,.06) inset,
+    0 20px 38px -14px rgba(27,26,23,.18),
+    0 4px 10px -2px rgba(27,26,23,.06);
+}
+
+/* refraction edge: a soft caustic highlight along the top inner rim */
+.glass.refraction::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 22%),
+    linear-gradient(0deg,   rgba(27,26,23,.04) 0%,  rgba(0,0,0,0) 18%);
+  z-index: 1;
+}
+
+/* fallback when backdrop-filter not supported — solid warm tint */
+@supports not (backdrop-filter: blur(10px)) {
+  .glass { background: var(--surface-2); }
+}
