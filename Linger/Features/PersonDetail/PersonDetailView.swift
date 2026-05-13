@@ -22,8 +22,20 @@ struct PersonDetailView: View {
 
     let person: Person
     @Environment(\.modelContext) private var context
-    @State private var section: Section = .notes
+    @State private var section: Section = Self.initialSection
     @State private var showingAddNote = false
+    @State private var showingEdit = Self.initialEdit
+
+    private static var initialSection: Section {
+        let args = ProcessInfo.processInfo.arguments
+        if args.contains("--threads") { return .threads }
+        if args.contains("--log") { return .log }
+        return .notes
+    }
+
+    private static var initialEdit: Bool {
+        ProcessInfo.processInfo.arguments.contains("--edit")
+    }
 
     var body: some View {
         ScrollView {
@@ -44,11 +56,18 @@ struct PersonDetailView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     Haptic.selection.play()
+                    showingEdit = true
                 } label: {
                     Image(systemName: "pencil")
                         .foregroundStyle(Color.muted)
                 }
             }
+        }
+        .sheet(isPresented: $showingEdit) {
+            NavigationStack { EditPersonSheet(person: person) }
+                .presentationDetents([.large])
+                .presentationCornerRadius(28)
+                .presentationBackground(.regularMaterial)
         }
         .overlay(alignment: .bottom) {
             Button {

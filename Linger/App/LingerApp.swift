@@ -5,6 +5,7 @@ import SwiftUI
 struct LingerApp: App {
     let modelContainer: ModelContainer
     @AppStorage("themeRaw") private var themeRaw: String = ThemeChoice.auto.rawValue
+    @AppStorage("accentRaw") private var accentRaw: String = AccentChoice.sage.rawValue
 
     init() {
         let container: ModelContainer
@@ -17,10 +18,13 @@ struct LingerApp: App {
         self.modelContainer = container
         #if DEBUG
             if ProcessInfo.processInfo.arguments.contains("--seed") {
-                Task { @MainActor in
+                MainActor.assumeIsolated {
                     let context = container.mainContext
                     let existing = (try? context.fetch(FetchDescriptor<Person>()).count) ?? 0
-                    if existing == 0 { SampleData.populate(context) }
+                    if existing == 0 {
+                        SampleData.populate(context)
+                        try? context.save()
+                    }
                 }
             }
         #endif
@@ -30,7 +34,7 @@ struct LingerApp: App {
         WindowGroup {
             RootView()
                 .modelContainer(modelContainer)
-                .tint(.sage)
+                .tint(AccentChoice(rawValue: accentRaw)?.color ?? .sage)
                 .preferredColorScheme(ThemeChoice(rawValue: themeRaw)?.colorScheme)
                 .background(Color.bg.ignoresSafeArea())
         }

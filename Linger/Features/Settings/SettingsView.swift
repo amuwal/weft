@@ -12,6 +12,7 @@ struct SettingsView: View {
     @AppStorage("iCloudSyncEnabled") private var syncEnabled: Bool = true
     @AppStorage("dailyNudgeEnabled") private var nudgeEnabled: Bool = true
     @AppStorage("themeRaw") private var themeRaw: String = ThemeChoice.auto.rawValue
+    @AppStorage("accentRaw") private var accentRaw: String = AccentChoice.sage.rawValue
 
     @State private var confirmingReset = false
 
@@ -50,6 +51,30 @@ struct SettingsView: View {
                     ForEach(ThemeChoice.allCases) { Text($0.label).tag($0.rawValue) }
                 }
                 .pickerStyle(.segmented)
+                HStack(spacing: 14) {
+                    Text("Accent")
+                        .foregroundStyle(Color.muted)
+                    Spacer()
+                    ForEach(AccentChoice.allCases) { choice in
+                        Button {
+                            accentRaw = choice.rawValue
+                            Haptic.selection.play()
+                        } label: {
+                            Circle()
+                                .fill(choice.color)
+                                .frame(width: 22, height: 22)
+                                .overlay {
+                                    Circle()
+                                        .strokeBorder(
+                                            Color.ink,
+                                            lineWidth: accentRaw == choice.rawValue ? 2 : 0
+                                        )
+                                        .padding(-3)
+                                }
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
             }
 
             Section("Data") {
@@ -125,6 +150,23 @@ enum ThemeChoice: String, CaseIterable, Identifiable {
         case .auto: nil
         case .light: .light
         case .dark: .dark
+        }
+    }
+}
+
+enum AccentChoice: String, CaseIterable, Identifiable {
+    case sage, slate, warm, rose
+
+    var id: String {
+        rawValue
+    }
+
+    var color: Color {
+        switch self {
+        case .sage: .sage
+        case .slate: Color(red: 0.40, green: 0.50, blue: 0.60)
+        case .warm: .warm
+        case .rose: Color(red: 0.74, green: 0.40, blue: 0.45)
         }
     }
 }

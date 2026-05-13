@@ -6,7 +6,11 @@ struct OnboardingView: View {
 
     @AppStorage("onboardingComplete") private var onboardingComplete = false
     @AppStorage("defaultRhythmRaw") private var defaultRhythmRaw: Int = Rhythm.monthly.rawValue
-    @State private var step: Step = .welcome
+    @State private var step: Step = Self.initialStep
+
+    private static var initialStep: Step {
+        ProcessInfo.processInfo.arguments.contains("--rhythm") ? .rhythm : .welcome
+    }
 
     var body: some View {
         ZStack {
