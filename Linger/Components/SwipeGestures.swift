@@ -20,6 +20,26 @@ private struct SwipeGestures: ViewModifier {
 
     func body(content: Content) -> some View {
         content
+            .background(alignment: .leading) {
+                actionLabel(
+                    text: "Caught up",
+                    icon: "checkmark.circle.fill",
+                    tint: .sage,
+                    active: offset > threshold
+                )
+                .opacity(offset > 12 ? min(offset / threshold, 1) : 0)
+                .padding(.leading, 24)
+            }
+            .background(alignment: .trailing) {
+                actionLabel(
+                    text: "Snooze",
+                    icon: "moon.zzz.fill",
+                    tint: .muted,
+                    active: offset < -threshold
+                )
+                .opacity(offset < -12 ? min(abs(offset) / threshold, 1) : 0)
+                .padding(.trailing, 24)
+            }
             .offset(x: offset)
             .opacity(isFlying ? 0 : 1)
             .scaleEffect(1 - min(abs(offset) / 2000, 0.05))
@@ -41,6 +61,12 @@ private struct SwipeGestures: ViewModifier {
                         }
                     }
             )
+    }
+
+    private func actionLabel(text: String, icon: String, tint: Color, active: Bool) -> some View {
+        Label { Text(text) } icon: { Image(systemName: icon) }
+            .font(LingerFont.caption.weight(.semibold))
+            .foregroundStyle(active ? tint : tint.opacity(0.55))
     }
 
     private func commit(direction: CGFloat, action: @escaping () -> Void) {

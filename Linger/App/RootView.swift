@@ -53,9 +53,7 @@ struct RootView: View {
 
             NavigationStack(path: $peoplePath) {
                 PeopleListView()
-                    .toolbar { addToolbar
-                        settingsToolbar
-                    }
+                    .toolbar { settingsToolbar }
             }
             .tabItem { Label("People", systemImage: "person.2") }
             .tag(AppTab.people)
@@ -120,18 +118,6 @@ struct RootView: View {
                 Haptic.selection.play()
             } label: {
                 Image(systemName: "gearshape")
-                    .foregroundStyle(Color.muted)
-            }
-        }
-    }
-
-    @ToolbarContentBuilder
-    private var addToolbar: some ToolbarContent {
-        ToolbarItem(placement: .topBarLeading) {
-            Button {
-                Haptic.selection.play()
-            } label: {
-                Image(systemName: "magnifyingglass")
                     .foregroundStyle(Color.muted)
             }
         }
