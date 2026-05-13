@@ -7,6 +7,7 @@ struct PeopleListView: View {
     @Query(sort: \Person.name) private var people: [Person]
     @State private var searchText = ""
     @State private var rhythmTarget: Person?
+    @State private var noteTarget: Person?
 
     var body: some View {
         Group {
@@ -24,6 +25,21 @@ struct PeopleListView: View {
                 .presentationDetents([.medium])
                 .presentationCornerRadius(28)
                 .presentationBackground(.regularMaterial)
+        }
+        .sheet(item: $noteTarget) { person in
+            NavigationStack {
+                AddNoteForm(prefilledPerson: person)
+                    .navigationTitle("Note about \(person.name)")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Cancel") { noteTarget = nil }
+                        }
+                    }
+            }
+            .presentationDetents([.large])
+            .presentationCornerRadius(28)
+            .presentationBackground(.regularMaterial)
         }
     }
 
@@ -80,6 +96,9 @@ struct PeopleListView: View {
 
     @ViewBuilder
     private func contextMenuItems(for person: Person) -> some View {
+        Button { noteTarget = person } label: {
+            Label("Log a note", systemImage: "text.append")
+        }
         Button { togglePin(person) } label: {
             Label(
                 person.pinned ? "Unpin" : "Pin to top",
