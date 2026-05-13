@@ -17,7 +17,11 @@ struct LingerApp: App {
         }
         self.modelContainer = container
         #if DEBUG
-            if ProcessInfo.processInfo.arguments.contains("--seed") {
+            let args = ProcessInfo.processInfo.arguments
+            if args.contains("--onboarding-done") {
+                UserDefaults.standard.set(true, forKey: "onboardingComplete")
+            }
+            if args.contains("--seed") {
                 MainActor.assumeIsolated {
                     let context = container.mainContext
                     let existing = (try? context.fetch(FetchDescriptor<Person>()).count) ?? 0
