@@ -8,6 +8,7 @@ struct RootView: View {
     @State private var showSettings = Self.initialFlag("--settings")
     @State private var showPaywall = Self.initialFlag("--paywall")
     @State private var peoplePath: [Person] = []
+    @State private var didAppear = false
 
     private static var initialTab: AppTab {
         let args = ProcessInfo.processInfo.arguments
@@ -40,6 +41,10 @@ struct RootView: View {
             }
         }
         .animation(.lingerCalm, value: onboardingComplete)
+        .opacity(didAppear ? 1 : 0)
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.45)) { didAppear = true }
+        }
     }
 
     private var mainTabs: some View {
