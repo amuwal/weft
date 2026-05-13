@@ -105,9 +105,10 @@ struct RootView: View {
     @ToolbarContentBuilder
     private func titleToolbar(_ tab: AppTab) -> some ToolbarContent {
         ToolbarItem(placement: .principal) {
-            Text(tab == .today ? "Linger" : "People")
+            Text(tab == .today ? "Linger." : "People")
                 .font(.system(size: 17, design: .serif).weight(.medium))
                 .foregroundStyle(Color.ink)
+                .tracking(0.3)
         }
     }
 
