@@ -46,6 +46,9 @@ targets:
       properties:
         UILaunchScreen:
           UIColorName: bg
+        CFBundleURLTypes:
+          - CFBundleURLName: com.amuwal.linger
+            CFBundleURLSchemes: ["linger"]
         CFBundleDisplayName: Linger
         CFBundleShortVersionString: "0.1.0"
         CFBundleVersion: "1"

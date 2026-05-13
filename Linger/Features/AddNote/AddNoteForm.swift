@@ -10,46 +10,59 @@ struct AddNoteForm: View {
     @State private var noteText: String = ""
     @State private var followUp = false
     @State private var followUpDate: Date = Calendar.current.date(byAdding: .day, value: 7, to: .now) ?? .now
+    @FocusState private var editorFocused: Bool
+
+    init(prefilledPerson: Person? = nil) {
+        _selectedPersonID = State(initialValue: prefilledPerson?.id)
+    }
 
     var body: some View {
         Form {
             Section("Person") {
                 Picker("Person", selection: $selectedPersonID) {
-                    ForEach(people) { person in
-                        Text(person.name).tag(Optional(person.id))
-                    }
+                    Text("Choose…").tag(UUID?.none)
+                    ForEach(people) { Text($0.name).tag(Optional($0.id)) }
                 }
                 .pickerStyle(.menu)
             }
 
             Section("Note") {
                 TextEditor(text: $noteText)
-                    .frame(minHeight: 140)
+                    .frame(minHeight: 160)
                     .font(LingerFont.serifBody)
+                    .focused($editorFocused)
+                    .scrollContentBackground(.hidden)
+                    .background(Color.surface2)
             }
 
             Section {
                 Toggle("Follow up on this", isOn: $followUp.animation(.lingerSpring))
                 if followUp {
                     DatePicker("Remind on", selection: $followUpDate, displayedComponents: .date)
+                        .datePickerStyle(.compact)
                 }
             }
         }
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save", action: save)
-                    .disabled(noteText.trimmingCharacters(in: .whitespacesAndNewlines)
-                        .isEmpty || selectedPersonID == nil)
+                    .disabled(canSave == false)
             }
         }
         .onAppear {
             if selectedPersonID == nil { selectedPersonID = people.first?.id }
+            editorFocused = true
         }
+    }
+
+    private var canSave: Bool {
+        selectedPersonID != nil && !noteText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
     private func save() {
         guard let pid = selectedPersonID,
-              let person = people.first(where: { $0.id == pid }) else { return }
+              let person = people.first(where: { $0.id == pid })
+        else { return }
         let trimmed = noteText.trimmingCharacters(in: .whitespacesAndNewlines)
         let note = Note(body: trimmed, person: person)
         context.insert(note)
@@ -62,12 +75,15 @@ struct AddNoteForm: View {
                 sourceNoteId: note.id
             ))
         }
+        try? context.save()
         Haptic.success.play()
         dismiss()
     }
 }
 
 #Preview {
-    AddNoteForm()
-        .modelContainer(.preview)
+    NavigationStack {
+        AddNoteForm()
+    }
+    .modelContainer(.preview)
 }

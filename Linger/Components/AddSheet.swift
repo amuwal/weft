@@ -1,9 +1,6 @@
 import SwiftUI
 
 struct AddSheet: View {
-    @Environment(\.dismiss) private var dismiss
-    @State private var mode: Mode = .note
-
     enum Mode: String, CaseIterable, Identifiable {
         case note
         case person
@@ -20,6 +17,13 @@ struct AddSheet: View {
         }
     }
 
+    @Environment(\.dismiss) private var dismiss
+    @State private var mode: Mode
+
+    init(initial: Mode = .note) {
+        _mode = State(initialValue: initial)
+    }
+
     var body: some View {
         NavigationStack {
             Group {
@@ -32,13 +36,13 @@ struct AddSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Picker("Mode", selection: $mode) {
+                    Picker("Mode", selection: $mode.animation(.lingerSpring)) {
                         ForEach(Mode.allCases) { Text($0.label).tag($0) }
                     }
                     .pickerStyle(.segmented)
                 }
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel", action: { dismiss() })
+                    Button("Cancel", action: dismiss.callAsFunction)
                 }
             }
         }

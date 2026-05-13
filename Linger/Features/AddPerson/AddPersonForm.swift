@@ -45,6 +45,7 @@ struct AddPersonForm: View {
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
             }
         }
+        .navigationBarBackButtonHidden()
     }
 
     private func save() {

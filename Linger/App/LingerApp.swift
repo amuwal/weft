@@ -4,16 +4,26 @@ import SwiftUI
 @main
 struct LingerApp: App {
     let modelContainer: ModelContainer
+    @AppStorage("themeRaw") private var themeRaw: String = ThemeChoice.auto.rawValue
 
     init() {
+        let container: ModelContainer
         do {
-            self.modelContainer = try ModelContainer.linger()
+            container = try ModelContainer.linger()
         } catch {
-            // A failure here means SwiftData could not bring up the persistent store,
-            // which is unrecoverable in production. Surface it with a useful message.
             assertionFailure("SwiftData container failed to initialize: \(error)")
             fatalError("Linger could not start its data store. Reinstall the app.")
         }
+        self.modelContainer = container
+        #if DEBUG
+            if ProcessInfo.processInfo.arguments.contains("--seed") {
+                Task { @MainActor in
+                    let context = container.mainContext
+                    let existing = (try? context.fetch(FetchDescriptor<Person>()).count) ?? 0
+                    if existing == 0 { SampleData.populate(context) }
+                }
+            }
+        #endif
     }
 
     var body: some Scene {
@@ -21,7 +31,8 @@ struct LingerApp: App {
             RootView()
                 .modelContainer(modelContainer)
                 .tint(.sage)
-                .preferredColorScheme(nil)
+                .preferredColorScheme(ThemeChoice(rawValue: themeRaw)?.colorScheme)
+                .background(Color.bg.ignoresSafeArea())
         }
     }
 }
