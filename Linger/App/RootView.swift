@@ -57,6 +57,10 @@ struct RootView: View {
             )
             .padding(.horizontal, Spacing.l)
             .padding(.bottom, 12)
+            .opacity(isOnDrillDown ? 0 : 1)
+            .offset(y: isOnDrillDown ? 120 : 0)
+            .animation(.lingerSpring, value: isOnDrillDown)
+            .allowsHitTesting(!isOnDrillDown)
         }
         .sheet(isPresented: $showAddSheet) {
             AddSheet(initial: tab == .people ? .person : .note)
@@ -132,6 +136,10 @@ struct RootView: View {
         } else {
             showAddSheet = true
         }
+    }
+
+    private var isOnDrillDown: Bool {
+        tab == .people && !peoplePath.isEmpty
     }
 
     private func pushInitialPersonIfRequested() async {

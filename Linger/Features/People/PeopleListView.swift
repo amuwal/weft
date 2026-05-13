@@ -91,7 +91,11 @@ struct PeopleListView: View {
         .listStyle(.plain)
         .background(Color.bg)
         .scrollContentBackground(.hidden)
-        .searchable(text: $searchText, prompt: "Search Sarah, conversations, threads…")
+        .searchable(
+            text: $searchText,
+            placement: .navigationBarDrawer(displayMode: .always),
+            prompt: "Search Sarah, conversations, threads…"
+        )
     }
 
     @ViewBuilder

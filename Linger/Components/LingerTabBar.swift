@@ -5,7 +5,6 @@ struct LingerTabBar: View {
     let onAdd: () -> Void
     @Environment(\.colorScheme) private var colorScheme
     @Namespace private var pill
-    @State private var dragOffset: CGFloat = 0
 
     var body: some View {
         HStack(spacing: 12) {
@@ -17,11 +16,11 @@ struct LingerTabBar: View {
 
     private var tabsCapsule: some View {
         HStack(spacing: 4) {
-            tabButton(.today, label: "Today", systemImage: "house")
-            tabButton(.people, label: "People", systemImage: "person.2")
+            tabButton(.today, label: "Today")
+            tabButton(.people, label: "People")
         }
-        .padding(.horizontal, 7)
-        .padding(.vertical, 7)
+        .padding(.horizontal, 8)
+        .padding(.vertical, 8)
         .background {
             Capsule(style: .continuous)
                 .fill(.ultraThinMaterial)
@@ -36,11 +35,11 @@ struct LingerTabBar: View {
                 .shadow(color: outerShadow, radius: 20, x: 0, y: 8)
                 .shadow(color: outerShadow.opacity(0.4), radius: 2, x: 0, y: 1)
         }
-        .gesture(
-            DragGesture(minimumDistance: 12)
+        .simultaneousGesture(
+            DragGesture(minimumDistance: 18)
                 .onEnded { value in
                     let dx = value.translation.width
-                    guard abs(dx) > 24 else { return }
+                    guard abs(dx) > 28, abs(dx) > abs(value.translation.height) else { return }
                     if dx < 0, selected == .today {
                         Haptic.selection.play()
                         withAnimation(.lingerSpring) { selected = .people }
@@ -60,12 +59,12 @@ struct LingerTabBar: View {
             Image(systemName: "plus")
                 .font(.system(size: 22, weight: .semibold))
                 .foregroundStyle(plusColor)
-                .frame(width: 62, height: 62)
+                .frame(width: 54, height: 64)
                 .background {
-                    Circle()
+                    RoundedRectangle(cornerRadius: 26, style: .continuous)
                         .fill(plusBackground)
                         .overlay(
-                            Circle()
+                            RoundedRectangle(cornerRadius: 26, style: .continuous)
                                 .strokeBorder(addRim, lineWidth: 0.6)
                         )
                         .shadow(color: outerShadow, radius: 20, x: 0, y: 8)
@@ -77,22 +76,23 @@ struct LingerTabBar: View {
     }
 
     @ViewBuilder
-    private func tabButton(_ value: AppTab, label: String, systemImage: String) -> some View {
+    private func tabButton(_ value: AppTab, label: String) -> some View {
         let isSelected = selected == value
         Button {
             guard selected != value else { return }
             Haptic.selection.play()
             withAnimation(.lingerSpring) { selected = value }
         } label: {
-            HStack(spacing: 6) {
-                Image(systemName: systemImage)
-                    .font(.system(size: 13, weight: .regular))
+            HStack(spacing: 8) {
+                Circle()
+                    .fill(dotColor(isSelected: isSelected))
+                    .frame(width: 5, height: 5)
                 Text(label)
                     .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(isSelected ? Color.ink : Color.muted)
             }
-            .foregroundStyle(isSelected ? Color.ink : Color.muted)
-            .padding(.horizontal, 20)
-            .padding(.vertical, 13)
+            .padding(.horizontal, 22)
+            .padding(.vertical, 14)
             .frame(minHeight: 48)
             .background {
                 if isSelected {
@@ -111,6 +111,10 @@ struct LingerTabBar: View {
         }
         .buttonStyle(.plain)
         .contentShape(Capsule())
+    }
+
+    private func dotColor(isSelected: Bool) -> Color {
+        isSelected ? Color.muted : Color.muted.opacity(0.55)
     }
 
     private var glassTint: Color {
