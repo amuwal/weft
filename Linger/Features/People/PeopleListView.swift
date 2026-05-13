@@ -14,7 +14,7 @@ struct PeopleListView: View {
                 Section(key.label) {
                     ForEach(grouped[key] ?? []) { person in
                         NavigationLink(value: person) {
-                            PersonRow(person: person)
+                            PersonRow(person: person, snippet: searchSnippet(person))
                         }
                         .contextMenu { contextMenuItems(for: person) }
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
@@ -81,8 +81,42 @@ struct PeopleListView: View {
     }
 
     private var filtered: [Person] {
-        guard !searchText.isEmpty else { return people }
-        return people.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+        let needle = searchText.trimmingCharacters(in: .whitespaces)
+        guard !needle.isEmpty else { return people }
+        return people.filter { person in
+            if person.name.localizedCaseInsensitiveContains(needle) { return true }
+            if person.notesOrEmpty.contains(where: { $0.body.localizedCaseInsensitiveContains(needle) }) {
+                return true
+            }
+            if person.threadsOrEmpty.contains(where: { $0.body.localizedCaseInsensitiveContains(needle) }) {
+                return true
+            }
+            return false
+        }
+    }
+
+    private var searchSnippet: (Person) -> String? {
+        { person in
+            let needle = searchText.trimmingCharacters(in: .whitespaces).lowercased()
+            guard !needle.isEmpty else { return nil }
+            if person.name.lowercased().contains(needle) { return nil }
+            if let match = person.notesOrEmpty.first(where: { $0.body.lowercased().contains(needle) }) {
+                return Self.snippet(from: match.body, around: needle)
+            }
+            if let match = person.threadsOrEmpty.first(where: { $0.body.lowercased().contains(needle) }) {
+                return match.body
+            }
+            return nil
+        }
+    }
+
+    private static func snippet(from text: String, around needle: String) -> String {
+        guard let range = text.lowercased().range(of: needle) else { return text }
+        let start = text.index(range.lowerBound, offsetBy: -20, limitedBy: text.startIndex) ?? text.startIndex
+        let end = text.index(range.upperBound, offsetBy: 30, limitedBy: text.endIndex) ?? text.endIndex
+        let prefix = start > text.startIndex ? "…" : ""
+        let suffix = end < text.endIndex ? "…" : ""
+        return prefix + String(text[start ..< end]).trimmingCharacters(in: .whitespacesAndNewlines) + suffix
     }
 
     private var grouped: OrderedDictionary<RelationshipType, [Person]> {
@@ -106,19 +140,33 @@ struct PeopleListView: View {
 
 private struct PersonRow: View {
     let person: Person
+    let snippet: String?
+
+    init(person: Person, snippet: String? = nil) {
+        self.person = person
+        self.snippet = snippet
+    }
 
     var body: some View {
         HStack(spacing: Spacing.m) {
             PersonAvatar(initial: person.initial, palette: person.avatarPalette, size: 40)
-            HStack(spacing: 6) {
-                if person.pinned {
-                    Image(systemName: "pin.fill")
-                        .font(.system(size: 11))
-                        .foregroundStyle(Color.sage)
+            VStack(alignment: .leading, spacing: 2) {
+                HStack(spacing: 6) {
+                    if person.pinned {
+                        Image(systemName: "pin.fill")
+                            .font(.system(size: 11))
+                            .foregroundStyle(Color.sage)
+                    }
+                    Text(person.name)
+                        .font(LingerFont.body)
+                        .foregroundStyle(Color.ink)
                 }
-                Text(person.name)
-                    .font(LingerFont.body)
-                    .foregroundStyle(Color.ink)
+                if let snippet {
+                    Text(snippet)
+                        .font(LingerFont.caption)
+                        .foregroundStyle(Color.muted)
+                        .lineLimit(1)
+                }
             }
             Spacer()
             HStack(spacing: 6) {

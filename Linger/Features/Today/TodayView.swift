@@ -10,11 +10,12 @@ struct TodayView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.l) {
-                header
                 if surfaced.isEmpty {
+                    emptyHeader
                     EmptyCalmState()
-                        .padding(.top, Spacing.huge)
+                        .padding(.top, Spacing.l)
                 } else {
+                    header
                     ForEach(surfaced) { item in
                         NavigationLink(value: item.person) {
                             PersonCard(
@@ -62,6 +63,15 @@ struct TodayView: View {
             Text("Who's on your\nmind today?")
                 .font(LingerFont.display)
                 .foregroundStyle(Color.ink)
+        }
+        .padding(.top, Spacing.s)
+    }
+
+    private var emptyHeader: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(Date.now, format: .dateTime.weekday(.wide).month().day())
+                .font(LingerFont.caption)
+                .foregroundStyle(Color.muted)
         }
         .padding(.top, Spacing.s)
     }

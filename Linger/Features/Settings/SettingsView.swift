@@ -45,6 +45,12 @@ struct SettingsView: View {
             } header: { Text("Reminders") } footer: {
                 Text("A gentle list at this hour. No push if nobody is on your mind.")
             }
+            .onChange(of: nudgeEnabled) { _, newValue in
+                Task { await NudgeScheduler.sync(enabled: newValue, hour: nudgeHour) }
+            }
+            .onChange(of: nudgeHour) { _, newValue in
+                Task { await NudgeScheduler.sync(enabled: nudgeEnabled, hour: newValue) }
+            }
 
             Section("Appearance") {
                 Picker("Theme", selection: $themeRaw) {
