@@ -7,16 +7,18 @@ struct PersonCard: View {
     let weeksLabel: String
     var isToday: Bool = false
 
+    @Environment(\.colorScheme) private var colorScheme
+
     var body: some View {
         HStack(alignment: .center, spacing: 14) {
             PersonAvatar(initial: person.initial, palette: person.avatarPalette)
             VStack(alignment: .leading, spacing: 2) {
                 Text(person.name)
                     .font(LingerFont.title)
-                    .foregroundStyle(Color.ink)
+                    .foregroundStyle(nameColor)
                 Text(reason)
                     .font(LingerFont.serifBody)
-                    .foregroundStyle(isToday ? Color(red: 0.42, green: 0.32, blue: 0.20) : Color.muted)
+                    .foregroundStyle(reasonColor)
                     .lineLimit(2)
             }
             Spacer(minLength: 8)
@@ -24,7 +26,7 @@ struct PersonCard: View {
                 DotIndicator(state: state)
                 Text(weeksLabel)
                     .font(LingerFont.caption)
-                    .foregroundStyle(Color.muted)
+                    .foregroundStyle(metaColor)
                     .monospacedDigit()
             }
         }
@@ -32,9 +34,25 @@ struct PersonCard: View {
         .background(background, in: RoundedRectangle(cornerRadius: Radius.cardLarge, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: Radius.cardLarge, style: .continuous)
-                .strokeBorder(Color.ink.opacity(0.06), lineWidth: 0.5)
+                .strokeBorder(borderColor, lineWidth: 0.5)
         )
-        .shadow(color: Color.ink.opacity(0.08), radius: 12, x: 0, y: 4)
+        .shadow(color: Color.ink.opacity(colorScheme == .dark ? 0.5 : 0.08), radius: 12, x: 0, y: 4)
+    }
+
+    private var nameColor: Color {
+        if isToday { Color(red: 0.106, green: 0.102, blue: 0.090) } else { .ink }
+    }
+
+    private var reasonColor: Color {
+        if isToday { Color(red: 0.42, green: 0.32, blue: 0.20) } else { .muted }
+    }
+
+    private var metaColor: Color {
+        if isToday { Color(red: 0.42, green: 0.32, blue: 0.20).opacity(0.7) } else { .muted }
+    }
+
+    private var borderColor: Color {
+        Color.ink.opacity(colorScheme == .dark ? 0.12 : 0.06)
     }
 
     private var background: AnyShapeStyle {
