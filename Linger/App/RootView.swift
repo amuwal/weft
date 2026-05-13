@@ -8,6 +8,7 @@ struct RootView: View {
     @State private var showSettings = Self.initialFlag("--settings")
     @State private var showPaywall = Self.initialFlag("--paywall")
     @State private var peoplePath: [Person] = []
+    @State private var todayPath: [Person] = []
     @State private var didAppear = false
 
     @Environment(\.modelContext) private var context
@@ -88,8 +89,8 @@ struct RootView: View {
     private var tabContent: some View {
         switch tab {
         case .today:
-            NavigationStack {
-                TodayView()
+            NavigationStack(path: $todayPath) {
+                TodayView(path: $todayPath)
                     .toolbar { titleToolbar(.today)
                         settingsToolbar
                     }
@@ -139,7 +140,10 @@ struct RootView: View {
     }
 
     private var isOnDrillDown: Bool {
-        tab == .people && !peoplePath.isEmpty
+        switch tab {
+        case .today: !todayPath.isEmpty
+        case .people: !peoplePath.isEmpty
+        }
     }
 
     private func pushInitialPersonIfRequested() async {

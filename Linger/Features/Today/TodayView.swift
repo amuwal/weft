@@ -2,10 +2,15 @@ import SwiftData
 import SwiftUI
 
 struct TodayView: View {
+    @Binding var path: [Person]
     @Environment(\.modelContext) private var context
     @Query(sort: \Person.name) private var people: [Person]
     @State private var snoozedIDs: Set<UUID> = []
     @Namespace private var cardNamespace
+
+    init(path: Binding<[Person]> = .constant([])) {
+        self._path = path
+    }
 
     var body: some View {
         ScrollView {
@@ -17,18 +22,19 @@ struct TodayView: View {
                 } else {
                     header
                     ForEach(surfaced) { item in
-                        NavigationLink(value: item.person) {
-                            PersonCard(
-                                person: item.person,
-                                reason: item.reason,
-                                state: item.state,
-                                weeksLabel: item.weeksLabel,
-                                isToday: item.isToday
-                            )
-                            .matchedTransitionSource(id: item.person.id, in: cardNamespace)
-                            .pressable()
+                        PersonCard(
+                            person: item.person,
+                            reason: item.reason,
+                            state: item.state,
+                            weeksLabel: item.weeksLabel,
+                            isToday: item.isToday
+                        )
+                        .matchedTransitionSource(id: item.person.id, in: cardNamespace)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            Haptic.soft.play()
+                            path.append(item.person)
                         }
-                        .buttonStyle(.plain)
                         .swipeGestures(
                             onCaughtUp: { caughtUp(item.person) },
                             onSnooze: { snooze(item.person) }

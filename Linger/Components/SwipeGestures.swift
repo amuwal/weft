@@ -43,11 +43,16 @@ private struct SwipeGestures: ViewModifier {
             .offset(x: offset)
             .opacity(isFlying ? 0 : 1)
             .scaleEffect(1 - min(abs(offset) / 2000, 0.05))
-            .gesture(
-                DragGesture(minimumDistance: 8)
+            // simultaneousGesture so a short tap still flows through to the
+            // underlying NavigationLink while a real horizontal drag activates
+            // the swipe action.
+            .simultaneousGesture(
+                DragGesture(minimumDistance: 14)
                     .onChanged { value in
                         guard !isFlying else { return }
                         let x = value.translation.width
+                        // Only engage horizontally — let vertical scrolling win.
+                        guard abs(x) > abs(value.translation.height) else { return }
                         offset = x > 0 ? min(x * 0.7, 220) : x * 0.25
                     }
                     .onEnded { value in

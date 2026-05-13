@@ -1,5 +1,6 @@
 import SwiftData
 import SwiftUI
+import UIKit
 
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
@@ -151,15 +152,18 @@ struct SettingsView: View {
     private func openFeedbackMail() {
         let subject = "Linger feedback (v0.1.0)"
         let body = "What's on your mind?\n\n\n— Sent from Linger on iOS"
-        var components = URLComponents()
-        components.scheme = "mailto"
-        components.path = "1mitccc@gmail.com"
-        components.queryItems = [
-            URLQueryItem(name: "subject", value: subject),
-            URLQueryItem(name: "body", value: body)
-        ]
-        guard let url = components.url else { return }
-        openURL(url)
+        let allowed = CharacterSet.urlQueryAllowed
+        let encodedSubject = subject.addingPercentEncoding(withAllowedCharacters: allowed) ?? ""
+        let encodedBody = body.addingPercentEncoding(withAllowedCharacters: allowed) ?? ""
+        guard let url = URL(string: "mailto:1mitccc@gmail.com?subject=\(encodedSubject)&body=\(encodedBody)")
+        else {
+            return
+        }
+        openURL(url) { accepted in
+            if !accepted {
+                UIPasteboard.general.string = "1mitccc@gmail.com"
+            }
+        }
     }
 
     private func formattedHour(_ hour: Int) -> String {

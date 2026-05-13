@@ -4,21 +4,24 @@ struct LingerTabBar: View {
     @Binding var selected: AppTab
     let onAdd: () -> Void
     @Environment(\.colorScheme) private var colorScheme
-    @Namespace private var pill
 
     var body: some View {
         HStack(spacing: 12) {
-            tabsCapsule
+            tabPicker
             addCapsule
         }
         .frame(maxWidth: .infinity, alignment: .center)
     }
 
-    private var tabsCapsule: some View {
-        HStack(spacing: 4) {
-            tabButton(.today, label: "Today")
-            tabButton(.people, label: "People")
+    private var tabPicker: some View {
+        Picker("Tab", selection: $selected) {
+            Text("Today").tag(AppTab.today)
+            Text("People").tag(AppTab.people)
         }
+        .pickerStyle(.segmented)
+        .labelsHidden()
+        .frame(width: 220)
+        .frame(height: 44)
         .padding(.horizontal, 8)
         .padding(.vertical, 8)
         .background {
@@ -35,20 +38,9 @@ struct LingerTabBar: View {
                 .shadow(color: outerShadow, radius: 20, x: 0, y: 8)
                 .shadow(color: outerShadow.opacity(0.4), radius: 2, x: 0, y: 1)
         }
-        .simultaneousGesture(
-            DragGesture(minimumDistance: 18)
-                .onEnded { value in
-                    let dx = value.translation.width
-                    guard abs(dx) > 28, abs(dx) > abs(value.translation.height) else { return }
-                    if dx < 0, selected == .today {
-                        Haptic.selection.play()
-                        withAnimation(.lingerSpring) { selected = .people }
-                    } else if dx > 0, selected == .people {
-                        Haptic.selection.play()
-                        withAnimation(.lingerSpring) { selected = .today }
-                    }
-                }
-        )
+        .onChange(of: selected) { _, _ in
+            Haptic.selection.play()
+        }
     }
 
     private var addCapsule: some View {
@@ -58,7 +50,7 @@ struct LingerTabBar: View {
         } label: {
             Image(systemName: "plus")
                 .font(.system(size: 22, weight: .semibold))
-                .foregroundStyle(plusColor)
+                .foregroundStyle(plusGlyphColor)
                 .frame(width: 54, height: 64)
                 .background {
                     RoundedRectangle(cornerRadius: 26, style: .continuous)
@@ -75,48 +67,6 @@ struct LingerTabBar: View {
         .accessibilityLabel("Add")
     }
 
-    @ViewBuilder
-    private func tabButton(_ value: AppTab, label: String) -> some View {
-        let isSelected = selected == value
-        Button {
-            guard selected != value else { return }
-            Haptic.selection.play()
-            withAnimation(.lingerSpring) { selected = value }
-        } label: {
-            HStack(spacing: 8) {
-                Circle()
-                    .fill(dotColor(isSelected: isSelected))
-                    .frame(width: 5, height: 5)
-                Text(label)
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundStyle(isSelected ? Color.ink : Color.muted)
-            }
-            .padding(.horizontal, 22)
-            .padding(.vertical, 14)
-            .frame(minHeight: 48)
-            .background {
-                if isSelected {
-                    Capsule(style: .continuous)
-                        .fill(selectedFill)
-                        .overlay(
-                            Capsule(style: .continuous)
-                                .strokeBorder(selectedRim, lineWidth: 0.5)
-                        )
-                        .shadow(color: selectedShadow, radius: 10, x: 0, y: 4)
-                        .shadow(color: selectedShadow.opacity(0.35), radius: 1, x: 0, y: 1)
-                        .matchedGeometryEffect(id: "pill", in: pill)
-                }
-            }
-            .accessibilityAddTraits(isSelected ? .isSelected : [])
-        }
-        .buttonStyle(.plain)
-        .contentShape(Capsule())
-    }
-
-    private func dotColor(isSelected: Bool) -> Color {
-        isSelected ? Color.muted : Color.muted.opacity(0.55)
-    }
-
     private var glassTint: Color {
         colorScheme == .dark ? Color.white.opacity(0.04) : Color.white.opacity(0.45)
     }
@@ -131,18 +81,6 @@ struct LingerTabBar: View {
         )
     }
 
-    private var selectedFill: Color {
-        colorScheme == .dark ? Color(white: 0.22) : Color.white
-    }
-
-    private var selectedRim: Color {
-        colorScheme == .dark ? Color.white.opacity(0.12) : Color.black.opacity(0.04)
-    }
-
-    private var selectedShadow: Color {
-        colorScheme == .dark ? Color.black.opacity(0.55) : Color.black.opacity(0.12)
-    }
-
     private var outerShadow: Color {
         colorScheme == .dark ? Color.black.opacity(0.4) : Color.black.opacity(0.14)
     }
@@ -151,8 +89,11 @@ struct LingerTabBar: View {
         colorScheme == .dark ? Color.white.opacity(0.08) : Color.white.opacity(0.18)
     }
 
-    private var plusColor: Color {
-        colorScheme == .dark ? Color.ink : Color.bg
+    /// In light mode the + sits on dark ink so the glyph is cream. In dark
+    /// mode the button is a cream tile so the glyph must be ink-black to
+    /// stay visible.
+    private var plusGlyphColor: Color {
+        colorScheme == .dark ? .black : Color.bg
     }
 
     private var plusBackground: Color {

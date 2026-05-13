@@ -32,7 +32,6 @@ struct AddNoteForm: View {
                     .font(LingerFont.serifBody)
                     .focused($editorFocused)
                     .scrollContentBackground(.hidden)
-                    .background(Color.surface2)
             }
 
             Section {

@@ -48,7 +48,7 @@ struct PersonDetailView: View {
                 content
             }
             .padding(.horizontal, Spacing.xl)
-            .padding(.bottom, 110)
+            .padding(.bottom, 20)
         }
         .background(Color.bg)
         .navigationBarTitleDisplayMode(.inline)
@@ -69,7 +69,7 @@ struct PersonDetailView: View {
                 .presentationCornerRadius(28)
                 .presentationBackground(.regularMaterial)
         }
-        .overlay(alignment: .bottom) {
+        .safeAreaInset(edge: .bottom, spacing: 0) {
             Button {
                 Haptic.soft.play()
                 showingAddNote = true
@@ -78,7 +78,17 @@ struct PersonDetailView: View {
             }
             .buttonStyle(LingerSagePillButtonStyle())
             .padding(.horizontal, Spacing.xl)
-            .padding(.bottom, 96)
+            .padding(.bottom, 16)
+            .background(
+                LinearGradient(
+                    colors: [Color.bg.opacity(0), Color.bg.opacity(0.95)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .frame(height: 110)
+                .allowsHitTesting(false),
+                alignment: .bottom
+            )
         }
         .sheet(isPresented: $showingAddNote) {
             NavigationStack {
