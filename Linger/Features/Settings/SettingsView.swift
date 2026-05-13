@@ -4,6 +4,7 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
+    @Environment(\.openURL) private var openURL
     @Query private var people: [Person]
     @Query private var notes: [Note]
 
@@ -14,7 +15,8 @@ struct SettingsView: View {
     @AppStorage("themeRaw") private var themeRaw: String = ThemeChoice.auto.rawValue
     @AppStorage("accentRaw") private var accentRaw: String = AccentChoice.sage.rawValue
 
-    @State private var confirmingReset = false
+    @State private var exportItem: ExportItem?
+    @State private var showResetInline = false
 
     var body: some View {
         Form {
@@ -40,7 +42,11 @@ struct SettingsView: View {
             Section {
                 Toggle("Daily nudge", isOn: $nudgeEnabled)
                 if nudgeEnabled {
-                    Stepper("Time: \(nudgeHour):00", value: $nudgeHour, in: 6 ... 20)
+                    Picker("Time", selection: $nudgeHour) {
+                        ForEach(0 ..< 24, id: \.self) { hour in
+                            Text(formattedHour(hour)).tag(hour)
+                        }
+                    }
                 }
             } header: { Text("Reminders") } footer: {
                 Text("A gentle list at this hour. No push if nobody is on your mind.")
@@ -86,13 +92,23 @@ struct SettingsView: View {
             Section("Data") {
                 Button {
                     Haptic.soft.play()
+                    let url = MarkdownExporter.export(from: context)
+                    exportItem = ExportItem(url: url)
                 } label: {
                     Label("Export Markdown", systemImage: "square.and.arrow.up")
                 }
-                Button(role: .destructive) {
-                    confirmingReset = true
-                } label: {
-                    Label("Delete all data", systemImage: "trash")
+
+                if showResetInline {
+                    InlineResetRow(
+                        onConfirm: wipe,
+                        onCancel: { withAnimation(.lingerSpring) { showResetInline = false } }
+                    )
+                } else {
+                    Button(role: .destructive) {
+                        withAnimation(.lingerSpring) { showResetInline = true }
+                    } label: {
+                        Label("Delete all data", systemImage: "trash")
+                    }
                 }
             }
 
@@ -103,6 +119,7 @@ struct SettingsView: View {
                 }
                 Button {
                     Haptic.soft.play()
+                    openFeedbackMail()
                 } label: {
                     Label("Send feedback", systemImage: "envelope")
                 }
@@ -115,13 +132,9 @@ struct SettingsView: View {
                 Button("Done", action: dismiss.callAsFunction)
             }
         }
-        .confirmationDialog(
-            "Delete every person, every note, every thread?",
-            isPresented: $confirmingReset,
-            titleVisibility: .visible
-        ) {
-            Button("Delete everything", role: .destructive, action: wipe)
-            Button("Cancel", role: .cancel) {}
+        .sheet(item: $exportItem) { item in
+            ActivityShareSheet(items: [item.url])
+                .presentationDetents([.medium, .large])
         }
     }
 
@@ -134,6 +147,68 @@ struct SettingsView: View {
         Haptic.warning.play()
         dismiss()
     }
+
+    private func openFeedbackMail() {
+        let subject = "Linger feedback (v0.1.0)"
+        let body = "What's on your mind?\n\n\n— Sent from Linger on iOS"
+        var components = URLComponents()
+        components.scheme = "mailto"
+        components.path = "1mitccc@gmail.com"
+        components.queryItems = [
+            URLQueryItem(name: "subject", value: subject),
+            URLQueryItem(name: "body", value: body)
+        ]
+        guard let url = components.url else { return }
+        openURL(url)
+    }
+
+    private func formattedHour(_ hour: Int) -> String {
+        var components = DateComponents()
+        components.hour = hour
+        let date = Calendar.current.date(from: components) ?? .now
+        return date.formatted(.dateTime.hour())
+    }
+}
+
+private struct InlineResetRow: View {
+    let onConfirm: () -> Void
+    let onCancel: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Delete every person, note and thread?")
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundStyle(Color.ink)
+            Text("This cannot be undone.")
+                .font(LingerFont.caption)
+                .foregroundStyle(Color.muted)
+            HStack(spacing: 8) {
+                Button("Cancel", action: onCancel)
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                Spacer()
+                Button("Delete everything", role: .destructive, action: onConfirm)
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.small)
+            }
+        }
+        .padding(.vertical, 4)
+    }
+}
+
+private struct ActivityShareSheet: UIViewControllerRepresentable {
+    let items: [Any]
+
+    func makeUIViewController(context _: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: items, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_: UIActivityViewController, context _: Context) {}
+}
+
+private struct ExportItem: Identifiable {
+    let id = UUID()
+    let url: URL
 }
 
 enum ThemeChoice: String, CaseIterable, Identifiable {

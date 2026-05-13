@@ -61,10 +61,33 @@ struct EditPersonSheet: View {
             }
 
             Section {
-                Button(role: .destructive) {
-                    confirmingDelete = true
-                } label: {
-                    Label("Delete person", systemImage: "trash")
+                if confirmingDelete {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Delete \(person.name) and every note?")
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundStyle(Color.ink)
+                        Text("This cannot be undone.")
+                            .font(LingerFont.caption)
+                            .foregroundStyle(Color.muted)
+                        HStack {
+                            Button("Cancel") {
+                                withAnimation(.lingerSpring) { confirmingDelete = false }
+                            }
+                            .buttonStyle(.bordered)
+                            .controlSize(.small)
+                            Spacer()
+                            Button("Delete \(person.name)", role: .destructive, action: deletePerson)
+                                .buttonStyle(.borderedProminent)
+                                .controlSize(.small)
+                        }
+                    }
+                    .padding(.vertical, 4)
+                } else {
+                    Button(role: .destructive) {
+                        withAnimation(.lingerSpring) { confirmingDelete = true }
+                    } label: {
+                        Label("Delete person", systemImage: "trash")
+                    }
                 }
             }
         }
@@ -79,19 +102,13 @@ struct EditPersonSheet: View {
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
             }
         }
-        .confirmationDialog(
-            "Delete \(person.name) and all their notes?",
-            isPresented: $confirmingDelete,
-            titleVisibility: .visible
-        ) {
-            Button("Delete \(person.name)", role: .destructive) {
-                context.delete(person)
-                try? context.save()
-                Haptic.warning.play()
-                dismiss()
-            }
-            Button("Cancel", role: .cancel) {}
-        }
+    }
+
+    private func deletePerson() {
+        context.delete(person)
+        try? context.save()
+        Haptic.warning.play()
+        dismiss()
     }
 
     private func save() {

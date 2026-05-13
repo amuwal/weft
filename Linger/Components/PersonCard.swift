@@ -36,7 +36,12 @@ struct PersonCard: View {
             RoundedRectangle(cornerRadius: Radius.cardLarge, style: .continuous)
                 .strokeBorder(borderColor, lineWidth: 0.5)
         )
-        .shadow(color: Color.ink.opacity(colorScheme == .dark ? 0.5 : 0.08), radius: 12, x: 0, y: 4)
+        .shadow(
+            color: Color.black.opacity(colorScheme == .dark ? 0.18 : 0.07),
+            radius: colorScheme == .dark ? 8 : 14,
+            x: 0,
+            y: colorScheme == .dark ? 2 : 6
+        )
     }
 
     private var nameColor: Color {
@@ -57,6 +62,8 @@ struct PersonCard: View {
 
     private var background: AnyShapeStyle {
         if isToday {
+            // The 'today' card keeps the warm cream gradient in both schemes so the highlight
+            // reads as a single brand state. Text colors flip via nameColor/reasonColor.
             AnyShapeStyle(
                 LinearGradient(
                     colors: [

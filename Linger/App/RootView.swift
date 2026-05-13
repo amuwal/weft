@@ -10,10 +10,13 @@ struct RootView: View {
     @State private var peoplePath: [Person] = []
     @State private var didAppear = false
 
+    @Environment(\.modelContext) private var context
+    @Query(sort: \Person.createdAt) private var people: [Person]
+
+    private static let freeLimit = 7
+
     private static var initialTab: AppTab {
-        let args = ProcessInfo.processInfo.arguments
-        if args.contains("--people") { return .people }
-        return .today
+        ProcessInfo.processInfo.arguments.contains("--people") ? .people : .today
     }
 
     private static func initialFlag(_ name: String) -> Bool {
@@ -26,15 +29,10 @@ struct RootView: View {
         return args[idx + 1]
     }
 
-    @Environment(\.modelContext) private var context
-    @Query(sort: \Person.createdAt) private var people: [Person]
-
-    private static let freeLimit = 7
-
     var body: some View {
         Group {
             if onboardingComplete {
-                mainTabs
+                mainShell
             } else {
                 OnboardingView()
                     .transition(.opacity.combined(with: .move(edge: .bottom)))
@@ -47,23 +45,19 @@ struct RootView: View {
         }
     }
 
-    private var mainTabs: some View {
-        TabView(selection: $tab) {
-            NavigationStack {
-                TodayView()
-                    .toolbar { settingsToolbar }
-            }
-            .tabItem { Label("Today", systemImage: "sun.horizon") }
-            .tag(AppTab.today)
+    private var mainShell: some View {
+        ZStack(alignment: .bottom) {
+            tabContent
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.bg.ignoresSafeArea())
 
-            NavigationStack(path: $peoplePath) {
-                PeopleListView()
-                    .toolbar { settingsToolbar }
-            }
-            .tabItem { Label("People", systemImage: "person.2") }
-            .tag(AppTab.people)
+            LingerTabBar(
+                selected: $tab,
+                onAdd: openAdd
+            )
+            .padding(.horizontal, Spacing.l)
+            .padding(.bottom, 12)
         }
-        .tint(.sage)
         .sheet(isPresented: $showAddSheet) {
             AddSheet(initial: tab == .people ? .person : .note)
                 .presentationDetents([.large])
@@ -82,13 +76,61 @@ struct RootView: View {
                 .presentationCornerRadius(28)
                 .presentationBackground(.regularMaterial)
         }
-        .overlay(alignment: .bottomTrailing) {
-            AddButton(action: openAdd)
-                .padding(.bottom, 96)
-                .padding(.trailing, Spacing.xl)
-        }
         .onOpenURL(perform: handleURL)
         .task { await pushInitialPersonIfRequested() }
+    }
+
+    @ViewBuilder
+    private var tabContent: some View {
+        switch tab {
+        case .today:
+            NavigationStack {
+                TodayView()
+                    .toolbar { titleToolbar(.today)
+                        settingsToolbar
+                    }
+            }
+            .transition(.opacity)
+        case .people:
+            NavigationStack(path: $peoplePath) {
+                PeopleListView()
+                    .toolbar { titleToolbar(.people)
+                        settingsToolbar
+                    }
+            }
+            .transition(.opacity)
+        }
+    }
+
+    @ToolbarContentBuilder
+    private func titleToolbar(_ tab: AppTab) -> some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Text(tab == .today ? "Linger" : "People")
+                .font(.system(size: 17, design: .serif).weight(.medium))
+                .foregroundStyle(Color.ink)
+        }
+    }
+
+    @ToolbarContentBuilder
+    private var settingsToolbar: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                Haptic.selection.play()
+                showSettings = true
+            } label: {
+                Image(systemName: "gearshape")
+                    .foregroundStyle(Color.muted)
+            }
+            .accessibilityLabel("Settings")
+        }
+    }
+
+    private func openAdd() {
+        if tab == .people, people.count >= Self.freeLimit {
+            showPaywall = true
+        } else {
+            showAddSheet = true
+        }
     }
 
     private func pushInitialPersonIfRequested() async {
@@ -112,27 +154,6 @@ struct RootView: View {
             tab = .people
             showAddSheet = true
         default: break
-        }
-    }
-
-    @ToolbarContentBuilder
-    private var settingsToolbar: some ToolbarContent {
-        ToolbarItem(placement: .topBarTrailing) {
-            Button {
-                showSettings = true
-                Haptic.selection.play()
-            } label: {
-                Image(systemName: "gearshape")
-                    .foregroundStyle(Color.muted)
-            }
-        }
-    }
-
-    private func openAdd() {
-        if tab == .people, people.count >= Self.freeLimit {
-            showPaywall = true
-        } else {
-            showAddSheet = true
         }
     }
 }

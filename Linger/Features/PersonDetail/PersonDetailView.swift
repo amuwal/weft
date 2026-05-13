@@ -48,7 +48,7 @@ struct PersonDetailView: View {
                 content
             }
             .padding(.horizontal, Spacing.xl)
-            .padding(.bottom, 140)
+            .padding(.bottom, 110)
         }
         .background(Color.bg)
         .navigationBarTitleDisplayMode(.inline)
@@ -78,7 +78,7 @@ struct PersonDetailView: View {
             }
             .buttonStyle(LingerSagePillButtonStyle())
             .padding(.horizontal, Spacing.xl)
-            .padding(.bottom, 32)
+            .padding(.bottom, 96)
         }
         .sheet(isPresented: $showingAddNote) {
             NavigationStack {

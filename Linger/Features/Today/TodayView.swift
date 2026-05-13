@@ -44,7 +44,7 @@ struct TodayView: View {
                 }
             }
             .padding(.horizontal, Spacing.xl)
-            .padding(.bottom, 140)
+            .padding(.bottom, 110)
         }
         .background(Color.bg)
         .navigationTitle("Linger")
