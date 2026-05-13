@@ -9,6 +9,43 @@ struct PeopleListView: View {
     @State private var rhythmTarget: Person?
 
     var body: some View {
+        Group {
+            if people.isEmpty {
+                emptyState
+            } else {
+                listView
+            }
+        }
+        .background(Color.bg)
+        .navigationTitle("People")
+        .navigationDestination(for: Person.self) { PersonDetailView(person: $0) }
+        .sheet(item: $rhythmTarget) { person in
+            NavigationStack { ChangeRhythmSheet(person: person) }
+                .presentationDetents([.medium])
+                .presentationCornerRadius(28)
+                .presentationBackground(.regularMaterial)
+        }
+    }
+
+    private var emptyState: some View {
+        VStack(spacing: Spacing.l) {
+            Spacer()
+            Text("Who matters to you?")
+                .font(.system(size: 30, design: .serif).weight(.medium).italic())
+                .foregroundStyle(Color.ink)
+                .multilineTextAlignment(.center)
+            Text("Linger is for the 5–25 humans you love most.")
+                .font(LingerFont.serifBody)
+                .foregroundStyle(Color.muted)
+                .multilineTextAlignment(.center)
+            Spacer()
+        }
+        .padding(Spacing.xl)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.bg)
+    }
+
+    private var listView: some View {
         List {
             ForEach(groupedKeys, id: \.self) { key in
                 Section(key.label) {
@@ -39,16 +76,6 @@ struct PeopleListView: View {
         .background(Color.bg)
         .scrollContentBackground(.hidden)
         .searchable(text: $searchText, prompt: "Search Sarah, conversations, threads…")
-        .navigationTitle("People")
-        .navigationDestination(for: Person.self) { PersonDetailView(person: $0) }
-        .sheet(item: $rhythmTarget) { person in
-            NavigationStack {
-                ChangeRhythmSheet(person: person)
-            }
-            .presentationDetents([.medium])
-            .presentationCornerRadius(28)
-            .presentationBackground(.regularMaterial)
-        }
     }
 
     @ViewBuilder
