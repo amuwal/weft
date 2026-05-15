@@ -107,3 +107,8 @@ spec/
 /screenshots-v0.1.png
 /screenshots-v0.2.png
 /screenshots-v0.3.png
+.vercel
+
+# Internal launch ops — local-only, never deploy
+marketing/LAUNCH-POSTS.md
+marketing/launch-day.html
