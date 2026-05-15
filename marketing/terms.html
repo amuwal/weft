@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Terms — Weft</title>
-  <meta name="description" content="Weft's terms of service, written in plain English. Short, fair, and free of dark patterns." />
+  <title data-i18n="pages.terms.title">Terms — Weft</title>
+  <meta name="description" content="Weft's terms of service, written in plain English." data-i18n-attr="content:pages.terms.description" />
   <meta name="theme-color" content="#F8F5EF" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#161410" media="(prefers-color-scheme: dark)" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,6 +12,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" />
   <link rel="stylesheet" href="css/site.css" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <script src="js/controls.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/site.js" defer></script>
 </head>
 <body>
 
@@ -29,10 +32,11 @@
       <span>Weft<span class="dot">.</span></span>
     </a>
     <nav class="nav-links">
-      <a href="index.html#feel">How it feels</a>
-      <a href="index.html#pricing">Pricing</a>
-      <a href="feedback.html">Feedback</a>
-      <a class="nav-cta" href="index.html#download">Get the app</a>
+      <a href="index.html#feel" data-i18n="nav.howItFeels">How it feels</a>
+      <a href="index.html#pricing" data-i18n="nav.pricing">Pricing</a>
+      <a href="feedback" data-i18n="nav.feedback">Feedback</a>
+      <span data-nav-controls></span>
+      <a class="nav-cta" href="index.html#download" data-i18n="nav.getApp">Get the app</a>
     </nav>
   </div>
 </header>
@@ -40,53 +44,53 @@
 <section class="doc">
   <div class="wrap">
     <div class="doc-head reveal-fade">
-      <span class="updated">Last updated · 15 May 2026</span>
-      <h1 style="margin-top: 14px;">Terms, <em>short and fair.</em></h1>
-      <p class="muted" style="max-width: 50ch; margin: 18px auto 0; font-size: 17px; line-height: 1.6;">
-        You bought an app from a small studio. Here's what that means.
+      <span class="updated" data-i18n="pages.terms.updated">Last updated · 15 May 2026</span>
+      <h1 style="margin-top: 14px;"><span data-i18n="pages.terms.h1Lead">Terms, </span><em data-i18n="pages.terms.h1Accent">short and fair.</em></h1>
+      <p class="muted" style="max-width: 50ch; margin: 18px auto 0; font-size: 17px; line-height: 1.6;" data-i18n="pages.terms.intro">
+        You bought an app from a small studio.
       </p>
     </div>
 
     <div class="doc-body">
       <div class="doc-callout">
-        <p><strong>One paragraph summary.</strong> Use Weft for its intended purpose — keeping personal notes about people in your life. Don't reverse-engineer, resell, or use it to harass anyone. Your subscription renews until you cancel. Refunds go through Apple. The app is provided as-is.</p>
+        <p data-i18n="pages.terms.summary" data-i18n-html><strong>One paragraph summary.</strong></p>
       </div>
 
-      <h2>The license</h2>
-      <p>When you install Weft, we grant you a personal, non-exclusive, non-transferable license to use the app on iOS devices you control, for as long as the App Store agreement remains in force. You don't own the software; you have permission to use it.</p>
+      <h2 data-i18n="pages.terms.sec.license.h">The license</h2>
+      <p data-i18n="pages.terms.sec.license.p">When you install Weft, we grant you a personal license.</p>
 
-      <h2>What you agree not to do</h2>
+      <h2 data-i18n="pages.terms.sec.agreeNot.h">What you agree not to do</h2>
       <ul>
-        <li>Don't redistribute, sublicense, or resell the app.</li>
-        <li>Don't reverse-engineer, decompile, or extract source code (except where Apple's standard developer terms or local law explicitly allow).</li>
-        <li>Don't use Weft to store information about people in a way that's illegal where you live — stalking, harassment, doxxing. Weft is a memory tool, not a surveillance tool.</li>
-        <li>Don't try to break the paywall. If you find a bug, we'd rather you <a href="feedback.html">tell us</a> and we'll buy you a coffee.</li>
+        <li data-i18n="pages.terms.sec.agreeNot.items.0">Don't redistribute or resell.</li>
+        <li data-i18n="pages.terms.sec.agreeNot.items.1">Don't reverse-engineer.</li>
+        <li data-i18n="pages.terms.sec.agreeNot.items.2">Don't use Weft for stalking, harassment, or doxxing.</li>
+        <li data-i18n="pages.terms.sec.agreeNot.items.3" data-i18n-html>Don't try to break the paywall.</li>
       </ul>
 
-      <h2>Subscriptions</h2>
-      <p><strong>Pricing.</strong> Free tier is free forever. Premium is $3.99/month or $24.99/year. The yearly plan includes a 7-day free trial; the monthly plan does not.</p>
-      <p><strong>Renewal.</strong> Subscriptions auto-renew through your Apple ID until you cancel. Apple takes payment 24 hours before the period ends. You can cancel anytime in iOS Settings → your name → Subscriptions, and the cancellation takes effect at the end of the current period.</p>
-      <p><strong>Refunds.</strong> Refunds are handled by Apple under their <a href="https://support.apple.com/en-us/HT204084" target="_blank" rel="noopener">refund policy</a>. We can't issue them directly. If you feel you've been treated unfairly by an automatic charge, write to us — we'll help you file the Apple refund request.</p>
-      <p><strong>Price changes.</strong> If we ever raise the price, your existing subscription stays at its current price until you cancel. New subscribers pay the new price. Apple notifies you of any change before charging.</p>
+      <h2 data-i18n="pages.terms.sec.subscriptions.h">Subscriptions</h2>
+      <p data-i18n="pages.terms.sec.subscriptions.pricing" data-i18n-html><strong>Pricing.</strong></p>
+      <p data-i18n="pages.terms.sec.subscriptions.renewal" data-i18n-html><strong>Renewal.</strong></p>
+      <p data-i18n="pages.terms.sec.subscriptions.refunds" data-i18n-html><strong>Refunds.</strong></p>
+      <p data-i18n="pages.terms.sec.subscriptions.priceChanges" data-i18n-html><strong>Price changes.</strong></p>
 
-      <h2>Your data</h2>
-      <p>You own everything you write into Weft. The notes, names, threads, and photos are yours. We don't claim a license to your content — see the <a href="privacy.html">Privacy</a> page for the full picture.</p>
-      <p>You can export everything to PDF or Markdown with one tap and delete the app without warning. We won't email you to come back.</p>
+      <h2 data-i18n="pages.terms.sec.data.h">Your data</h2>
+      <p data-i18n="pages.terms.sec.data.p1" data-i18n-html>You own everything you write into Weft.</p>
+      <p data-i18n="pages.terms.sec.data.p2">You can export everything to PDF or Markdown.</p>
 
-      <h2>The app, as-is</h2>
-      <p>We work hard to make Weft reliable, but software has bugs and devices have rough days. Weft is provided "as is" without warranty. To the extent allowed by law, we're not liable for damages caused by using or being unable to use the app. If something serious goes wrong, please <a href="feedback.html">tell us</a> — we'll do what's right by you.</p>
+      <h2 data-i18n="pages.terms.sec.asIs.h">The app, as-is</h2>
+      <p data-i18n="pages.terms.sec.asIs.p" data-i18n-html>Weft is provided "as is" without warranty.</p>
 
-      <h2>Apple's standard EULA</h2>
-      <p>Apple requires app makers to either provide their own EULA or rely on Apple's <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">standard licensed-application agreement</a>. Where these terms are silent or contradictory, Apple's standard EULA fills the gap.</p>
+      <h2 data-i18n="pages.terms.sec.appleEula.h">Apple's standard EULA</h2>
+      <p data-i18n="pages.terms.sec.appleEula.p" data-i18n-html>Apple requires app makers to provide their own EULA or rely on Apple's standard EULA.</p>
 
-      <h2>Changes</h2>
-      <p>If we change these terms, we'll update the date above. Material changes (anything that affects your rights) will be flagged in the app's release notes. Continued use after a change means you accept the new terms.</p>
+      <h2 data-i18n="pages.terms.sec.changes.h">Changes</h2>
+      <p data-i18n="pages.terms.sec.changes.p">If we change these terms, we'll update the date above.</p>
 
-      <h2>Governing law</h2>
-      <p>These terms are governed by the laws of Japan, where the studio is based. If you're a consumer somewhere else, mandatory consumer-protection laws in your country still apply to you.</p>
+      <h2 data-i18n="pages.terms.sec.law.h">Governing law</h2>
+      <p data-i18n="pages.terms.sec.law.p">These terms are governed by the laws of Japan.</p>
 
-      <h2>Contact</h2>
-      <p>Questions, complaints, or legal notices: <a href="mailto:hello@getweft.xyz">hello@getweft.xyz</a>. Replies usually within a day or two.</p>
+      <h2 data-i18n="pages.terms.sec.contact.h">Contact</h2>
+      <p data-i18n="pages.terms.sec.contact.p" data-i18n-html>Questions, complaints, or legal notices: <a href="mailto:hello@getweft.xyz">hello@getweft.xyz</a>.</p>
     </div>
   </div>
 </section>
@@ -106,39 +110,37 @@
           </span>
           <span>Weft<span class="dot">.</span></span>
         </a>
-        <p>A quiet place for the people who matter. Made with care for iOS 26.</p>
+        <p data-i18n="footer.tagline">A quiet place for the people who matter.</p>
       </div>
       <div class="foot-col">
-        <h5>App</h5>
+        <h5 data-i18n="footer.headings.app">App</h5>
         <ul>
-          <li><a href="index.html#feel">How it feels</a></li>
-          <li><a href="index.html#pricing">Pricing</a></li>
-          <li><a href="index.html#faq">FAQ</a></li>
+          <li><a href="index.html#feel" data-i18n="footer.links.howItFeels">How it feels</a></li>
+          <li><a href="index.html#pricing" data-i18n="footer.links.pricing">Pricing</a></li>
+          <li><a href="index.html#faq" data-i18n="footer.links.faq">FAQ</a></li>
         </ul>
       </div>
       <div class="foot-col">
-        <h5>Help</h5>
+        <h5 data-i18n="footer.headings.help">Help</h5>
         <ul>
-          <li><a href="feedback.html">Send feedback</a></li>
-          <li><a href="feature-requests.html">Request a feature</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="feedback" data-i18n="footer.links.feedback">Send feedback</a></li>
+          <li><a href="feature-requests" data-i18n="footer.links.featureRequests">Request a feature</a></li>
+          <li><a href="about" data-i18n="footer.links.about">About</a></li>
         </ul>
       </div>
       <div class="foot-col">
-        <h5>Small print</h5>
+        <h5 data-i18n="footer.headings.smallPrint">Small print</h5>
         <ul>
-          <li><a href="privacy.html">Privacy</a></li>
-          <li><a href="terms.html">Terms</a></li>
+          <li><a href="privacy" data-i18n="footer.links.privacy">Privacy</a></li>
+          <li><a href="terms" data-i18n="footer.links.terms">Terms</a></li>
         </ul>
       </div>
     </div>
     <div class="foot-bot">
       <span>© <span data-year>2026</span> Weft. All rights reserved.</span>
-      <span>Designed and built in Tokyo.</span>
+      <span data-i18n="footer.madeIn">Designed and built in Tokyo.</span>
     </div>
   </div>
 </footer>
-
-<script src="js/site.js"></script>
 </body>
 </html>

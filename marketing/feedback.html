@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Send feedback — Weft</title>
-  <meta name="description" content="A real person — the developer — reads every email. Tell us what's working, what's not, or what you'd like to see." />
+  <title data-i18n="pages.feedback.title">Send feedback — Weft</title>
+  <meta name="description" content="A real person reads every email." data-i18n-attr="content:pages.feedback.description" />
   <meta name="theme-color" content="#F8F5EF" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#161410" media="(prefers-color-scheme: dark)" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,6 +12,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" />
   <link rel="stylesheet" href="css/site.css" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <script src="js/controls.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/site.js" defer></script>
 </head>
 <body>
 
@@ -29,10 +32,11 @@
       <span>Weft<span class="dot">.</span></span>
     </a>
     <nav class="nav-links">
-      <a href="index.html#feel">How it feels</a>
-      <a href="index.html#pricing">Pricing</a>
-      <a href="feature-requests.html">Requests</a>
-      <a class="nav-cta" href="index.html#download">Get the app</a>
+      <a href="index.html#feel" data-i18n="nav.howItFeels">How it feels</a>
+      <a href="index.html#pricing" data-i18n="nav.pricing">Pricing</a>
+      <a href="feature-requests" data-i18n="nav.requests">Requests</a>
+      <span data-nav-controls></span>
+      <a class="nav-cta" href="index.html#download" data-i18n="nav.getApp">Get the app</a>
     </nav>
   </div>
 </header>
@@ -40,10 +44,9 @@
 <section class="doc">
   <div class="wrap">
     <div class="doc-head reveal-fade">
-      <span class="updated">We read every message</span>
-      <h1 style="margin-top: 14px;">Say <em>hello.</em></h1>
-      <p class="muted" style="max-width: 50ch; margin: 18px auto 0; font-size: 17px; line-height: 1.6;">
-        Something's off? Something's lovely? Something you wish Weft did, or never did?
+      <span class="updated" data-i18n="pages.feedback.updated">We read every message</span>
+      <h1 style="margin-top: 14px;"><span data-i18n="pages.feedback.h1Lead">Say </span><em data-i18n="pages.feedback.h1Accent">hello.</em></h1>
+      <p class="muted" style="max-width: 50ch; margin: 18px auto 0; font-size: 17px; line-height: 1.6;" data-i18n="pages.feedback.intro">
         Pick a thread and write — a real human reads every line.
       </p>
     </div>
@@ -51,57 +54,58 @@
     <div class="form-wrap reveal-fade">
       <form data-w3form action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="df9d67e4-b214-416b-894d-f09168e171a5" />
-        <input type="hidden" name="subject" value="Weft — feedback" />
-        <input type="hidden" name="from_name" value="Weft feedback form" />
+        <input type="hidden" name="subject" value="Weft — feedback" data-i18n-value="pages.feedback.form.subjectValue" />
+        <input type="hidden" name="from_name" value="Weft feedback form" data-i18n-value="pages.feedback.form.fromName" />
         <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
 
         <div class="form-row">
-          <label>What's this about?</label>
+          <label data-i18n="pages.feedback.form.topicLabel">What's this about?</label>
           <div class="form-pillrow">
             <input type="radio" id="t-bug" name="topic" value="bug" />
-            <label for="t-bug">Something's broken</label>
+            <label for="t-bug" data-i18n="pages.feedback.form.topicBug">Something's broken</label>
 
             <input type="radio" id="t-love" name="topic" value="love" checked />
-            <label for="t-love">Something I love</label>
+            <label for="t-love" data-i18n="pages.feedback.form.topicLove">Something I love</label>
 
             <input type="radio" id="t-q" name="topic" value="question" />
-            <label for="t-q">A question</label>
+            <label for="t-q" data-i18n="pages.feedback.form.topicQuestion">A question</label>
 
             <input type="radio" id="t-other" name="topic" value="other" />
-            <label for="t-other">Something else</label>
+            <label for="t-other" data-i18n="pages.feedback.form.topicOther">Something else</label>
           </div>
         </div>
 
         <div class="form-row">
-          <label for="email">Your email</label>
-          <input type="email" id="email" name="email" placeholder="so we can write back" autocomplete="email" required />
-          <span class="hint">We won't add you to a list. There is no list.</span>
+          <label for="email" data-i18n="pages.feedback.form.emailLabel">Your email</label>
+          <input type="email" id="email" name="email" placeholder="so we can write back" autocomplete="email" required data-i18n-attr="placeholder:pages.feedback.form.emailPlaceholder" />
+          <span class="hint" data-i18n="pages.feedback.form.emailHint">We won't add you to a list. There is no list.</span>
         </div>
 
         <div class="form-row">
-          <label for="msg">Your note</label>
-          <textarea id="msg" name="msg" placeholder="Write whatever you'd say if we were having coffee." required></textarea>
+          <label for="msg" data-i18n="pages.feedback.form.messageLabel">Your note</label>
+          <textarea id="msg" name="msg" placeholder="Write whatever you'd say if we were having coffee." required data-i18n-attr="placeholder:pages.feedback.form.messagePlaceholder"></textarea>
         </div>
 
-        <button type="submit" class="form-submit">Send it</button>
+        <button type="submit" class="form-submit"
+          data-i18n="pages.feedback.form.submit"
+          data-i18n-attr="data-w3-label-sending:pages.feedback.form.submitSending, data-w3-label-sent:pages.feedback.form.submitSent, data-w3-label-failed:pages.feedback.form.submitFailed">Send it</button>
 
-        <p class="form-note">
+        <p class="form-note" data-i18n="pages.feedback.form.footer" data-i18n-html>
           Or email <a href="mailto:hello@getweft.xyz" style="color: var(--sage); border-bottom: 1px solid var(--sage-soft);">hello@getweft.xyz</a> directly.
-          Replies usually within a day or two — sometimes faster.
         </p>
       </form>
     </div>
 
     <div class="doc-body" style="margin-top: 64px;">
-      <h2 style="text-align:center; margin-bottom: 24px;">Before you write</h2>
-      <p class="muted" style="text-align: center; max-width: 56ch; margin: 0 auto;">A short list of things people ask. If your question's here, you might not need to wait for a reply.</p>
+      <h2 style="text-align:center; margin-bottom: 24px;" data-i18n="pages.feedback.before.h">Before you write</h2>
+      <p class="muted" style="text-align: center; max-width: 56ch; margin: 0 auto;" data-i18n="pages.feedback.before.intro">A short list of things people ask.</p>
 
       <div class="doc-callout" style="margin-top: 32px;">
-        <p><strong>Can I get a refund?</strong> Apple handles subscription refunds. Tap your name in iOS Settings → Subscriptions → Weft → Cancel, then request a refund through <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener">reportaproblem.apple.com</a>. If Apple says no and you feel it's unfair, write to us and we'll back you up.</p>
+        <p data-i18n="pages.feedback.before.refund" data-i18n-html><strong>Can I get a refund?</strong></p>
       </div>
 
       <div class="doc-callout" style="background: var(--warm-wash); border-left-color: var(--warm);">
-        <p style="color: var(--ink);"><strong>Lost your notes?</strong> If you had iCloud sync enabled, sign in with the same Apple ID on a fresh install and the data will sync back. If you turned sync off and deleted the app, the local data is gone — and we genuinely cannot recover it. We never had it.</p>
+        <p style="color: var(--ink);" data-i18n="pages.feedback.before.lost" data-i18n-html><strong>Lost your notes?</strong></p>
       </div>
     </div>
   </div>
@@ -122,39 +126,37 @@
           </span>
           <span>Weft<span class="dot">.</span></span>
         </a>
-        <p>A quiet place for the people who matter. Made with care for iOS 26.</p>
+        <p data-i18n="footer.tagline">A quiet place for the people who matter.</p>
       </div>
       <div class="foot-col">
-        <h5>App</h5>
+        <h5 data-i18n="footer.headings.app">App</h5>
         <ul>
-          <li><a href="index.html#feel">How it feels</a></li>
-          <li><a href="index.html#pricing">Pricing</a></li>
-          <li><a href="index.html#faq">FAQ</a></li>
+          <li><a href="index.html#feel" data-i18n="footer.links.howItFeels">How it feels</a></li>
+          <li><a href="index.html#pricing" data-i18n="footer.links.pricing">Pricing</a></li>
+          <li><a href="index.html#faq" data-i18n="footer.links.faq">FAQ</a></li>
         </ul>
       </div>
       <div class="foot-col">
-        <h5>Help</h5>
+        <h5 data-i18n="footer.headings.help">Help</h5>
         <ul>
-          <li><a href="feedback.html">Send feedback</a></li>
-          <li><a href="feature-requests.html">Request a feature</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="feedback" data-i18n="footer.links.feedback">Send feedback</a></li>
+          <li><a href="feature-requests" data-i18n="footer.links.featureRequests">Request a feature</a></li>
+          <li><a href="about" data-i18n="footer.links.about">About</a></li>
         </ul>
       </div>
       <div class="foot-col">
-        <h5>Small print</h5>
+        <h5 data-i18n="footer.headings.smallPrint">Small print</h5>
         <ul>
-          <li><a href="privacy.html">Privacy</a></li>
-          <li><a href="terms.html">Terms</a></li>
+          <li><a href="privacy" data-i18n="footer.links.privacy">Privacy</a></li>
+          <li><a href="terms" data-i18n="footer.links.terms">Terms</a></li>
         </ul>
       </div>
     </div>
     <div class="foot-bot">
       <span>© <span data-year>2026</span> Weft. All rights reserved.</span>
-      <span>Designed and built in Tokyo.</span>
+      <span data-i18n="footer.madeIn">Designed and built in Tokyo.</span>
     </div>
   </div>
 </footer>
-
-<script src="js/site.js"></script>
 </body>
 </html>

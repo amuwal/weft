@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Privacy — Weft</title>
-  <meta name="description" content="Weft's privacy policy, written in plain English. Your notes never leave your phone unless you turn on iCloud sync — and even then, nobody but you can read them." />
+  <title data-i18n="pages.privacy.title">Privacy — Weft</title>
+  <meta name="description" content="Weft's privacy policy, written in plain English." data-i18n-attr="content:pages.privacy.description" />
   <meta name="theme-color" content="#F8F5EF" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#161410" media="(prefers-color-scheme: dark)" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,6 +12,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" />
   <link rel="stylesheet" href="css/site.css" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <script src="js/controls.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/site.js" defer></script>
 </head>
 <body>
 
@@ -29,10 +32,11 @@
       <span>Weft<span class="dot">.</span></span>
     </a>
     <nav class="nav-links">
-      <a href="index.html#feel">How it feels</a>
-      <a href="index.html#pricing">Pricing</a>
-      <a href="feedback.html">Feedback</a>
-      <a class="nav-cta" href="index.html#download">Get the app</a>
+      <a href="index.html#feel" data-i18n="nav.howItFeels">How it feels</a>
+      <a href="index.html#pricing" data-i18n="nav.pricing">Pricing</a>
+      <a href="feedback" data-i18n="nav.feedback">Feedback</a>
+      <span data-nav-controls></span>
+      <a class="nav-cta" href="index.html#download" data-i18n="nav.getApp">Get the app</a>
     </nav>
   </div>
 </header>
@@ -40,51 +44,51 @@
 <section class="doc">
   <div class="wrap">
     <div class="doc-head reveal-fade">
-      <span class="updated">Last updated · 15 May 2026</span>
-      <h1 style="margin-top: 14px;">Privacy, <em>in plain English.</em></h1>
-      <p class="muted" style="max-width: 50ch; margin: 18px auto 0; font-size: 17px; line-height: 1.6;">
-        The short version: Weft writes to your phone. It doesn't write to us. If you turn on iCloud, your notes go to Apple — and even Apple can't read them.
+      <span class="updated" data-i18n="pages.privacy.updated">Last updated · 15 May 2026</span>
+      <h1 style="margin-top: 14px;"><span data-i18n="pages.privacy.h1Lead">Privacy, </span><em data-i18n="pages.privacy.h1Accent">in plain English.</em></h1>
+      <p class="muted" style="max-width: 50ch; margin: 18px auto 0; font-size: 17px; line-height: 1.6;" data-i18n="pages.privacy.intro">
+        The short version: Weft writes to your phone. It doesn't write to us.
       </p>
     </div>
 
     <div class="doc-body">
       <div class="doc-callout">
-        <p><strong>One paragraph summary.</strong> Weft has no servers. We do not collect, store, or transmit any data about you or the people in your notes. The app runs entirely on your device. iCloud sync, if you enable it, uses Apple's end-to-end encrypted private database — Weft never sees the contents.</p>
+        <p data-i18n="pages.privacy.summary" data-i18n-html><strong>One paragraph summary.</strong></p>
       </div>
 
-      <h2>What we collect</h2>
-      <p>Nothing on our side. Weft has no analytics SDK, no crash-reporting service, no advertising identifiers, and no third-party telemetry of any kind.</p>
-      <p>The data you create — names, notes, threads, photos you attach, rhythm settings — lives in a SwiftData store on your device's local file system. Standard iOS sandboxing applies: no other app can read it.</p>
+      <h2 data-i18n="pages.privacy.sec.collect.h">What we collect</h2>
+      <p data-i18n="pages.privacy.sec.collect.p1">Nothing on our side.</p>
+      <p data-i18n="pages.privacy.sec.collect.p2">The data you create lives in a SwiftData store.</p>
 
-      <h2>iCloud sync (optional)</h2>
-      <p>If you toggle iCloud sync on, Weft writes to your iCloud <em>private</em> database. Apple encrypts this with your iCloud key. Apple does not read it; neither do we. We have no way to access it because we have no servers in the loop.</p>
-      <p>If you sign out of iCloud, Apple removes the local copy of synced data and our app falls back to its local SwiftData store on that device.</p>
+      <h2 data-i18n="pages.privacy.sec.icloud.h">iCloud sync (optional)</h2>
+      <p data-i18n="pages.privacy.sec.icloud.p1" data-i18n-html>If you toggle iCloud sync on, Weft writes to your iCloud <em>private</em> database.</p>
+      <p data-i18n="pages.privacy.sec.icloud.p2">If you sign out of iCloud, Apple removes the local copy.</p>
 
-      <h2>Apple's role</h2>
-      <p>If you bought a subscription, Apple processes the payment under their <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">privacy policy</a>. We see a tokenized identifier saying "this device has an active Premium subscription." We do not see your name, email, billing address, or card number.</p>
-      <p>The App Store also publishes aggregate, anonymized download counts on our App Store Connect dashboard. We can see "X people in Japan installed Weft this week" — never who, never which devices.</p>
+      <h2 data-i18n="pages.privacy.sec.apple.h">Apple's role</h2>
+      <p data-i18n="pages.privacy.sec.apple.p1" data-i18n-html>If you bought a subscription, Apple processes the payment.</p>
+      <p data-i18n="pages.privacy.sec.apple.p2">The App Store also publishes aggregate, anonymized download counts.</p>
 
-      <h2>What we don't do</h2>
+      <h2 data-i18n="pages.privacy.sec.dont.h">What we don't do</h2>
       <ul>
-        <li>No advertising — anywhere, ever. Weft does not sell ads or share data with ad networks.</li>
-        <li>No selling, renting, or licensing data — to anyone, for any purpose.</li>
-        <li>No "anonymized analytics" sent to a third-party service.</li>
-        <li>No AI model is trained on your notes. Weft v1 has no AI, and v2 will only use on-device Apple Intelligence — which stays on your phone.</li>
-        <li>No public profile, no social graph, no leaderboard.</li>
+        <li data-i18n="pages.privacy.sec.dont.items.0">No advertising — anywhere, ever.</li>
+        <li data-i18n="pages.privacy.sec.dont.items.1">No selling, renting, or licensing data.</li>
+        <li data-i18n="pages.privacy.sec.dont.items.2">No "anonymized analytics" sent to a third-party service.</li>
+        <li data-i18n="pages.privacy.sec.dont.items.3">No AI model is trained on your notes.</li>
+        <li data-i18n="pages.privacy.sec.dont.items.4">No public profile, no social graph, no leaderboard.</li>
       </ul>
 
-      <h2>Your control</h2>
-      <p>You can export every note to PDF or Markdown with one tap from Settings → Data. Leaving Weft should never be sticky.</p>
-      <p>You can also tap "Delete all data" in Settings to wipe the local store and disable sync. This is irreversible and we can't help you recover anything — because we never had it.</p>
+      <h2 data-i18n="pages.privacy.sec.control.h">Your control</h2>
+      <p data-i18n="pages.privacy.sec.control.p1">You can export every note to PDF or Markdown.</p>
+      <p data-i18n="pages.privacy.sec.control.p2">You can also tap "Delete all data" in Settings.</p>
 
-      <h2>Children's privacy</h2>
-      <p>Weft is rated 4+ in the App Store, but the app's purpose — keeping notes about people in your life — is intended for users 13 years and older. We don't knowingly collect data from anyone, so there's nothing to delete if a younger user installs the app.</p>
+      <h2 data-i18n="pages.privacy.sec.children.h">Children's privacy</h2>
+      <p data-i18n="pages.privacy.sec.children.p">Weft is rated 4+ in the App Store.</p>
 
-      <h2>Changes to this policy</h2>
-      <p>If we change anything, we'll update the date at the top and note what changed in the app's release notes. We won't expand data collection without a clear, opt-in change you can refuse.</p>
+      <h2 data-i18n="pages.privacy.sec.changes.h">Changes to this policy</h2>
+      <p data-i18n="pages.privacy.sec.changes.p">If we change anything, we'll update the date at the top.</p>
 
-      <h2>Contact</h2>
-      <p>Questions or worries? Write to <a href="mailto:hello@getweft.xyz">hello@getweft.xyz</a>. A real person — the developer — reads every email.</p>
+      <h2 data-i18n="pages.privacy.sec.contact.h">Contact</h2>
+      <p data-i18n="pages.privacy.sec.contact.p" data-i18n-html>Questions or worries? Write to <a href="mailto:hello@getweft.xyz">hello@getweft.xyz</a>.</p>
     </div>
   </div>
 </section>
@@ -104,39 +108,37 @@
           </span>
           <span>Weft<span class="dot">.</span></span>
         </a>
-        <p>A quiet place for the people who matter. Made with care for iOS 26.</p>
+        <p data-i18n="footer.tagline">A quiet place for the people who matter.</p>
       </div>
       <div class="foot-col">
-        <h5>App</h5>
+        <h5 data-i18n="footer.headings.app">App</h5>
         <ul>
-          <li><a href="index.html#feel">How it feels</a></li>
-          <li><a href="index.html#pricing">Pricing</a></li>
-          <li><a href="index.html#faq">FAQ</a></li>
+          <li><a href="index.html#feel" data-i18n="footer.links.howItFeels">How it feels</a></li>
+          <li><a href="index.html#pricing" data-i18n="footer.links.pricing">Pricing</a></li>
+          <li><a href="index.html#faq" data-i18n="footer.links.faq">FAQ</a></li>
         </ul>
       </div>
       <div class="foot-col">
-        <h5>Help</h5>
+        <h5 data-i18n="footer.headings.help">Help</h5>
         <ul>
-          <li><a href="feedback.html">Send feedback</a></li>
-          <li><a href="feature-requests.html">Request a feature</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="feedback" data-i18n="footer.links.feedback">Send feedback</a></li>
+          <li><a href="feature-requests" data-i18n="footer.links.featureRequests">Request a feature</a></li>
+          <li><a href="about" data-i18n="footer.links.about">About</a></li>
         </ul>
       </div>
       <div class="foot-col">
-        <h5>Small print</h5>
+        <h5 data-i18n="footer.headings.smallPrint">Small print</h5>
         <ul>
-          <li><a href="privacy.html">Privacy</a></li>
-          <li><a href="terms.html">Terms</a></li>
+          <li><a href="privacy" data-i18n="footer.links.privacy">Privacy</a></li>
+          <li><a href="terms" data-i18n="footer.links.terms">Terms</a></li>
         </ul>
       </div>
     </div>
     <div class="foot-bot">
       <span>© <span data-year>2026</span> Weft. All rights reserved.</span>
-      <span>Designed and built in Tokyo.</span>
+      <span data-i18n="footer.madeIn">Designed and built in Tokyo.</span>
     </div>
   </div>
 </footer>
-
-<script src="js/site.js"></script>
 </body>
 </html>

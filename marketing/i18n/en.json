@@ -1,0 +1,533 @@
+{
+  "lang": {
+    "en": "EN",
+    "ja": "日本語",
+    "switchTo": "Switch to English"
+  },
+
+  "nav": {
+    "howItFeels": "How it feels",
+    "whatItIsnt": "What it isn't",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "requests": "Requests",
+    "feedback": "Feedback",
+    "getApp": "Get the app"
+  },
+
+  "footer": {
+    "tagline": "A quiet place for the people who matter. Made with care for iOS 26.",
+    "headings": {
+      "app": "App",
+      "help": "Help",
+      "smallPrint": "Small print"
+    },
+    "links": {
+      "howItFeels": "How it feels",
+      "pricing": "Pricing",
+      "faq": "FAQ",
+      "download": "Download",
+      "feedback": "Send feedback",
+      "featureRequests": "Request a feature",
+      "about": "About",
+      "privacy": "Privacy",
+      "terms": "Terms"
+    },
+    "copyright": "© {year} Weft. All rights reserved.",
+    "madeIn": "Designed and built in Tokyo."
+  },
+
+  "common": {
+    "downloadApp": "Download on App Store",
+    "seeHowItFeels": "See how it feels →",
+    "startFree": "Start free",
+    "startTrial": "Start the trial",
+    "tellUsWhatsMissing": "Tell us what's missing →"
+  },
+
+  "pages": {
+    "index": {
+      "title": "Weft — A quiet place for the people who matter",
+      "description": "Weft is a private, on-device journal for the five to twenty-five people you actually care about. Not a CRM. A small calm app that remembers what you can't.",
+
+      "hero": {
+        "eyebrow": "On-device · iOS 26 · no account needed",
+        "titleLead": "A quiet place for the people",
+        "titleAccent": " who matter.",
+        "sub": "Weft is a small, private notebook for the <em>five to twenty-five people</em> you actually care about. Open it, see who's on your mind, write a sentence about your last conversation, close. Two seconds. The app remembers what you can't.",
+        "meta1": "No cloud by default",
+        "meta2": "No analytics, no ads, ever",
+        "meta3": "7-day free trial · $24.99/yr",
+        "phone": {
+          "date": "Wednesday · May 15",
+          "title": "Who's on your<br/>mind today?",
+          "sarah": "Sarah",
+          "sarahReason": "It's been three weeks. Her mom's surgery was on the 14th — worth asking how it went.",
+          "sarahTags": "inner circle",
+          "sarahCadence": "weekly",
+          "david": "David",
+          "davidReason": "He starts the new job Monday. You meant to wish him luck.",
+          "davidTags": "close friend",
+          "davidCadence": "biweekly",
+          "mom": "Mom",
+          "momReason": "A short call would be nice. Last note: she picked up watercolor again.",
+          "momTags": "family",
+          "momCadence": "weekly",
+          "tabToday": "Today",
+          "tabPeople": "People",
+          "tabSearch": "Search"
+        }
+      },
+
+      "manifesto": {
+        "h2Line1": "Most apps want your attention.",
+        "h2Line2": "Weft asks for ",
+        "h2Accent": "a moment.",
+        "p1": "The people in your life — the five, ten, twenty who actually matter — deserve more than a follow-up reminder. They deserve to be remembered with care: the small things you noticed, the worries they shared, the surgery on the 14th, the new job on Monday, the book they couldn't put down.",
+        "p2": "Weft holds those notes for you. Quietly. On your phone. Without ads, without leaderboards, without asking you to invite three friends.",
+        "sig": "— a small studio of one"
+      },
+
+      "glance1": {
+        "eyebrow": "A daily moment",
+        "h3Lead": "Open. ",
+        "h3Accent": "See two people.",
+        "h3Trail": "Close.",
+        "p": "Today surfaces no more than three names — the people whose rhythm has lapsed. Each card carries the reason: an open thread you left, a date you wanted to remember, a follow-up you said yes to.",
+        "pull": "\"If everyone's been seen recently, Weft says <em>nothing pressing</em>. Enjoy your day.\"",
+        "phone": {
+          "date": "Sunday · May 18",
+          "title": "Nothing pressing.",
+          "titleAccent": "Enjoy your day.",
+          "tabToday": "Today",
+          "tabPeople": "People",
+          "tabSearch": "Search"
+        }
+      },
+
+      "glance2": {
+        "eyebrow": "Quick capture",
+        "h3Lead": "Write ",
+        "h3Accent": "a sentence.",
+        "h3Trail": "That's enough.",
+        "p1": "The note sheet takes one breath to open and one to close. Type the thing you'll wish you remembered next month. Toggle <em>Follow up</em> if it should come back as a thread.",
+        "p2": "Markdown works invisibly. Photos attach with one tap. No prompts, no fields, no required tags.",
+        "phone": {
+          "date": "Wednesday · May 15",
+          "title": "Who's on your<br/>mind today?",
+          "chipName": "Sarah",
+          "justNow": "just now",
+          "noteBody": "Coffee at Verve. She's been worried about her mom's surgery on the 14th. Started a new book on grief.",
+          "followUp": "Follow up",
+          "save": "Save"
+        }
+      },
+
+      "glance3": {
+        "eyebrow": "Open threads",
+        "h3Lead": "Tomorrow,",
+        "h3Trail": "the app ",
+        "h3Accent": "remembers.",
+        "p1": "Anything you marked <em>Follow up</em> re-surfaces on its date. Coffee plans, a book recommendation, a job interview you should ask about — held quietly until it's time, then folded into Today as a soft reason.",
+        "p2": "Resolve a thread by writing the next note. The chain closes itself.",
+        "phone": {
+          "header": "Sarah · inner circle · weekly",
+          "title": "Threads",
+          "due1": "Today",
+          "body1": "Ask how her mom's surgery went.",
+          "from1": "From the note on Apr 22",
+          "due2": "In 4 days",
+          "body2": "Send her the grief book title — Joan Didion.",
+          "from2": "From the note on Apr 22",
+          "due3": "Resolved",
+          "body3": "Coffee plan for the 14th.",
+          "from3": "Closed Apr 22",
+          "tabNotes": "Notes",
+          "tabThreads": "Threads",
+          "tabLog": "Log"
+        }
+      },
+
+      "negation": {
+        "h2Line1": "Weft is one small thing,",
+        "h2Line2": "so it can be a ",
+        "h2Accent": "good",
+        "h2Trail": " one.",
+        "intro": "It's easier to keep an app calm by being honest about everything it chose not to be. A short list of nos, so you know what you're holding.",
+        "items": {
+          "crm": {
+            "h": "Not a CRM",
+            "p": "No pipelines, no stages, no lead status. The market already has fifty of those — and they all feel like work."
+          },
+          "contact": {
+            "h": "Not a contact app",
+            "p": "Apple Contacts already holds phone numbers and addresses. Weft holds <em>memory</em> — the things you'd otherwise forget."
+          },
+          "checklist": {
+            "h": "Not a checklist",
+            "p": "No little flame icons, no chains to keep alive, no guilt when you skip a week. Friendship isn't a workout plan."
+          },
+          "journalOfYou": {
+            "h": "Not a journal of you",
+            "p": "Day One already exists for that, and it's wonderful. Weft is a journal <em>about other people</em>, written from your side."
+          },
+          "ai": {
+            "h": "Not AI-powered",
+            "p": "No cloud LLM ever sees your notes. No auto-generated reminders. The whole point is that <em>you</em> wrote it."
+          },
+          "web": {
+            "h": "Not on the web",
+            "p": "iOS only, with a small Watch app, a widget, and an iPad layout. We chose depth over reach — Android can wait."
+          }
+        }
+      },
+
+      "features": {
+        "eyebrow": "Calm by design",
+        "h2": "Small things, done with care.",
+        "intro": "Everything Weft ships is here because it earned its place. Nothing else.",
+        "items": {
+          "rhythm": {
+            "h": "Gentle rhythm",
+            "p": "Pick weekly, biweekly, monthly, or quarterly for each person. The pace bends to the relationship — not the other way around."
+          },
+          "threads": {
+            "h": "Threads, not tasks",
+            "p": "Mark a thought as \"follow up\" and it comes back on its date, folded softly into Today. No checkbox guilt."
+          },
+          "icloud": {
+            "h": "iCloud, your way",
+            "p": "Off by default. Switch it on for end-to-end-encrypted sync across iPhone, iPad, and Watch — never anyone else's server."
+          },
+          "watch": {
+            "h": "Today, on your wrist",
+            "p": "A small Watch face shows the one or two people on your mind. A tap caught-them-up; no scrolling, no chrome."
+          },
+          "export": {
+            "h": "Export, always",
+            "p": "One tap to PDF or Markdown. Your words are yours; the app is just a place to keep them. Leaving should never be sticky."
+          },
+          "ios26": {
+            "h": "Designed for iOS 26",
+            "p": "Native Liquid Glass, Dynamic Type, Apple Watch, lock-screen widgets, and Apple Shortcuts. Feels like part of the OS, because it is."
+          }
+        }
+      },
+
+      "pricing": {
+        "eyebrow": "A fair, sustainable price",
+        "h2Line1": "Free to begin.",
+        "h2Line2": "Quietly priced if it sticks.",
+        "intro": "Free for up to seven people on one device. Yearly costs less than two coffees — and pays for the developer who answers your email.",
+        "free": {
+          "name": "Free",
+          "amount": "$0",
+          "unit": "forever",
+          "f1": "Up to 7 people",
+          "f2": "Notes, threads, and a daily Today",
+          "f3": "Home & lock-screen widget",
+          "f4": "iCloud sync across devices",
+          "f5": "Apple Watch app",
+          "f6": "PDF & Markdown export",
+          "cta": "Start free",
+          "foot": "Local-only. No account."
+        },
+        "premium": {
+          "badge": "Premium",
+          "name": "Yearly",
+          "amount": "$24.99",
+          "unit": "/ year",
+          "yearlyNote": "or $3.99/month · 7-day free trial on yearly",
+          "f1": "Unlimited people",
+          "f2": "End-to-end encrypted iCloud sync",
+          "f3": "Apple Watch app",
+          "f4": "Photo memories on notes",
+          "f5": "PDF & Markdown export",
+          "f6": "Apple Shortcuts + custom accent",
+          "cta": "Start the trial",
+          "foot": "Family sharing enabled. Cancel anytime."
+        }
+      },
+
+      "faq": {
+        "eyebrow": "Honest answers",
+        "h2": "Things people ask.",
+        "items": {
+          "data": {
+            "q": "Is my data ever sent to a server?",
+            "a": "By default, no. Weft writes to your phone's local database — that's it. If you switch on iCloud sync, Apple's private database encrypts each note end-to-end with your iCloud key. Weft has no servers, no analytics endpoint, and no third-party SDKs that phone home."
+          },
+          "ai": {
+            "q": "Why no AI?",
+            "a": "Because the value is in <em>you</em> writing the sentence. An AI that auto-summarizes your last text exchange may be technically possible, but it'd hollow the app out. v2 may quietly use on-device Apple Intelligence for tiny things — never to write notes for you."
+          },
+          "platforms": {
+            "q": "Will there be an Android version? A web version?",
+            "a": "Not for a long time. Weft is built around iOS 26 features — Liquid Glass, Apple Watch, widgets, Apple Shortcuts. Cross-platform would water it down. If you live on Android, we'd rather you use a different app than a worse Weft."
+          },
+          "stopPaying": {
+            "q": "What happens if I stop paying?",
+            "a": "Your data stays. The app reverts to the free tier limits — seven people visible, sync paused — but you keep every note ever written, and you can export the lot to PDF or Markdown with one tap. Subscriptions buy features, not your words."
+          },
+          "who": {
+            "q": "Who built it?",
+            "a": "One developer, working out of Tokyo. Weft is a deliberate, single-person project — the kind of app you can email about and hear back from the same person who wrote the code. <a href=\"feedback\">Say hello</a>."
+          },
+          "import": {
+            "q": "What about import from Notion / Google Contacts / a CSV?",
+            "a": "v1 imports from Apple Contacts only, and only the names you pick. CSV / Notion / Google import are on the maybe pile for v1.1 — but Weft is intentionally small, and most people who try to import a thousand contacts realize halfway in that they meant fifteen."
+          }
+        }
+      },
+
+      "cta": {
+        "h2Line1": "Keep the people",
+        "h2Accent": "who keep you.",
+        "p": "Free for up to seven. Forever. No account, no card, no email."
+      }
+    },
+
+    "privacy": {
+      "title": "Privacy — Weft",
+      "description": "Weft's privacy policy, written in plain English. Your notes never leave your phone unless you turn on iCloud sync — and even then, nobody but you can read them.",
+      "updated": "Last updated · 15 May 2026",
+      "h1Lead": "Privacy, ",
+      "h1Accent": "in plain English.",
+      "intro": "The short version: Weft writes to your phone. It doesn't write to us. If you turn on iCloud, your notes go to Apple — and even Apple can't read them.",
+      "summary": "<strong>One paragraph summary.</strong> Weft has no servers. We do not collect, store, or transmit any data about you or the people in your notes. The app runs entirely on your device. iCloud sync, if you enable it, uses Apple's end-to-end encrypted private database — Weft never sees the contents.",
+      "sec": {
+        "collect": {
+          "h": "What we collect",
+          "p1": "Nothing on our side. Weft has no analytics SDK, no crash-reporting service, no advertising identifiers, and no third-party telemetry of any kind.",
+          "p2": "The data you create — names, notes, threads, photos you attach, rhythm settings — lives in a SwiftData store on your device's local file system. Standard iOS sandboxing applies: no other app can read it."
+        },
+        "icloud": {
+          "h": "iCloud sync (optional)",
+          "p1": "If you toggle iCloud sync on, Weft writes to your iCloud <em>private</em> database. Apple encrypts this with your iCloud key. Apple does not read it; neither do we. We have no way to access it because we have no servers in the loop.",
+          "p2": "If you sign out of iCloud, Apple removes the local copy of synced data and our app falls back to its local SwiftData store on that device."
+        },
+        "apple": {
+          "h": "Apple's role",
+          "p1": "If you bought a subscription, Apple processes the payment under their <a href=\"https://www.apple.com/legal/privacy/\" target=\"_blank\" rel=\"noopener\">privacy policy</a>. We see a tokenized identifier saying \"this device has an active Premium subscription.\" We do not see your name, email, billing address, or card number.",
+          "p2": "The App Store also publishes aggregate, anonymized download counts on our App Store Connect dashboard. We can see \"X people in Japan installed Weft this week\" — never who, never which devices."
+        },
+        "dont": {
+          "h": "What we don't do",
+          "items": [
+            "No advertising — anywhere, ever. Weft does not sell ads or share data with ad networks.",
+            "No selling, renting, or licensing data — to anyone, for any purpose.",
+            "No \"anonymized analytics\" sent to a third-party service.",
+            "No AI model is trained on your notes. Weft v1 has no AI, and v2 will only use on-device Apple Intelligence — which stays on your phone.",
+            "No public profile, no social graph, no leaderboard."
+          ]
+        },
+        "control": {
+          "h": "Your control",
+          "p1": "You can export every note to PDF or Markdown with one tap from Settings → Data. Leaving Weft should never be sticky.",
+          "p2": "You can also tap \"Delete all data\" in Settings to wipe the local store and disable sync. This is irreversible and we can't help you recover anything — because we never had it."
+        },
+        "children": {
+          "h": "Children's privacy",
+          "p": "Weft is rated 4+ in the App Store, but the app's purpose — keeping notes about people in your life — is intended for users 13 years and older. We don't knowingly collect data from anyone, so there's nothing to delete if a younger user installs the app."
+        },
+        "changes": {
+          "h": "Changes to this policy",
+          "p": "If we change anything, we'll update the date at the top and note what changed in the app's release notes. We won't expand data collection without a clear, opt-in change you can refuse."
+        },
+        "contact": {
+          "h": "Contact",
+          "p": "Questions or worries? Write to <a href=\"mailto:hello@getweft.xyz\">hello@getweft.xyz</a>. A real person — the developer — reads every email."
+        }
+      }
+    },
+
+    "terms": {
+      "title": "Terms — Weft",
+      "description": "Weft's terms of service, written in plain English. Short, fair, and free of dark patterns.",
+      "updated": "Last updated · 15 May 2026",
+      "h1Lead": "Terms, ",
+      "h1Accent": "short and fair.",
+      "intro": "You bought an app from a small studio. Here's what that means.",
+      "summary": "<strong>One paragraph summary.</strong> Use Weft for its intended purpose — keeping personal notes about people in your life. Don't reverse-engineer, resell, or use it to harass anyone. Your subscription renews until you cancel. Refunds go through Apple. The app is provided as-is.",
+      "sec": {
+        "license": {
+          "h": "The license",
+          "p": "When you install Weft, we grant you a personal, non-exclusive, non-transferable license to use the app on iOS devices you control, for as long as the App Store agreement remains in force. You don't own the software; you have permission to use it."
+        },
+        "agreeNot": {
+          "h": "What you agree not to do",
+          "items": [
+            "Don't redistribute, sublicense, or resell the app.",
+            "Don't reverse-engineer, decompile, or extract source code (except where Apple's standard developer terms or local law explicitly allow).",
+            "Don't use Weft to store information about people in a way that's illegal where you live — stalking, harassment, doxxing. Weft is a memory tool, not a surveillance tool.",
+            "Don't try to break the paywall. If you find a bug, we'd rather you <a href=\"feedback\">tell us</a> and we'll buy you a coffee."
+          ]
+        },
+        "subscriptions": {
+          "h": "Subscriptions",
+          "pricing": "<strong>Pricing.</strong> Free tier is free forever. Premium is $3.99/month or $24.99/year. The yearly plan includes a 7-day free trial; the monthly plan does not.",
+          "renewal": "<strong>Renewal.</strong> Subscriptions auto-renew through your Apple ID until you cancel. Apple takes payment 24 hours before the period ends. You can cancel anytime in iOS Settings → your name → Subscriptions, and the cancellation takes effect at the end of the current period.",
+          "refunds": "<strong>Refunds.</strong> Refunds are handled by Apple under their <a href=\"https://support.apple.com/en-us/HT204084\" target=\"_blank\" rel=\"noopener\">refund policy</a>. We can't issue them directly. If you feel you've been treated unfairly by an automatic charge, write to us — we'll help you file the Apple refund request.",
+          "priceChanges": "<strong>Price changes.</strong> If we ever raise the price, your existing subscription stays at its current price until you cancel. New subscribers pay the new price. Apple notifies you of any change before charging."
+        },
+        "data": {
+          "h": "Your data",
+          "p1": "You own everything you write into Weft. The notes, names, threads, and photos are yours. We don't claim a license to your content — see the <a href=\"privacy\">Privacy</a> page for the full picture.",
+          "p2": "You can export everything to PDF or Markdown with one tap and delete the app without warning. We won't email you to come back."
+        },
+        "asIs": {
+          "h": "The app, as-is",
+          "p": "We work hard to make Weft reliable, but software has bugs and devices have rough days. Weft is provided \"as is\" without warranty. To the extent allowed by law, we're not liable for damages caused by using or being unable to use the app. If something serious goes wrong, please <a href=\"feedback\">tell us</a> — we'll do what's right by you."
+        },
+        "appleEula": {
+          "h": "Apple's standard EULA",
+          "p": "Apple requires app makers to either provide their own EULA or rely on Apple's <a href=\"https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\" target=\"_blank\" rel=\"noopener\">standard licensed-application agreement</a>. Where these terms are silent or contradictory, Apple's standard EULA fills the gap."
+        },
+        "changes": {
+          "h": "Changes",
+          "p": "If we change these terms, we'll update the date above. Material changes (anything that affects your rights) will be flagged in the app's release notes. Continued use after a change means you accept the new terms."
+        },
+        "law": {
+          "h": "Governing law",
+          "p": "These terms are governed by the laws of Japan, where the studio is based. If you're a consumer somewhere else, mandatory consumer-protection laws in your country still apply to you."
+        },
+        "contact": {
+          "h": "Contact",
+          "p": "Questions, complaints, or legal notices: <a href=\"mailto:hello@getweft.xyz\">hello@getweft.xyz</a>. Replies usually within a day or two."
+        }
+      }
+    },
+
+    "feedback": {
+      "title": "Send feedback — Weft",
+      "description": "A real person — the developer — reads every email. Tell us what's working, what's not, or what you'd like to see.",
+      "updated": "We read every message",
+      "h1Lead": "Say ",
+      "h1Accent": "hello.",
+      "intro": "Something's off? Something's lovely? Something you wish Weft did, or never did? Pick a thread and write — a real human reads every line.",
+      "form": {
+        "topicLabel": "What's this about?",
+        "topicBug": "Something's broken",
+        "topicLove": "Something I love",
+        "topicQuestion": "A question",
+        "topicOther": "Something else",
+        "emailLabel": "Your email",
+        "emailPlaceholder": "so we can write back",
+        "emailHint": "We won't add you to a list. There is no list.",
+        "messageLabel": "Your note",
+        "messagePlaceholder": "Write whatever you'd say if we were having coffee.",
+        "submit": "Send it",
+        "submitSending": "Sending…",
+        "submitSent": "Sent — thank you",
+        "submitFailed": "Didn't send — try email instead",
+        "footer": "Or email <a href=\"mailto:hello@getweft.xyz\" style=\"color: var(--sage); border-bottom: 1px solid var(--sage-soft);\">hello@getweft.xyz</a> directly. Replies usually within a day or two — sometimes faster.",
+        "subjectValue": "Weft — feedback",
+        "fromName": "Weft feedback form"
+      },
+      "before": {
+        "h": "Before you write",
+        "intro": "A short list of things people ask. If your question's here, you might not need to wait for a reply.",
+        "refund": "<strong>Can I get a refund?</strong> Apple handles subscription refunds. Tap your name in iOS Settings → Subscriptions → Weft → Cancel, then request a refund through <a href=\"https://reportaproblem.apple.com\" target=\"_blank\" rel=\"noopener\">reportaproblem.apple.com</a>. If Apple says no and you feel it's unfair, write to us and we'll back you up.",
+        "lost": "<strong>Lost your notes?</strong> If you had iCloud sync enabled, sign in with the same Apple ID on a fresh install and the data will sync back. If you turned sync off and deleted the app, the local data is gone — and we genuinely cannot recover it. We never had it."
+      }
+    },
+
+    "featureRequests": {
+      "title": "Feature requests — Weft",
+      "description": "Weft is intentionally small. But the right ideas earn a place. Tell us what you'd love to see — and what we've already considered.",
+      "updated": "A short, slow roadmap",
+      "h1Lead": "Suggest ",
+      "h1Accent": "something small.",
+      "intro": "Weft is built like a careful weekend studio, not a feature factory. We ship one thing at a time, slowly. But the right suggestion can move a quarter.",
+      "roadmap": {
+        "shipping": {
+          "label": "Shipping next",
+          "items": [
+            "· Birthday-aware Today cards",
+            "· Voice notes (transcribed on-device)",
+            "· Linked notes between people"
+          ]
+        },
+        "considering": {
+          "label": "Considering",
+          "items": [
+            "· iPad split-view layout",
+            "· Mac (Catalyst or native)",
+            "· On-device Apple Intelligence prompts",
+            "· Calendar peek for \"last seen\""
+          ]
+        },
+        "shelved": {
+          "label": "Shelved",
+          "items": [
+            "· Auto-message your friends",
+            "· AI write-the-note-for-me",
+            "· Daily affirmations",
+            "· Social / shared lists"
+          ]
+        }
+      },
+      "form": {
+        "areaLabel": "Where would your idea live?",
+        "areaToday": "Today",
+        "areaPeople": "People",
+        "areaNotes": "Notes",
+        "areaWatch": "Watch",
+        "areaOther": "Somewhere else",
+        "titleLabel": "A short title",
+        "titlePlaceholder": "e.g. snooze a person for the holiday season",
+        "whyLabel": "Why it matters to you",
+        "whyPlaceholder": "The moment you wished Weft could do this — what were you trying to do?",
+        "whyHint": "Stories are more useful than feature names. Tell us the small thing that prompted the idea.",
+        "emailLabel": "Email (optional)",
+        "emailPlaceholder": "If you'd like us to write back",
+        "emailHint": "Leave blank to send anonymously.",
+        "submit": "Send the idea",
+        "submitSending": "Sending…",
+        "submitSent": "Sent — thank you",
+        "submitFailed": "Didn't send — try email instead",
+        "footer": "Or read the longer <a href=\"index.html#not\" style=\"color: var(--sage); border-bottom: 1px solid var(--sage-soft);\">non-goals</a> first — a short list of things Weft has chosen not to be.",
+        "subjectValue": "Weft — feature request",
+        "fromName": "Weft feature-request form"
+      }
+    },
+
+    "about": {
+      "title": "About — Weft",
+      "description": "Weft is made by one developer working out of Tokyo. A small, careful, single-person studio. Here's the why.",
+      "updated": "A small studio of one",
+      "h1Lead": "Made by ",
+      "h1Accent": "one person.",
+      "intro": "Weft is a deliberate, single-developer project — the kind of app where the person who wrote the code also answers your email.",
+      "sec": {
+        "why": {
+          "h": "Why this app",
+          "p1": "A few years ago I realized I was losing the small things about the people I cared about most. The name of my friend's new dog. The date a coworker's mother went into surgery. A book one of my closest friends mentioned in passing. These things mattered when I heard them — and then they slipped.",
+          "p2": "I tried the personal CRMs. They felt like Salesforce for friendship: pipelines, stages, follow-up scores. It was the opposite of what I wanted. I wanted a notebook that would <em>remember for me</em>, quietly, without ever asking me to perform care.",
+          "p3": "Weft is that notebook. The five to twenty-five people who matter most, a single sentence a week, on your phone, never anyone else's server."
+        },
+        "principles": {
+          "h": "The principles",
+          "items": [
+            "<strong>Calm over productive.</strong> If a feature would make Weft feel busier, it doesn't get built.",
+            "<strong>Content over chrome.</strong> Your notes are the heroes. The app should mostly disappear.",
+            "<strong>Apple-first.</strong> Native iOS, Liquid Glass, Apple Watch, Shortcuts. We build for one platform and we build it deep.",
+            "<strong>Local-first.</strong> Your data stays on your phone. iCloud only if you ask.",
+            "<strong>One person at a time.</strong> No team workspaces, no shared lists, no social graph. Friendship is private.",
+            "<strong>Honest pricing.</strong> Subscription is fair, free tier is real, exports are forever."
+          ]
+        },
+        "callout": "If you want the deeper version, the studio publishes its design language, non-goals, and stack rationale openly in the repo. There are no secrets here — a small app doesn't need them.",
+        "where": {
+          "h": "Where to find me",
+          "p": "Email is the best channel: <a href=\"mailto:hello@getweft.xyz\">hello@getweft.xyz</a>. I usually reply within a day or two. If you'd rather write something publicly, the <a href=\"feature-requests\">feature request form</a> is read every Sunday."
+        },
+        "colophon": {
+          "h": "Colophon",
+          "p1": "Written in Swift 6. SwiftUI, SwiftData, CloudKit private database, StoreKit 2, Apple WatchKit. Built and tested in Xcode on a single MacBook Pro.",
+          "p2": "Type: <strong>New York</strong> (Apple's serif) and <strong>SF Pro</strong>. Web fallback: <strong>Newsreader</strong> by Production Type. Color is sage on aged paper. The arc in the icon is meant to suggest connection without being literal about it — no hearts, no chat bubbles, no people."
+        }
+      }
+    }
+  }
+}

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Feature requests — Weft</title>
-  <meta name="description" content="Weft is intentionally small. But the right ideas earn a place. Tell us what you'd love to see — and what we've already considered." />
+  <title data-i18n="pages.featureRequests.title">Feature requests — Weft</title>
+  <meta name="description" content="Weft is intentionally small. But the right ideas earn a place." data-i18n-attr="content:pages.featureRequests.description" />
   <meta name="theme-color" content="#F8F5EF" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#161410" media="(prefers-color-scheme: dark)" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,6 +12,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" />
   <link rel="stylesheet" href="css/site.css" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <script src="js/controls.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/site.js" defer></script>
 </head>
 <body>
 
@@ -29,10 +32,11 @@
       <span>Weft<span class="dot">.</span></span>
     </a>
     <nav class="nav-links">
-      <a href="index.html#feel">How it feels</a>
-      <a href="index.html#pricing">Pricing</a>
-      <a href="feedback.html">Feedback</a>
-      <a class="nav-cta" href="index.html#download">Get the app</a>
+      <a href="index.html#feel" data-i18n="nav.howItFeels">How it feels</a>
+      <a href="index.html#pricing" data-i18n="nav.pricing">Pricing</a>
+      <a href="feedback" data-i18n="nav.feedback">Feedback</a>
+      <span data-nav-controls></span>
+      <a class="nav-cta" href="index.html#download" data-i18n="nav.getApp">Get the app</a>
     </nav>
   </div>
 </header>
@@ -40,44 +44,42 @@
 <section class="doc">
   <div class="wrap">
     <div class="doc-head reveal-fade">
-      <span class="updated">A short, slow roadmap</span>
-      <h1 style="margin-top: 14px;">Suggest <em>something small.</em></h1>
-      <p class="muted" style="max-width: 52ch; margin: 18px auto 0; font-size: 17px; line-height: 1.6;">
-        Weft is built like a careful weekend studio, not a feature factory.
-        We ship one thing at a time, slowly. But the right suggestion can move a quarter.
+      <span class="updated" data-i18n="pages.featureRequests.updated">A short, slow roadmap</span>
+      <h1 style="margin-top: 14px;"><span data-i18n="pages.featureRequests.h1Lead">Suggest </span><em data-i18n="pages.featureRequests.h1Accent">something small.</em></h1>
+      <p class="muted" style="max-width: 52ch; margin: 18px auto 0; font-size: 17px; line-height: 1.6;" data-i18n="pages.featureRequests.intro">
+        Weft is built like a careful weekend studio.
       </p>
     </div>
 
-    <!-- considering / shipping / shelved -->
     <div class="doc-body" style="margin-bottom: 48px;">
       <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;">
 
         <div style="background: var(--surface); border-radius: 14px; padding: 22px; box-shadow: var(--shadow-card); border: 1px solid var(--line-soft);">
-          <span class="eyebrow" style="color: var(--sage);">Shipping next</span>
+          <span class="eyebrow" style="color: var(--sage);" data-i18n="pages.featureRequests.roadmap.shipping.label">Shipping next</span>
           <ul style="list-style: none; padding: 0; margin: 14px 0 0; font-size: 14.5px; color: var(--muted); display: flex; flex-direction: column; gap: 10px;">
-            <li>· Birthday-aware Today cards</li>
-            <li>· Voice notes (transcribed on-device)</li>
-            <li>· Linked notes between people</li>
+            <li data-i18n="pages.featureRequests.roadmap.shipping.items.0">· Birthday-aware Today cards</li>
+            <li data-i18n="pages.featureRequests.roadmap.shipping.items.1">· Voice notes (transcribed on-device)</li>
+            <li data-i18n="pages.featureRequests.roadmap.shipping.items.2">· Linked notes between people</li>
           </ul>
         </div>
 
         <div style="background: var(--surface); border-radius: 14px; padding: 22px; box-shadow: var(--shadow-card); border: 1px solid var(--line-soft);">
-          <span class="eyebrow" style="color: var(--warm);">Considering</span>
+          <span class="eyebrow" style="color: var(--warm);" data-i18n="pages.featureRequests.roadmap.considering.label">Considering</span>
           <ul style="list-style: none; padding: 0; margin: 14px 0 0; font-size: 14.5px; color: var(--muted); display: flex; flex-direction: column; gap: 10px;">
-            <li>· iPad split-view layout</li>
-            <li>· Mac (Catalyst or native)</li>
-            <li>· On-device Apple Intelligence prompts</li>
-            <li>· Calendar peek for "last seen"</li>
+            <li data-i18n="pages.featureRequests.roadmap.considering.items.0">· iPad split-view layout</li>
+            <li data-i18n="pages.featureRequests.roadmap.considering.items.1">· Mac (Catalyst or native)</li>
+            <li data-i18n="pages.featureRequests.roadmap.considering.items.2">· On-device Apple Intelligence prompts</li>
+            <li data-i18n="pages.featureRequests.roadmap.considering.items.3">· Calendar peek for "last seen"</li>
           </ul>
         </div>
 
         <div style="background: var(--surface); border-radius: 14px; padding: 22px; box-shadow: var(--shadow-card); border: 1px solid var(--line-soft); opacity: .78;">
-          <span class="eyebrow" style="color: var(--whisper);">Shelved</span>
+          <span class="eyebrow" style="color: var(--whisper);" data-i18n="pages.featureRequests.roadmap.shelved.label">Shelved</span>
           <ul style="list-style: none; padding: 0; margin: 14px 0 0; font-size: 14.5px; color: var(--muted); display: flex; flex-direction: column; gap: 10px;">
-            <li style="text-decoration: line-through; text-decoration-color: var(--line-strong);">· Auto-message your friends</li>
-            <li style="text-decoration: line-through; text-decoration-color: var(--line-strong);">· AI write-the-note-for-me</li>
-            <li style="text-decoration: line-through; text-decoration-color: var(--line-strong);">· Daily affirmations</li>
-            <li style="text-decoration: line-through; text-decoration-color: var(--line-strong);">· Social / shared lists</li>
+            <li style="text-decoration: line-through; text-decoration-color: var(--line-strong);" data-i18n="pages.featureRequests.roadmap.shelved.items.0">· Auto-message your friends</li>
+            <li style="text-decoration: line-through; text-decoration-color: var(--line-strong);" data-i18n="pages.featureRequests.roadmap.shelved.items.1">· AI write-the-note-for-me</li>
+            <li style="text-decoration: line-through; text-decoration-color: var(--line-strong);" data-i18n="pages.featureRequests.roadmap.shelved.items.2">· Daily affirmations</li>
+            <li style="text-decoration: line-through; text-decoration-color: var(--line-strong);" data-i18n="pages.featureRequests.roadmap.shelved.items.3">· Social / shared lists</li>
           </ul>
         </div>
 
@@ -87,52 +89,53 @@
     <div class="form-wrap reveal-fade">
       <form data-w3form action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="df9d67e4-b214-416b-894d-f09168e171a5" />
-        <input type="hidden" name="subject" value="Weft — feature request" />
-        <input type="hidden" name="from_name" value="Weft feature-request form" />
+        <input type="hidden" name="subject" value="Weft — feature request" data-i18n-value="pages.featureRequests.form.subjectValue" />
+        <input type="hidden" name="from_name" value="Weft feature-request form" data-i18n-value="pages.featureRequests.form.fromName" />
         <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
 
         <div class="form-row">
-          <label>Where would your idea live?</label>
+          <label data-i18n="pages.featureRequests.form.areaLabel">Where would your idea live?</label>
           <div class="form-pillrow">
             <input type="radio" id="a-today" name="area" value="today" checked />
-            <label for="a-today">Today</label>
+            <label for="a-today" data-i18n="pages.featureRequests.form.areaToday">Today</label>
 
             <input type="radio" id="a-people" name="area" value="people" />
-            <label for="a-people">People</label>
+            <label for="a-people" data-i18n="pages.featureRequests.form.areaPeople">People</label>
 
             <input type="radio" id="a-notes" name="area" value="notes" />
-            <label for="a-notes">Notes</label>
+            <label for="a-notes" data-i18n="pages.featureRequests.form.areaNotes">Notes</label>
 
             <input type="radio" id="a-watch" name="area" value="watch" />
-            <label for="a-watch">Watch</label>
+            <label for="a-watch" data-i18n="pages.featureRequests.form.areaWatch">Watch</label>
 
             <input type="radio" id="a-other" name="area" value="other" />
-            <label for="a-other">Somewhere else</label>
+            <label for="a-other" data-i18n="pages.featureRequests.form.areaOther">Somewhere else</label>
           </div>
         </div>
 
         <div class="form-row">
-          <label for="title">A short title</label>
-          <input type="text" id="title" name="title" placeholder="e.g. snooze a person for the holiday season" required />
+          <label for="title" data-i18n="pages.featureRequests.form.titleLabel">A short title</label>
+          <input type="text" id="title" name="title" placeholder="e.g. snooze a person for the holiday season" required data-i18n-attr="placeholder:pages.featureRequests.form.titlePlaceholder" />
         </div>
 
         <div class="form-row">
-          <label for="why">Why it matters to you</label>
-          <textarea id="why" name="why" placeholder="The moment you wished Weft could do this — what were you trying to do?" required></textarea>
-          <span class="hint">Stories are more useful than feature names. Tell us the small thing that prompted the idea.</span>
+          <label for="why" data-i18n="pages.featureRequests.form.whyLabel">Why it matters to you</label>
+          <textarea id="why" name="why" placeholder="The moment you wished Weft could do this — what were you trying to do?" required data-i18n-attr="placeholder:pages.featureRequests.form.whyPlaceholder"></textarea>
+          <span class="hint" data-i18n="pages.featureRequests.form.whyHint">Stories are more useful than feature names.</span>
         </div>
 
         <div class="form-row">
-          <label for="email">Email (optional)</label>
-          <input type="email" id="email" name="email" placeholder="If you'd like us to write back" autocomplete="email" />
-          <span class="hint">Leave blank to send anonymously.</span>
+          <label for="email" data-i18n="pages.featureRequests.form.emailLabel">Email (optional)</label>
+          <input type="email" id="email" name="email" placeholder="If you'd like us to write back" autocomplete="email" data-i18n-attr="placeholder:pages.featureRequests.form.emailPlaceholder" />
+          <span class="hint" data-i18n="pages.featureRequests.form.emailHint">Leave blank to send anonymously.</span>
         </div>
 
-        <button type="submit" class="form-submit">Send the idea</button>
+        <button type="submit" class="form-submit"
+          data-i18n="pages.featureRequests.form.submit"
+          data-i18n-attr="data-w3-label-sending:pages.featureRequests.form.submitSending, data-w3-label-sent:pages.featureRequests.form.submitSent, data-w3-label-failed:pages.featureRequests.form.submitFailed">Send the idea</button>
 
-        <p class="form-note">
-          Or read the longer <a href="index.html#not" style="color: var(--sage); border-bottom: 1px solid var(--sage-soft);">non-goals</a> first —
-          a short list of things Weft has chosen not to be.
+        <p class="form-note" data-i18n="pages.featureRequests.form.footer" data-i18n-html>
+          Or read the longer <a href="index.html#not" style="color: var(--sage); border-bottom: 1px solid var(--sage-soft);">non-goals</a> first.
         </p>
       </form>
     </div>
@@ -154,39 +157,37 @@
           </span>
           <span>Weft<span class="dot">.</span></span>
         </a>
-        <p>A quiet place for the people who matter. Made with care for iOS 26.</p>
+        <p data-i18n="footer.tagline">A quiet place for the people who matter.</p>
       </div>
       <div class="foot-col">
-        <h5>App</h5>
+        <h5 data-i18n="footer.headings.app">App</h5>
         <ul>
-          <li><a href="index.html#feel">How it feels</a></li>
-          <li><a href="index.html#pricing">Pricing</a></li>
-          <li><a href="index.html#faq">FAQ</a></li>
+          <li><a href="index.html#feel" data-i18n="footer.links.howItFeels">How it feels</a></li>
+          <li><a href="index.html#pricing" data-i18n="footer.links.pricing">Pricing</a></li>
+          <li><a href="index.html#faq" data-i18n="footer.links.faq">FAQ</a></li>
         </ul>
       </div>
       <div class="foot-col">
-        <h5>Help</h5>
+        <h5 data-i18n="footer.headings.help">Help</h5>
         <ul>
-          <li><a href="feedback.html">Send feedback</a></li>
-          <li><a href="feature-requests.html">Request a feature</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="feedback" data-i18n="footer.links.feedback">Send feedback</a></li>
+          <li><a href="feature-requests" data-i18n="footer.links.featureRequests">Request a feature</a></li>
+          <li><a href="about" data-i18n="footer.links.about">About</a></li>
         </ul>
       </div>
       <div class="foot-col">
-        <h5>Small print</h5>
+        <h5 data-i18n="footer.headings.smallPrint">Small print</h5>
         <ul>
-          <li><a href="privacy.html">Privacy</a></li>
-          <li><a href="terms.html">Terms</a></li>
+          <li><a href="privacy" data-i18n="footer.links.privacy">Privacy</a></li>
+          <li><a href="terms" data-i18n="footer.links.terms">Terms</a></li>
         </ul>
       </div>
     </div>
     <div class="foot-bot">
       <span>© <span data-year>2026</span> Weft. All rights reserved.</span>
-      <span>Designed and built in Tokyo.</span>
+      <span data-i18n="footer.madeIn">Designed and built in Tokyo.</span>
     </div>
   </div>
 </footer>
-
-<script src="js/site.js"></script>
 </body>
 </html>
