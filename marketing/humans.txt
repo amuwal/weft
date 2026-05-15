@@ -1,0 +1,28 @@
+/* TEAM */
+
+  Developer: amuwal
+  Studio: solo, one person
+  Contact: hello at getweft.xyz
+  From: Tokyo, Japan
+
+/* SITE */
+
+  Last update: 2026/05/16
+  Language: English, 日本語
+  Doctype: HTML5
+  Hosting: Vercel
+  Stack: Vanilla HTML + CSS + JS · No build step · Bilingual via runtime i18n
+
+/* APP */
+
+  Name: Weft
+  Platform: iOS 26
+  Language: Swift 6 · SwiftUI · SwiftData · StoreKit 2 · CloudKit private DB
+
+/* PRINCIPLES */
+
+  Calm over productive.
+  Content over chrome.
+  On-device by default.
+  No analytics, no AI training on user data.
+  Made for the 5–25 people who matter, not the network you wish you had.

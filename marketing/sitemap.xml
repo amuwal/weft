@@ -3,6 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://getweft.xyz/</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/"/>
@@ -10,33 +11,35 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://getweft.xyz/"/>
   </url>
 
-  <!-- Comparison pages (bottom-funnel "alternative" intent) -->
   <url>
     <loc>https://getweft.xyz/vs/dex</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://getweft.xyz/vs/clay</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://getweft.xyz/vs/folk</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Long-form content -->
   <url>
     <loc>https://getweft.xyz/blog/why-another-personal-crm</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Site pages -->
   <url>
     <loc>https://getweft.xyz/about</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/about"/>
@@ -44,6 +47,7 @@
   </url>
   <url>
     <loc>https://getweft.xyz/feedback</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/feedback"/>
@@ -51,6 +55,7 @@
   </url>
   <url>
     <loc>https://getweft.xyz/feature-requests</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/feature-requests"/>
@@ -58,6 +63,7 @@
   </url>
   <url>
     <loc>https://getweft.xyz/privacy</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/privacy"/>
@@ -65,6 +71,7 @@
   </url>
   <url>
     <loc>https://getweft.xyz/terms</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/terms"/>
