@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#FAF6EE"/>
+      <stop offset="100%" stop-color="#EFEAE0"/>
+    </linearGradient>
+    <radialGradient id="sageGlow" cx="78%" cy="22%" r="56%">
+      <stop offset="0%"  stop-color="#B9CBBE" stop-opacity=".55"/>
+      <stop offset="60%" stop-color="#B9CBBE" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="warmGlow" cx="14%" cy="92%" r="46%">
+      <stop offset="0%"  stop-color="#E4C58A" stop-opacity=".35"/>
+      <stop offset="60%" stop-color="#E4C58A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="arcStroke" x1="0" y1="0" x2="1" y2=".4">
+      <stop offset="0%"  stop-color="#7AA284"/>
+      <stop offset="100%" stop-color="#3F5A48"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background layers -->
+  <rect width="1200" height="630" fill="url(#paper)"/>
+  <rect width="1200" height="630" fill="url(#sageGlow)"/>
+  <rect width="1200" height="630" fill="url(#warmGlow)"/>
+
+  <!-- Brand mark (arc + dots) — centered above the wordmark -->
+  <g transform="translate(600 210)">
+    <rect x="-58" y="-58" width="116" height="116" rx="26" fill="#FFFFFF" stroke="rgba(27,26,23,0.08)"/>
+    <path d="M -34 14 Q 0 -28 34 14" fill="none" stroke="url(#arcStroke)" stroke-width="6.5" stroke-linecap="round"/>
+    <circle cx="-34" cy="14" r="8" fill="#5C7A66"/>
+    <circle cx="34" cy="14" r="8" fill="#5C7A66"/>
+  </g>
+
+  <!-- Wordmark + tagline -->
+  <g text-anchor="middle" font-family="'New York', 'Newsreader', 'Hoefler Text', 'Big Caslon', ui-serif, serif" fill="#1B1A17">
+    <text x="600" y="380" font-size="98" font-weight="500" letter-spacing="-0.04em">
+      Weft<tspan fill="#5C7A66">.</tspan>
+    </text>
+    <text x="600" y="450" font-size="34" font-style="italic" font-weight="400" fill="#6B6862" letter-spacing="-0.01em">
+      A quiet place for the people who matter.
+    </text>
+  </g>
+
+  <!-- Subtle bottom meta line -->
+  <g text-anchor="middle" font-family="ui-rounded, 'SF Pro Rounded', -apple-system, system-ui, sans-serif" fill="#9C988E">
+    <text x="600" y="560" font-size="18" letter-spacing="0.12em">
+      ON-DEVICE  ·  iOS 26  ·  GETWEFT.XYZ
+    </text>
+  </g>
+</svg>

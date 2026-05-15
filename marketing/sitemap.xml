@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://getweft.xyz/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getweft.xyz/?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getweft.xyz/"/>
+  </url>
+  <url>
+    <loc>https://getweft.xyz/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getweft.xyz/privacy?lang=ja"/>
+  </url>
+  <url>
+    <loc>https://getweft.xyz/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/terms"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getweft.xyz/terms?lang=ja"/>
+  </url>
+  <url>
+    <loc>https://getweft.xyz/feedback</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/feedback"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getweft.xyz/feedback?lang=ja"/>
+  </url>
+  <url>
+    <loc>https://getweft.xyz/feature-requests</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/feature-requests"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getweft.xyz/feature-requests?lang=ja"/>
+  </url>
+  <url>
+    <loc>https://getweft.xyz/about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/about"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getweft.xyz/about?lang=ja"/>
+  </url>
+</urlset>
