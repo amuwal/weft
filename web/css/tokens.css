@@ -1,5 +1,5 @@
 /* ──────────────────────────────────────────────────────────────
-   Linger — design tokens
+   Weft — design tokens
    Source of truth: /design/design-language.md
    ────────────────────────────────────────────────────────────── */
 
@@ -71,9 +71,9 @@
   --lh-body:    1.5;
 
   /* ── motion (mirrors swift extension) ──────────────────────── */
-  --spring:      cubic-bezier(.22, 1.36, .36, 1);     /* lingerSpring */
-  --spring-press:cubic-bezier(.34, 1.56, .64, 1);     /* lingerPress  */
-  --spring-calm: cubic-bezier(.16,  .9,  .3, 1);      /* lingerCalm   */
+  --spring:      cubic-bezier(.22, 1.36, .36, 1);     /* weftSpring */
+  --spring-press:cubic-bezier(.34, 1.56, .64, 1);     /* weftPress  */
+  --spring-calm: cubic-bezier(.16,  .9,  .3, 1);      /* weftCalm   */
   --ease-out:    cubic-bezier(.22, 1,    .36, 1);
 
   --d-press:  150ms;

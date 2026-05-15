@@ -1,40 +1,41 @@
-# Linger
+# Weft
 
 > A quiet place for the people who matter.
 
-A personal iOS app for staying close to your 5–25 most important people. Not a CRM. Not a social network. A private notebook with gentle nudges.
+Weft is a small, private iOS app for the five to twenty-five people you actually care about. Open it, see who's on your mind, write a sentence about your last conversation, close. Two seconds. The app remembers what you can't.
 
-## Working name
+**[getweft.xyz →](https://getweft.xyz)**
 
-**Linger** — chosen because:
-- It's a verb. The action ("linger over the small things you know about someone") is the product.
-- Not yet taken in this App Store category (only "Linger: Serious & Safe Dating" exists, different category — safe to coexist).
-- Short, distinctive, 6 letters, no spelling traps.
-- Pairs well with searchable subtitle: *"Stay close to your people"* or *"Personal CRM • Friends & Family"* — Linger holds brand, subtitle holds keywords.
+## What it is
 
-## Layout
+A personal notebook for the small circle. On-device by default. Designed for iOS 26, with native Liquid Glass, an Apple Watch face, lock-screen widgets, and Apple Shortcuts.
 
-```
-linger/
-├── README.md
-├── project.yml          ← XcodeGen config; run `xcodegen` to generate the .xcodeproj
-├── Linger/              ← app sources (App, Model, Features, Components, Design, Services)
-├── LingerTests/         ← Swift Testing unit tests
-├── LingerUITests/       ← XCUITest happy paths
-├── LingerWidget/        ← WidgetKit extension
-└── LingerWatch/         ← Apple Watch app + companion
-```
+The unit isn't a contact, it's a *memory of a person* — the things you noticed, the worries they shared, the small follow-ups you said you'd remember. Weft holds them quietly, surfaces them when the rhythm of a relationship has lapsed, and stays out of your way the rest of the time.
 
-## The 30-second pitch
+## What it isn't
 
-> Most "personal CRM" apps feel like mini Salesforces. Linger is the opposite — it's the journal you wish you kept about the 15 people you care about most. Open the app, see who's on your mind today, tap, write a sentence about your last conversation, close. Two seconds. The app remembers what you can't.
+- **Not a CRM.** No pipelines, no stages, no lead status.
+- **Not a contact manager.** Apple Contacts already exists.
+- **Not a habit tracker.** No streaks, no flame icons, no guilt when you skip a week.
+- **Not a journal of you.** Day One is wonderful for that — Weft is a journal *about other people*.
+- **Not AI-powered.** No cloud LLM ever sees your notes. The whole point is that *you* wrote it.
 
-## Key positioning vs. competitors
+## Pricing
 
-| App | Their angle | Linger's angle |
-|---|---|---|
-| Dex | Networker's Rolodex, LinkedIn-heavy | Personal, no professional context |
-| Clay/Mesh | Auto-pulled feed of everyone you know | Tiny circle, deliberate |
-| Garden / Tend / Kindred | Plant/garden metaphor, gamified care | Calm, journal-like, no metaphor crutch |
-| Monaru | "Be thoughtful" prompts | Yes, plus structured memory |
-| Catchup, Linc | Reminder-only | Memory + reminders, in one calm surface |
+Free for up to seven people, forever. Premium is **$3.99/month** or **$24.99/year** (7-day free trial on yearly) for unlimited people, end-to-end encrypted iCloud sync, the Apple Watch app, photo memories, PDF & Markdown export, and Apple Shortcuts.
+
+## Privacy
+
+By default, Weft writes only to your phone's local database. If you enable iCloud sync, your notes go to Apple's end-to-end encrypted private database — Weft has no servers in the loop, no analytics SDK, and no third-party telemetry. Full policy at [getweft.xyz/privacy](https://getweft.xyz/privacy).
+
+## Repository
+
+This repository contains the iOS app source (`Weft/`) and the marketing site (`marketing/`, deployed to Vercel). Build details and contribution guidelines are kept in internal docs; this repo is published primarily as the source of record for the shipped app.
+
+## Contact
+
+For feedback, feature requests, or anything else — [getweft.xyz/feedback](https://getweft.xyz/feedback) or [hello@getweft.xyz](mailto:hello@getweft.xyz). A real person reads every message.
+
+---
+
+Made with care in Tokyo. © 2026 Weft. All rights reserved.

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Weft — A quiet place for the people who matter</title>
+  <meta name="description" content="Weft is a private, on-device journal for the five to twenty-five people you actually care about. Not a CRM. A small calm app that remembers what you can't." />
+
+  <meta property="og:title" content="Weft — A quiet place for the people who matter" />
+  <meta property="og:description" content="A private, on-device journal for the people you actually care about." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#F8F5EF" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#161410" media="(prefers-color-scheme: dark)" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" />
+  <link rel="stylesheet" href="css/site.css" />
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">
+      <span class="brand-mark">
+        <svg viewBox="0 0 1024 1024" aria-hidden="true">
+          <defs>
+            <linearGradient id="nb-paper" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%"  stop-color="#FAF6EE"/>
+              <stop offset="100%" stop-color="#EFE9DA"/>
+            </linearGradient>
+            <linearGradient id="nb-arc" x1="0" y1="0" x2="1" y2=".4">
+              <stop offset="0%"  stop-color="#7AA284"/>
+              <stop offset="100%" stop-color="#3F5A48"/>
+            </linearGradient>
+          </defs>
+          <rect width="1024" height="1024" fill="url(#nb-paper)"/>
+          <path d="M 252 600 Q 512 320 772 600" fill="none" stroke="url(#nb-arc)" stroke-width="42" stroke-linecap="round"/>
+          <circle cx="252" cy="600" r="56" fill="#5C7A66"/>
+          <circle cx="772" cy="600" r="56" fill="#5C7A66"/>
+        </svg>
+      </span>
+      <span>Weft<span class="dot">.</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#feel">How it feels</a>
+      <a href="#not">What it isn't</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a class="nav-cta" href="#download">Get the app</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ─────── hero ─────── -->
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="hero-eyebrow">
+        <span class="pip"></span>
+        On-device · iOS 26 · no account needed
+      </span>
+
+      <h1>
+        <span data-reveal-words>A quiet place for the people</span>
+        <span class="accent serif-italic"> who matter.</span>
+      </h1>
+
+      <p class="hero-sub reveal-fade">
+        Weft is a small, private notebook for the <em>five to twenty-five people</em>
+        you actually care about. Open it, see who's on your mind, write a sentence
+        about your last conversation, close. Two seconds. The app remembers what you can't.
+      </p>
+
+      <div class="hero-ctas reveal-fade">
+        <a class="btn btn-primary" href="#download">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.5 12.5c0-2.4 1.3-3.7 3.5-4.8-1.2-1.7-3-2.7-5-2.7-2.1-.2-4.2 1.2-5.3 1.2-1.1 0-2.8-1.2-4.6-1.1-2.4 0-4.5 1.4-5.7 3.5C-1 13-1.5 18 .7 21.8c1.1 1.9 2.4 4 4.1 3.9 1.7-.1 2.3-1.1 4.3-1.1s2.6 1.1 4.4 1.1c1.8-.1 3-1.9 4.1-3.8.8-1.3 1.2-2.6 1.5-4-.1 0-3.5-1.3-3.6-5.4zM14.7 3.5C15.7 2.3 16.4.6 16.2-1c-1.4.1-3.1 1-4.1 2.1-.9 1-1.7 2.7-1.5 4.3 1.6.1 3.2-.8 4.1-1.9z"/>
+          </svg>
+          Download on App Store
+        </a>
+        <a class="btn-quiet" href="#feel">See how it feels →</a>
+      </div>
+
+      <div class="hero-meta reveal-fade">
+        <span><span class="pip"></span> No cloud by default</span>
+        <span><span class="pip"></span> No analytics, no ads, ever</span>
+        <span><span class="pip"></span> 7-day free trial · $24.99/yr</span>
+      </div>
+    </div>
+
+    <!-- right: phone w/ Today -->
+    <div class="phone-stage reveal-fade">
+      <div class="phone">
+        <div class="phone-rim"></div>
+        <div class="phone-island"></div>
+        <div class="phone-screen">
+          <div class="phone-status">
+            <span>9:41</span>
+            <span style="display:flex; gap:5px; align-items:center;">
+              <svg viewBox="0 0 18 12" aria-hidden="true"><path fill="currentColor" d="M2 8h2v3H2zM6 6h2v5H6zM10 4h2v7h-2zM14 1h2v10h-2z"/></svg>
+              <svg width="16" height="11" viewBox="0 0 24 16" aria-hidden="true"><path fill="currentColor" d="M2 13h2v-2H2v2zm4 0h2V8H6v5zm4 0h2V5h-2v8zm4 0h2V2h-2v11zM20 2v11h2V2h-2z" opacity=".9"/></svg>
+              <svg width="22" height="11" viewBox="0 0 26 12" aria-hidden="true"><rect x="0.5" y="0.5" width="22" height="11" rx="3" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.5" fill="currentColor"/><rect x="23" y="4" width="2" height="4" rx="1" fill="currentColor" opacity=".6"/></svg>
+            </span>
+          </div>
+
+          <div class="phone-content">
+            <div class="phone-header">
+              <span class="phone-date">Wednesday · May 15</span>
+              <span class="phone-title">Who's on your<br/>mind today?</span>
+            </div>
+
+            <div class="person-card today">
+              <span class="person-name">Sarah</span>
+              <span class="person-reason">It's been three weeks. Her mom's surgery was on the 14th — worth asking how it went.</span>
+              <span class="person-meta"><span>inner circle</span><span class="sep">·</span><span>weekly</span></span>
+            </div>
+
+            <div class="person-card">
+              <span class="person-name">David</span>
+              <span class="person-reason">He starts the new job Monday. You meant to wish him luck.</span>
+              <span class="person-meta"><span>close friend</span><span class="sep">·</span><span>biweekly</span></span>
+            </div>
+
+            <div class="person-card">
+              <span class="person-name">Mom</span>
+              <span class="person-reason">A short call would be nice. Last note: she picked up watercolor again.</span>
+              <span class="person-meta"><span>family</span><span class="sep">·</span><span>weekly</span></span>
+            </div>
+
+            <div class="phone-tabbar">
+              <span class="active">Today</span>
+              <span>People</span>
+              <span>Search</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── manifesto ─────── -->
+
+<section class="manifesto">
+  <div class="wrap manifesto-inner">
+    <h2 class="reveal-fade">
+      Most apps want your attention.<br/>
+      Weft asks for <em>a moment.</em>
+    </h2>
+    <p class="reveal-fade">
+      The people in your life — the five, ten, twenty who actually matter — deserve more
+      than a follow-up reminder. They deserve to be remembered with care: the small
+      things you noticed, the worries they shared, the surgery on the 14th, the new job
+      on Monday, the book they couldn't put down.
+    </p>
+    <p class="reveal-fade">
+      Weft holds those notes for you. Quietly. On your phone. Without ads,
+      without leaderboards, without asking you to invite three friends.
+    </p>
+    <p class="sig reveal-fade">— a small studio of one</p>
+  </div>
+</section>
+
+<!-- ─────── glance 1: today ─────── -->
+
+<section class="glance" id="feel">
+  <div class="wrap glance-grid">
+    <div class="glance-copy reveal-fade">
+      <span class="eyebrow">A daily moment</span>
+      <h3>Open. <em>See two people.</em><br/>Close.</h3>
+      <p>
+        Today surfaces no more than three names — the people whose rhythm
+        has lapsed. Each card carries the reason: an open thread you left,
+        a date you wanted to remember, a follow-up you said yes to.
+      </p>
+      <p class="pull">
+        "If everyone's been seen recently, Weft says <em>nothing pressing</em>.
+        Enjoy your day."
+      </p>
+    </div>
+
+    <div class="phone-stage reveal-fade">
+      <div class="phone phone-mini">
+        <div class="phone-rim"></div>
+        <div class="phone-island"></div>
+        <div class="phone-screen">
+          <div class="phone-status">
+            <span>9:41</span>
+            <span style="display:flex; gap:5px; align-items:center;">
+              <svg width="22" height="11" viewBox="0 0 26 12" aria-hidden="true"><rect x="0.5" y="0.5" width="22" height="11" rx="3" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.5" fill="currentColor"/><rect x="23" y="4" width="2" height="4" rx="1" fill="currentColor" opacity=".6"/></svg>
+            </span>
+          </div>
+          <div class="phone-content">
+            <div class="phone-header">
+              <span class="phone-date">Sunday · May 18</span>
+              <span class="phone-title">Nothing pressing.<br/><span style="color:var(--muted); font-style:italic;">Enjoy your day.</span></span>
+            </div>
+            <div style="flex:1; display:flex; align-items:center; justify-content:center; padding: 24px 0;">
+              <svg width="120" height="60" viewBox="0 0 120 60" aria-hidden="true" style="opacity:.6;">
+                <path d="M 10 40 Q 60 5 110 40" fill="none" stroke="var(--sage)" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="10" cy="40" r="5" fill="var(--sage)"/>
+                <circle cx="110" cy="40" r="5" fill="var(--sage)"/>
+              </svg>
+            </div>
+            <div class="phone-tabbar">
+              <span class="active">Today</span>
+              <span>People</span>
+              <span>Search</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── glance 2: write ─────── -->
+
+<section class="glance flip">
+  <div class="wrap glance-grid">
+    <div class="phone-stage reveal-fade">
+      <div class="phone phone-mini">
+        <div class="phone-rim"></div>
+        <div class="phone-island"></div>
+        <div class="phone-screen">
+          <div class="phone-status">
+            <span>9:41</span>
+            <span style="display:flex; gap:5px; align-items:center;">
+              <svg width="22" height="11" viewBox="0 0 26 12" aria-hidden="true"><rect x="0.5" y="0.5" width="22" height="11" rx="3" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.5" fill="currentColor"/></svg>
+            </span>
+          </div>
+          <div class="phone-content" style="background: color-mix(in srgb, var(--ink) 30%, transparent); position: relative;">
+            <div class="phone-header" style="opacity: .35;">
+              <span class="phone-date">Wednesday · May 15</span>
+              <span class="phone-title">Who's on your<br/>mind today?</span>
+            </div>
+            <div style="flex:1;"></div>
+            <div class="sheet">
+              <div class="sheet-handle"></div>
+              <div class="sheet-row">
+                <span class="sheet-chip">
+                  <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="3" fill="currentColor"/></svg>
+                  Sarah
+                </span>
+                <span style="color: var(--whisper);">just now</span>
+              </div>
+              <div class="sheet-textarea">
+                Coffee at Verve. She's been worried about her mom's surgery on the 14th. Started a new book on grief.<span class="cursor"></span>
+              </div>
+              <div class="sheet-actions">
+                <span class="sheet-toggle">
+                  Follow up <span class="sheet-switch"></span>
+                </span>
+                <button class="sheet-save">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glance-copy reveal-fade">
+      <span class="eyebrow">Quick capture</span>
+      <h3>Write <em>a sentence.</em><br/>That's enough.</h3>
+      <p>
+        The note sheet takes one breath to open and one to close.
+        Type the thing you'll wish you remembered next month. Toggle
+        <em style="color:var(--ink); font-style:normal;">Follow up</em> if it should
+        come back as a thread.
+      </p>
+      <p>
+        Markdown works invisibly. Photos attach with one tap.
+        No prompts, no fields, no required tags.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── glance 3: threads ─────── -->
+
+<section class="glance">
+  <div class="wrap glance-grid">
+    <div class="glance-copy reveal-fade">
+      <span class="eyebrow">Open threads</span>
+      <h3>Tomorrow,<br/>the app <em>remembers.</em></h3>
+      <p>
+        Anything you marked <em style="color:var(--ink); font-style:normal;">Follow up</em>
+        re-surfaces on its date. Coffee plans, a book recommendation,
+        a job interview you should ask about — held quietly until it's
+        time, then folded into Today as a soft reason.
+      </p>
+      <p>
+        Resolve a thread by writing the next note. The chain
+        closes itself.
+      </p>
+    </div>
+
+    <div class="phone-stage reveal-fade">
+      <div class="phone phone-mini">
+        <div class="phone-rim"></div>
+        <div class="phone-island"></div>
+        <div class="phone-screen">
+          <div class="phone-status">
+            <span>9:41</span>
+            <span style="display:flex; gap:5px; align-items:center;">
+              <svg width="22" height="11" viewBox="0 0 26 12" aria-hidden="true"><rect x="0.5" y="0.5" width="22" height="11" rx="3" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.5" fill="currentColor"/></svg>
+            </span>
+          </div>
+          <div class="phone-content">
+            <div class="phone-header">
+              <span class="phone-date">Sarah · inner circle · weekly</span>
+              <span class="phone-title" style="font-size: 24px;">Threads</span>
+            </div>
+
+            <div class="thread-list">
+              <div class="thread-item">
+                <span class="thread-due">Today</span>
+                <span class="thread-body">Ask how her mom's surgery went.</span>
+                <span class="thread-from">From the note on Apr 22</span>
+              </div>
+              <div class="thread-item">
+                <span class="thread-due">In 4 days</span>
+                <span class="thread-body">Send her the grief book title — Joan Didion.</span>
+                <span class="thread-from">From the note on Apr 22</span>
+              </div>
+              <div class="thread-item" style="border-left-color: var(--sage); opacity: .6;">
+                <span class="thread-due" style="color: var(--sage);">Resolved</span>
+                <span class="thread-body">Coffee plan for the 14th.</span>
+                <span class="thread-from">Closed Apr 22</span>
+              </div>
+            </div>
+
+            <div class="phone-tabbar">
+              <span>Notes</span>
+              <span class="active">Threads</span>
+              <span>Log</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── what it isn't ─────── -->
+
+<section class="negation" id="not">
+  <div class="wrap">
+    <div class="negation-head">
+      <div class="constellation reveal-fade" aria-hidden="true">
+        <span class="d"></span><span class="d"></span><span class="d on"></span><span class="d"></span><span class="d"></span>
+      </div>
+      <h2 class="reveal-fade">Weft is one small thing,<br/>so it can be a <em>good</em> one.</h2>
+      <p class="reveal-fade">
+        It's easier to keep an app calm by being honest about everything it
+        chose not to be. A short list of nos, so you know what you're holding.
+      </p>
+    </div>
+
+    <div class="negation-list">
+      <div class="negation-item reveal-fade">
+        <h4>Not a CRM</h4>
+        <p>No pipelines, no stages, no lead status. The market already has fifty of those — and they all feel like work.</p>
+      </div>
+      <div class="negation-item reveal-fade">
+        <h4>Not a contact app</h4>
+        <p>Apple Contacts already holds phone numbers and addresses. Weft holds <em>memory</em> — the things you'd otherwise forget.</p>
+      </div>
+      <div class="negation-item reveal-fade">
+        <h4>Not a checklist</h4>
+        <p>No little flame icons, no chains to keep alive, no guilt when you skip a week. Friendship isn't a workout plan.</p>
+      </div>
+      <div class="negation-item reveal-fade">
+        <h4>Not a journal of you</h4>
+        <p>Day One already exists for that, and it's wonderful. Weft is a journal <em>about other people</em>, written from your side.</p>
+      </div>
+      <div class="negation-item reveal-fade">
+        <h4>Not AI-powered</h4>
+        <p>No cloud LLM ever sees your notes. No auto-generated reminders. The whole point is that <em>you</em> wrote it.</p>
+      </div>
+      <div class="negation-item reveal-fade">
+        <h4>Not on the web</h4>
+        <p>iOS only, with a small Watch app, a widget, and an iPad layout. We chose depth over reach — Android can wait.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── features grid ─────── -->
+
+<section class="features">
+  <div class="wrap">
+    <div class="features-head">
+      <span class="eyebrow reveal-fade">Calm by design</span>
+      <h2 class="reveal-fade">Small things, done with care.</h2>
+      <p class="reveal-fade">Everything Weft ships is here because it earned its place. Nothing else.</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature reveal-fade">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 2"/>
+          </svg>
+        </span>
+        <h4>Gentle rhythm</h4>
+        <p>Pick weekly, biweekly, monthly, or quarterly for each person. The pace bends to the relationship — not the other way around.</p>
+      </div>
+
+      <div class="feature reveal-fade">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19l4-12 4 12 4-12 4 12"/>
+          </svg>
+        </span>
+        <h4>Threads, not tasks</h4>
+        <p>Mark a thought as "follow up" and it comes back on its date, folded softly into Today. No checkbox guilt.</p>
+      </div>
+
+      <div class="feature reveal-fade">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="5" width="16" height="14" rx="2"/>
+            <path d="M4 9h16"/><path d="M9 5v4"/>
+          </svg>
+        </span>
+        <h4>iCloud, your way</h4>
+        <p>Off by default. Switch it on for end-to-end-encrypted sync across iPhone, iPad, and Watch — never anyone else's server.</p>
+      </div>
+
+      <div class="feature reveal-fade">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="7" y="3" width="10" height="18" rx="2"/>
+            <path d="M11 18h2"/>
+          </svg>
+        </span>
+        <h4>Today, on your wrist</h4>
+        <p>A small Watch face shows the one or two people on your mind. A tap caught-them-up; no scrolling, no chrome.</p>
+      </div>
+
+      <div class="feature reveal-fade">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6"/>
+          </svg>
+        </span>
+        <h4>Export, always</h4>
+        <p>One tap to PDF or Markdown. Your words are yours; the app is just a place to keep them. Leaving should never be sticky.</p>
+      </div>
+
+      <div class="feature reveal-fade">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 16.8 5.5 21l2-7.5L2 9h7z"/>
+          </svg>
+        </span>
+        <h4>Designed for iOS 26</h4>
+        <p>Native Liquid Glass, Dynamic Type, Apple Watch, lock-screen widgets, and Apple Shortcuts. Feels like part of the OS, because it is.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── pricing ─────── -->
+
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <div class="pricing-head">
+      <span class="eyebrow reveal-fade">A fair, sustainable price</span>
+      <h2 class="reveal-fade">Free to begin.<br/>Quietly priced if it sticks.</h2>
+      <p class="reveal-fade">
+        Free for up to seven people on one device. Yearly costs less than two coffees — and pays for the developer who answers your email.
+      </p>
+    </div>
+
+    <div class="tiers">
+      <div class="tier reveal-fade">
+        <h3>Free</h3>
+        <div class="tier-price">
+          <span class="amount">$0</span>
+          <span class="unit">forever</span>
+        </div>
+        <ul>
+          <li>Up to 7 people</li>
+          <li>Notes, threads, and a daily Today</li>
+          <li>Home & lock-screen widget</li>
+          <li class="off">iCloud sync across devices</li>
+          <li class="off">Apple Watch app</li>
+          <li class="off">PDF & Markdown export</li>
+        </ul>
+        <a class="tier-cta" href="#download">Start free</a>
+        <span class="tier-foot">Local-only. No account.</span>
+      </div>
+
+      <div class="tier premium reveal-fade">
+        <span class="tier-badge">Premium</span>
+        <h3>Yearly</h3>
+        <div class="tier-price">
+          <span class="amount">$24.99</span>
+          <span class="unit">/ year</span>
+        </div>
+        <div class="tier-yearly">or $3.99/month · 7-day free trial on yearly</div>
+        <ul>
+          <li>Unlimited people</li>
+          <li>End-to-end encrypted iCloud sync</li>
+          <li>Apple Watch app</li>
+          <li>Photo memories on notes</li>
+          <li>PDF & Markdown export</li>
+          <li>Apple Shortcuts + custom accent</li>
+        </ul>
+        <a class="tier-cta" href="#download">Start the trial</a>
+        <span class="tier-foot">Family sharing enabled. Cancel anytime.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── FAQ ─────── -->
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="faq-head">
+      <span class="eyebrow reveal-fade">Honest answers</span>
+      <h2 class="reveal-fade">Things people ask.</h2>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary class="faq-q">
+          Is my data ever sent to a server?
+          <span class="marker">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+          </span>
+        </summary>
+        <div class="faq-a">
+          By default, no. Weft writes to your phone's local database — that's it. If you switch on iCloud sync, Apple's private database encrypts each note end-to-end with your iCloud key. Weft has no servers, no analytics endpoint, and no third-party SDKs that phone home.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          Why no AI?
+          <span class="marker">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+          </span>
+        </summary>
+        <div class="faq-a">
+          Because the value is in <em>you</em> writing the sentence. An AI that auto-summarizes your last text exchange may be technically possible, but it'd hollow the app out. v2 may quietly use on-device Apple Intelligence for tiny things — never to write notes for you.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          Will there be an Android version? A web version?
+          <span class="marker">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+          </span>
+        </summary>
+        <div class="faq-a">
+          Not for a long time. Weft is built around iOS 26 features — Liquid Glass, Apple Watch, widgets, Apple Shortcuts. Cross-platform would water it down. If you live on Android, we'd rather you use a different app than a worse Weft.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          What happens if I stop paying?
+          <span class="marker">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+          </span>
+        </summary>
+        <div class="faq-a">
+          Your data stays. The app reverts to the free tier limits — seven people visible, sync paused — but you keep every note ever written, and you can export the lot to PDF or Markdown with one tap. Subscriptions buy features, not your words.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          Who built it?
+          <span class="marker">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+          </span>
+        </summary>
+        <div class="faq-a">
+          One developer, working out of Tokyo. Weft is a deliberate, single-person project — the kind of app you can email about and hear back from the same person who wrote the code. <a href="feedback.html">Say hello</a>.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          What about import from Notion / Google Contacts / a CSV?
+          <span class="marker">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+          </span>
+        </summary>
+        <div class="faq-a">
+          v1 imports from Apple Contacts only, and only the names you pick. CSV / Notion / Google import are on the maybe pile for v1.1 — but Weft is intentionally small, and most people who try to import a thousand contacts realize halfway in that they meant fifteen.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── final CTA ─────── -->
+
+<section class="cta-strip" id="download">
+  <div class="wrap">
+    <h2 class="reveal-fade">Keep the people<br/><em>who keep you.</em></h2>
+    <p class="reveal-fade">Free for up to seven. Forever. No account, no card, no email.</p>
+    <div class="btn-pair reveal-fade">
+      <a class="btn btn-primary" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.5 12.5c0-2.4 1.3-3.7 3.5-4.8-1.2-1.7-3-2.7-5-2.7-2.1-.2-4.2 1.2-5.3 1.2-1.1 0-2.8-1.2-4.6-1.1-2.4 0-4.5 1.4-5.7 3.5C-1 13-1.5 18 .7 21.8c1.1 1.9 2.4 4 4.1 3.9 1.7-.1 2.3-1.1 4.3-1.1s2.6 1.1 4.4 1.1c1.8-.1 3-1.9 4.1-3.8.8-1.3 1.2-2.6 1.5-4-.1 0-3.5-1.3-3.6-5.4zM14.7 3.5C15.7 2.3 16.4.6 16.2-1c-1.4.1-3.1 1-4.1 2.1-.9 1-1.7 2.7-1.5 4.3 1.6.1 3.2-.8 4.1-1.9z"/>
+        </svg>
+        Download on App Store
+      </a>
+      <a class="btn-quiet" href="feature-requests.html">Tell us what's missing →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── footer ─────── -->
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="/">
+          <span class="brand-mark">
+            <svg viewBox="0 0 1024 1024" aria-hidden="true">
+              <rect width="1024" height="1024" fill="#F4EFE3"/>
+              <path d="M 252 600 Q 512 320 772 600" fill="none" stroke="#5C7A66" stroke-width="42" stroke-linecap="round"/>
+              <circle cx="252" cy="600" r="56" fill="#5C7A66"/>
+              <circle cx="772" cy="600" r="56" fill="#5C7A66"/>
+            </svg>
+          </span>
+          <span>Weft<span class="dot">.</span></span>
+        </a>
+        <p>A quiet place for the people who matter. Made with care for iOS 26.</p>
+      </div>
+
+      <div class="foot-col">
+        <h5>App</h5>
+        <ul>
+          <li><a href="#feel">How it feels</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#">Download</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h5>Help</h5>
+        <ul>
+          <li><a href="feedback.html">Send feedback</a></li>
+          <li><a href="feature-requests.html">Request a feature</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h5>Small print</h5>
+        <ul>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bot">
+      <span>© <span data-year>2026</span> Weft. All rights reserved.</span>
+      <span>Designed and built in Tokyo.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+</body>
+</html>

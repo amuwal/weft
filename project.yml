@@ -1,6 +1,6 @@
-name: Linger
+name: Weft
 options:
-  bundleIdPrefix: com.amuwal.linger
+  bundleIdPrefix: com.amuwal.weft
   deploymentTarget:
     iOS: "26.0"
   developmentLanguage: en
@@ -14,7 +14,7 @@ settings:
     SWIFT_STRICT_CONCURRENCY: complete
     SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY: YES
     SWIFT_UPCOMING_FEATURE_INTERNAL_IMPORTS_BY_DEFAULT: YES
-    DEVELOPMENT_TEAM: ""
+    DEVELOPMENT_TEAM: "F8QCQF656D"
     ENABLE_USER_SCRIPT_SANDBOXING: YES
     GCC_TREAT_WARNINGS_AS_ERRORS: YES
     SWIFT_TREAT_WARNINGS_AS_ERRORS: NO   # turn on once we're past the scaffolding phase
@@ -28,13 +28,13 @@ packages:
     from: 1.1.3
 
 targets:
-  Linger:
+  Weft:
     type: application
     platform: iOS
     sources:
-      - Linger
+      - Weft
     resources:
-      - path: Linger/Resources
+      - path: Weft/Resources
         optional: true
     dependencies:
       - package: Collections
@@ -42,14 +42,14 @@ targets:
       - package: AsyncAlgorithms
         product: AsyncAlgorithms
     info:
-      path: Linger/Info.plist
+      path: Weft/Info.plist
       properties:
         UILaunchScreen:
           UIColorName: bg
         CFBundleURLTypes:
-          - CFBundleURLName: com.amuwal.linger
-            CFBundleURLSchemes: ["linger"]
-        CFBundleDisplayName: Linger
+          - CFBundleURLName: com.amuwal.weft
+            CFBundleURLSchemes: ["weft"]
+        CFBundleDisplayName: Weft
         CFBundleShortVersionString: "0.1.0"
         CFBundleVersion: "1"
         UIApplicationSceneManifest:
@@ -59,26 +59,26 @@ targets:
         UIAppFonts: []
         # CloudKit/iCloud usage prompt
         NSUbiquitousContainers:
-          iCloud.com.amuwal.linger:
+          iCloud.com.amuwal.weft:
             NSUbiquitousContainerIsDocumentScopePublic: false
-            NSUbiquitousContainerName: Linger
+            NSUbiquitousContainerName: Weft
             NSUbiquitousContainerSupportedFolderLevels: None
     entitlements:
-      path: Linger/Linger.entitlements
+      path: Weft/Weft.entitlements
       properties:
         com.apple.developer.icloud-container-identifiers:
-          - iCloud.com.amuwal.linger
+          - iCloud.com.amuwal.weft
         com.apple.developer.icloud-services:
           - CloudDocuments
           - CloudKit
         com.apple.developer.ubiquity-container-identifiers:
-          - iCloud.com.amuwal.linger
+          - iCloud.com.amuwal.weft
         aps-environment: development
         com.apple.security.application-groups:
-          - group.com.amuwal.linger
+          - group.com.amuwal.weft
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.amuwal.linger
+        PRODUCT_BUNDLE_IDENTIFIER: com.amuwal.weft
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
         INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
@@ -87,35 +87,36 @@ targets:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: sage
         ENABLE_PREVIEWS: YES
-        DEVELOPMENT_ASSET_PATHS: '"Linger/Resources/Preview Content"'
+        DEVELOPMENT_ASSET_PATHS: '"Weft/Resources/Preview Content"'
         TARGETED_DEVICE_FAMILY: "1"
         CODE_SIGN_STYLE: Automatic
         CODE_SIGN_IDENTITY: "Apple Development"
     scheme:
       testTargets:
-        - LingerTests
-        - LingerUITests
+        - WeftTests
+        - WeftUITests
       gatherCoverageData: true
+      storeKitConfiguration: Weft/Weft.storekit
 
-  LingerTests:
+  WeftTests:
     type: bundle.unit-test
     platform: iOS
-    sources: [LingerTests]
+    sources: [WeftTests]
     dependencies:
-      - target: Linger
+      - target: Weft
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.amuwal.linger.tests
+        PRODUCT_BUNDLE_IDENTIFIER: com.amuwal.weft.tests
         GENERATE_INFOPLIST_FILE: YES
 
-  LingerUITests:
+  WeftUITests:
     type: bundle.ui-testing
     platform: iOS
-    sources: [LingerUITests]
+    sources: [WeftUITests]
     dependencies:
-      - target: Linger
+      - target: Weft
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.amuwal.linger.uitests
+        PRODUCT_BUNDLE_IDENTIFIER: com.amuwal.weft.uitests
         GENERATE_INFOPLIST_FILE: YES
-        TEST_TARGET_NAME: Linger
+        TEST_TARGET_NAME: Weft

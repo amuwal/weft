@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────────────────────────
-   Linger — interaction layer (no framework)
+   Weft — interaction layer (no framework)
    Handles: tab switching, segmented controls, chips, toggles,
             modal open/close, swipe-card affordance, theme toggle,
             staggered reveal indices.
@@ -168,7 +168,7 @@
     void scope.offsetWidth;
     scope.classList.add('haptic');
   }
-  window.lingerHaptic = flashHaptic;
+  window.weftHaptic = flashHaptic;
 
   /* ─── press feedback on .pressable for non-touch devices ─── */
   $$('.pressable').forEach(el => {

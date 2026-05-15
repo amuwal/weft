@@ -1,24 +1,24 @@
-# ── Linger · SwiftLint configuration ─────────────────────────────────
+# ── Weft · SwiftLint configuration ─────────────────────────────────
 # Strict by design. Most of these rules exist to prevent AI-slop patterns:
 # trivial comments, magic strings, hand-rolled re-implementations of
 # system APIs, and verbose error handling for unreachable cases.
 #
 # Why a custom set? `default` SwiftLint allows hundreds of style lapses
-# Linger actively rejects. See CLAUDE.md → "Comment style" and
+# Weft actively rejects. See CLAUDE.md → "Comment style" and
 # "Banned patterns" for the human-readable version of these rules.
 
 included:
-  - Linger
-  - LingerWidget
-  - LingerWatch
-  - LingerTests
-  - LingerUITests
+  - Weft
+  - WeftWidget
+  - WeftWatch
+  - WeftTests
+  - WeftUITests
 
 excluded:
   - .build
   - DerivedData
   - vendor
-  - Linger.xcodeproj
+  - Weft.xcodeproj
   - "**/*.generated.swift"
 
 # Severity bumps. We want errors, not warnings, for the patterns that
@@ -66,7 +66,8 @@ opt_in_rules:
   - multiline_parameters
   - operator_usage_whitespace
   - overridden_super_call
-  - pattern_matching_keywords
+  # pattern_matching_keywords conflicts with .swiftformat's `--patternlet inline`
+  # (which is the user's chosen style: inline let inside tuple cases).
   - prefer_self_in_static_references
   - private_action
   - private_outlet
@@ -84,6 +85,9 @@ opt_in_rules:
   - vertical_whitespace_opening_braces
   - weak_delegate
   - yoda_condition
+
+opening_brace:
+  ignore_multiline_statement_conditions: true
 
 force_unwrapping:
   severity: error
@@ -178,7 +182,7 @@ custom_rules:
     regex: '\bprint\('
     message: "Remove print() before shipping. Use Logger or os.signpost."
     severity: warning
-    included: "Linger/.*\\.swift"
+    included: "Weft/.*\\.swift"
 
   banned_terms_track:
     name: "Brand-banned vocabulary"

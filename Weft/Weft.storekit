@@ -1,0 +1,78 @@
+{
+  "identifier" : "8FAEE73F-WEFT-STOREKIT",
+  "nonRenewingSubscriptions" : [],
+  "products" : [],
+  "settings" : {
+    "_compatibilityTimeRate" : 1,
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : []
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "B1F1C3F0-2026-4F1A-9C3C-WEFTGROUP01",
+      "localizations" : [
+        {
+          "description" : "Weft Premium",
+          "displayName" : "Weft Premium",
+          "locale" : "en_US"
+        }
+      ],
+      "name" : "weft_premium",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "3.99",
+          "familyShareable" : true,
+          "groupNumber" : 1,
+          "internalID" : "C2A2D4F1-2026-4F1B-9D4D-WEFTSUBM001",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Unlimited people, iCloud sync, widgets, and exports.",
+              "displayName" : "Weft Premium",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "weft_premium_monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Weft Premium · Monthly",
+          "subscriptionGroupID" : "B1F1C3F0-2026-4F1A-9C3C-WEFTGROUP01",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "24.99",
+          "familyShareable" : true,
+          "groupNumber" : 1,
+          "internalID" : "D3B3E5F2-2026-4F1C-9E5E-WEFTSUBY001",
+          "introductoryOffer" : {
+            "internalID" : "E4C4F6F3-2026-4F1D-9F6F-WEFTINTROY1",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P1W",
+            "numberOfPeriods" : 1
+          },
+          "localizations" : [
+            {
+              "description" : "Unlimited people, iCloud sync, widgets, and exports.",
+              "displayName" : "Weft Premium",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "weft_premium_yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Weft Premium · Yearly",
+          "subscriptionGroupID" : "B1F1C3F0-2026-4F1A-9C3C-WEFTGROUP01",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

@@ -1,4 +1,4 @@
-# Linger — Web UI Framework
+# Weft — Web UI Framework
 
 > A standalone HTML/CSS/JSX framework that mirrors the iOS app's visual language. Use it for design reviews, marketing landing pages, and as a reference when porting to SwiftUI.
 
@@ -65,9 +65,9 @@ Edit `css/tokens.css` to retune the whole system. Tokens map 1:1 to the values i
 --sage:  #5C7A66;   /* accent */
 --warm:  #C68A3A;   /* "today" highlight */
 
---spring:      cubic-bezier(.22, 1.36, .36, 1);   /* lingerSpring   */
---spring-press:cubic-bezier(.34, 1.56, .64, 1);   /* lingerPress    */
---spring-calm: cubic-bezier(.16,  .9,  .3, 1);    /* lingerCalm     */
+--spring:      cubic-bezier(.22, 1.36, .36, 1);   /* weftSpring   */
+--spring-press:cubic-bezier(.34, 1.56, .64, 1);   /* weftPress    */
+--spring-calm: cubic-bezier(.16,  .9,  .3, 1);    /* weftCalm     */
 ```
 
 ## Typography
