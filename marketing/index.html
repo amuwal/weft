@@ -30,6 +30,7 @@
   <link rel="shortcut icon" href="/assets/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
+  <link rel="alternate" type="application/atom+xml" title="Weft — Essays + Releases" href="/feed.xml" />
 
   <!-- Open Graph (image / site info; per-page title/description already above) -->
   <meta property="og:site_name" content="Weft" />
@@ -78,9 +79,18 @@
         "@id": "https://getweft.xyz/#website",
         "url": "https://getweft.xyz/",
         "name": "Weft",
-        "description": "A quiet place for the people who matter.",
+        "alternateName": ["Weft Personal CRM", "Weft iOS app"],
+        "description": "A quiet personal CRM for iOS — for the 5 to 25 people who matter most.",
         "publisher": { "@id": "https://getweft.xyz/#organization" },
-        "inLanguage": ["en", "ja"]
+        "inLanguage": ["en", "ja"],
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://getweft.xyz/?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
       },
       {
         "@type": "Person",

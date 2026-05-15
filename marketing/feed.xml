@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Weft — Essays + Releases</title>
+  <subtitle>Notes on building a calm personal CRM for the 5–25 people who matter.</subtitle>
+  <link href="https://getweft.xyz/feed.xml" rel="self" />
+  <link href="https://getweft.xyz/" />
+  <id>https://getweft.xyz/</id>
+  <updated>2026-05-16T00:00:00Z</updated>
+  <author>
+    <name>Weft</name>
+    <email>hello@getweft.xyz</email>
+    <uri>https://getweft.xyz/about</uri>
+  </author>
+  <rights>© 2026 Weft</rights>
+
+  <entry>
+    <title>Why I Built Another Personal CRM (and What's Wrong with the Existing Ones)</title>
+    <link href="https://getweft.xyz/blog/why-another-personal-crm" />
+    <id>https://getweft.xyz/blog/why-another-personal-crm</id>
+    <published>2026-05-16T00:00:00Z</published>
+    <updated>2026-05-16T00:00:00Z</updated>
+    <author><name>Weft</name></author>
+    <summary type="html">A 1,900-word essay on what the personal CRM category gets wrong — and what was worth building instead. Honest critique of Dex, Clay, Folk, Monaru. The four mistakes that keep appearing across the category.</summary>
+    <category term="Personal CRM" />
+    <category term="iOS" />
+    <category term="Indie" />
+  </entry>
+
+  <entry>
+    <title>Weft vs Dex — Personal CRM Comparison</title>
+    <link href="https://getweft.xyz/vs/dex" />
+    <id>https://getweft.xyz/vs/dex</id>
+    <published>2026-05-16T00:00:00Z</published>
+    <updated>2026-05-16T00:00:00Z</updated>
+    <author><name>Weft</name></author>
+    <summary>Honest side-by-side comparison: Dex is built for networkers with thousands of contacts; Weft for the 5–25 people you actually love.</summary>
+    <category term="Comparison" />
+  </entry>
+
+  <entry>
+    <title>Weft vs Clay — Personal CRM Comparison</title>
+    <link href="https://getweft.xyz/vs/clay" />
+    <id>https://getweft.xyz/vs/clay</id>
+    <published>2026-05-16T00:00:00Z</published>
+    <updated>2026-05-16T00:00:00Z</updated>
+    <author><name>Weft</name></author>
+    <summary>AI-heavy Mac-first vs human-written iOS-first. Opposite design philosophies.</summary>
+    <category term="Comparison" />
+  </entry>
+
+  <entry>
+    <title>Weft vs Folk CRM — Personal CRM Comparison</title>
+    <link href="https://getweft.xyz/vs/folk" />
+    <id>https://getweft.xyz/vs/folk</id>
+    <published>2026-05-16T00:00:00Z</published>
+    <updated>2026-05-16T00:00:00Z</updated>
+    <author><name>Weft</name></author>
+    <summary>Workplace CRM repurposed for personal use vs a personal journal app built from the ground up for small circles.</summary>
+    <category term="Comparison" />
+  </entry>
+
+  <entry>
+    <title>Weft vs Notion Personal CRM Templates</title>
+    <link href="https://getweft.xyz/vs/notion" />
+    <id>https://getweft.xyz/vs/notion</id>
+    <published>2026-05-16T00:00:00Z</published>
+    <updated>2026-05-16T00:00:00Z</updated>
+    <author><name>Weft</name></author>
+    <summary>Why a focused iOS app outperforms a customizable Notion database for keeping notes on the small circle of people you care about.</summary>
+    <category term="Comparison" />
+  </entry>
+</feed>
