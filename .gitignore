@@ -88,3 +88,22 @@ desktop.ini
 /tmp/
 /screenshots/
 *.png.scratch
+
+# Internal-only — not for the public repo
+.agents/
+CLAUDE.md
+HANDOFF.md
+design/
+memory/
+research/
+skills-lock.json
+spec/
+
+# Marketing / demo PNGs at repo root
+/hero.png
+/final-light-dark.png
+/screenshots-all.png
+/screenshots-dark.png
+/screenshots-v0.1.png
+/screenshots-v0.2.png
+/screenshots-v0.3.png

@@ -4,10 +4,6 @@
 
 A personal iOS app for staying close to your 5–25 most important people. Not a CRM. Not a social network. A private notebook with gentle nudges.
 
-## Status
-
-Planning phase — research complete, spec drafted, UI/UX direction set. No code yet.
-
 ## Working name
 
 **Linger** — chosen because:
@@ -16,31 +12,17 @@ Planning phase — research complete, spec drafted, UI/UX direction set. No code
 - Short, distinctive, 6 letters, no spelling traps.
 - Pairs well with searchable subtitle: *"Stay close to your people"* or *"Personal CRM • Friends & Family"* — Linger holds brand, subtitle holds keywords.
 
-See [spec/naming.md](spec/naming.md) for the full bake-off and rejected candidates.
-
 ## Layout
 
 ```
 linger/
-├── README.md                 ← this file
-├── research/                 ← market + UI/UX findings (raw)
-│   ├── competitors.md
-│   ├── pain-points.md
-│   ├── ui-inspiration.md
-│   └── sources.md
-├── design/                   ← UI/UX direction
-│   ├── design-language.md
-│   ├── screens.md
-│   └── motion-and-haptics.md
-├── spec/                     ← what we're building
-│   ├── features-v1.md
-│   ├── features-v2.md
-│   ├── non-goals.md
-│   ├── naming.md
-│   └── monetization.md
-└── memory/                   ← session notes / decisions
-    ├── decisions.md
-    └── open-questions.md
+├── README.md
+├── project.yml          ← XcodeGen config; run `xcodegen` to generate the .xcodeproj
+├── Linger/              ← app sources (App, Model, Features, Components, Design, Services)
+├── LingerTests/         ← Swift Testing unit tests
+├── LingerUITests/       ← XCUITest happy paths
+├── LingerWidget/        ← WidgetKit extension
+└── LingerWatch/         ← Apple Watch app + companion
 ```
 
 ## The 30-second pitch
