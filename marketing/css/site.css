@@ -1169,6 +1169,91 @@ html:not([data-i18n-booted]) [data-i18n].brand-text {
   max-width: 60ch;
 }
 
+/* ── learn-more / SEO content ──────────────────────────────── */
+
+.learn {
+  padding: 120px 0;
+  background:
+    radial-gradient(900px 360px at 100% 0%, var(--bg-warmer) 0%, transparent 60%),
+    var(--bg);
+  border-top: 1px solid var(--line);
+}
+.learn-head {
+  max-width: 720px;
+  margin: 0 auto 56px;
+  text-align: center;
+}
+.learn-head .eyebrow { display: inline-block; margin-bottom: 14px; }
+.learn-head h2 {
+  font-size: clamp(28px, 3.4vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.learn-head p {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 16.5px;
+  max-width: 56ch;
+  margin-inline: auto;
+  line-height: 1.6;
+}
+.learn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) {
+  .learn-grid { grid-template-columns: 1fr; gap: 28px; }
+}
+.learn-block {
+  background: var(--surface);
+  border-radius: var(--r-card-l);
+  padding: 32px;
+  border: 1px solid var(--line-soft);
+  box-shadow: var(--shadow-card);
+}
+.learn-block h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  letter-spacing: -0.015em;
+  margin-bottom: 14px;
+  line-height: 1.25;
+}
+.learn-block p {
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+.learn-block p strong { color: var(--ink); font-weight: 600; }
+.learn-block p:last-child { margin-bottom: 0; }
+.learn-block ul {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.learn-block ul li {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+  padding-left: 18px;
+  position: relative;
+}
+.learn-block ul li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 11px;
+  width: 6px;
+  height: 1px;
+  background: var(--sage);
+}
+
 /* ── CTA strip ─────────────────────────────────────────────── */
 
 .cta-strip {

@@ -84,38 +84,136 @@
         "inLanguage": ["en", "ja"]
       },
       {
+        "@type": "Person",
+        "@id": "https://getweft.xyz/#author",
+        "name": "amuwal",
+        "url": "https://getweft.xyz/about",
+        "jobTitle": "Indie iOS developer",
+        "worksFor": { "@id": "https://getweft.xyz/#organization" },
+        "knowsAbout": ["iOS development", "SwiftUI", "SwiftData", "personal CRM", "calm technology", "indie software"],
+        "homeLocation": { "@type": "Place", "name": "Tokyo, Japan" }
+      },
+      {
         "@type": "MobileApplication",
         "@id": "https://getweft.xyz/#app",
         "name": "Weft",
-        "alternateName": "Weft — A quiet place for the people who matter",
-        "description": "A small, private notebook for the five to twenty-five people you actually care about. Open it, see who is on your mind, write a sentence about your last conversation, close. Two seconds. The app remembers what you can not.",
+        "alternateName": ["Weft — A quiet place for the people who matter", "Weft Personal CRM"],
+        "description": "Weft is a quiet, private personal CRM for iOS 26. A small notebook for the five to twenty-five people you actually care about — friends, family, inner circle. On-device by default, optional end-to-end-encrypted iCloud sync, no analytics, no AI training on your notes, no streaks. A calm alternative to Dex, Clay, and Folk.",
         "operatingSystem": "iOS 26",
         "applicationCategory": "LifestyleApplication",
         "applicationSubCategory": "Personal CRM",
+        "featureList": [
+          "Up to 7 people free; unlimited with Premium",
+          "On-device SwiftData storage by default",
+          "Optional end-to-end-encrypted iCloud sync via CloudKit private database",
+          "Daily 'Today' surface with 0–3 people based on rhythm and open threads",
+          "Notes, threads, and a per-person log",
+          "Apple Watch face for the small circle",
+          "Lock-screen and home-screen widgets",
+          "Apple Shortcuts integration",
+          "PDF and Markdown export",
+          "No third-party analytics SDKs, no advertising identifiers, no AI training on your notes"
+        ],
+        "keywords": "personal CRM, iOS, stay in touch, friends, family, inner circle, journal, relationships, contacts, memory, Dex alternative, Clay alternative, Folk CRM alternative, calm technology, on-device, private notebook",
         "url": "https://getweft.xyz/",
         "image": "https://getweft.xyz/assets/og-image.png",
         "publisher": { "@id": "https://getweft.xyz/#organization" },
+        "creator": { "@id": "https://getweft.xyz/#author" },
+        "author": { "@id": "https://getweft.xyz/#author" },
         "inLanguage": ["en", "ja"],
         "offers": [
           {
             "@type": "Offer",
             "price": "0",
             "priceCurrency": "USD",
-            "description": "Free for up to seven people, forever."
+            "name": "Free",
+            "description": "Free for up to seven people, forever. Notes, threads, daily Today, home & lock-screen widget."
           },
           {
             "@type": "Offer",
             "price": "24.99",
             "priceCurrency": "USD",
-            "description": "Premium yearly subscription, 7-day free trial.",
+            "name": "Premium Yearly",
+            "description": "Premium yearly subscription with 7-day free trial. Unlimited people, end-to-end-encrypted iCloud sync, Apple Watch app, photo memories, exports, Apple Shortcuts.",
             "category": "subscription"
           },
           {
             "@type": "Offer",
             "price": "3.99",
             "priceCurrency": "USD",
+            "name": "Premium Monthly",
             "description": "Premium monthly subscription.",
             "category": "subscription"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://getweft.xyz/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is my data ever sent to a server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "By default, no. Weft writes to your phone's local database — that's it. If you switch on iCloud sync, Apple's private database encrypts each note end-to-end with your iCloud key. Weft has no servers, no analytics endpoint, and no third-party SDKs that phone home."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why no AI?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Because the value is in you writing the sentence. An AI that auto-summarizes your last text exchange may be technically possible, but it would hollow the app out. A future version may quietly use on-device Apple Intelligence for tiny things — never to write notes for you, and never with cloud LLMs."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will there be an Android version or a web version?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not for a long time. Weft is built around iOS 26 features — Liquid Glass, Apple Watch, widgets, Apple Shortcuts, CloudKit. Cross-platform would water it down. If you live on Android, we would rather you use a different app than a worse Weft."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens if I stop paying for Premium?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Your data stays. The app reverts to the free tier limits — seven people visible, sync paused — but you keep every note ever written, and you can export the lot to PDF or Markdown with one tap. Subscriptions buy features, not your words."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Who built Weft?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "One developer, working out of Tokyo. Weft is a deliberate, single-person indie project — the kind of app where the person who wrote the code also answers your email at hello@getweft.xyz."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is Weft different from Dex, Clay, or Folk CRM?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Dex and Clay are designed for thousands of contacts with LinkedIn-style enrichment and broadcast follow-ups — built for the networker. Folk CRM repackages a sales pipeline for personal use. Weft sits in a third lane: 5–25 people maximum, journal vocabulary instead of sales vocabulary, on-device by default, no AI summarization. It is intentionally smaller and quieter than the other personal CRMs."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does personal CRM mean?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A personal CRM is software for remembering the humans in your own life — birthdays, last conversations, follow-ups you said yes to. Unlike a workplace CRM that tracks leads through a sales funnel, a personal CRM is private, per-person memory. Weft is a calm, on-device take on the category."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I import contacts from Notion, Google Contacts, or a CSV?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Version 1 imports from Apple Contacts only, and only the names you pick. CSV, Notion, and Google import are on the maybe pile for v1.1 — but Weft is intentionally small, and most people who try to import a thousand contacts realize halfway in that they meant fifteen."
+            }
           }
         ]
       }
@@ -698,6 +796,52 @@
         </summary>
         <div class="faq-a" data-i18n="pages.index.faq.items.import.a" data-i18n-html></div>
       </details>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── learn-more / SEO content ─────── -->
+
+<section class="learn" id="learn">
+  <div class="wrap">
+    <div class="learn-head reveal-fade">
+      <span class="eyebrow" data-i18n="pages.index.learn.eyebrow">Background</span>
+      <h2 data-i18n="pages.index.learn.h2">What's a personal CRM, and why a quiet one?</h2>
+      <p class="muted" data-i18n="pages.index.learn.intro">A short explainer for everyone who arrived here searching for a relationship app and wondered if Weft was the right fit.</p>
+    </div>
+
+    <div class="learn-grid">
+      <article class="learn-block reveal-fade">
+        <h3 data-i18n="pages.index.learn.what.h">What "personal CRM" actually means</h3>
+        <p data-i18n="pages.index.learn.what.p1">A personal CRM is software for people, not for sales pipelines. Where a workplace CRM (Salesforce, HubSpot) tracks leads and deals through a funnel, a personal CRM is a small private space for remembering the humans in your own life — birthdays, last conversations, kids' names, the worry someone mentioned in passing.</p>
+        <p data-i18n="pages.index.learn.what.p2">The category emerged because contact apps are too thin (just phone numbers) and journals are too self-focused (a diary about you, not them). A personal CRM holds the middle ground: per-person memory, gentle rhythm, no public profile.</p>
+      </article>
+
+      <article class="learn-block reveal-fade">
+        <h3 data-i18n="pages.index.learn.who.h">Who Weft is for</h3>
+        <p data-i18n="pages.index.learn.who.intro">Weft was built for people who want to stay close to a small, defined circle — not network with thousands. If any of these sound like you, you're the audience:</p>
+        <ul>
+          <li data-i18n="pages.index.learn.who.l1">The senior engineer who keeps forgetting their coworker's kid's name and feels bad each time.</li>
+          <li data-i18n="pages.index.learn.who.l2">The new parent watching close friendships erode under the weight of admin and exhaustion.</li>
+          <li data-i18n="pages.index.learn.who.l3">The freelancer who wants to remember which client said what, without standing up a CRM.</li>
+          <li data-i18n="pages.index.learn.who.l4">The introvert who loves a small handful of people and wants a private place to think about them.</li>
+          <li data-i18n="pages.index.learn.who.l5">The adult child who lives far from family and wants to call their mom on the right week, not the wrong month.</li>
+          <li data-i18n="pages.index.learn.who.l6">Anyone who tried Notion templates or a spreadsheet and bounced off the overhead.</li>
+        </ul>
+      </article>
+
+      <article class="learn-block reveal-fade">
+        <h3 data-i18n="pages.index.learn.vs.h">How Weft differs from Dex, Clay, Folk, and other personal CRMs</h3>
+        <p data-i18n="pages.index.learn.vs.p1">The personal CRM market splits into two patterns. <strong>Networker tools</strong> like Dex and Clay are designed for thousands of contacts, LinkedIn-style enrichment, and broadcast follow-ups — useful if you're a founder building a Rolodex, less so if you just want to remember your closest twenty people. <strong>Workplace CRM spillover</strong> like Folk CRM repackages sales pipelines for personal use; pipelines feel like work even when relabeled.</p>
+        <p data-i18n="pages.index.learn.vs.p2">Weft sits in a third lane. The cap is intentional (five to twenty-five people). The vocabulary is borrowed from journaling, not from sales — notes, threads, rhythm — never "lead," "stage," "engagement." Nothing is shared, nothing is public, nothing is auto-summarized by AI. The whole product is sized around a single idea: that the small circle deserves a calmer, more private surface than the networker apps offer.</p>
+        <p data-i18n="pages.index.learn.vs.p3">If you want auto-pulled contact feeds, LinkedIn integration, or shared workspaces, those products are excellent at it. If you want a quiet, on-device notebook that remembers what you can't, that's Weft.</p>
+      </article>
+
+      <article class="learn-block reveal-fade">
+        <h3 data-i18n="pages.index.learn.platform.h">Why iOS-only, why iOS 26</h3>
+        <p data-i18n="pages.index.learn.platform.p1">Weft is built for iOS 26 specifically — native Liquid Glass surfaces, Apple Watch face, lock-screen widgets, Apple Shortcuts, end-to-end-encrypted CloudKit sync. We chose depth over reach: an app that feels like part of the operating system instead of a cross-platform shell that feels like part of none.</p>
+        <p data-i18n="pages.index.learn.platform.p2">Practically: no Android, no web app, no desktop client. Your private notes stay in your iCloud private database, never on a Weft server (because there is no Weft server).</p>
+      </article>
     </div>
   </div>
 </section>

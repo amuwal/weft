@@ -47,8 +47,8 @@
 
   "pages": {
     "index": {
-      "title": "Weft — A quiet place for the people who matter",
-      "description": "Weft is a private, on-device journal for the five to twenty-five people you actually care about. Not a CRM. A small calm app that remembers what you can't.",
+      "title": "Weft — A Calm Personal CRM for iOS · Stay Close to the People Who Matter",
+      "description": "Weft is a quiet, private personal CRM for iOS. Remember friends, family, and the 5–25 people who matter most — on-device, no cloud, no AI, no streaks. A calm alternative to Dex, Clay, and Folk.",
 
       "hero": {
         "eyebrow": "On-device · iOS 26 · no account needed",
@@ -284,12 +284,44 @@
         "h2Line1": "Keep the people",
         "h2Accent": "who keep you.",
         "p": "Free for up to seven. Forever. No account, no card, no email."
+      },
+
+      "learn": {
+        "eyebrow": "Background",
+        "h2": "What's a personal CRM, and why a quiet one?",
+        "intro": "A short explainer for everyone who arrived here searching for a relationship app and wondered if Weft was the right fit.",
+        "what": {
+          "h": "What \"personal CRM\" actually means",
+          "p1": "A personal CRM is software for people, not for sales pipelines. Where a workplace CRM (Salesforce, HubSpot) tracks leads and deals through a funnel, a personal CRM is a small private space for remembering the humans in your own life — birthdays, last conversations, kids' names, the worry someone mentioned in passing.",
+          "p2": "The category emerged because contact apps are too thin (just phone numbers) and journals are too self-focused (a diary about you, not them). A personal CRM holds the middle ground: per-person memory, gentle rhythm, no public profile."
+        },
+        "who": {
+          "h": "Who Weft is for",
+          "intro": "Weft was built for people who want to stay close to a small, defined circle — not network with thousands. If any of these sound like you, you're the audience:",
+          "l1": "The senior engineer who keeps forgetting their coworker's kid's name and feels bad each time.",
+          "l2": "The new parent watching close friendships erode under the weight of admin and exhaustion.",
+          "l3": "The freelancer who wants to remember which client said what, without standing up a CRM.",
+          "l4": "The introvert who loves a small handful of people and wants a private place to think about them.",
+          "l5": "The adult child who lives far from family and wants to call their mom on the right week, not the wrong month.",
+          "l6": "Anyone who tried Notion templates or a spreadsheet and bounced off the overhead."
+        },
+        "vs": {
+          "h": "How Weft differs from Dex, Clay, Folk, and other personal CRMs",
+          "p1": "The personal CRM market splits into two patterns. <strong>Networker tools</strong> like Dex and Clay are designed for thousands of contacts, LinkedIn-style enrichment, and broadcast follow-ups — useful if you're a founder building a Rolodex, less so if you just want to remember your closest twenty people. <strong>Workplace CRM spillover</strong> like Folk CRM repackages sales pipelines for personal use; pipelines feel like work even when relabeled.",
+          "p2": "Weft sits in a third lane. The cap is intentional (five to twenty-five people). The vocabulary is borrowed from journaling, not from sales — notes, threads, rhythm — never \"lead,\" \"stage,\" \"engagement.\" Nothing is shared, nothing is public, nothing is auto-summarized by AI. The whole product is sized around a single idea: that the small circle deserves a calmer, more private surface than the networker apps offer.",
+          "p3": "If you want auto-pulled contact feeds, LinkedIn integration, or shared workspaces, those products are excellent at it. If you want a quiet, on-device notebook that remembers what you can't, that's Weft."
+        },
+        "platform": {
+          "h": "Why iOS-only, why iOS 26",
+          "p1": "Weft is built for iOS 26 specifically — native Liquid Glass surfaces, Apple Watch face, lock-screen widgets, Apple Shortcuts, end-to-end-encrypted CloudKit sync. We chose depth over reach: an app that feels like part of the operating system instead of a cross-platform shell that feels like part of none.",
+          "p2": "Practically: no Android, no web app, no desktop client. Your private notes stay in your iCloud private database, never on a Weft server (because there is no Weft server)."
+        }
       }
     },
 
     "privacy": {
-      "title": "Privacy — Weft",
-      "description": "Weft's privacy policy, written in plain English. Your notes never leave your phone unless you turn on iCloud sync — and even then, nobody but you can read them.",
+      "title": "Privacy Policy — Weft Personal CRM for iOS",
+      "description": "Weft's privacy policy. On-device by default. End-to-end encrypted iCloud sync is opt-in. No analytics, no third-party SDKs, no AI training on your notes — ever.",
       "updated": "Last updated · 15 May 2026",
       "h1Lead": "Privacy, ",
       "h1Accent": "in plain English.",
@@ -342,8 +374,8 @@
     },
 
     "terms": {
-      "title": "Terms — Weft",
-      "description": "Weft's terms of service, written in plain English. Short, fair, and free of dark patterns.",
+      "title": "Terms of Service — Weft Personal CRM for iOS",
+      "description": "Weft's terms of service in plain English. Short, fair, and free of dark patterns. $0 free tier, $24.99/year Premium with 7-day trial via Apple. Refunds through App Store.",
       "updated": "Last updated · 15 May 2026",
       "h1Lead": "Terms, ",
       "h1Accent": "short and fair.",
@@ -399,8 +431,8 @@
     },
 
     "feedback": {
-      "title": "Send feedback — Weft",
-      "description": "A real person — the developer — reads every email. Tell us what's working, what's not, or what you'd like to see.",
+      "title": "Send Feedback — Weft Personal CRM",
+      "description": "Email the developer directly. Bug reports, kind words, refund help — a real person reads every message. No support tickets, no chatbots.",
       "updated": "We read every message",
       "h1Lead": "Say ",
       "h1Accent": "hello.",
@@ -433,8 +465,8 @@
     },
 
     "featureRequests": {
-      "title": "Feature requests — Weft",
-      "description": "Weft is intentionally small. But the right ideas earn a place. Tell us what you'd love to see — and what we've already considered.",
+      "title": "Feature Requests + Roadmap — Weft Personal CRM",
+      "description": "What's shipping next in Weft, what's under consideration, and what's been shelved. Submit your own idea — every request reaches the developer.",
       "updated": "A short, slow roadmap",
       "h1Lead": "Suggest ",
       "h1Accent": "something small.",
@@ -493,8 +525,8 @@
     },
 
     "about": {
-      "title": "About — Weft",
-      "description": "Weft is made by one developer working out of Tokyo. A small, careful, single-person studio. Here's the why.",
+      "title": "About the Developer — Weft Personal CRM for iOS",
+      "description": "Weft is a one-person indie iOS app made in Tokyo. The why behind the design, the principles, the colophon. Single-developer project, made with care.",
       "updated": "A small studio of one",
       "h1Lead": "Made by ",
       "h1Accent": "one person.",
