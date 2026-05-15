@@ -7,6 +7,10 @@ options:
   groupSortPosition: top
   generateEmptyDirectories: true
   createIntermediateGroups: true
+  knownRegions:
+    - en
+    - ja
+    - Base
 
 settings:
   base:
@@ -52,6 +56,10 @@ targets:
         CFBundleDisplayName: Weft
         CFBundleShortVersionString: "0.1.0"
         CFBundleVersion: "1"
+        CFBundleDevelopmentRegion: en
+        CFBundleLocalizations:
+          - en
+          - ja
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false
         ITSAppUsesNonExemptEncryption: false

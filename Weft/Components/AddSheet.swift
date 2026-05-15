@@ -11,8 +11,8 @@ struct AddSheet: View {
 
         var label: String {
             switch self {
-            case .note: "Note"
-            case .person: "Person"
+            case .note: String(localized: "Note")
+            case .person: String(localized: "Person")
             }
         }
     }

@@ -1,0 +1,679 @@
+{
+  "sourceLanguage" : "en",
+  "version" : "1.0",
+  "strings" : {
+
+    "Settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "設定" } }
+      }
+    },
+    "Done" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "完了" } }
+      }
+    },
+    "Cancel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "キャンセル" } }
+      }
+    },
+    "Save" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "保存" } }
+      }
+    },
+    "OK" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "OK" } }
+      }
+    },
+
+    "Library" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ライブラリ" } }
+      }
+    },
+    "People" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "人々" } }
+      }
+    },
+    "Notes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "メモ" } }
+      }
+    },
+    "Sync" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "同期" } }
+      }
+    },
+    "iCloud sync" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "iCloud同期" } }
+      }
+    },
+    "Status" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "状態" } }
+      }
+    },
+    "On" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "オン" } }
+      }
+    },
+    "Off" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "オフ" } }
+      }
+    },
+    "Your notes live on this device. iCloud sync is optional and end-to-end encrypted." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "メモはこの端末にあります。iCloud同期は任意で、エンドツーエンドで暗号化されます。" } }
+      }
+    },
+
+    "Reminders" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "リマインダー" } }
+      }
+    },
+    "Daily nudge" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "毎日のお知らせ" } }
+      }
+    },
+    "Time" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "時刻" } }
+      }
+    },
+    "A gentle list at this hour. No push if nobody is on your mind." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "この時刻に、やさしいリストを表示します。誰も浮かばない日は通知しません。" } }
+      }
+    },
+
+    "Appearance" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "外観" } }
+      }
+    },
+    "Theme" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "テーマ" } }
+      }
+    },
+    "Accent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "アクセント色" } }
+      }
+    },
+    "Auto" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "自動" } }
+      }
+    },
+    "Light" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ライト" } }
+      }
+    },
+    "Dark" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ダーク" } }
+      }
+    },
+
+    "Language" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "言語" } }
+      }
+    },
+    "System" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "システム" } }
+      }
+    },
+
+    "Data" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "データ" } }
+      }
+    },
+    "Export Markdown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Markdownを書き出す" } }
+      }
+    },
+    "Delete all data" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "すべてのデータを削除" } }
+      }
+    },
+    "Delete every person, note and thread?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "すべての人、メモ、スレッドを削除しますか?" } }
+      }
+    },
+    "Delete everything" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "すべて削除" } }
+      }
+    },
+    "This cannot be undone." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "この操作は取り消せません。" } }
+      }
+    },
+
+    "Subscription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "サブスクリプション" } }
+      }
+    },
+    "Weft Premium" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Weft プレミアム" } }
+      }
+    },
+    "Premium · Active" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "プレミアム · 有効" } }
+      }
+    },
+    "Free · %lld / %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "無料 · %lld / %lld" } }
+      }
+    },
+    "Thanks for supporting Weft." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Weftを応援していただき、ありがとうございます。" } }
+      }
+    },
+    "Unlock unlimited people, sync, widgets, and exports." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "人数無制限、同期、ウィジェット、書き出しを使えるように。" } }
+      }
+    },
+    "Start free trial" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "無料体験をはじめる" } }
+      }
+    },
+    "The free version is for %lld people. Premium removes the limit, adds iCloud sync across iPhone, iPad, and Apple Watch, photo memories, PDF & Markdown export, and Apple Shortcuts." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "無料版は%lld人まで。プレミアムは人数制限なし、iPhone・iPad・Apple Watch間のiCloud同期、写真の思い出、PDF・Markdownの書き出し、Apple Shortcutsが使えます。" } }
+      }
+    },
+
+    "Help" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "サポート" } }
+      }
+    },
+    "Send feedback" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "フィードバックを送る" } }
+      }
+    },
+    "Request a feature" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "機能をリクエスト" } }
+      }
+    },
+    "Privacy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "プライバシー" } }
+      }
+    },
+    "Terms" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "利用規約" } }
+      }
+    },
+
+    "About" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Weftについて" } }
+      }
+    },
+    "Version" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "バージョン" } }
+      }
+    },
+
+    "Weft" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Weft" } }
+      }
+    },
+    "Weft." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Weft." } }
+      }
+    },
+    "Who's on your\nmind today?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "今日、誰のことを\n思い浮かべますか?" } }
+      }
+    },
+    "Nothing pressing." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "急ぎはありません。" } }
+      }
+    },
+    "Enjoy your day." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "今日を楽しんで。" } }
+      }
+    },
+    "Swipe right to mark caught up · left to snooze" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "右スワイプで完了 · 左でスヌーズ" } }
+      }
+    },
+
+    "Who matters to you?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "あなたにとって大切な人は?" } }
+      }
+    },
+    "Weft is for the 5–25 humans you love most." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Weftは、あなたが最も大切に思う5〜25人のためのものです。" } }
+      }
+    },
+
+    "New" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "新規" } }
+      }
+    },
+    "Note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "メモ" } }
+      }
+    },
+    "Person" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "人物" } }
+      }
+    },
+    "New note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "新しいメモ" } }
+      }
+    },
+    "New person" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "新しい人物" } }
+      }
+    },
+    "Note about %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "%@さんへのメモ" } }
+      }
+    },
+    "Choose…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "選択…" } }
+      }
+    },
+    "Relationship" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "関係性" } }
+      }
+    },
+    "Rhythm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "リズム" } }
+      }
+    },
+    "Birthday" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "誕生日" } }
+      }
+    },
+    "Date" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "日付" } }
+      }
+    },
+    "Follow up on this" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "フォローアップする" } }
+      }
+    },
+    "Remind on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "リマインド日" } }
+      }
+    },
+    "How often" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "どのくらいの頻度で" } }
+      }
+    },
+
+    "Edit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "編集" } }
+      }
+    },
+    "Delete %@ and every note?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "%@さんとすべてのメモを削除しますか?" } }
+      }
+    },
+    "Threads" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "スレッド" } }
+      }
+    },
+    "Follow up · %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "フォローアップ · %@" } }
+      }
+    },
+
+    "OPEN" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "未完" } }
+      }
+    },
+    "CAUGHT UP" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "完了" } }
+      }
+    },
+    "SNOOZED" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "スヌーズ中" } }
+      }
+    },
+
+    "Recent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "最近" } }
+      }
+    },
+    "On rhythm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "リズム内" } }
+      }
+    },
+    "It's been a while" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "しばらく経ちました" } }
+      }
+    },
+
+    "Inner circle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "親しい仲" } }
+      }
+    },
+    "Close friends" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "親友" } }
+      }
+    },
+    "Family" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "家族" } }
+      }
+    },
+    "Work" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "仕事" } }
+      }
+    },
+    "Other" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "その他" } }
+      }
+    },
+
+    "weekly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "毎週" } }
+      }
+    },
+    "biweekly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "隔週" } }
+      }
+    },
+    "monthly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "毎月" } }
+      }
+    },
+    "quarterly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "四半期ごと" } }
+      }
+    },
+    "no schedule" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "スケジュールなし" } }
+      }
+    },
+
+    "A quiet place for the\npeople who matter." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "大切な人のための、\n静かな場所。" } }
+      }
+    },
+    "Begin" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "はじめる" } }
+      }
+    },
+    "No account, no cloud by default.\nEverything stays on your phone." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "アカウントもクラウドも、初期設定では使いません。\nすべてはこの電話の中に。" } }
+      }
+    },
+    "Step 2 of 2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ステップ 2 / 2" } }
+      }
+    },
+    "How often\nshould we surface them?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "どのくらいの頻度で\nお知らせしますか?" } }
+      }
+    },
+    "Don't worry about getting this right. You can change it per person, anytime." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "完璧でなくて大丈夫。後で人ごとにいつでも変えられます。" } }
+      }
+    },
+
+    "Today" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "今日" } }
+      }
+    },
+    "Search" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "検索" } }
+      }
+    },
+    "Skip" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "スキップ" } }
+      }
+    },
+    "Continue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "続ける" } }
+      }
+    },
+    "Back" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "戻る" } }
+      }
+    },
+    "Follow-up due." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "フォローアップの日です。" } }
+      }
+    },
+    "It's their birthday." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "今日はその人の誕生日です。" } }
+      }
+    },
+    "It's been a few days." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "数日が経ちました。" } }
+      }
+    },
+    "It's been a week." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "1週間が経ちました。" } }
+      }
+    },
+    "It's been a while." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "しばらく経ちました。" } }
+      }
+    },
+    "It's been %lld weeks." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "%lld週間が経ちました。" } }
+      }
+    },
+    "now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "今" } }
+      }
+    },
+    "%lldw" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "%lld週" } }
+      }
+    },
+    "Some text updates after a full restart of the app." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "一部のテキストはアプリの再起動後に切り替わります。" } }
+      }
+    }
+  }
+}

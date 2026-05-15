@@ -16,6 +16,7 @@ struct SettingsView: View {
     @AppStorage("dailyNudgeEnabled") private var nudgeEnabled: Bool = true
     @AppStorage("themeRaw") private var themeRaw: String = ThemeChoice.auto.rawValue
     @AppStorage("accentRaw") private var accentRaw: String = AccentChoice.sage.rawValue
+    @AppStorage(AppLanguageStorage.key) private var preferredLanguage: String = AppLanguage.system.rawValue
 
     @State private var exportItem: ExportItem?
     @State private var showResetInline = false
@@ -90,6 +91,24 @@ struct SettingsView: View {
                         .buttonStyle(.plain)
                     }
                 }
+            }
+
+            Section {
+                Picker("Language", selection: $preferredLanguage) {
+                    ForEach(AppLanguage.allCases) { lang in
+                        Text(lang.displayName).tag(lang.rawValue)
+                    }
+                }
+                .pickerStyle(.menu)
+                .onChange(of: preferredLanguage) { _, newValue in
+                    if let lang = AppLanguage(rawValue: newValue) {
+                        AppLanguageStorage.apply(lang)
+                    }
+                }
+            } header: {
+                Text("Language")
+            } footer: {
+                Text("Some text updates after a full restart of the app.")
             }
 
             Section("Data") {
@@ -185,7 +204,7 @@ struct SettingsView: View {
         }
     }
 
-    private func externalLinkRow(_ title: String, systemImage: String, url: String) -> some View {
+    private func externalLinkRow(_ title: LocalizedStringKey, systemImage: String, url: String) -> some View {
         Button {
             Haptic.soft.play()
             if let target = URL(string: url) { openURL(target) }
@@ -275,9 +294,9 @@ enum ThemeChoice: String, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .auto: "Auto"
-        case .light: "Light"
-        case .dark: "Dark"
+        case .auto: String(localized: "Auto")
+        case .light: String(localized: "Light")
+        case .dark: String(localized: "Dark")
         }
     }
 

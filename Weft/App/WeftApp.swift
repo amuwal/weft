@@ -7,8 +7,16 @@ struct WeftApp: App {
     @State private var entitlements = Entitlements()
     @AppStorage("themeRaw") private var themeRaw: String = ThemeChoice.auto.rawValue
     @AppStorage("accentRaw") private var accentRaw: String = AccentChoice.sage.rawValue
+    @AppStorage(AppLanguageStorage.key) private var preferredLanguage: String = AppLanguage.system.rawValue
 
     init() {
+        // Push the user's saved language choice into `AppleLanguages` so Foundation-level
+        // string lookups (String(localized:), LocalizedStringResource) pick it up before
+        // the first view renders. Also swap Bundle.main so SwiftUI's Text(_:) goes through
+        // our subclass for cases that hit `Bundle.localizedString(forKey:value:table:)`.
+        AppLanguageStorage.apply(AppLanguageStorage.current())
+        object_setClass(Bundle.main, LocalizedBundle.self)
+
         let container: ModelContainer
         do {
             container = try ModelContainer.weft()
@@ -43,7 +51,13 @@ struct WeftApp: App {
                 .task { await entitlements.bootstrap() }
                 .tint(AccentChoice(rawValue: accentRaw)?.color ?? .sage)
                 .preferredColorScheme(ThemeChoice(rawValue: themeRaw)?.colorScheme)
+                .environment(\.locale, currentLanguage.locale)
+                .id(preferredLanguage)
                 .background(Color.bg.ignoresSafeArea())
         }
+    }
+
+    private var currentLanguage: AppLanguage {
+        AppLanguage(rawValue: preferredLanguage) ?? .system
     }
 }

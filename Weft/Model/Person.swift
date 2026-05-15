@@ -85,11 +85,11 @@ enum RelationshipType: String, Codable, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .inner: "Inner circle"
-        case .close: "Close friends"
-        case .family: "Family"
-        case .work: "Work"
-        case .other: "Other"
+        case .inner: String(localized: "Inner circle")
+        case .close: String(localized: "Close friends")
+        case .family: String(localized: "Family")
+        case .work: String(localized: "Work")
+        case .other: String(localized: "Other")
         }
     }
 
@@ -118,11 +118,11 @@ enum Rhythm: Int, Codable, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .weekly: "weekly"
-        case .biweekly: "biweekly"
-        case .monthly: "monthly"
-        case .quarterly: "quarterly"
-        case .none: "no schedule"
+        case .weekly: String(localized: "weekly")
+        case .biweekly: String(localized: "biweekly")
+        case .monthly: String(localized: "monthly")
+        case .quarterly: String(localized: "quarterly")
+        case .none: String(localized: "no schedule")
         }
     }
 

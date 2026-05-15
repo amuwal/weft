@@ -28,9 +28,9 @@ struct DotIndicator: View {
 
     private var label: String {
         switch state {
-        case .recent: "Recent"
-        case .onRhythm: "On rhythm"
-        case .lingering: "It's been a while"
+        case .recent: String(localized: "Recent")
+        case .onRhythm: String(localized: "On rhythm")
+        case .lingering: String(localized: "It's been a while")
         }
     }
 }
