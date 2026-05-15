@@ -3,25 +3,44 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://getweft.xyz/</loc>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://getweft.xyz/?lang=ja"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://getweft.xyz/"/>
   </url>
+
+  <!-- Comparison pages (bottom-funnel "alternative" intent) -->
   <url>
-    <loc>https://getweft.xyz/privacy</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/privacy"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://getweft.xyz/privacy?lang=ja"/>
+    <loc>https://getweft.xyz/vs/dex</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://getweft.xyz/terms</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/terms"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://getweft.xyz/terms?lang=ja"/>
+    <loc>https://getweft.xyz/vs/clay</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://getweft.xyz/vs/folk</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Long-form content -->
+  <url>
+    <loc>https://getweft.xyz/blog/why-another-personal-crm</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Site pages -->
+  <url>
+    <loc>https://getweft.xyz/about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/about"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getweft.xyz/about?lang=ja"/>
   </url>
   <url>
     <loc>https://getweft.xyz/feedback</loc>
@@ -38,10 +57,17 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://getweft.xyz/feature-requests?lang=ja"/>
   </url>
   <url>
-    <loc>https://getweft.xyz/about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/about"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://getweft.xyz/about?lang=ja"/>
+    <loc>https://getweft.xyz/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getweft.xyz/privacy?lang=ja"/>
+  </url>
+  <url>
+    <loc>https://getweft.xyz/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/terms"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getweft.xyz/terms?lang=ja"/>
   </url>
 </urlset>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Why I Built Another Personal CRM (and What's Wrong with the Existing Ones) | Weft</title>
+  <meta name="description" content="The personal CRM market is full of clones of workplace tools. After trying every one of them I could find, I built a quieter alternative. Here is what was wrong, and what I changed." />
+
+  <link rel="canonical" href="https://getweft.xyz/blog/why-another-personal-crm" />
+  <meta property="og:url" content="https://getweft.xyz/blog/why-another-personal-crm" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Why I Built Another Personal CRM (and What's Wrong with the Existing Ones)" />
+  <meta property="og:description" content="The personal CRM market is full of clones of workplace tools. After trying every one of them I could find, I built a quieter alternative." />
+
+  <meta name="theme-color" content="#F8F5EF" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#161410" media="(prefers-color-scheme: dark)" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" />
+  <link rel="stylesheet" href="/css/site.css" />
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="shortcut icon" href="/assets/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <meta property="og:site_name" content="Weft" />
+  <meta property="og:image" content="https://getweft.xyz/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://getweft.xyz/assets/og-image.png" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Weft" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": "https://getweft.xyz/blog/why-another-personal-crm#article",
+        "headline": "Why I Built Another Personal CRM (and What's Wrong with the Existing Ones)",
+        "description": "An essay about what the personal CRM category gets wrong, and why a quieter alternative was worth building.",
+        "datePublished": "2026-05-16",
+        "dateModified": "2026-05-16",
+        "wordCount": 1900,
+        "articleSection": "Personal CRM",
+        "keywords": "personal CRM, indie iOS, calm technology, Dex, Clay, Folk, small circle, journal app",
+        "author": {
+          "@type": "Person",
+          "name": "Weft",
+          "url": "https://getweft.xyz/about",
+          "jobTitle": "Indie iOS developer"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Weft",
+          "logo": "https://getweft.xyz/assets/favicon-512.png"
+        },
+        "image": "https://getweft.xyz/assets/og-image.png",
+        "mainEntityOfPage": "https://getweft.xyz/blog/why-another-personal-crm",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Weft", "item": "https://getweft.xyz/" },
+          { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://getweft.xyz/blog/" },
+          { "@type": "ListItem", "position": 3, "name": "Why another personal CRM", "item": "https://getweft.xyz/blog/why-another-personal-crm" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">
+      <span class="brand-mark">
+        <svg viewBox="0 0 1024 1024" aria-hidden="true">
+          <rect width="1024" height="1024" fill="#F4EFE3"/>
+          <path d="M 252 600 Q 512 320 772 600" fill="none" stroke="#5C7A66" stroke-width="42" stroke-linecap="round"/>
+          <circle cx="252" cy="600" r="56" fill="#5C7A66"/>
+          <circle cx="772" cy="600" r="56" fill="#5C7A66"/>
+        </svg>
+      </span>
+      <span>Weft<span class="dot">.</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="/#feel">How it feels</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/feedback">Feedback</a>
+      <a class="nav-cta" href="/#download">Get the app</a>
+    </nav>
+  </div>
+</header>
+
+<section class="doc">
+  <div class="wrap">
+    <div class="doc-head">
+      <span class="updated">Essay · 16 May 2026 · 9 min read</span>
+      <h1 style="margin-top:14px;">Why I built another <em>personal CRM</em></h1>
+      <p class="muted" style="max-width:54ch; margin:18px auto 0; font-size:17px; line-height:1.6;">
+        The market is full of clones of workplace tools. After trying every one of them I could find, I built a quieter alternative. Here is what was wrong, and what I changed.
+      </p>
+    </div>
+
+    <div class="doc-body">
+      <p>A few years ago I forgot the name of my friend's dog.</p>
+
+      <p>This is not a serious problem, the way "I forgot my anniversary" is a serious problem. The dog is small and brown and has a name I am almost certain begins with M. My friend will not stop loving me over this. But the small failure stayed with me long after the conversation, because it was an instance of a category of failure I had been quietly accumulating: <em>I was losing the small details about the people I cared about most</em>.</p>
+
+      <p>The name of a coworker's mother, before her surgery. The book my closest friend mentioned in passing, the one I meant to read so we could talk about it. The week my brother started a new job. A friend's miscarriage, which I had been told about with great care and then promptly let slip out of working memory along with seventy unread Slack messages.</p>
+
+      <p>I am not a worse person than average. But the modern adult life — meetings, side projects, a phone full of attention-seizing apps — does not leave a lot of cognitive room for the small private details of other people's lives. The people you love stay loved. The <em>texture</em> of loving them slowly degrades.</p>
+
+      <p>So I went looking for a tool.</p>
+
+      <h2>What I found</h2>
+
+      <p>The personal CRM category exists. It has a name. There are venture-funded companies in it. I tried five of them, and none of them fit.</p>
+
+      <p><strong>Dex</strong> was the polished default. Several thousand contacts, LinkedIn integration, tags like <em>investor</em> and <em>customer</em>, a "you haven't reached out to this person in 60 days" notification system. It is genuinely well-built for a specific user: the operator running a startup who needs to remember <em>many people moderately well</em>. I am not that user. I have approximately fifteen people I want to remember <em>extremely well</em>, and the surface area of Dex made my fifteen feel diluted in a database of strangers.</p>
+
+      <p><strong>Clay</strong> was beautiful. The aesthetic — soft palettes, careful typography, the macOS app feeling like part of the OS — is genuinely lovely. The product's defining feature is that it pulls in your email and calendar and uses an LLM to write paragraph summaries of each person. I tried this. The summaries were technically accurate and emotionally cold, like reading a CRM's polite description of a friend. The act of <em>not</em> writing the sentence about my friend was, it turned out, the thing that prevented me from remembering. The LLM was doing my homework for me.</p>
+
+      <p><strong>Folk CRM</strong> was a workplace tool with a softer aesthetic. Pipelines, deals, teams, email sequences. Useful for an agency; surreal for a friendship. I do not want to "sequence a follow-up" to my mom.</p>
+
+      <p><strong>Monaru</strong> closed mid-2024. <strong>Tend</strong> sent me daily nag notifications until I deleted it. <strong>Garden</strong> had a literal plant metaphor where you "watered" your friendships and I felt insane every time I opened it.</p>
+
+      <p>I tried Notion. Notion is a database, and I wanted a notebook. I tried a paper journal. The paper journal was good but did not surface anyone on a Tuesday morning when I had three minutes between meetings to remember that my friend's dad had just been diagnosed.</p>
+
+      <p>What I wanted, it turned out, was something that did not exist.</p>
+
+      <h2>What was wrong with all of them</h2>
+
+      <p>Looking at the category as a whole, four mistakes kept appearing:</p>
+
+      <p><strong>1. They were built around a network, not around a small circle.</strong> The defaults assume you have hundreds of contacts. The UI is optimized for the long tail. The pricing assumes you're paying with a corporate card. I have fifteen people. Most people have fifteen people. The networker is a real but small subset of the audience.</p>
+
+      <p><strong>2. They borrowed vocabulary from sales.</strong> Words like "lead," "stage," "engagement," "pipeline," "follow-up cadence." Every time you open the app, the language nudges you into a frame where your friend is a unit of work. The frame is wrong. Friendship is not work.</p>
+
+      <p><strong>3. They wanted to do the remembering for you.</strong> AI summarizers, auto-pulled email feeds, calendar inference. The hidden assumption is that <em>the database having information about the person</em> is the value. It isn't. The value is in <em>you knowing the person</em>, and that requires you to do the small effort of writing the sentence yourself. The minute the AI does it, you've outsourced the relationship.</p>
+
+      <p><strong>4. They put your private journal in someone else's cloud.</strong> Every personal CRM I tried defaulted to "your data lives on our servers, behind our terms of service." For a corporate CRM this is fine — your sales pipeline is not <em>that</em> private. For a journal about my friend's grief, it is not fine. I do not want a startup's database admin to have technical access to my notes about my mom.</p>
+
+      <h2>What I built instead</h2>
+
+      <p>I spent eight weeks writing what became Weft.</p>
+
+      <p>The decisions were almost all negative-space decisions — what to leave out — and the product is shaped by them.</p>
+
+      <p><strong>The people cap is 25, on the Premium tier.</strong> Most users will sit around 12–18. There is no way to bulk-import contacts. You add people one at a time, and the friction is on purpose: it forces you to be honest about who actually belongs in this small private list. If you have hundreds of contacts you want to remember, Weft is the wrong tool. Buy Dex.</p>
+
+      <p><strong>The vocabulary is journal vocabulary.</strong> Notes, threads, rhythm. There is no "stage." There is no "engagement score." The Today screen, which surfaces 0–3 people each morning, uses language like "It's been a few weeks" — never "OVERDUE." I went through the codebase before launch and banned the words <em>track, manage, ping, engagement, streak, optimize, nudge (as a verb)</em>. If a string ever slips into the UI containing one of those words, the linter catches it.</p>
+
+      <p><strong>There is no AI.</strong> No LLM, no auto-summary, no "write a follow-up message for you." A future version may quietly use on-device Apple Intelligence for something tiny — but never cloud AI, and never to write notes for you. The whole premise of the product is that <em>you</em> are the one doing the remembering.</p>
+
+      <p><strong>The data lives on your phone.</strong> SwiftData store, fully local by default. If you opt into iCloud sync, your notes go to Apple's end-to-end-encrypted CloudKit private database, where even Apple can't read them. There is no Weft server. There is no analytics SDK. There is no third-party telemetry. The day I add one of those things, the product has stopped being the product.</p>
+
+      <p><strong>It costs $24.99 a year</strong>, or free for up to seven people forever. The networker CRMs charge $120–$200/year because they're priced for sales reps with expense accounts. Most personal CRM users are paying out of pocket. The pricing should reflect that.</p>
+
+      <h2>What I gave up</h2>
+
+      <p>The honest version of this essay would also list the things I cannot do.</p>
+
+      <p>Weft is iOS-only. Not iOS + iPad + Mac + Web — just iOS 26, deeply native. If you live on Android, Weft is unavailable, and probably will be for years. I chose depth over reach.</p>
+
+      <p>There is no integration with LinkedIn, Gmail, calendar, contacts. The integrations are powerful, but the price is that your private notes get fused with your work data, and the texture changes. Weft is a clean slate; you bring what you want.</p>
+
+      <p>There is no team workspace, no sharing, no public profile. You cannot send a friend a link to "what Weft says about them" because the answer should be nothing — Weft is private, by design.</p>
+
+      <p>There are no streaks, no badges, no leaderboards, no celebration animations when you hit "Mark caught up." Friendship is not a workout plan.</p>
+
+      <h2>What this means for you</h2>
+
+      <p>If you've read this far and you're nodding along — if you also have fifteen people, and you also want a small quiet place to write a sentence about them on a Tuesday morning — Weft is what I made. It launches on iOS 26.</p>
+
+      <p>If you're a founder building a Rolodex of thousands of LinkedIn connections, you should buy <a href="/vs/dex">Dex</a> instead. If you want AI to summarize emails for you, you should buy <a href="/vs/clay">Clay</a>. If you're running outbound sales for an agency, you want <a href="/vs/folk">Folk CRM</a>. These are good products for the people they're for. They were just not for me.</p>
+
+      <p>If you decide to try Weft: free up to seven people, forever. No account, no card, no email. The dog's name was probably Milo.</p>
+
+      <div class="doc-callout" style="margin-top:36px;">
+        <p><strong>Try Weft.</strong> A quiet personal CRM for iOS 26. Free for up to 7 people. <a href="/#download">Get it on the App Store →</a></p>
+      </div>
+
+      <h2>Read more</h2>
+      <ul>
+        <li><a href="/#not">What Weft chose not to be</a> — our non-goals, openly</li>
+        <li><a href="/vs/dex">Weft vs Dex</a></li>
+        <li><a href="/vs/clay">Weft vs Clay</a></li>
+        <li><a href="/vs/folk">Weft vs Folk CRM</a></li>
+        <li><a href="/about">About the developer</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="/">
+          <span class="brand-mark">
+            <svg viewBox="0 0 1024 1024" aria-hidden="true">
+              <rect width="1024" height="1024" fill="#F4EFE3"/>
+              <path d="M 252 600 Q 512 320 772 600" fill="none" stroke="#5C7A66" stroke-width="42" stroke-linecap="round"/>
+              <circle cx="252" cy="600" r="56" fill="#5C7A66"/>
+              <circle cx="772" cy="600" r="56" fill="#5C7A66"/>
+            </svg>
+          </span>
+          <span>Weft<span class="dot">.</span></span>
+        </a>
+        <p>A quiet place for the people who matter. Made with care for iOS 26.</p>
+      </div>
+      <div class="foot-col">
+        <h5>App</h5>
+        <ul>
+          <li><a href="/#feel">How it feels</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Compare</h5>
+        <ul>
+          <li><a href="/vs/dex">vs Dex</a></li>
+          <li><a href="/vs/clay">vs Clay</a></li>
+          <li><a href="/vs/folk">vs Folk CRM</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Small print</h5>
+        <ul>
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/terms">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© <span data-year>2026</span> Weft. All rights reserved.</span>
+      <span>Designed and built in Tokyo.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/site.js" defer></script>
+</body>
+</html>
