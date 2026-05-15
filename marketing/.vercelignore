@@ -1,0 +1,14 @@
+# Internal-only ops files — must never be deployed to production.
+# Vercel ignores .gitignore by default, so we restate them here.
+LAUNCH-POSTS.md
+launch-day.html
+
+# Source SVGs for OG images (the rendered PNGs ship, sources don't need to)
+assets/og-image.svg
+assets/og-vs-*.svg
+assets/og-blog-*.svg
+
+# Dev artifacts
+_head.snippet.html
+scripts/
+SEO-CHECKLIST.md
