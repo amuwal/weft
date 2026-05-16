@@ -177,7 +177,7 @@
           },
           "web": {
             "h": "Not on the web",
-            "p": "iOS only, with lock-screen + home-screen widgets and an iPad layout. We chose depth over reach — Android can wait."
+            "p": "iPhone only — lock-screen + home-screen widgets, deeply native. We chose depth over reach. iPad layout and Watch face are on the v1.1 roadmap; Android can wait."
           }
         }
       },
@@ -197,7 +197,7 @@
           },
           "icloud": {
             "h": "iCloud, your way",
-            "p": "Off by default. Switch it on for end-to-end-encrypted sync across iPhone and iPad — never anyone else's server."
+            "p": "Off by default. Switch it on for end-to-end-encrypted sync across your iPhones — never anyone else's server."
           },
           "widgets": {
             "h": "Today, at a glance",

@@ -42,6 +42,7 @@ struct PaywallView: View {
                 .buttonStyle(WeftPrimaryButtonStyle())
                 .frame(maxWidth: .infinity)
                 .disabled(isPurchasing)
+                renewalDisclosure
                 redeemButton
                 links
             }
@@ -173,6 +174,34 @@ struct PaywallView: View {
             return "\(n)-\(unit) free trial · billed yearly"
         }
         return "Intro offer · billed yearly"
+    }
+
+    /// Subscription-terms disclosure block. Required by Apple's Guideline 3.1.2
+    /// (auto-renewing subscriptions): the renewal cadence + cancellation path
+    /// must be visible before the user can complete a purchase. Lifetime is
+    /// non-renewing, so its copy is different.
+    private var renewalDisclosure: some View {
+        Group {
+            switch selected {
+            case .lifetime:
+                Text("One-time purchase. No subscription, no renewals.")
+            case .yearly:
+                Text(
+                    "7-day free trial, then $18.99/year. Auto-renews until cancelled. " +
+                        "Manage in iOS Settings → your name → Subscriptions."
+                )
+            case .monthly:
+                Text(
+                    "$2.99/month. Auto-renews until cancelled. " +
+                        "Manage in iOS Settings → your name → Subscriptions."
+                )
+            }
+        }
+        .font(WeftFont.mini)
+        .foregroundStyle(Color.muted)
+        .multilineTextAlignment(.center)
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, Spacing.m)
     }
 
     private var redeemButton: some View {

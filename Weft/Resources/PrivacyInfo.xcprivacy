@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Weft does no tracking. -->
+    <key>NSPrivacyTracking</key>
+    <false/>
+    <key>NSPrivacyTrackingDomains</key>
+    <array/>
+
+    <!-- Weft collects no data off-device. All data lives in the user's local
+         SwiftData store, and (optionally) their own end-to-end-encrypted
+         iCloud private database. We never see it; we have no servers. -->
+    <key>NSPrivacyCollectedDataTypes</key>
+    <array/>
+
+    <!-- Required Reason API declarations: list every Apple-flagged API the app
+         calls + an approved reason code. Required since May 2024; Apple's
+         upload check rejects builds that use these APIs without declaring. -->
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+        <!-- UserDefaults: app preferences (theme, language choice, sync toggle,
+             nudge time, cached entitlement). Reason CA92.1 = read/write info
+             accessible within the app or app group container. -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>CA92.1</string>
+            </array>
+        </dict>
+
+        <!-- File timestamp APIs: SwiftData / FileManager touches creation +
+             modification dates on its own store files. Reason C617.1 = display
+             file timestamps to the user (we show note createdAt in the UI). -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>C617.1</string>
+            </array>
+        </dict>
+
+        <!-- System boot time: Foundation date math + Calendar arithmetic. The
+             Date initializers indirectly touch boot time. Reason 35F9.1 =
+             measure time elapsed for operations user initiated (rhythm calc). -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>35F9.1</string>
+            </array>
+        </dict>
+
+        <!-- Disk space: SwiftData + FileManager queries available space when
+             writing the store. Reason E174.1 = display info to user (we need
+             to know capacity before writing photos). -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryDiskSpace</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>E174.1</string>
+            </array>
+        </dict>
+    </array>
+</dict>
+</plist>

@@ -84,7 +84,6 @@ targets:
           - CloudKit
         com.apple.developer.ubiquity-container-identifiers:
           - iCloud.com.amuwal.weft
-        aps-environment: development
         com.apple.security.application-groups:
           - group.com.amuwal.weft
     settings:
@@ -132,6 +131,8 @@ targets:
         CFBundleVersion: "1"
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    resources:
+      - path: WeftWidget/PrivacyInfo.xcprivacy
     entitlements:
       path: WeftWidget/WeftWidget.entitlements
       properties:
