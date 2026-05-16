@@ -176,6 +176,58 @@
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "Markdownを書き出す" } }
       }
     },
+    "Export PDF" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "PDFを書き出す" } }
+      }
+    },
+    "Add photo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "写真を追加" } }
+      }
+    },
+    "Photo attached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "写真を添付しました" } }
+      }
+    },
+    "Premium" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "プレミアム" } }
+      }
+    },
+    "Open threads" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "未解決のやり取り" } }
+      }
+    },
+    "%lld people" : {
+      "extractionState" : "manual",
+      "comment" : "PDF export cover subtitle — person count. iOS plural variant key 'people'.",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : { "stringUnit" : { "state" : "translated", "value" : "%lld person" } },
+              "other" : { "stringUnit" : { "state" : "translated", "value" : "%lld people" } }
+            }
+          }
+        },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "%lld人" } }
+      }
+    },
+    "page %lld" : {
+      "extractionState" : "manual",
+      "comment" : "PDF export footer — current page number.",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "%lldページ" } }
+      }
+    },
     "Delete all data" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -260,6 +312,18 @@
       "extractionState" : "manual",
       "localizations" : {
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "フィードバックを送る" } }
+      }
+    },
+    "Redeem a gift code" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ギフトコードを使う" } }
+      }
+    },
+    "Have a code? Redeem" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "コードをお持ちですか? 使う" } }
       }
     },
     "Request a feature" : {

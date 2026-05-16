@@ -1,6 +1,7 @@
 import Foundation
 import OSLog
 import StoreKit
+import UIKit
 
 @MainActor
 @Observable
@@ -8,6 +9,11 @@ final class Entitlements {
     enum ProductID: String, CaseIterable {
         case monthly = "weft_premium_monthly"
         case yearly = "weft_premium_yearly"
+        case lifetime = "weft_premium_lifetime"
+
+        var isSubscription: Bool {
+            self != .lifetime
+        }
     }
 
     static let subscriptionGroup = "weft_premium"
@@ -41,7 +47,10 @@ final class Entitlements {
         do {
             let ids = ProductID.allCases.map(\.rawValue)
             let fetched = try await Product.products(for: ids)
-            products = fetched.sorted { lhs, _ in lhs.id.contains("yearly") }
+            // Sort: lifetime first (top of paywall), then yearly, then monthly.
+            products = fetched.sorted { lhs, rhs in
+                sortRank(lhs.id) < sortRank(rhs.id)
+            }
             productsLoaded = !products.isEmpty
             let loadedCount = products.count
             logger.info("Loaded \(loadedCount) products")
@@ -51,14 +60,22 @@ final class Entitlements {
         }
     }
 
-    /// Re-derive `isPremium` from the local Transaction history.
+    /// Re-derive `isPremium` from local Transaction history. A user is Premium
+    /// if either (a) they own the non-consumable lifetime product, or
+    /// (b) they have an unexpired auto-renewing subscription in the group.
     func refresh() async {
         var premium = false
         var renewal: Date?
         for await result in Transaction.currentEntitlements {
             guard case .verified(let txn) = result else { continue }
-            guard txn.subscriptionGroupID == Self.subscriptionGroup else { continue }
-            if txn.revocationDate == nil {
+            guard txn.revocationDate == nil else { continue }
+            if txn.productID == ProductID.lifetime.rawValue {
+                premium = true
+                // Lifetime has no renewal date.
+                renewal = nil
+                continue
+            }
+            if txn.subscriptionGroupID == Self.subscriptionGroup {
                 premium = true
                 renewal = txn.expirationDate
             }
@@ -105,5 +122,34 @@ final class Entitlements {
 
     func product(for id: ProductID) -> Product? {
         products.first { $0.id == id.rawValue }
+    }
+
+    /// Presents Apple's native code-redemption sheet. Used for gift codes generated
+    /// in App Store Connect (e.g. influencer/friend Lifetime gifts). Apple owns the
+    /// input + validation; we just present the sheet. Successful redemptions arrive
+    /// through `Transaction.updates`, which `bootstrap()` is already listening to.
+    func presentRedeemSheet() async {
+        guard let scene = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first(where: { $0.activationState == .foregroundActive })
+            ?? UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first
+        else {
+            logger.error("Redeem sheet: no active window scene")
+            return
+        }
+        do {
+            try await AppStore.presentOfferCodeRedeemSheet(in: scene)
+        } catch {
+            logger.error("Redeem sheet failed: \(error.localizedDescription)")
+        }
+    }
+
+    private func sortRank(_ id: String) -> Int {
+        switch id {
+        case ProductID.lifetime.rawValue: 0
+        case ProductID.yearly.rawValue: 1
+        case ProductID.monthly.rawValue: 2
+        default: 3
+        }
     }
 }

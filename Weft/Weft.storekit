@@ -1,7 +1,23 @@
 {
   "identifier" : "8FAEE73F-WEFT-STOREKIT",
   "nonRenewingSubscriptions" : [],
-  "products" : [],
+  "products" : [
+    {
+      "displayPrice" : "39.99",
+      "familyShareable" : true,
+      "internalID" : "F5D5A7F4-2026-4F1E-A070-WEFTLIFETIME",
+      "localizations" : [
+        {
+          "description" : "One-time purchase. Unlimited people, iCloud sync, widgets, exports, Apple Watch — forever.",
+          "displayName" : "Weft Premium · Lifetime",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "weft_premium_lifetime",
+      "referenceName" : "Weft Premium · Lifetime",
+      "type" : "NonConsumable"
+    }
+  ],
   "settings" : {
     "_compatibilityTimeRate" : 1,
     "_failTransactionsEnabled" : false,
@@ -24,7 +40,7 @@
         {
           "adHocOffers" : [],
           "codeOffers" : [],
-          "displayPrice" : "3.99",
+          "displayPrice" : "2.99",
           "familyShareable" : true,
           "groupNumber" : 1,
           "internalID" : "C2A2D4F1-2026-4F1B-9D4D-WEFTSUBM001",
@@ -45,7 +61,7 @@
         {
           "adHocOffers" : [],
           "codeOffers" : [],
-          "displayPrice" : "24.99",
+          "displayPrice" : "18.99",
           "familyShareable" : true,
           "groupNumber" : 1,
           "internalID" : "D3B3E5F2-2026-4F1C-9E5E-WEFTSUBY001",

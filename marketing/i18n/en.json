@@ -57,7 +57,7 @@
         "sub": "Weft is a small, private notebook for the <em>five to twenty-five people</em> you actually care about. Open it, see who's on your mind, write a sentence about your last conversation, close. Two seconds. The app remembers what you can't.",
         "meta1": "No cloud by default",
         "meta2": "No analytics, no ads, ever",
-        "meta3": "7-day free trial · $24.99/yr",
+        "meta3": "7-day free trial · $18.99/yr or $39.99 lifetime",
         "phone": {
           "date": "Wednesday · May 15",
           "title": "Who's on your<br/>mind today?",
@@ -218,7 +218,7 @@
         "eyebrow": "A fair, sustainable price",
         "h2Line1": "Free to begin.",
         "h2Line2": "Quietly priced if it sticks.",
-        "intro": "Free for up to seven people on one device. Yearly costs less than two coffees — and pays for the developer who answers your email.",
+        "intro": "Free for up to seven people on one device. Lifetime is $39.99 — less than two years of yearly, then never again.",
         "free": {
           "name": "Free",
           "amount": "$0",
@@ -232,12 +232,27 @@
           "cta": "Start free",
           "foot": "Local-only. No account."
         },
+        "lifetime": {
+          "badge": "Best value",
+          "name": "Lifetime",
+          "amount": "$39.99",
+          "unit": "once",
+          "note": "Pay once. Yours forever. No renewals.",
+          "f1": "Everything in Premium",
+          "f2": "Unlimited people",
+          "f3": "End-to-end encrypted iCloud sync",
+          "f4": "Apple Watch app & widgets",
+          "f5": "Photo memories on notes",
+          "f6": "PDF & Markdown export",
+          "cta": "Get Weft for life",
+          "foot": "Family sharing enabled. One-time purchase."
+        },
         "premium": {
-          "badge": "Premium",
+          "badge": "Subscription",
           "name": "Yearly",
-          "amount": "$24.99",
+          "amount": "$18.99",
           "unit": "/ year",
-          "yearlyNote": "or $3.99/month · 7-day free trial on yearly",
+          "yearlyNote": "or $2.99/month · 7-day free trial on yearly",
           "f1": "Unlimited people",
           "f2": "End-to-end encrypted iCloud sync",
           "f3": "Apple Watch app",
@@ -276,6 +291,10 @@
           "import": {
             "q": "What about import from Notion / Google Contacts / a CSV?",
             "a": "v1 imports from Apple Contacts only, and only the names you pick. CSV / Notion / Google import are on the maybe pile for v1.1 — but Weft is intentionally small, and most people who try to import a thousand contacts realize halfway in that they meant fifteen."
+          },
+          "gift": {
+            "q": "I received a Weft gift code — how do I use it?",
+            "a": "Open Weft, tap the gear icon to open Settings, then <em>Redeem a gift code</em>. (Or on the paywall: <em>Have a code? Redeem</em>.) Paste your code into Apple's redemption sheet — if it's a Lifetime gift, Premium activates immediately. No account, no signup. Gift codes come from us directly to people we want to hand the app to (press, friends, occasional giveaways); we don't sell them through the site."
           }
         }
       },
@@ -375,7 +394,7 @@
 
     "terms": {
       "title": "Terms of Service — Weft Personal CRM for iOS",
-      "description": "Weft's terms of service in plain English. Short, fair, and free of dark patterns. $0 free tier, $24.99/year Premium with 7-day trial via Apple. Refunds through App Store.",
+      "description": "Weft's terms of service in plain English. Short, fair, and free of dark patterns. $0 free tier, $18.99/year Premium or $39.99 lifetime via Apple. Refunds through App Store.",
       "updated": "Last updated · 15 May 2026",
       "h1Lead": "Terms, ",
       "h1Accent": "short and fair.",
@@ -397,7 +416,7 @@
         },
         "subscriptions": {
           "h": "Subscriptions",
-          "pricing": "<strong>Pricing.</strong> Free tier is free forever. Premium is $3.99/month or $24.99/year. The yearly plan includes a 7-day free trial; the monthly plan does not.",
+          "pricing": "<strong>Pricing.</strong> Free tier is free forever. Premium is $2.99/month, $18.99/year, or $39.99 once for a Lifetime purchase. The yearly plan includes a 7-day free trial; the monthly and lifetime plans do not.",
           "renewal": "<strong>Renewal.</strong> Subscriptions auto-renew through your Apple ID until you cancel. Apple takes payment 24 hours before the period ends. You can cancel anytime in iOS Settings → your name → Subscriptions, and the cancellation takes effect at the end of the current period.",
           "refunds": "<strong>Refunds.</strong> Refunds are handled by Apple under their <a href=\"https://support.apple.com/en-us/HT204084\" target=\"_blank\" rel=\"noopener\">refund policy</a>. We can't issue them directly. If you feel you've been treated unfairly by an automatic charge, write to us — we'll help you file the Apple refund request.",
           "priceChanges": "<strong>Price changes.</strong> If we ever raise the price, your existing subscription stays at its current price until you cancel. New subscribers pay the new price. Apple notifies you of any change before charging."

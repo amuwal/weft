@@ -5,7 +5,7 @@ struct PaywallView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
     @Environment(Entitlements.self) private var entitlements
-    @State private var selected: Entitlements.ProductID = .yearly
+    @State private var selected: Entitlements.ProductID = .lifetime
     @State private var statusMessage: StatusMessage?
 
     private var isPurchasing: Bool {
@@ -32,16 +32,17 @@ struct PaywallView: View {
                 hero
                 features
                 plans
-                Button(action: startTrial) {
+                Button(action: startPurchase) {
                     if isPurchasing {
                         ProgressView().tint(Color.bg)
                     } else {
-                        Text("Start free trial")
+                        Text(ctaTitle)
                     }
                 }
                 .buttonStyle(WeftPrimaryButtonStyle())
                 .frame(maxWidth: .infinity)
                 .disabled(isPurchasing)
+                redeemButton
                 links
             }
             .padding(.horizontal, Spacing.xl)
@@ -93,19 +94,34 @@ struct PaywallView: View {
     private var plans: some View {
         VStack(spacing: Spacing.m) {
             planRow(
+                id: .lifetime,
+                title: "Lifetime",
+                fallbackSubtitle: "Pay once · yours forever",
+                fallbackPrice: "$39.99",
+                badge: "Best value"
+            )
+            planRow(
                 id: .yearly,
                 title: "Yearly",
                 fallbackSubtitle: "7-day free trial",
-                fallbackPrice: "$24.99",
-                badge: "Best value"
+                fallbackPrice: "$18.99",
+                badge: nil
             )
             planRow(
                 id: .monthly,
                 title: "Monthly",
                 fallbackSubtitle: "Cancel anytime",
-                fallbackPrice: "$3.99",
+                fallbackPrice: "$2.99",
                 badge: nil
             )
+        }
+    }
+
+    private var ctaTitle: String {
+        switch selected {
+        case .lifetime: "Get Weft for life"
+        case .yearly: "Start free trial"
+        case .monthly: "Subscribe"
         }
     }
 
@@ -159,6 +175,21 @@ struct PaywallView: View {
         return "Intro offer · billed yearly"
     }
 
+    private var redeemButton: some View {
+        Button(action: presentRedeem) {
+            Text("Have a code? Redeem")
+                .font(WeftFont.body)
+                .foregroundStyle(Color.sage)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.top, Spacing.s)
+    }
+
+    private func presentRedeem() {
+        Haptic.soft.play()
+        Task { await entitlements.presentRedeemSheet() }
+    }
+
     private var links: some View {
         HStack(spacing: Spacing.l) {
             Button("Restore", action: restore)
@@ -170,7 +201,7 @@ struct PaywallView: View {
         .frame(maxWidth: .infinity)
     }
 
-    private func startTrial() {
+    private func startPurchase() {
         Haptic.soft.play()
         guard let product = entitlements.product(for: selected) else {
             statusMessage = StatusMessage(

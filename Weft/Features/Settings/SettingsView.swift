@@ -114,6 +114,14 @@ struct SettingsView: View {
             Section("Data") {
                 Button {
                     Haptic.soft.play()
+                    let url = PDFExporter.export(from: context)
+                    exportItem = ExportItem(url: url)
+                } label: {
+                    Label("Export PDF", systemImage: "doc.richtext")
+                }
+
+                Button {
+                    Haptic.soft.play()
                     let url = MarkdownExporter.export(from: context)
                     exportItem = ExportItem(url: url)
                 } label: {
@@ -146,6 +154,21 @@ struct SettingsView: View {
                         Text(subscriptionStatusLabel)
                             .foregroundStyle(entitlements.isPremium ? Color.sage : Color.muted)
                             .font(WeftFont.caption)
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 13, weight: .semibold))
+                            .foregroundStyle(Color.whisper)
+                    }
+                }
+                .buttonStyle(.plain)
+
+                Button {
+                    Haptic.selection.play()
+                    Task { await entitlements.presentRedeemSheet() }
+                } label: {
+                    HStack {
+                        Label("Redeem a gift code", systemImage: "gift")
+                            .foregroundStyle(Color.ink)
+                        Spacer()
                         Image(systemName: "chevron.right")
                             .font(.system(size: 13, weight: .semibold))
                             .foregroundStyle(Color.whisper)

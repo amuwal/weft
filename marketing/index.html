@@ -140,7 +140,15 @@
           },
           {
             "@type": "Offer",
-            "price": "24.99",
+            "price": "39.99",
+            "priceCurrency": "USD",
+            "name": "Premium Lifetime",
+            "description": "One-time purchase. Unlimited people, end-to-end-encrypted iCloud sync, Apple Watch, photo memories, exports, Apple Shortcuts — forever.",
+            "category": "lifetime"
+          },
+          {
+            "@type": "Offer",
+            "price": "18.99",
             "priceCurrency": "USD",
             "name": "Premium Yearly",
             "description": "Premium yearly subscription with 7-day free trial. Unlimited people, end-to-end-encrypted iCloud sync, Apple Watch app, photo memories, exports, Apple Shortcuts.",
@@ -148,7 +156,7 @@
           },
           {
             "@type": "Offer",
-            "price": "3.99",
+            "price": "2.99",
             "priceCurrency": "USD",
             "name": "Premium Monthly",
             "description": "Premium monthly subscription.",
@@ -222,6 +230,14 @@
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "Version 1 imports from Apple Contacts only, and only the names you pick. CSV, Notion, and Google import are on the maybe pile for v1.1 — but Weft is intentionally small, and most people who try to import a thousand contacts realize halfway in that they meant fifteen."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "I received a Weft gift code — how do I use it?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Open Weft, tap the gear icon to open Settings, then 'Redeem a gift code'. (Or on the paywall, 'Have a code? Redeem'.) Paste your code into Apple's redemption sheet — if it's a Lifetime gift, Premium activates immediately. No account, no signup. Gift codes come from us directly to people we want to hand the app to (press, friends, occasional giveaways); we don't sell them through the site."
             }
           }
         ]
@@ -300,7 +316,7 @@
       <div class="hero-meta reveal-fade">
         <span><span class="pip"></span> <span data-i18n="pages.index.hero.meta1">No cloud by default</span></span>
         <span><span class="pip"></span> <span data-i18n="pages.index.hero.meta2">No analytics, no ads, ever</span></span>
-        <span><span class="pip"></span> <span data-i18n="pages.index.hero.meta3">7-day free trial · $24.99/yr</span></span>
+        <span><span class="pip"></span> <span data-i18n="pages.index.hero.meta3">7-day free trial · $18.99/yr or $39.99 lifetime</span></span>
       </div>
     </div>
 
@@ -690,7 +706,7 @@
       <span class="eyebrow reveal-fade" data-i18n="pages.index.pricing.eyebrow">A fair, sustainable price</span>
       <h2 class="reveal-fade"><span data-i18n="pages.index.pricing.h2Line1">Free to begin.</span><br/><span data-i18n="pages.index.pricing.h2Line2">Quietly priced if it sticks.</span></h2>
       <p class="reveal-fade" data-i18n="pages.index.pricing.intro">
-        Free for up to seven people on one device. Yearly costs less than two coffees — and pays for the developer who answers your email.
+        Free for up to seven people on one device. Lifetime is $39.99 — less than two years of yearly, then never again.
       </p>
     </div>
 
@@ -713,14 +729,34 @@
         <span class="tier-foot" data-i18n="pages.index.pricing.free.foot">Local-only. No account.</span>
       </div>
 
+      <div class="tier lifetime reveal-fade">
+        <span class="tier-badge" data-i18n="pages.index.pricing.lifetime.badge">Best value</span>
+        <h3 data-i18n="pages.index.pricing.lifetime.name">Lifetime</h3>
+        <div class="tier-price">
+          <span class="amount" data-i18n="pages.index.pricing.lifetime.amount">$39.99</span>
+          <span class="unit" data-i18n="pages.index.pricing.lifetime.unit">once</span>
+        </div>
+        <div class="tier-yearly" data-i18n="pages.index.pricing.lifetime.note">Pay once. Yours forever. No renewals.</div>
+        <ul>
+          <li data-i18n="pages.index.pricing.lifetime.f1">Everything in Premium</li>
+          <li data-i18n="pages.index.pricing.lifetime.f2">Unlimited people</li>
+          <li data-i18n="pages.index.pricing.lifetime.f3">End-to-end encrypted iCloud sync</li>
+          <li data-i18n="pages.index.pricing.lifetime.f4">Apple Watch app & widgets</li>
+          <li data-i18n="pages.index.pricing.lifetime.f5">Photo memories on notes</li>
+          <li data-i18n="pages.index.pricing.lifetime.f6">PDF & Markdown export</li>
+        </ul>
+        <a class="tier-cta" href="#download" data-i18n="pages.index.pricing.lifetime.cta">Get Weft for life</a>
+        <span class="tier-foot" data-i18n="pages.index.pricing.lifetime.foot">Family sharing enabled. One-time purchase.</span>
+      </div>
+
       <div class="tier premium reveal-fade">
-        <span class="tier-badge" data-i18n="pages.index.pricing.premium.badge">Premium</span>
+        <span class="tier-badge" data-i18n="pages.index.pricing.premium.badge">Subscription</span>
         <h3 data-i18n="pages.index.pricing.premium.name">Yearly</h3>
         <div class="tier-price">
-          <span class="amount" data-i18n="pages.index.pricing.premium.amount">$24.99</span>
+          <span class="amount" data-i18n="pages.index.pricing.premium.amount">$18.99</span>
           <span class="unit" data-i18n="pages.index.pricing.premium.unit">/ year</span>
         </div>
-        <div class="tier-yearly" data-i18n="pages.index.pricing.premium.yearlyNote">or $3.99/month · 7-day free trial on yearly</div>
+        <div class="tier-yearly" data-i18n="pages.index.pricing.premium.yearlyNote">or $2.99/month · 7-day free trial on yearly</div>
         <ul>
           <li data-i18n="pages.index.pricing.premium.f1">Unlimited people</li>
           <li data-i18n="pages.index.pricing.premium.f2">End-to-end encrypted iCloud sync</li>
@@ -804,6 +840,16 @@
           </span>
         </summary>
         <div class="faq-a" data-i18n="pages.index.faq.items.import.a" data-i18n-html></div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span data-i18n="pages.index.faq.items.gift.q">I received a Weft gift code — how do I use it?</span>
+          <span class="marker">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+          </span>
+        </summary>
+        <div class="faq-a" data-i18n="pages.index.faq.items.gift.a" data-i18n-html></div>
       </details>
     </div>
   </div>

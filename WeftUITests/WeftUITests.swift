@@ -48,13 +48,14 @@ final class WeftUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["iCloud sync"].exists)
     }
 
-    /// Paywall renders with both plan rows and the trial CTA.
+    /// Paywall renders with all three plan rows and the lifetime CTA (Lifetime is selected by default).
     func testPaywallOpensFromLaunchFlag() {
         let app = launch(arguments: ["--seed", "--paywall", "--onboarding-done"])
         XCTAssertTrue(app.staticTexts["Weft Premium"].waitForExistence(timeout: 6))
+        XCTAssertTrue(app.staticTexts["Lifetime"].exists)
         XCTAssertTrue(app.staticTexts["Yearly"].exists)
         XCTAssertTrue(app.staticTexts["Monthly"].exists)
-        XCTAssertTrue(app.buttons["Start free trial"].exists)
+        XCTAssertTrue(app.buttons["Get Weft for life"].exists)
     }
 
     private func launch(arguments: [String]) -> XCUIApplication {

@@ -6,12 +6,30 @@ struct PersonCard: View {
     let state: RhythmState
     let weeksLabel: String
     var isToday: Bool = false
+    /// When the most recent note for this person has a photo, the card surfaces
+    /// a small badge on the avatar so the reader gets a visual flicker of the
+    /// memory without having to drill in.
+    var recentPhotoData: Data?
 
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         HStack(alignment: .center, spacing: 14) {
-            PersonAvatar(initial: person.initial, palette: person.avatarPalette)
+            ZStack(alignment: .bottomTrailing) {
+                PersonAvatar(initial: person.initial, palette: person.avatarPalette)
+                if let data = recentPhotoData, let image = UIImage(data: data) {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 22, height: 22)
+                        .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                .strokeBorder(Color.bg, lineWidth: 1.5)
+                        )
+                        .offset(x: 4, y: 4)
+                }
+            }
             VStack(alignment: .leading, spacing: 2) {
                 Text(person.name)
                     .font(WeftFont.title)

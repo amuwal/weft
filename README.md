@@ -22,7 +22,7 @@ The unit isn't a contact, it's a *memory of a person* — the things you noticed
 
 ## Pricing
 
-Free for up to seven people, forever. Premium is **$3.99/month** or **$24.99/year** (7-day free trial on yearly) for unlimited people, end-to-end encrypted iCloud sync, the Apple Watch app, photo memories, PDF & Markdown export, and Apple Shortcuts.
+Free for up to seven people, forever. Premium is **$2.99/month**, **$18.99/year** (7-day free trial on yearly), or **$39.99 once** for a lifetime purchase — all unlock unlimited people, end-to-end encrypted iCloud sync, the Apple Watch app, photo memories, PDF & Markdown export, and Apple Shortcuts.
 
 ## Privacy
 

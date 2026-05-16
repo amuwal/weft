@@ -29,7 +29,8 @@ struct TodayView: View {
                             reason: item.reason,
                             state: item.state,
                             weeksLabel: item.weeksLabel,
-                            isToday: item.isToday
+                            isToday: item.isToday,
+                            recentPhotoData: recentPhotoData(for: item.person)
                         )
                         .matchedTransitionSource(id: item.person.id, in: cardNamespace)
                         .contentShape(Rectangle())
@@ -116,6 +117,15 @@ struct TodayView: View {
         let lastNote = person.notesOrEmpty.map(\.createdAt).max()
         let lastTP = person.touchpointsOrEmpty.map(\.createdAt).max()
         return [lastNote, lastTP].compactMap(\.self).max()
+    }
+
+    /// Returns the photo from this person's most recent note that has one.
+    /// Surfaced on the Today card to give the entry a flicker of memory.
+    private func recentPhotoData(for person: Person) -> Data? {
+        person.notesOrEmpty
+            .sorted { $0.createdAt > $1.createdAt }
+            .first(where: { $0.photoData != nil })?
+            .photoData
     }
 
     private func caughtUp(_ item: TodayItem) {

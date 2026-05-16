@@ -266,12 +266,31 @@ private struct EmptySectionState: View {
 private struct NoteRow: View {
     let note: Note
     let threads: [Thread]
+    @State private var showingPhoto = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(note.createdAt, format: .dateTime.month(.abbreviated).day().weekday(.wide))
                 .font(WeftFont.mini)
                 .foregroundStyle(Color.whisper)
+            if let data = note.photoData, let image = UIImage(data: data) {
+                Button {
+                    Haptic.soft.play()
+                    showingPhoto = true
+                } label: {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(maxWidth: .infinity)
+                        .frame(maxHeight: 280)
+                        .clipShape(RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: Radius.card, style: .continuous)
+                                .strokeBorder(Color.ink.opacity(0.06), lineWidth: 0.5)
+                        )
+                }
+                .buttonStyle(.plain)
+            }
             Text(note.body)
                 .font(WeftFont.serifBody)
                 .foregroundStyle(Color.ink)
@@ -293,6 +312,36 @@ private struct NoteRow: View {
         .padding(.vertical, Spacing.m)
         .overlay(alignment: .bottom) {
             Rectangle().fill(Color.ink.opacity(0.06)).frame(height: 0.5)
+        }
+        .sheet(isPresented: $showingPhoto) {
+            if let data = note.photoData, let image = UIImage(data: data) {
+                PhotoViewer(image: image)
+            }
+        }
+    }
+}
+
+/// Full-screen zoomable viewer for an attached photo. Tap-to-dismiss; pinch
+/// zooms via the system magnification gesture stack.
+private struct PhotoViewer: View {
+    let image: UIImage
+    @Environment(\.dismiss) private var dismiss
+    @State private var scale: CGFloat = 1
+    @State private var lastScale: CGFloat = 1
+
+    var body: some View {
+        ZStack {
+            Color.black.ignoresSafeArea()
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFit()
+                .scaleEffect(scale)
+                .gesture(
+                    MagnifyGesture()
+                        .onChanged { value in scale = max(1, min(lastScale * value.magnification, 4)) }
+                        .onEnded { _ in lastScale = scale }
+                )
+                .onTapGesture { dismiss() }
         }
     }
 }
