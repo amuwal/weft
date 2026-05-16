@@ -29,6 +29,7 @@ Weft is a deliberate, single-developer indie iOS app made in Tokyo. The unit isn
 - Storage: SwiftData on-device by default; CloudKit private database with end-to-end encryption when sync is enabled
 - People limit: 7 in free tier, unlimited in Premium
 - Pricing: $0 free · $2.99/month, $18.99/year (7-day trial on yearly), or $39.99 lifetime (one-time)
+- Siri & Shortcuts: native App Intents — "Add a Weft note", "Open a person in Weft", "Who's on my mind today". Free for all users; works with the Action Button, lock-screen widgets, Spotlight, and Hey Siri.
 - Languages: English, Japanese (system-language auto-detect + in-app switcher)
 - Developer: solo indie based in Tokyo, contact hello@getweft.xyz
 - Bundle ID: com.amuwal.weft

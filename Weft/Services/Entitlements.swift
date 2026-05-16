@@ -18,8 +18,19 @@ final class Entitlements {
 
     static let subscriptionGroup = "weft_premium"
     static let freePeopleLimit = 7
+    /// Mirrors `isPremium` into UserDefaults so non-Observable code (notably
+    /// `ModelContainer.weft()`, which runs synchronously at app launch before
+    /// SwiftUI environment objects exist) can consult entitlement state.
+    /// `nonisolated` so the model container — running outside the main actor
+    /// at boot — can read it without an actor hop.
+    nonisolated static let cachedIsPremiumKey = "weft.cachedIsPremium"
 
-    private(set) var isPremium = false
+    private(set) var isPremium = false {
+        didSet {
+            UserDefaults.standard.set(isPremium, forKey: Self.cachedIsPremiumKey)
+        }
+    }
+
     private(set) var renewalDate: Date?
     private(set) var products: [Product] = []
     private(set) var productsLoaded = false
@@ -27,6 +38,19 @@ final class Entitlements {
 
     private let logger = Logger(subsystem: "com.amuwal.weft", category: "Entitlements")
     private var transactionListener: Task<Void, Never>?
+
+    /// DEBUG-only override: `--premium` at launch flips entitlement on without
+    /// going through StoreKit. Lets us iterate on Premium-gated UI in seconds.
+    /// Never shipped to App Store — guarded by `#if DEBUG`.
+    /// `nonisolated` so `ModelContainer.weft()` (called from `WeftApp.init`
+    /// before any actor exists) can read it.
+    nonisolated static var debugPremiumOverride: Bool {
+        #if DEBUG
+            return ProcessInfo.processInfo.arguments.contains("--premium")
+        #else
+            return false
+        #endif
+    }
 
     /// Call once at app launch. Loads products from StoreKit (which the
     /// scheme's local .storekit file backs in development), then starts
@@ -64,6 +88,11 @@ final class Entitlements {
     /// if either (a) they own the non-consumable lifetime product, or
     /// (b) they have an unexpired auto-renewing subscription in the group.
     func refresh() async {
+        if Self.debugPremiumOverride {
+            isPremium = true
+            renewalDate = nil
+            return
+        }
         var premium = false
         var renewal: Date?
         for await result in Transaction.currentEntitlements {

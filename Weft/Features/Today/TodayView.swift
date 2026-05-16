@@ -214,12 +214,12 @@ struct TodayItem: Identifiable {
 
         switch surfaceReason {
         case .threadDue:
-            displayReason = earliestOpenThread?.body ?? String(localized: "Follow-up due.")
+            displayReason = earliestOpenThread?.body ?? loc("Follow-up due.")
             sourceThreadID = earliestOpenThread?.id
             isToday = true
             state = .lingering
         case .birthday:
-            displayReason = String(localized: "It's their birthday.")
+            displayReason = loc("It's their birthday.")
             sourceThreadID = nil
             isToday = true
             state = .onRhythm
@@ -248,9 +248,9 @@ struct TodayItem: Identifiable {
     }
 
     private static func weeksLabel(weeks: Int) -> String {
-        if weeks <= 0 { return String(localized: "now") }
+        if weeks <= 0 { return loc("now") }
         if weeks >= 99 { return "—" }
-        return String(localized: "\(weeks)w")
+        return loc("%lldw", weeks)
     }
 
     private static func state(weeks: Int, rhythm: Rhythm) -> RhythmState {
@@ -262,10 +262,10 @@ struct TodayItem: Identifiable {
     }
 
     private static func rhythmCopy(weeks: Int) -> String {
-        if weeks <= 0 { return String(localized: "It's been a few days.") }
-        if weeks == 1 { return String(localized: "It's been a week.") }
-        if weeks >= 12 { return String(localized: "It's been a while.") }
-        return String(localized: "It's been \(weeks) weeks.")
+        if weeks <= 0 { return loc("It's been a few days.") }
+        if weeks == 1 { return loc("It's been a week.") }
+        if weeks >= 12 { return loc("It's been a while.") }
+        return loc("It's been %lld weeks.", weeks)
     }
 }
 

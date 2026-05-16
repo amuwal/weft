@@ -79,7 +79,7 @@ enum PDFExporter {
 
         let notes = person.notesOrEmpty.sorted { $0.createdAt > $1.createdAt }
         if !notes.isEmpty {
-            state.draw(text: String(localized: "Notes"), style: .sectionHeading)
+            state.draw(text: loc("Notes"), style: .sectionHeading)
             state.advance(by: 8)
             for note in notes {
                 let line = "• \(humanDate(note.createdAt)) — \(note.body)"
@@ -96,7 +96,7 @@ enum PDFExporter {
             .filter(\.isOpen)
             .sorted { $0.dueDate < $1.dueDate }
         if !openThreads.isEmpty {
-            state.draw(text: String(localized: "Open threads"), style: .sectionHeading)
+            state.draw(text: loc("Open threads"), style: .sectionHeading)
             state.advance(by: 8)
             for thread in openThreads {
                 let line = "• \(humanDate(thread.dueDate)) — \(thread.body)"

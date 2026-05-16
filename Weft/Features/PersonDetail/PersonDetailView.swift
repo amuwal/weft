@@ -12,8 +12,8 @@ struct PersonDetailView: View {
 
         var label: String {
             switch self {
-            case .notes: String(localized: "Notes")
-            case .threads: String(localized: "Threads")
+            case .notes: loc("Notes")
+            case .threads: loc("Threads")
             }
         }
     }
@@ -353,9 +353,9 @@ enum ThreadStatus {
 
     var label: String {
         switch self {
-        case .open: String(localized: "OPEN")
-        case .caughtUp: String(localized: "CAUGHT UP")
-        case .snoozed: String(localized: "SNOOZED")
+        case .open: loc("OPEN")
+        case .caughtUp: loc("CAUGHT UP")
+        case .snoozed: loc("SNOOZED")
         }
     }
 

@@ -64,10 +64,7 @@ private struct SegmentedTabPicker: UIViewRepresentable {
     }
 
     func makeUIView(context: Context) -> SizedSegmentedControl {
-        let control = SizedSegmentedControl(items: [
-            String(localized: "Today"),
-            String(localized: "People")
-        ])
+        let control = SizedSegmentedControl(items: [loc("Today"), loc("People")])
         control.targetHeight = height
         control.selectedSegmentIndex = AppTab.today == selected ? 0 : 1
         control.addTarget(context.coordinator, action: #selector(Coordinator.changed(_:)), for: .valueChanged)

@@ -295,6 +295,10 @@
           "gift": {
             "q": "I received a Weft gift code — how do I use it?",
             "a": "Open Weft, tap the gear icon to open Settings, then <em>Redeem a gift code</em>. (Or on the paywall: <em>Have a code? Redeem</em>.) Paste your code into Apple's redemption sheet — if it's a Lifetime gift, Premium activates immediately. No account, no signup. Gift codes come from us directly to people we want to hand the app to (press, friends, occasional giveaways); we don't sell them through the site."
+          },
+          "shortcuts": {
+            "q": "Does Weft work with Siri and Shortcuts?",
+            "a": "Yes — three native actions ship out of the box: <em>Add a Weft note</em>, <em>Open a person in Weft</em>, and <em>Who's on my mind today</em>. Run them from the Shortcuts app, the Action Button, lock-screen widgets, Spotlight search, or just by saying \"Hey Siri…\". No setup; they appear automatically the first time you launch Weft. All three are free."
           }
         }
       },

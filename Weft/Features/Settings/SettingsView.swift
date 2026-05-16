@@ -21,6 +21,13 @@ struct SettingsView: View {
     @State private var exportItem: ExportItem?
     @State private var showResetInline = false
     @State private var showPaywall = false
+    /// True when the user changed a value (sync toggle or premium state)
+    /// that the SwiftData container only reads at app launch.
+    @State private var syncRestartHint = false
+    /// Snapshot of `entitlements.isPremium` taken when this view first appears,
+    /// so we can detect a same-session upgrade/downgrade and surface the same
+    /// "restart required" hint we show for the sync toggle.
+    @State private var premiumAtAppear: Bool?
 
     var body: some View {
         Form {
@@ -29,19 +36,13 @@ struct SettingsView: View {
                 LabeledContent("Notes", value: "\(notes.count)")
             } header: { Text("Library") }
 
-            Section {
-                Toggle("iCloud sync", isOn: $syncEnabled)
-                LabeledContent("Status") {
-                    HStack(spacing: 6) {
-                        Image(systemName: syncEnabled ? "checkmark.icloud" : "icloud.slash")
-                            .foregroundStyle(syncEnabled ? Color.sage : Color.muted)
-                        Text(syncEnabled ? "On" : "Off")
-                            .foregroundStyle(Color.muted)
-                    }
-                }
-            } header: { Text("Sync") } footer: {
-                Text("Your notes live on this device. iCloud sync is optional and end-to-end encrypted.")
-            }
+            SyncSection(
+                syncEnabled: $syncEnabled,
+                syncRestartHint: $syncRestartHint,
+                showPaywall: $showPaywall,
+                isPremium: entitlements.isPremium,
+                syncActive: syncActive
+            )
 
             Section {
                 Toggle("Daily nudge", isOn: $nudgeEnabled)
@@ -93,7 +94,7 @@ struct SettingsView: View {
                 }
             }
 
-            Section {
+            Section("Language") {
                 Picker("Language", selection: $preferredLanguage) {
                     ForEach(AppLanguage.allCases) { lang in
                         Text(lang.displayName).tag(lang.rawValue)
@@ -105,28 +106,19 @@ struct SettingsView: View {
                         AppLanguageStorage.apply(lang)
                     }
                 }
-            } header: {
-                Text("Language")
-            } footer: {
-                Text("Some text updates after a full restart of the app.")
             }
 
             Section("Data") {
-                Button {
-                    Haptic.soft.play()
-                    let url = PDFExporter.export(from: context)
-                    exportItem = ExportItem(url: url)
-                } label: {
-                    Label("Export PDF", systemImage: "doc.richtext")
-                }
-
-                Button {
-                    Haptic.soft.play()
-                    let url = MarkdownExporter.export(from: context)
-                    exportItem = ExportItem(url: url)
-                } label: {
-                    Label("Export Markdown", systemImage: "square.and.arrow.up")
-                }
+                exportRow(
+                    title: "Export PDF",
+                    systemImage: "doc.richtext",
+                    action: { exportItem = ExportItem(url: PDFExporter.export(from: context)) }
+                )
+                exportRow(
+                    title: "Export Markdown",
+                    systemImage: "square.and.arrow.up",
+                    action: { exportItem = ExportItem(url: MarkdownExporter.export(from: context)) }
+                )
 
                 if showResetInline {
                     InlineResetRow(
@@ -225,6 +217,52 @@ struct SettingsView: View {
                 .presentationCornerRadius(28)
                 .presentationBackground(.regularMaterial)
         }
+        .onAppear {
+            if premiumAtAppear == nil { premiumAtAppear = entitlements.isPremium }
+        }
+        .onChange(of: entitlements.isPremium) { _, newValue in
+            // If premium state flips while Settings is open, the SwiftData
+            // container's sync config is now stale until the user relaunches.
+            if let snapshot = premiumAtAppear, snapshot != newValue {
+                syncRestartHint = true
+            }
+        }
+    }
+
+    /// Either a real Premium user (StoreKit) or a debug build with --premium.
+    /// The container reads the same combined signal, so they stay in lockstep.
+    private var syncActive: Bool {
+        ModelContainer.syncShouldBeActive
+    }
+
+    private func exportRow(
+        title: LocalizedStringKey,
+        systemImage: String,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button {
+            Haptic.soft.play()
+            if entitlements.isPremium {
+                action()
+            } else {
+                showPaywall = true
+            }
+        } label: {
+            HStack {
+                Label(title, systemImage: systemImage)
+                    .foregroundStyle(entitlements.isPremium ? Color.ink : Color.muted)
+                if !entitlements.isPremium {
+                    Spacer()
+                    Text("Premium")
+                        .font(WeftFont.mini)
+                        .foregroundStyle(Color.sage)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(Color.sageWash, in: Capsule())
+                }
+            }
+        }
+        .buttonStyle(.plain)
     }
 
     private func externalLinkRow(_ title: LocalizedStringKey, systemImage: String, url: String) -> some View {
@@ -264,6 +302,73 @@ struct SettingsView: View {
         components.hour = hour
         let date = Calendar.current.date(from: components) ?? .now
         return date.formatted(.dateTime.hour())
+    }
+}
+
+/// Sync section extracted so SettingsView's body stays under the lint cap.
+/// Owns its own UI for the toggle, status badge, paywall nudge and the
+/// "restart required" hint. State writes flow through the parent's bindings.
+private struct SyncSection: View {
+    @Binding var syncEnabled: Bool
+    @Binding var syncRestartHint: Bool
+    @Binding var showPaywall: Bool
+    let isPremium: Bool
+    let syncActive: Bool
+
+    var body: some View {
+        Section {
+            Toggle("iCloud sync", isOn: $syncEnabled)
+                .disabled(!isPremium)
+                .onChange(of: syncEnabled) { _, _ in syncRestartHint = true }
+            LabeledContent("Status") {
+                HStack(spacing: 6) {
+                    Image(systemName: syncActive ? "checkmark.icloud" : "icloud.slash")
+                        .foregroundStyle(syncActive ? Color.sage : Color.muted)
+                    Text(syncActive ? "On" : "Off")
+                        .foregroundStyle(Color.muted)
+                }
+            }
+            if !isPremium {
+                upgradeRow
+            }
+            if syncRestartHint {
+                restartHint
+            }
+        } header: { Text("Sync") } footer: {
+            Text(
+                "Your notes live on this device. iCloud sync is a Premium feature and end-to-end encrypted."
+            )
+        }
+    }
+
+    private var upgradeRow: some View {
+        Button {
+            Haptic.soft.play()
+            showPaywall = true
+        } label: {
+            HStack {
+                Label("Premium required", systemImage: "lock")
+                    .foregroundStyle(Color.muted)
+                Spacer()
+                Text("Upgrade")
+                    .font(WeftFont.mini)
+                    .foregroundStyle(Color.sage)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 3)
+                    .background(Color.sageWash, in: Capsule())
+            }
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var restartHint: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "arrow.clockwise")
+                .foregroundStyle(Color.muted)
+            Text("Restart Weft for the change to take effect.")
+                .font(WeftFont.caption)
+                .foregroundStyle(Color.muted)
+        }
     }
 }
 
@@ -317,9 +422,9 @@ enum ThemeChoice: String, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .auto: String(localized: "Auto")
-        case .light: String(localized: "Light")
-        case .dark: String(localized: "Dark")
+        case .auto: loc("Auto")
+        case .light: loc("Light")
+        case .dark: loc("Dark")
         }
     }
 

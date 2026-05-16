@@ -60,6 +60,37 @@ final class LocalizedBundle: Bundle, @unchecked Sendable {
     }
 }
 
+/// Localized string lookup that respects the user's mid-session language
+/// choice. Prefer this over `String(localized:)` for any string evaluated
+/// outside a SwiftUI view's body — helper functions, computed properties
+/// that feed into UI, UIKit representables (`UIViewRepresentable.makeUIView`).
+///
+/// Why this exists: `String(localized:)` and `LocalizedStringResource`
+/// resolve through Foundation's internal bundle cache, which is seeded with
+/// the language active at process start (via `AppleLanguages`). Updating
+/// `AppleLanguages` mid-run does *not* invalidate that cache, so strings
+/// returned from `String(localized:)` stay frozen at the launch-time
+/// language until the user kills + reopens the app.
+///
+/// `loc(_)` goes through `Bundle.main.localizedString(forKey:)` which our
+/// `LocalizedBundle` subclass overrides — and that override reads the
+/// user's preference from UserDefaults on every call, so the language
+/// switch is reflected immediately.
+///
+/// For interpolated strings, use `loc(_:_:)`: the key is the `%lld`/`%@`
+/// format pattern in `Localizable.xcstrings`, the args are substituted
+/// after the localized lookup.
+@inline(__always)
+func loc(_ key: String) -> String {
+    Bundle.main.localizedString(forKey: key, value: nil, table: nil)
+}
+
+@inline(__always)
+func loc(_ key: String, _ args: CVarArg...) -> String {
+    let template = Bundle.main.localizedString(forKey: key, value: nil, table: nil)
+    return String(format: template, locale: Locale.current, arguments: args)
+}
+
 /// Single place that knows the UserDefaults keys for the preferred language.
 /// `SettingsView` reads/writes the user's choice via `@AppStorage(AppLanguageStorage.key)`.
 /// `WeftApp.init` and `SettingsView.onChange` call `apply(_:)` to push the choice into

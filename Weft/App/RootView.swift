@@ -82,6 +82,14 @@ struct RootView: View {
         }
         .onOpenURL(perform: handleURL)
         .task { await pushInitialPersonIfRequested() }
+        .task { await consumePendingDeepLink() }
+        .onReceive(didBecomeActivePublisher) { _ in
+            Task { await consumePendingDeepLink() }
+        }
+    }
+
+    private var didBecomeActivePublisher: NotificationCenter.Publisher {
+        NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
     }
 
     @ViewBuilder
@@ -151,6 +159,24 @@ struct RootView: View {
         let descriptor = FetchDescriptor<Person>()
         let people = (try? context.fetch(descriptor)) ?? []
         guard let target = people.first(where: { $0.name.lowercased() == name.lowercased() }) else { return }
+        tab = .people
+        peoplePath = [target]
+    }
+
+    /// App Intents write the target person's id to UserDefaults and then ask
+    /// the system to bring Weft to the foreground. We pick that up on launch
+    /// (`task`) and on every foreground transition (`didBecomeActive`), then
+    /// clear the key so the navigation doesn't re-fire on the next launch.
+    private func consumePendingDeepLink() async {
+        let defaults = UserDefaults.standard
+        guard let raw = defaults.string(forKey: PendingDeepLink.openPersonKey),
+              let uuid = UUID(uuidString: raw)
+        else { return }
+        defaults.removeObject(forKey: PendingDeepLink.openPersonKey)
+
+        let descriptor = FetchDescriptor<Person>()
+        let allPeople = (try? context.fetch(descriptor)) ?? []
+        guard let target = allPeople.first(where: { $0.id == uuid }) else { return }
         tab = .people
         peoplePath = [target]
     }
