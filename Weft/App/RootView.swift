@@ -1,5 +1,6 @@
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct RootView: View {
     @AppStorage("onboardingComplete") private var onboardingComplete = false
@@ -7,6 +8,20 @@ struct RootView: View {
     @State private var showAddSheet = Self.initialFlag("--add")
     @State private var showSettings = Self.initialFlag("--settings")
     @State private var showPaywall = Self.initialFlag("--paywall")
+    /// In release builds this stays `false` and the sheet modifier is a no-op.
+    /// In DEBUG builds the `--widget-preview` launch arg sets it true. Wrapped
+    /// to avoid `#if DEBUG` interleaved with view-modifier chains, which
+    /// confuses swiftformat + swiftlint indentation rules.
+    @State private var showWidgetPreview = Self.debugWidgetPreviewFlag
+
+    private static var debugWidgetPreviewFlag: Bool {
+        #if DEBUG
+            return initialFlag("--widget-preview")
+        #else
+            return false
+        #endif
+    }
+
     @State private var peoplePath: [Person] = []
     @State private var todayPath: [Person] = []
     @State private var didAppear = false
@@ -80,6 +95,14 @@ struct RootView: View {
                 .presentationCornerRadius(28)
                 .presentationBackground(.regularMaterial)
         }
+        .sheet(isPresented: $showWidgetPreview) {
+            #if DEBUG
+                NavigationStack { widgetPreviewSheet }
+                    .presentationDetents([.large])
+            #else
+                EmptyView()
+            #endif
+        }
         .onOpenURL(perform: handleURL)
         .task { await pushInitialPersonIfRequested() }
         .task { await consumePendingDeepLink() }
@@ -87,6 +110,97 @@ struct RootView: View {
             Task { await consumePendingDeepLink() }
         }
     }
+
+    #if DEBUG
+        /// Builds a real `TodayEntry` from the same scoring pipeline the
+        /// widget uses, then renders it at the three home-screen sizes
+        /// and at the rectangular lock-screen accessory size. Triggered
+        /// by `--widget-preview` launch arg.
+        private var widgetPreviewSheet: WidgetPreviewScreen {
+            let people = Array(loadedSurfacedPeople().prefix(5))
+            let isPremium = entitlements.isPremium
+            let premiumEntry = TodayEntry(date: .now, people: people, isPremium: true)
+            let freeEntry = TodayEntry(date: .now, people: people, isPremium: false)
+            let small = TodayWidgetView(entry: premiumEntry, familyOverride: .systemSmall)
+            let medium = TodayWidgetView(entry: premiumEntry, familyOverride: .systemMedium)
+            let large = TodayWidgetView(entry: premiumEntry, familyOverride: .systemLarge)
+            let largeFree = TodayWidgetView(entry: freeEntry, familyOverride: .systemLarge)
+            // Native iOS widget frame sizes on iPhone Pro / 17 Pro (393pt wide):
+            //   .systemSmall  = 158 × 158
+            //   .systemMedium = 338 × 158
+            //   .systemLarge  = 338 × 354
+            // Using exact frames so the preview screen matches the on-device render.
+            return WidgetPreviewScreen(
+                entries: [
+                    ("SMALL", WidgetPreviewEntry(small, width: 158, height: 158)),
+                    ("MEDIUM", WidgetPreviewEntry(medium, width: 338, height: 158)),
+                    ("LARGE · PREMIUM", WidgetPreviewEntry(large, width: 338, height: 354)),
+                    ("LARGE · FREE TIER", WidgetPreviewEntry(largeFree, width: 338, height: 354))
+                ],
+                currentlyPremium: isPremium
+            )
+        }
+
+        @MainActor
+        private func loadedSurfacedPeople() -> [WidgetPerson] {
+            let active = people.filter { !$0.isSnoozed }
+            let inputs = active.map { person in
+                ScoreInput(
+                    id: person.id,
+                    lastTouchedAt: latestTouch(for: person),
+                    createdAt: person.createdAt,
+                    rhythm: person.rhythm,
+                    weight: person.relationship.weight,
+                    birthday: person.birthday,
+                    earliestOpenThreadDue: person.threadsOrEmpty
+                        .filter(\.isOpen)
+                        .map(\.dueDate)
+                        .min()
+                )
+            }
+            let ranked = ScoringService.ranked(people: inputs)
+            let byID = Dictionary(uniqueKeysWithValues: active.map { ($0.id, $0) })
+            return ranked.compactMap { candidate -> WidgetPerson? in
+                guard let person = byID[candidate.personID] else { return nil }
+                let weeks = weeksSince(latestTouch(for: person))
+                return WidgetPerson(
+                    id: person.id,
+                    name: person.name,
+                    reason: previewReason(for: candidate.reason, weeks: weeks),
+                    weeks: weeks,
+                    paletteKey: person.avatarPalette.rawValue
+                )
+            }
+        }
+
+        private func latestTouch(for person: Person) -> Date? {
+            let lastNote = person.notesOrEmpty.map(\.createdAt).max()
+            let lastTouchpoint = person.touchpointsOrEmpty.map(\.createdAt).max()
+            return [lastNote, lastTouchpoint].compactMap(\.self).max()
+        }
+
+        private func weeksSince(_ date: Date?) -> Int {
+            guard let date else { return 0 }
+            return max(0, Int(Date.now.timeIntervalSince(date) / (7 * 86400)))
+        }
+
+        private func previewReason(for reason: SurfaceReason, weeks: Int) -> String {
+            switch reason {
+            case .threadDue: loc("Follow-up due.")
+            case .birthday: loc("It's their birthday.")
+            case .onRhythm:
+                if weeks <= 0 {
+                    loc("It's been a few days.")
+                } else if weeks == 1 {
+                    loc("It's been a week.")
+                } else if weeks >= 12 {
+                    loc("It's been a while.")
+                } else {
+                    loc("It's been %lld weeks.", weeks)
+                }
+            }
+        }
+    #endif
 
     private var didBecomeActivePublisher: NotificationCenter.Publisher {
         NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
@@ -192,8 +306,24 @@ struct RootView: View {
         case "add-person":
             tab = .people
             showAddSheet = true
+        case "person":
+            routeToPerson(url: url)
         default: break
         }
+    }
+
+    /// `weft://person/<uuid>` — fired by widget taps. Looks the person up in
+    /// SwiftData and pushes the matching detail view onto the People stack.
+    /// Silently no-ops when the id is malformed or the person was deleted,
+    /// rather than dumping the user on a broken empty screen.
+    private func routeToPerson(url: URL) {
+        let idString = url.pathComponents.dropFirst().first ?? ""
+        guard let uuid = UUID(uuidString: idString) else { return }
+        let descriptor = FetchDescriptor<Person>()
+        let allPeople = (try? context.fetch(descriptor)) ?? []
+        guard let target = allPeople.first(where: { $0.id == uuid }) else { return }
+        tab = .people
+        peoplePath = [target]
     }
 }
 

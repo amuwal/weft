@@ -13,6 +13,11 @@ extension ModelContainer {
     /// launch and from `SettingsView` for the live toggle.
     static let iCloudSyncEnabledKey = "iCloudSyncEnabled"
 
+    /// App Group identifier shared between the main app and `WeftWidget`. The
+    /// SwiftData store path lives inside this group so the widget extension
+    /// reads the same data the app writes.
+    static let appGroupID = "group.com.amuwal.weft"
+
     /// Production container — backed by the user's private CloudKit DB when
     /// **all three** signals agree:
     ///   • Premium entitled (cached in UserDefaults from `Entitlements`)
@@ -20,17 +25,38 @@ extension ModelContainer {
     ///   • Device has an iCloud account signed in (real device, not simulator)
     /// Otherwise we open a local-only store. Toggling Premium or the switch
     /// requires an app relaunch to take effect — Settings surfaces this hint.
+    ///
+    /// The store URL is forced into the App Group container so `WeftWidget`
+    /// can open the same `default.store` file.
     static func weft() throws -> ModelContainer {
+        let url = sharedStoreURL()
         let config = if syncShouldBeActive {
             ModelConfiguration(
                 "Weft",
                 schema: weftSchema,
+                url: url,
                 cloudKitDatabase: .private("iCloud.com.amuwal.weft")
             )
         } else {
-            ModelConfiguration("Weft", schema: weftSchema, cloudKitDatabase: .none)
+            ModelConfiguration(
+                "Weft",
+                schema: weftSchema,
+                url: url,
+                cloudKitDatabase: .none
+            )
         }
         return try ModelContainer(for: weftSchema, configurations: [config])
+    }
+
+    /// Path inside the App Group's shared container that both the app and
+    /// the widget extension can reach. Falls back to a per-process URL when
+    /// the group container isn't available (tests, previews) so the call
+    /// never throws.
+    private static func sharedStoreURL() -> URL {
+        if let group = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupID) {
+            return group.appending(path: "Weft.store")
+        }
+        return URL.applicationSupportDirectory.appending(path: "Weft.store")
     }
 
     /// All three gates combined.

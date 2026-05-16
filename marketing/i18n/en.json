@@ -177,7 +177,7 @@
           },
           "web": {
             "h": "Not on the web",
-            "p": "iOS only, with a small Watch app, a widget, and an iPad layout. We chose depth over reach — Android can wait."
+            "p": "iOS only, with lock-screen + home-screen widgets and an iPad layout. We chose depth over reach — Android can wait."
           }
         }
       },
@@ -197,11 +197,11 @@
           },
           "icloud": {
             "h": "iCloud, your way",
-            "p": "Off by default. Switch it on for end-to-end-encrypted sync across iPhone, iPad, and Watch — never anyone else's server."
+            "p": "Off by default. Switch it on for end-to-end-encrypted sync across iPhone and iPad — never anyone else's server."
           },
-          "watch": {
-            "h": "Today, on your wrist",
-            "p": "A small Watch face shows the one or two people on your mind. A tap caught-them-up; no scrolling, no chrome."
+          "widgets": {
+            "h": "Today, at a glance",
+            "p": "Lock-screen widget shows the one person on your mind. Home-screen widgets in three sizes — tap to jump to their detail. Premium widgets add a one-tap caught-up button."
           },
           "export": {
             "h": "Export, always",
@@ -209,7 +209,7 @@
           },
           "ios26": {
             "h": "Designed for iOS 26",
-            "p": "Native Liquid Glass, Dynamic Type, Apple Watch, lock-screen widgets, and Apple Shortcuts. Feels like part of the OS, because it is."
+            "p": "Native Liquid Glass, Dynamic Type, lock-screen + home-screen widgets, and Apple Shortcuts. Feels like part of the OS, because it is."
           }
         }
       },
@@ -225,9 +225,9 @@
           "unit": "forever",
           "f1": "Up to 7 people",
           "f2": "Notes, threads, and a daily Today",
-          "f3": "Home & lock-screen widget",
+          "f3": "Lock-screen widget (one-person)",
           "f4": "iCloud sync across devices",
-          "f5": "Apple Watch app",
+          "f5": "Apple Shortcuts integration",
           "f6": "PDF & Markdown export",
           "cta": "Start free",
           "foot": "Local-only. No account."
@@ -241,7 +241,7 @@
           "f1": "Everything in Premium",
           "f2": "Unlimited people",
           "f3": "End-to-end encrypted iCloud sync",
-          "f4": "Apple Watch app & widgets",
+          "f4": "Home-screen widgets (all sizes)",
           "f5": "Photo memories on notes",
           "f6": "PDF & Markdown export",
           "cta": "Get Weft for life",
@@ -255,7 +255,7 @@
           "yearlyNote": "or $2.99/month · 7-day free trial on yearly",
           "f1": "Unlimited people",
           "f2": "End-to-end encrypted iCloud sync",
-          "f3": "Apple Watch app",
+          "f3": "Home-screen widgets (all sizes)",
           "f4": "Photo memories on notes",
           "f5": "PDF & Markdown export",
           "f6": "Apple Shortcuts + custom accent",
@@ -278,7 +278,11 @@
           },
           "platforms": {
             "q": "Will there be an Android version? A web version?",
-            "a": "Not for a long time. Weft is built around iOS 26 features — Liquid Glass, Apple Watch, widgets, Apple Shortcuts. Cross-platform would water it down. If you live on Android, we'd rather you use a different app than a worse Weft."
+            "a": "Not for a long time. Weft is built around iOS 26 features — Liquid Glass, lock-screen widgets, Apple Shortcuts, CloudKit. Cross-platform would water it down. If you live on Android, we'd rather you use a different app than a worse Weft."
+          },
+          "watch": {
+            "q": "When will the Apple Watch app ship?",
+            "a": "It's on the v1.1 roadmap — demand-driven. We'd rather ship a Watch face that surfaces one person at a time well than ship it as decoration. If you'd genuinely use it, email <a href=\"mailto:hello@getweft.xyz\">hello@getweft.xyz</a> with a sentence — we keep a tally. Once enough people are waiting, we'll build it."
           },
           "stopPaying": {
             "q": "What happens if I stop paying?",
@@ -336,7 +340,7 @@
         },
         "platform": {
           "h": "Why iOS-only, why iOS 26",
-          "p1": "Weft is built for iOS 26 specifically — native Liquid Glass surfaces, Apple Watch face, lock-screen widgets, Apple Shortcuts, end-to-end-encrypted CloudKit sync. We chose depth over reach: an app that feels like part of the operating system instead of a cross-platform shell that feels like part of none.",
+          "p1": "Weft is built for iOS 26 specifically — native Liquid Glass surfaces, lock-screen + home-screen widgets, Apple Shortcuts, end-to-end-encrypted CloudKit sync. We chose depth over reach: an app that feels like part of the operating system instead of a cross-platform shell that feels like part of none. An Apple Watch face is on the v1.1 roadmap if there's demand.",
           "p2": "Practically: no Android, no web app, no desktop client. Your private notes stay in your iCloud private database, never on a Weft server (because there is no Weft server)."
         }
       }
@@ -566,7 +570,7 @@
           "items": [
             "<strong>Calm over productive.</strong> If a feature would make Weft feel busier, it doesn't get built.",
             "<strong>Content over chrome.</strong> Your notes are the heroes. The app should mostly disappear.",
-            "<strong>Apple-first.</strong> Native iOS, Liquid Glass, Apple Watch, Shortcuts. We build for one platform and we build it deep.",
+            "<strong>Apple-first.</strong> Native iOS, Liquid Glass, widgets, Shortcuts. We build for one platform and we build it deep.",
             "<strong>Local-first.</strong> Your data stays on your phone. iCloud only if you ask.",
             "<strong>One person at a time.</strong> No team workspaces, no shared lists, no social graph. Friendship is private.",
             "<strong>Honest pricing.</strong> Subscription is fair, free tier is real, exports are forever."
@@ -579,7 +583,7 @@
         },
         "colophon": {
           "h": "Colophon",
-          "p1": "Written in Swift 6. SwiftUI, SwiftData, CloudKit private database, StoreKit 2, Apple WatchKit. Built and tested in Xcode on a single MacBook Pro.",
+          "p1": "Written in Swift 6. SwiftUI, SwiftData, CloudKit private database, StoreKit 2, WidgetKit, App Intents. Built and tested in Xcode on a single MacBook Pro.",
           "p2": "Type: <strong>New York</strong> (Apple's serif) and <strong>SF Pro</strong>. Web fallback: <strong>Newsreader</strong> by Production Type. Color is sage on aged paper. The arc in the icon is meant to suggest connection without being literal about it — no hearts, no chat bubbles, no people."
         }
       }

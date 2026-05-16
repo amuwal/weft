@@ -153,25 +153,31 @@ final class Entitlements {
         products.first { $0.id == id.rawValue }
     }
 
-    /// Presents Apple's native code-redemption sheet. Used for gift codes generated
-    /// in App Store Connect (e.g. influencer/friend Lifetime gifts). Apple owns the
-    /// input + validation; we just present the sheet. Successful redemptions arrive
-    /// through `Transaction.updates`, which `bootstrap()` is already listening to.
-    func presentRedeemSheet() async {
-        guard let scene = UIApplication.shared.connectedScenes
-            .compactMap({ $0 as? UIWindowScene })
-            .first(where: { $0.activationState == .foregroundActive })
-            ?? UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first
-        else {
-            logger.error("Redeem sheet: no active window scene")
-            return
+    #if !WIDGET_EXTENSION
+        /// Presents Apple's native code-redemption sheet. Used for gift codes generated
+        /// in App Store Connect (e.g. influencer/friend Lifetime gifts). Apple owns the
+        /// input + validation; we just present the sheet. Successful redemptions arrive
+        /// through `Transaction.updates`, which `bootstrap()` is already listening to.
+        ///
+        /// Compiled out of the widget extension target — `UIApplication.shared` is
+        /// unavailable there. Entitlements is otherwise shared between targets so the
+        /// widget can read `cachedIsPremiumKey` and `debugPremiumOverride`.
+        func presentRedeemSheet() async {
+            guard let scene = UIApplication.shared.connectedScenes
+                .compactMap({ $0 as? UIWindowScene })
+                .first(where: { $0.activationState == .foregroundActive })
+                ?? UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first
+            else {
+                logger.error("Redeem sheet: no active window scene")
+                return
+            }
+            do {
+                try await AppStore.presentOfferCodeRedeemSheet(in: scene)
+            } catch {
+                logger.error("Redeem sheet failed: \(error.localizedDescription)")
+            }
         }
-        do {
-            try await AppStore.presentOfferCodeRedeemSheet(in: scene)
-        } catch {
-            logger.error("Redeem sheet failed: \(error.localizedDescription)")
-        }
-    }
+    #endif
 
     private func sortRank(_ id: String) -> Int {
         switch id {

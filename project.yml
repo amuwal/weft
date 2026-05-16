@@ -37,6 +37,8 @@ targets:
     platform: iOS
     sources:
       - Weft
+      - path: WeftWidget/TodayWidgetShared.swift
+      - path: WeftWidget/MarkCaughtUpIntent.swift
     resources:
       - path: Weft/Resources
         optional: true
@@ -45,6 +47,7 @@ targets:
         product: OrderedCollections
       - package: AsyncAlgorithms
         product: AsyncAlgorithms
+      - target: WeftWidget
     info:
       path: Weft/Info.plist
       properties:
@@ -105,6 +108,51 @@ targets:
         - WeftUITests
       gatherCoverageData: true
       storeKitConfiguration: Weft/Weft.storekit
+
+  WeftWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - WeftWidget
+      - path: Weft/Model/Person.swift
+      - path: Weft/Model/Note.swift
+      - path: Weft/Model/Thread.swift
+      - path: Weft/Model/Touchpoint.swift
+      - path: Weft/Model/ModelContainer+Weft.swift
+      - path: Weft/Model/SampleData.swift
+      - path: Weft/Services/ScoringService.swift
+      - path: Weft/Services/Entitlements.swift
+      - path: Weft/Services/Localization.swift
+      - path: Weft/Services/PhotoCompressor.swift
+    info:
+      path: WeftWidget/Info.plist
+      properties:
+        CFBundleDisplayName: Weft
+        CFBundleShortVersionString: "0.1.0"
+        CFBundleVersion: "1"
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    entitlements:
+      path: WeftWidget/WeftWidget.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.amuwal.weft
+        com.apple.developer.icloud-container-identifiers:
+          - iCloud.com.amuwal.weft
+        com.apple.developer.icloud-services:
+          - CloudKit
+        com.apple.developer.ubiquity-container-identifiers:
+          - iCloud.com.amuwal.weft
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.amuwal.weft.widget
+        INFOPLIST_KEY_NSHumanReadableCopyright: ""
+        TARGETED_DEVICE_FAMILY: "1"
+        CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_IDENTITY: "Apple Development"
+        SWIFT_EMIT_LOC_STRINGS: YES
+        APPLICATION_EXTENSION_API_ONLY: YES
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: WIDGET_EXTENSION
 
   WeftTests:
     type: bundle.unit-test

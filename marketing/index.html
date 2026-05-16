@@ -117,7 +117,7 @@
           "Optional end-to-end-encrypted iCloud sync via CloudKit private database",
           "Daily 'Today' surface with 0–3 people based on rhythm and open threads",
           "Notes, threads, and a per-person log",
-          "Apple Watch face for the small circle",
+          "Home-screen + lock-screen widgets for the small circle",
           "Lock-screen and home-screen widgets",
           "Apple Shortcuts integration",
           "PDF and Markdown export",
@@ -143,7 +143,7 @@
             "price": "39.99",
             "priceCurrency": "USD",
             "name": "Premium Lifetime",
-            "description": "One-time purchase. Unlimited people, end-to-end-encrypted iCloud sync, Apple Watch, photo memories, exports, Apple Shortcuts — forever.",
+            "description": "One-time purchase. Unlimited people, end-to-end-encrypted iCloud sync, home-screen widgets, photo memories, exports, Apple Shortcuts — forever.",
             "category": "lifetime"
           },
           {
@@ -151,7 +151,7 @@
             "price": "18.99",
             "priceCurrency": "USD",
             "name": "Premium Yearly",
-            "description": "Premium yearly subscription with 7-day free trial. Unlimited people, end-to-end-encrypted iCloud sync, Apple Watch app, photo memories, exports, Apple Shortcuts.",
+            "description": "Premium yearly subscription with 7-day free trial. Unlimited people, end-to-end-encrypted iCloud sync, home-screen widgets, photo memories, exports, Apple Shortcuts.",
             "category": "subscription"
           },
           {
@@ -189,7 +189,7 @@
             "name": "Will there be an Android version or a web version?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Not for a long time. Weft is built around iOS 26 features — Liquid Glass, Apple Watch, widgets, Apple Shortcuts, CloudKit. Cross-platform would water it down. If you live on Android, we would rather you use a different app than a worse Weft."
+              "text": "Not for a long time. Weft is built around iOS 26 features — Liquid Glass, lock-screen widgets, Apple Shortcuts, CloudKit. Cross-platform would water it down. If you live on Android, we would rather you use a different app than a worse Weft. An Apple Watch face is on the v1.1 roadmap if there's demand — email hello@getweft.xyz with a sentence if you'd use one."
             }
           },
           {
@@ -246,6 +246,14 @@
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "Yes. Three native App Intents ship with Weft: Add a Weft note, Open a person in Weft, and Who's on my mind today. They appear automatically in the Shortcuts app, work with Siri voice, the Action Button, lock-screen widgets, and Spotlight. No setup. All three are free."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "When will the Apple Watch app ship?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An Apple Watch face is on the v1.1 roadmap and demand-driven. If you'd genuinely use one, email hello@getweft.xyz with a sentence — we keep a tally. We'd rather ship a Watch experience that's actually wanted than ship it as decoration."
             }
           }
         ]
@@ -623,7 +631,7 @@
       </div>
       <div class="negation-item reveal-fade">
         <h4 data-i18n="pages.index.negation.items.web.h">Not on the web</h4>
-        <p data-i18n="pages.index.negation.items.web.p">iOS only, with a small Watch app, a widget, and an iPad layout. We chose depth over reach — Android can wait.</p>
+        <p data-i18n="pages.index.negation.items.web.p">iOS only, with lock-screen + home-screen widgets and an iPad layout. We chose depth over reach — Android can wait.</p>
       </div>
     </div>
   </div>
@@ -730,7 +738,7 @@
           <li data-i18n="pages.index.pricing.free.f2">Notes, threads, and a daily Today</li>
           <li data-i18n="pages.index.pricing.free.f3">Home & lock-screen widget</li>
           <li class="off" data-i18n="pages.index.pricing.free.f4">iCloud sync across devices</li>
-          <li class="off" data-i18n="pages.index.pricing.free.f5">Apple Watch app</li>
+          <li class="off" data-i18n="pages.index.pricing.free.f5">Apple Shortcuts integration</li>
           <li class="off" data-i18n="pages.index.pricing.free.f6">PDF & Markdown export</li>
         </ul>
         <a class="tier-cta" href="#download" data-i18n="pages.index.pricing.free.cta">Start free</a>
@@ -749,7 +757,7 @@
           <li data-i18n="pages.index.pricing.lifetime.f1">Everything in Premium</li>
           <li data-i18n="pages.index.pricing.lifetime.f2">Unlimited people</li>
           <li data-i18n="pages.index.pricing.lifetime.f3">End-to-end encrypted iCloud sync</li>
-          <li data-i18n="pages.index.pricing.lifetime.f4">Apple Watch app & widgets</li>
+          <li data-i18n="pages.index.pricing.lifetime.f4">Home-screen widgets (all sizes)</li>
           <li data-i18n="pages.index.pricing.lifetime.f5">Photo memories on notes</li>
           <li data-i18n="pages.index.pricing.lifetime.f6">PDF & Markdown export</li>
         </ul>
@@ -768,7 +776,7 @@
         <ul>
           <li data-i18n="pages.index.pricing.premium.f1">Unlimited people</li>
           <li data-i18n="pages.index.pricing.premium.f2">End-to-end encrypted iCloud sync</li>
-          <li data-i18n="pages.index.pricing.premium.f3">Apple Watch app</li>
+          <li data-i18n="pages.index.pricing.premium.f3">Home-screen widgets (all sizes)</li>
           <li data-i18n="pages.index.pricing.premium.f4">Photo memories on notes</li>
           <li data-i18n="pages.index.pricing.premium.f5">PDF & Markdown export</li>
           <li data-i18n="pages.index.pricing.premium.f6">Apple Shortcuts + custom accent</li>
@@ -869,6 +877,16 @@
         </summary>
         <div class="faq-a" data-i18n="pages.index.faq.items.shortcuts.a" data-i18n-html></div>
       </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span data-i18n="pages.index.faq.items.watch.q">When will the Apple Watch app ship?</span>
+          <span class="marker">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+          </span>
+        </summary>
+        <div class="faq-a" data-i18n="pages.index.faq.items.watch.a" data-i18n-html></div>
+      </details>
     </div>
   </div>
 </section>
@@ -918,7 +936,7 @@
 
       <article class="learn-block reveal-fade">
         <h3 data-i18n="pages.index.learn.platform.h">Why iOS-only, why iOS 26</h3>
-        <p data-i18n="pages.index.learn.platform.p1">Weft is built for iOS 26 specifically — native Liquid Glass surfaces, Apple Watch face, lock-screen widgets, Apple Shortcuts, end-to-end-encrypted CloudKit sync. We chose depth over reach: an app that feels like part of the operating system instead of a cross-platform shell that feels like part of none.</p>
+        <p data-i18n="pages.index.learn.platform.p1">Weft is built for iOS 26 specifically — native Liquid Glass surfaces, lock-screen + home-screen widgets, Apple Shortcuts, end-to-end-encrypted CloudKit sync. We chose depth over reach: an app that feels like part of the operating system instead of a cross-platform shell that feels like part of none. An Apple Watch face is on the v1.1 roadmap if there's demand.</p>
         <p data-i18n="pages.index.learn.platform.p2">Practically: no Android, no web app, no desktop client. Your private notes stay in your iCloud private database, never on a Weft server (because there is no Weft server).</p>
       </article>
     </div>

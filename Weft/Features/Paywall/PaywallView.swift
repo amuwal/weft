@@ -238,7 +238,7 @@ struct PaywallView: View {
     private let featureLines = [
         "Unlimited people",
         "iCloud sync across devices",
-        "Apple Watch & widgets",
+        "Lock-screen & home-screen widgets",
         "PDF & Markdown export",
         "Photo memories"
     ]

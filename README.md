@@ -8,7 +8,7 @@ Weft is a small, private iOS app for the five to twenty-five people you actually
 
 ## What it is
 
-A personal notebook for the small circle. On-device by default. Designed for iOS 26, with native Liquid Glass, an Apple Watch face, lock-screen widgets, and Apple Shortcuts.
+A personal notebook for the small circle. On-device by default. Designed for iOS 26, with native Liquid Glass, home-screen + lock-screen widgets, and Apple Shortcuts. (An Apple Watch face is planned for v1.1 if there's demand.)
 
 The unit isn't a contact, it's a *memory of a person* — the things you noticed, the worries they shared, the small follow-ups you said you'd remember. Weft holds them quietly, surfaces them when the rhythm of a relationship has lapsed, and stays out of your way the rest of the time.
 

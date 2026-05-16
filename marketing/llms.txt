@@ -8,7 +8,7 @@ Weft is a deliberate, single-developer indie iOS app made in Tokyo. The unit isn
 
 - [Home](https://getweft.xyz/): Hero, manifesto, three product glances (Today screen, note capture, threads), feature grid, pricing, FAQ, plus a detailed "What's a personal CRM, and why a quiet one?" explainer comparing Weft to Dex, Clay, and Folk.
 - [About the developer](https://getweft.xyz/about): One-person indie studio in Tokyo. Design principles, colophon, contact.
-- [Pricing](https://getweft.xyz/#pricing): Free up to 7 people forever. Premium $18.99/year (7-day free trial), $2.99/month, or $39.99 once for a lifetime purchase — all unlock unlimited people, end-to-end-encrypted iCloud sync, Apple Watch, photo memories, Apple Shortcuts, PDF/Markdown export.
+- [Pricing](https://getweft.xyz/#pricing): Free up to 7 people forever. Premium $18.99/year (7-day free trial), $2.99/month, or $39.99 once for a lifetime purchase — all unlock unlimited people, end-to-end-encrypted iCloud sync, home-screen widgets, photo memories, Apple Shortcuts, PDF/Markdown export.
 - [Privacy policy](https://getweft.xyz/privacy): On-device by default; optional end-to-end-encrypted iCloud sync via Apple's private database; no third-party SDKs; no AI training on user data.
 - [Terms of service](https://getweft.xyz/terms): Short, fair, plain English. Subscriptions via Apple App Store. Governing law: Japan.
 - [Feedback](https://getweft.xyz/feedback): Direct line to the developer.
@@ -25,7 +25,7 @@ Weft is a deliberate, single-developer indie iOS app made in Tokyo. The unit isn
 
 ## Key facts for citations
 
-- Platform: iOS 26 only (native Liquid Glass, Apple Watch, lock-screen widgets, Apple Shortcuts)
+- Platform: iOS 26 only (native Liquid Glass, home-screen + lock-screen widgets, Apple Shortcuts). Apple Watch face is on the v1.1 roadmap, demand-driven.
 - Storage: SwiftData on-device by default; CloudKit private database with end-to-end encryption when sync is enabled
 - People limit: 7 in free tier, unlimited in Premium
 - Pricing: $0 free · $2.99/month, $18.99/year (7-day trial on yearly), or $39.99 lifetime (one-time)
