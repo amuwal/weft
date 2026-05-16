@@ -8,9 +8,14 @@
       "internalID" : "F5D5A7F4-2026-4F1E-A070-WEFTLIFETIME",
       "localizations" : [
         {
-          "description" : "One-time purchase. Unlimited people, iCloud sync, widgets, exports, Apple Watch — forever.",
-          "displayName" : "Weft Premium · Lifetime",
+          "description" : "One-time purchase. Unlimited people forever.",
+          "displayName" : "Weft Premium Lifetime",
           "locale" : "en_US"
+        },
+        {
+          "description" : "一回購入、人数無制限、さらに一生使えます。",
+          "displayName" : "Weft プレミアム（買い切り）",
+          "locale" : "ja_JP"
         }
       ],
       "productID" : "weft_premium_lifetime",
@@ -47,9 +52,14 @@
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "Unlimited people, iCloud sync, widgets, and exports.",
-              "displayName" : "Weft Premium",
+              "description" : "Unlimited people, iCloud sync, widgets & export",
+              "displayName" : "Weft Premium Monthly",
               "locale" : "en_US"
+            },
+            {
+              "description" : "人数無制限・iCloud同期・ウィジェット・書き出し",
+              "displayName" : "Weft プレミアム（月間）",
+              "locale" : "ja_JP"
             }
           ],
           "productID" : "weft_premium_monthly",
@@ -73,9 +83,14 @@
           },
           "localizations" : [
             {
-              "description" : "Unlimited people, iCloud sync, widgets, and exports.",
-              "displayName" : "Weft Premium",
+              "description" : "Unlimited people, iCloud sync, widgets & export",
+              "displayName" : "Weft Premium Yearly",
               "locale" : "en_US"
+            },
+            {
+              "description" : "人数無制限・iCloud同期・ウィジェット・書き出し",
+              "displayName" : "Weft プレミアム（年間）",
+              "locale" : "ja_JP"
             }
           ],
           "productID" : "weft_premium_yearly",

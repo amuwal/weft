@@ -187,7 +187,7 @@ struct SettingsView: View {
             }
 
             Section("About") {
-                LabeledContent("Version", value: "0.1.0 · build 1")
+                LabeledContent("Version", value: Self.bundleVersion)
                 externalLinkRow(
                     "Privacy",
                     systemImage: "lock",
@@ -303,6 +303,13 @@ struct SettingsView: View {
         let date = Calendar.current.date(from: components) ?? .now
         return date.formatted(.dateTime.hour())
     }
+
+    private static let bundleVersion: String = {
+        let info = Bundle.main.infoDictionary
+        let v = info?["CFBundleShortVersionString"] as? String ?? "?"
+        let b = info?["CFBundleVersion"] as? String ?? "?"
+        return "\(v) · build \(b)"
+    }()
 }
 
 /// Sync section extracted so SettingsView's body stays under the lint cap.

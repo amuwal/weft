@@ -112,3 +112,8 @@ spec/
 # Internal launch ops — local-only, never deploy
 marketing/LAUNCH-POSTS.md
 marketing/launch-day.html
+
+# Next.js screenshot generator — build artifacts and AI-generated boilerplate
+marketing/screenshot-gen/node_modules/
+marketing/screenshot-gen/.next/
+marketing/screenshot-gen/AGENTS.md
