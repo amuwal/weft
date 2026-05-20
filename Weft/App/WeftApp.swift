@@ -49,6 +49,7 @@ struct WeftApp: App {
                 .modelContainer(modelContainer)
                 .environment(entitlements)
                 .task { await entitlements.bootstrap() }
+                .task { await ModelContainer.refreshICloudAccountStatus() }
                 .tint(AccentChoice(rawValue: accentRaw)?.color ?? .sage)
                 .preferredColorScheme(ThemeChoice(rawValue: themeRaw)?.colorScheme)
                 .environment(\.locale, currentLanguage.locale)

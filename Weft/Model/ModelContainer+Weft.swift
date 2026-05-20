@@ -1,3 +1,4 @@
+import CloudKit
 import Foundation
 import SwiftData
 
@@ -18,24 +19,38 @@ extension ModelContainer {
     /// reads the same data the app writes.
     static let appGroupID = "group.com.amuwal.weft"
 
+    /// The app's private CloudKit container identifier. Used both to attach the
+    /// store to CloudKit and to query account availability for the Settings UI.
+    static let cloudKitContainerID = "iCloud.com.amuwal.weft"
+
     /// Production container — backed by the user's private CloudKit DB when
-    /// **all three** signals agree:
+    /// **both** signals agree:
     ///   • Premium entitled (cached in UserDefaults from `Entitlements`)
     ///   • User has the sync toggle on in Settings
-    ///   • Device has an iCloud account signed in (real device, not simulator)
-    /// Otherwise we open a local-only store. Toggling Premium or the switch
-    /// requires an app relaunch to take effect — Settings surfaces this hint.
+    /// Otherwise we open a local-only store. We do *not* gate on iCloud account
+    /// availability here: CloudKit operates locally when signed out and starts
+    /// syncing once an account appears, so a missing account is a UI concern
+    /// (see `refreshICloudAccountStatus`), not a reason to drop CloudKit.
+    /// Toggling Premium or the switch requires an app relaunch to take effect —
+    /// Settings surfaces this hint.
     ///
     /// The store URL is forced into the App Group container so `WeftWidget`
     /// can open the same `default.store` file.
     static func weft() throws -> ModelContainer {
         let url = sharedStoreURL()
-        let config = if syncShouldBeActive {
+        var active = syncShouldBeActive
+        #if DEBUG
+            // Force the local-only path even while Premium, to exercise the
+            // "Relaunch to sync your data" hint without a fresh install.
+            if ProcessInfo.processInfo.arguments.contains("--sync-stale") { active = false }
+        #endif
+        cloudKitAttachedAtLaunch = active
+        let config = if active {
             ModelConfiguration(
                 "Weft",
                 schema: weftSchema,
                 url: url,
-                cloudKitDatabase: .private("iCloud.com.amuwal.weft")
+                cloudKitDatabase: .private(cloudKitContainerID)
             )
         } else {
             ModelConfiguration(
@@ -48,6 +63,15 @@ extension ModelContainer {
         return try ModelContainer(for: weftSchema, configurations: [config])
     }
 
+    /// Whether the launch-time container attached CloudKit. Compared against the
+    /// live "sync should be active" signal so Settings can prompt a relaunch when
+    /// Premium was detected *after* launch — e.g. a fresh install that StoreKit
+    /// auto-restored, where the store opened local-only because the cached
+    /// Premium flag hadn't been written yet.
+    /// Written exactly once during synchronous launch (`weft()`), read on the
+    /// main actor thereafter — so `nonisolated(unsafe)` is sound here.
+    nonisolated(unsafe) static var cloudKitAttachedAtLaunch = false
+
     /// Path inside the App Group's shared container that both the app and
     /// the widget extension can reach. Falls back to a per-process URL when
     /// the group container isn't available (tests, previews) so the call
@@ -59,11 +83,14 @@ extension ModelContainer {
         return URL.applicationSupportDirectory.appending(path: "Weft.store")
     }
 
-    /// All three gates combined.
+    /// Whether the store should attach CloudKit. Two gates, both read at launch.
+    /// Tests always stay local — CloudKit can't init without an account or
+    /// entitlement in CI.
     static var syncShouldBeActive: Bool {
+        let isTesting = NSClassFromString("XCTest") != nil
+        guard !isTesting else { return false }
         guard userToggledSyncOn else { return false }
-        guard userIsPremium else { return false }
-        return iCloudIsEntitled
+        return userIsPremium
     }
 
     /// Defaults to `true` so existing Premium users get the historic behavior
@@ -80,18 +107,35 @@ extension ModelContainer {
             || Entitlements.debugPremiumOverride
     }
 
-    /// Heuristic: only opt into CloudKit on a real device with an iCloud
-    /// token. The simulator falls back to a local store — CloudKit there
-    /// demands every attribute be optional, which clashes with the models
-    /// we ship. Real-device sync is the developer's responsibility to wire.
-    private static var iCloudIsEntitled: Bool {
-        let isTesting = NSClassFromString("XCTest") != nil
-        guard !isTesting else { return false }
-        #if targetEnvironment(simulator)
-            return false
-        #else
-            return FileManager.default.ubiquityIdentityToken != nil
-        #endif
+    /// UserDefaults cache of the last-known CloudKit account availability, so
+    /// the Settings status row has something to show before the async check
+    /// returns.
+    static let cloudKitAccountAvailableKey = "cloudKitAccountAvailable"
+
+    /// Last-known CloudKit account availability. A synchronous seed for the
+    /// Settings UI; `refreshICloudAccountStatus()` keeps it current.
+    static var hasICloudAccount: Bool {
+        UserDefaults.standard.bool(forKey: cloudKitAccountAvailableKey)
+    }
+
+    /// Asks CloudKit whether the private database is usable, caches the answer,
+    /// and returns it. This is the correct signal for sync availability:
+    /// `CKContainer.accountStatus()` reports `.available` whenever the user is
+    /// signed into iCloud, independent of the iCloud *Drive* toggle. (We used
+    /// to read `FileManager.ubiquityIdentityToken`, which only reflects iCloud
+    /// Documents/Drive and is `nil` when Drive is off even though CloudKit
+    /// works fine — that produced a false "needs sign-in" status.)
+    @discardableResult
+    static func refreshICloudAccountStatus() async -> Bool {
+        let available: Bool
+        do {
+            let status = try await CKContainer(identifier: cloudKitContainerID).accountStatus()
+            available = status == .available
+        } catch {
+            available = false
+        }
+        UserDefaults.standard.set(available, forKey: cloudKitAccountAvailableKey)
+        return available
     }
 
     /// Used by SwiftUI previews and tests. In-memory, no CloudKit.

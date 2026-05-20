@@ -7,6 +7,22 @@ struct PaywallView: View {
     @Environment(Entitlements.self) private var entitlements
     @State private var selected: Entitlements.ProductID = .lifetime
     @State private var statusMessage: StatusMessage?
+    @State private var welcomeMode: PremiumWelcomeView.Mode? = Self.debugWelcomeMode
+
+    /// DEBUG-only: `--celebrate` / `--celebrate-restore` boot the paywall into
+    /// the post-purchase welcome state so we can iterate on motion + copy
+    /// without going through a real StoreKit transaction. Never true in
+    /// release.
+    private static var debugWelcomeMode: PremiumWelcomeView.Mode? {
+        #if DEBUG
+            let args = ProcessInfo.processInfo.arguments
+            if args.contains("--celebrate-restore") { return .restored }
+            if args.contains("--celebrate") { return .freshPurchase }
+            return nil
+        #else
+            return nil
+        #endif
+    }
 
     private var isPurchasing: Bool {
         entitlements.purchasingProductID != nil
@@ -27,6 +43,30 @@ struct PaywallView: View {
     }()
 
     var body: some View {
+        Group {
+            if let mode = welcomeMode {
+                PremiumWelcomeView(mode: mode, onContinue: { dismiss() })
+                    .transition(.opacity.combined(with: .scale(scale: 0.98)))
+            } else {
+                paywallBody
+                    .transition(.opacity)
+            }
+        }
+        .background(Color.bg)
+        .toolbar {
+            if welcomeMode == nil {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Close") { dismiss() }
+                }
+            }
+        }
+        .interactiveDismissDisabled(welcomeMode != nil)
+        .alert(item: $statusMessage) { msg in
+            Alert(title: Text(msg.title), message: Text(msg.body), dismissButton: .default(Text("OK")))
+        }
+    }
+
+    private var paywallBody: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.l) {
                 hero
@@ -42,21 +82,12 @@ struct PaywallView: View {
                 .buttonStyle(WeftPrimaryButtonStyle())
                 .frame(maxWidth: .infinity)
                 .disabled(isPurchasing)
-                renewalDisclosure
+                SubscriptionTerms(selected: selected)
                 redeemButton
                 links
             }
             .padding(.horizontal, Spacing.xl)
             .padding(.bottom, Spacing.huge)
-        }
-        .background(Color.bg)
-        .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-                Button("Close") { dismiss() }
-            }
-        }
-        .alert(item: $statusMessage) { msg in
-            Alert(title: Text(msg.title), message: Text(msg.body), dismissButton: .default(Text("OK")))
         }
     }
 
@@ -104,14 +135,14 @@ struct PaywallView: View {
             planRow(
                 id: .yearly,
                 title: "Yearly",
-                fallbackSubtitle: "7-day free trial",
+                fallbackSubtitle: "$18.99 / year · 7-day free trial",
                 fallbackPrice: "$18.99",
                 badge: nil
             )
             planRow(
                 id: .monthly,
                 title: "Monthly",
-                fallbackSubtitle: "Cancel anytime",
+                fallbackSubtitle: "$2.99 / month · cancel anytime",
                 fallbackPrice: "$2.99",
                 badge: nil
             )
@@ -143,7 +174,10 @@ struct PaywallView: View {
             if id == .yearly {
                 let perMonthCents = (NSDecimalNumber(decimal: product.price).doubleValue / 12) * 100
                 let perMonth = String(format: "$%.2f/mo", perMonthCents / 100)
-                return "\(perMonth) · billed yearly"
+                return "\(product.displayPrice) / year · \(perMonth)"
+            }
+            if id == .monthly {
+                return "\(product.displayPrice) / month · cancel anytime"
             }
             return fallbackSubtitle
         }()
@@ -174,34 +208,6 @@ struct PaywallView: View {
             return "\(n)-\(unit) free trial · billed yearly"
         }
         return "Intro offer · billed yearly"
-    }
-
-    /// Subscription-terms disclosure block. Required by Apple's Guideline 3.1.2
-    /// (auto-renewing subscriptions): the renewal cadence + cancellation path
-    /// must be visible before the user can complete a purchase. Lifetime is
-    /// non-renewing, so its copy is different.
-    private var renewalDisclosure: some View {
-        Group {
-            switch selected {
-            case .lifetime:
-                Text("One-time purchase. No subscription, no renewals.")
-            case .yearly:
-                Text(
-                    "7-day free trial, then $18.99/year. Auto-renews until cancelled. " +
-                        "Manage in iOS Settings → your name → Subscriptions."
-                )
-            case .monthly:
-                Text(
-                    "$2.99/month. Auto-renews until cancelled. " +
-                        "Manage in iOS Settings → your name → Subscriptions."
-                )
-            }
-        }
-        .font(WeftFont.mini)
-        .foregroundStyle(Color.muted)
-        .multilineTextAlignment(.center)
-        .frame(maxWidth: .infinity)
-        .padding(.horizontal, Spacing.m)
     }
 
     private var redeemButton: some View {
@@ -242,20 +248,35 @@ struct PaywallView: View {
         Task {
             let entitled = await entitlements.purchase(product)
             if entitled {
-                Haptic.success.play()
-                dismiss()
+                // PremiumWelcomeView handles its own success haptic at the
+                // start of the celebration sequence — don't double-fire.
+                withAnimation(.weftCalm) {
+                    welcomeMode = .freshPurchase
+                }
             }
         }
     }
 
     private func restore() {
         Haptic.soft.play()
+        // Snapshot pre-state so we can distinguish three outcomes after sync:
+        //   • was free → now Premium  ⇒  genuine restore, fire .restored welcome
+        //   • was Premium → still Premium ⇒ no transition, quiet acknowledgement
+        //   • still free  ⇒  nothing on this Apple ID
+        let wasPremium = entitlements.isPremium
         Task {
             await entitlements.restore()
-            if entitlements.isPremium {
-                Haptic.success.play()
-                dismiss()
-            } else {
+            switch (wasPremium, entitlements.isPremium) {
+            case (false, true):
+                withAnimation(.weftCalm) {
+                    welcomeMode = .restored
+                }
+            case (true, true):
+                statusMessage = StatusMessage(
+                    title: "Already on Premium",
+                    body: "Your purchase is already active on this device."
+                )
+            default:
                 statusMessage = StatusMessage(
                     title: "Nothing to restore",
                     body: "No active Weft Premium subscription found on this Apple ID."
@@ -277,6 +298,45 @@ private struct StatusMessage: Identifiable {
     let id = UUID()
     let title: String
     let body: String
+}
+
+/// Subscription-terms disclosure block. Required by Apple's Guideline 3.1.2(c)
+/// (auto-renewing subscriptions): the in-app must show, before purchase, the
+/// subscription title, length, price (and price-per-unit if not trivial), plus
+/// the cancellation path. Lifetime is non-renewing so its copy differs. We name
+/// the full product ("Weft Premium Monthly", etc.) rather than just the tier
+/// label so the reviewer can match it 1:1 with the IAP record.
+private struct SubscriptionTerms: View {
+    let selected: Entitlements.ProductID
+
+    var body: some View {
+        Group {
+            switch selected {
+            case .lifetime:
+                Text(
+                    "Weft Premium Lifetime · $39.99 one-time purchase. " +
+                        "No subscription, no renewals."
+                )
+            case .yearly:
+                Text(
+                    "Weft Premium Yearly · $18.99 per year (≈ $1.58 / month). " +
+                        "7-day free trial, then auto-renews yearly until cancelled. " +
+                        "Manage in iOS Settings → your name → Subscriptions."
+                )
+            case .monthly:
+                Text(
+                    "Weft Premium Monthly · $2.99 per month. " +
+                        "Auto-renews monthly until cancelled. " +
+                        "Manage in iOS Settings → your name → Subscriptions."
+                )
+            }
+        }
+        .font(WeftFont.mini)
+        .foregroundStyle(Color.muted)
+        .multilineTextAlignment(.center)
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, Spacing.m)
+    }
 }
 
 private struct PlanRow: View {

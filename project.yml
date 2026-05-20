@@ -68,6 +68,10 @@ targets:
         ITSAppUsesNonExemptEncryption: false
         NSUserActivityTypes: []
         UIAppFonts: []
+        # Lets NSPersistentCloudKitContainer receive CloudKit's silent pushes so
+        # remote changes sync promptly and in the background, not only on launch.
+        UIBackgroundModes:
+          - remote-notification
         # CloudKit/iCloud usage prompt
         NSUbiquitousContainers:
           iCloud.com.amuwal.weft:
@@ -77,6 +81,9 @@ targets:
     entitlements:
       path: Weft/Weft.entitlements
       properties:
+        # `development` here is the dev/TestFlight value; Xcode's automatic
+        # signing promotes it to `production` for App Store distribution builds.
+        aps-environment: development
         com.apple.developer.icloud-container-identifiers:
           - iCloud.com.amuwal.weft
         com.apple.developer.icloud-services:
@@ -106,7 +113,11 @@ targets:
         - WeftTests
         - WeftUITests
       gatherCoverageData: true
-      storeKitConfiguration: Weft/Weft.storekit
+      # storeKitConfiguration disabled so device runs use the real StoreKit
+      # environment (Sandbox when a Sandbox Apple Account is signed in). Re-add
+      # `storeKitConfiguration: Weft/Weft.storekit` for local [Environment: Xcode]
+      # purchase testing without a sandbox account.
+      # storeKitConfiguration: Weft/Weft.storekit
 
   WeftWidget:
     type: app-extension

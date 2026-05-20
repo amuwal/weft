@@ -2,6 +2,18 @@ import SwiftData
 import SwiftUI
 import UIKit
 
+/// The two premium-related sheets, driven by a single `.sheet(item:)`. Two
+/// adjacent `.sheet(isPresented:)` modifiers on one view don't both present
+/// reliably, so they're unified here.
+enum PremiumSheet: Identifiable {
+    case paywall
+    case status
+
+    var id: Self {
+        self
+    }
+}
+
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
@@ -20,7 +32,7 @@ struct SettingsView: View {
 
     @State private var exportItem: ExportItem?
     @State private var showResetInline = false
-    @State private var showPaywall = false
+    @State private var premiumSheet: PremiumSheet?
     /// True when the user changed a value (sync toggle or premium state)
     /// that the SwiftData container only reads at app launch.
     @State private var syncRestartHint = false
@@ -28,6 +40,10 @@ struct SettingsView: View {
     /// so we can detect a same-session upgrade/downgrade and surface the same
     /// "restart required" hint we show for the sync toggle.
     @State private var premiumAtAppear: Bool?
+    @State private var restoreEmpty = false
+    /// Live CloudKit account availability, seeded from the cached value and
+    /// refreshed on appear via `CKContainer.accountStatus()`.
+    @State private var iCloudAccountAvailable = ModelContainer.hasICloudAccount
 
     var body: some View {
         Form {
@@ -39,9 +55,11 @@ struct SettingsView: View {
             SyncSection(
                 syncEnabled: $syncEnabled,
                 syncRestartHint: $syncRestartHint,
-                showPaywall: $showPaywall,
+                onUpgrade: { premiumSheet = .paywall },
                 isPremium: entitlements.isPremium,
-                syncActive: syncActive
+                syncActive: syncActive,
+                needsRelaunchForData: syncNeedsRelaunch,
+                hasICloudAccount: iCloudAccountAvailable
             )
 
             Section {
@@ -134,44 +152,11 @@ struct SettingsView: View {
                 }
             }
 
-            Section {
-                Button {
-                    Haptic.selection.play()
-                    showPaywall = true
-                } label: {
-                    HStack {
-                        Label("Weft Premium", systemImage: "sparkles")
-                            .foregroundStyle(Color.ink)
-                        Spacer()
-                        Text(subscriptionStatusLabel)
-                            .foregroundStyle(entitlements.isPremium ? Color.sage : Color.muted)
-                            .font(WeftFont.caption)
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: 13, weight: .semibold))
-                            .foregroundStyle(Color.whisper)
-                    }
-                }
-                .buttonStyle(.plain)
-
-                Button {
-                    Haptic.selection.play()
-                    Task { await entitlements.presentRedeemSheet() }
-                } label: {
-                    HStack {
-                        Label("Redeem a gift code", systemImage: "gift")
-                            .foregroundStyle(Color.ink)
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: 13, weight: .semibold))
-                            .foregroundStyle(Color.whisper)
-                    }
-                }
-                .buttonStyle(.plain)
-            } header: { Text("Subscription") } footer: {
-                Text(entitlements.isPremium
-                    ? "Thanks for supporting Weft."
-                    : "Unlock unlimited people, sync, widgets, and exports.")
-            }
+            SubscriptionSection(
+                peopleCount: people.count,
+                setSheet: { premiumSheet = $0 },
+                restoreEmpty: $restoreEmpty
+            )
 
             Section("Help") {
                 externalLinkRow(
@@ -211,14 +196,22 @@ struct SettingsView: View {
             ActivityShareSheet(items: [item.url])
                 .presentationDetents([.medium, .large])
         }
-        .sheet(isPresented: $showPaywall) {
-            NavigationStack { PaywallView() }
-                .presentationDetents([.large])
-                .presentationCornerRadius(28)
-                .presentationBackground(.regularMaterial)
+        .sheet(item: $premiumSheet) { sheet in
+            NavigationStack {
+                switch sheet {
+                case .paywall: PaywallView()
+                case .status: PremiumStatusView()
+                }
+            }
+            .presentationDetents([.large])
+            .presentationCornerRadius(28)
+            .presentationBackground(.regularMaterial)
         }
         .onAppear {
             if premiumAtAppear == nil { premiumAtAppear = entitlements.isPremium }
+        }
+        .task {
+            iCloudAccountAvailable = await ModelContainer.refreshICloudAccountStatus()
         }
         .onChange(of: entitlements.isPremium) { _, newValue in
             // If premium state flips while Settings is open, the SwiftData
@@ -227,12 +220,26 @@ struct SettingsView: View {
                 syncRestartHint = true
             }
         }
+        .alert("Nothing to restore", isPresented: $restoreEmpty) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("No active Weft Premium purchase found on this Apple ID.")
+        }
     }
 
-    /// Either a real Premium user (StoreKit) or a debug build with --premium.
-    /// The container reads the same combined signal, so they stay in lockstep.
+    /// True only when sync is genuinely flowing: Premium + toggle on (the
+    /// container's gate) *and* an iCloud account is available. Without the
+    /// account, the container still attaches CloudKit but no data moves, so the
+    /// status row reports `needsAccount` rather than a misleading "On".
     private var syncActive: Bool {
-        ModelContainer.syncShouldBeActive
+        ModelContainer.syncShouldBeActive && iCloudAccountAvailable
+    }
+
+    /// Sync is configured and possible (Premium + toggle + account), but the
+    /// container opened local-only at launch — so existing CloudKit data won't
+    /// appear until the next launch. Drives the "Relaunch to sync" hint.
+    private var syncNeedsRelaunch: Bool {
+        syncActive && !ModelContainer.cloudKitAttachedAtLaunch
     }
 
     private func exportRow(
@@ -245,7 +252,7 @@ struct SettingsView: View {
             if entitlements.isPremium {
                 action()
             } else {
-                showPaywall = true
+                premiumSheet = .paywall
             }
         } label: {
             HStack {
@@ -292,11 +299,6 @@ struct SettingsView: View {
         dismiss()
     }
 
-    private var subscriptionStatusLabel: String {
-        if entitlements.isPremium { return "Premium · Active" }
-        return "Free · \(people.count) / \(Entitlements.freePeopleLimit)"
-    }
-
     private func formattedHour(_ hour: Int) -> String {
         var components = DateComponents()
         components.hour = hour
@@ -310,73 +312,6 @@ struct SettingsView: View {
         let b = info?["CFBundleVersion"] as? String ?? "?"
         return "\(v) · build \(b)"
     }()
-}
-
-/// Sync section extracted so SettingsView's body stays under the lint cap.
-/// Owns its own UI for the toggle, status badge, paywall nudge and the
-/// "restart required" hint. State writes flow through the parent's bindings.
-private struct SyncSection: View {
-    @Binding var syncEnabled: Bool
-    @Binding var syncRestartHint: Bool
-    @Binding var showPaywall: Bool
-    let isPremium: Bool
-    let syncActive: Bool
-
-    var body: some View {
-        Section {
-            Toggle("iCloud sync", isOn: $syncEnabled)
-                .disabled(!isPremium)
-                .onChange(of: syncEnabled) { _, _ in syncRestartHint = true }
-            LabeledContent("Status") {
-                HStack(spacing: 6) {
-                    Image(systemName: syncActive ? "checkmark.icloud" : "icloud.slash")
-                        .foregroundStyle(syncActive ? Color.sage : Color.muted)
-                    Text(syncActive ? "On" : "Off")
-                        .foregroundStyle(Color.muted)
-                }
-            }
-            if !isPremium {
-                upgradeRow
-            }
-            if syncRestartHint {
-                restartHint
-            }
-        } header: { Text("Sync") } footer: {
-            Text(
-                "Your notes live on this device. iCloud sync is a Premium feature and end-to-end encrypted."
-            )
-        }
-    }
-
-    private var upgradeRow: some View {
-        Button {
-            Haptic.soft.play()
-            showPaywall = true
-        } label: {
-            HStack {
-                Label("Premium required", systemImage: "lock")
-                    .foregroundStyle(Color.muted)
-                Spacer()
-                Text("Upgrade")
-                    .font(WeftFont.mini)
-                    .foregroundStyle(Color.sage)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 3)
-                    .background(Color.sageWash, in: Capsule())
-            }
-        }
-        .buttonStyle(.plain)
-    }
-
-    private var restartHint: some View {
-        HStack(spacing: 8) {
-            Image(systemName: "arrow.clockwise")
-                .foregroundStyle(Color.muted)
-            Text("Restart Weft for the change to take effect.")
-                .font(WeftFont.caption)
-                .foregroundStyle(Color.muted)
-        }
-    }
 }
 
 private struct InlineResetRow: View {

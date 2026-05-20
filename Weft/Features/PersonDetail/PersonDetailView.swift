@@ -23,6 +23,7 @@ struct PersonDetailView: View {
     @State private var section: Section = Self.initialSection
     @State private var showingAddNote = false
     @State private var showingEdit = Self.initialEdit
+    @State private var editingNote: Note?
 
     private static var initialSection: Section {
         let args = ProcessInfo.processInfo.arguments
@@ -101,6 +102,20 @@ struct PersonDetailView: View {
             .presentationDetents([.large])
             .presentationCornerRadius(28)
         }
+        .sheet(item: $editingNote) { note in
+            NavigationStack {
+                AddNoteForm(editing: note)
+                    .navigationTitle("Edit note")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Cancel") { editingNote = nil }
+                        }
+                    }
+            }
+            .presentationDetents([.large])
+            .presentationCornerRadius(28)
+        }
     }
 
     private var header: some View {
@@ -147,7 +162,18 @@ struct PersonDetailView: View {
             } else {
                 ForEach(notes, id: \.id) { note in
                     NoteRow(note: note, threads: person.threadsOrEmpty)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            Haptic.soft.play()
+                            editingNote = note
+                        }
                         .contextMenu {
+                            Button {
+                                Haptic.selection.play()
+                                editingNote = note
+                            } label: {
+                                Label("Edit note", systemImage: "pencil")
+                            }
                             Button(role: .destructive) { delete(note) } label: {
                                 Label("Delete note", systemImage: "trash")
                             }
@@ -317,31 +343,6 @@ private struct NoteRow: View {
             if let data = note.photoData, let image = UIImage(data: data) {
                 PhotoViewer(image: image)
             }
-        }
-    }
-}
-
-/// Full-screen zoomable viewer for an attached photo. Tap-to-dismiss; pinch
-/// zooms via the system magnification gesture stack.
-private struct PhotoViewer: View {
-    let image: UIImage
-    @Environment(\.dismiss) private var dismiss
-    @State private var scale: CGFloat = 1
-    @State private var lastScale: CGFloat = 1
-
-    var body: some View {
-        ZStack {
-            Color.black.ignoresSafeArea()
-            Image(uiImage: image)
-                .resizable()
-                .scaledToFit()
-                .scaleEffect(scale)
-                .gesture(
-                    MagnifyGesture()
-                        .onChanged { value in scale = max(1, min(lastScale * value.magnification, 4)) }
-                        .onEnded { _ in lastScale = scale }
-                )
-                .onTapGesture { dismiss() }
         }
     }
 }

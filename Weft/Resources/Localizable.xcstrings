@@ -110,6 +110,17 @@
         }
       }
     },
+    "Already on Premium" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すでにプレミアムです"
+          }
+        }
+      }
+    },
     "Appearance" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -271,6 +282,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "日付"
+          }
+        }
+      }
+    },
+    "Day" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日"
           }
         }
       }
@@ -495,6 +517,17 @@
         }
       }
     },
+    "iCloud sync across devices" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイス間でiCloud同期"
+          }
+        }
+      }
+    },
     "Inner circle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -605,6 +638,28 @@
         }
       }
     },
+    "Lock-screen & home-screen widgets" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ロック画面・ホーム画面ウィジェット"
+          }
+        }
+      }
+    },
+    "Month" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "月"
+          }
+        }
+      }
+    },
     "monthly" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -656,6 +711,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アカウントもクラウドも、初期設定では使いません。\nすべてはこの電話の中に。"
+          }
+        }
+      }
+    },
+    "No active Weft Premium purchase found on this Apple ID." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このApple IDで有効なWeftプレミアムの購入は見つかりませんでした。"
           }
         }
       }
@@ -715,6 +781,17 @@
         }
       }
     },
+    "Nothing to restore" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "復元するものがありません"
+          }
+        }
+      }
+    },
     "now" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -722,6 +799,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "今"
+          }
+        }
+      }
+    },
+    "Needs iCloud sign-in" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloudサインインが必要"
+          }
+        }
+      }
+    },
+    "Sign in to iCloud in the Settings app to sync across your devices." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイス間で同期するには、設定アプリでiCloudにサインインしてください。"
           }
         }
       }
@@ -770,9 +869,6 @@
         }
       }
     },
-    "One-time purchase. No subscription, no renewals." : {
-
-    },
     "OPEN" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -818,6 +914,17 @@
         }
       }
     },
+    "PDF & Markdown export" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PDF・Markdown書き出し"
+          }
+        }
+      }
+    },
     "People" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -847,6 +954,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "写真を添付しました"
+          }
+        }
+      }
+    },
+    "Photo memories" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "写真の思い出"
           }
         }
       }
@@ -963,6 +1081,105 @@
     },
     "Restart Weft for the change to take effect." : {
 
+    },
+    "Cancel or change plan" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プランを変更・解約"
+          }
+        }
+      }
+    },
+    "Lifetime" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "買い切り"
+          }
+        }
+      }
+    },
+    "Monthly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "月額"
+          }
+        }
+      }
+    },
+    "Premium" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プレミアム"
+          }
+        }
+      }
+    },
+    "Relaunch Weft to sync your data to this device." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このデバイスにデータを同期するには、Weftを再起動してください。"
+          }
+        }
+      }
+    },
+    "Renews %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@に更新"
+          }
+        }
+      }
+    },
+    "Restore purchase" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "購入を復元"
+          }
+        }
+      }
+    },
+    "Yearly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "年額"
+          }
+        }
+      }
+    },
+    "Yours forever." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ずっとあなたのものです。"
+          }
+        }
+      }
     },
     "Rhythm" : {
       "extractionState" : "manual",
@@ -1154,6 +1371,17 @@
         }
       }
     },
+    "Thanks. Weft is a one-person studio — your support is what keeps this calm." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ありがとう。Weftは一人の小さなスタジオです。あなたの支えが、この静けさを保ってくれています。"
+          }
+        }
+      }
+    },
     "The free version is for %lld people. Premium removes the limit, adds iCloud sync across iPhone, iPad, and Apple Watch, photo memories, PDF & Markdown export, and Apple Shortcuts." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1216,6 +1444,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "今日"
+          }
+        }
+      }
+    },
+    "Unlimited people" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "人数無制限"
           }
         }
       }
@@ -1303,6 +1542,28 @@
         }
       }
     },
+    "Welcome back" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "おかえりなさい"
+          }
+        }
+      }
+    },
+    "Welcome to Premium" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プレミアムへようこそ"
+          }
+        }
+      }
+    },
     "Who matters to you?" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1336,6 +1597,17 @@
         }
       }
     },
+    "Year unknown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "年は不明"
+          }
+        }
+      }
+    },
     "Your notes live on this device. iCloud sync is a Premium feature and end-to-end encrypted." : {
 
     },
@@ -1346,6 +1618,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "メモはこの端末にあります。iCloud同期は任意で、エンドツーエンドで暗号化されます。"
+          }
+        }
+      }
+    },
+    "Your Premium is back on this device. Pick up where you left off." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このデバイスにプレミアムが戻りました。続きをどうぞ。"
+          }
+        }
+      }
+    },
+    "Your purchase is already active on this device." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このデバイスで購入はすでに有効です。"
           }
         }
       }

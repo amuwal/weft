@@ -10,6 +10,9 @@ struct EditPersonSheet: View {
     @State private var relationship: RelationshipType
     @State private var rhythm: Rhythm
     @State private var palette: AvatarPalette
+    @State private var includeBirthday: Bool
+    @State private var birthday: Date
+    @State private var birthdayYearKnown: Bool
     @State private var confirmingDelete = false
 
     init(person: Person) {
@@ -18,6 +21,9 @@ struct EditPersonSheet: View {
         _relationship = State(initialValue: person.relationship)
         _rhythm = State(initialValue: person.rhythm)
         _palette = State(initialValue: person.avatarPalette)
+        _includeBirthday = State(initialValue: person.birthday != nil)
+        _birthday = State(initialValue: person.birthday ?? .now)
+        _birthdayYearKnown = State(initialValue: person.birthdayYearKnown)
     }
 
     var body: some View {
@@ -58,6 +64,13 @@ struct EditPersonSheet: View {
                     ForEach(Rhythm.allCases) { Text($0.label).tag($0) }
                 }
                 .pickerStyle(.menu)
+            }
+
+            Section {
+                Toggle("Birthday", isOn: $includeBirthday.animation(.weftSpring))
+                if includeBirthday {
+                    BirthdayField(date: $birthday, yearKnown: $birthdayYearKnown)
+                }
             }
 
             Section {
@@ -116,6 +129,8 @@ struct EditPersonSheet: View {
         person.relationship = relationship
         person.rhythm = rhythm
         person.avatarPalette = palette
+        person.birthday = includeBirthday ? birthday : nil
+        person.birthdayYearKnown = includeBirthday ? birthdayYearKnown : true
         try? context.save()
         Haptic.success.play()
         dismiss()

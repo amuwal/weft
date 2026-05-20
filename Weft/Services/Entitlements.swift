@@ -16,7 +16,6 @@ final class Entitlements {
         }
     }
 
-    static let subscriptionGroup = "weft_premium"
     static let freePeopleLimit = 7
     /// Mirrors `isPremium` into UserDefaults so non-Observable code (notably
     /// `ModelContainer.weft()`, which runs synchronously at app launch before
@@ -32,6 +31,9 @@ final class Entitlements {
     }
 
     private(set) var renewalDate: Date?
+    /// The product the user is currently entitled to, if any. Lifetime wins if
+    /// they somehow hold both. Drives the member status screen's plan label.
+    private(set) var activeProductID: ProductID?
     private(set) var products: [Product] = []
     private(set) var productsLoaded = false
     private(set) var purchasingProductID: String?
@@ -46,11 +48,30 @@ final class Entitlements {
     /// before any actor exists) can read it.
     nonisolated static var debugPremiumOverride: Bool {
         #if DEBUG
-            return ProcessInfo.processInfo.arguments.contains("--premium")
+            let args = ProcessInfo.processInfo.arguments
+            return args.contains("--premium")
+                || args.contains("--premium-monthly")
+                || args.contains("--premium-yearly")
         #else
             return false
         #endif
     }
+
+    #if DEBUG
+        /// The plan the debug override should pretend the user holds, so both
+        /// member-status variants can be exercised in the simulator:
+        /// `--premium` / `--premium-monthly` / `--premium-yearly`.
+        nonisolated static var debugSimulatedPlan: (id: ProductID, renewal: Date?) {
+            let args = ProcessInfo.processInfo.arguments
+            if args.contains("--premium-monthly") {
+                return (.monthly, Calendar.current.date(byAdding: .month, value: 1, to: .now))
+            }
+            if args.contains("--premium-yearly") {
+                return (.yearly, Calendar.current.date(byAdding: .year, value: 1, to: .now))
+            }
+            return (.lifetime, nil)
+        }
+    #endif
 
     /// Call once at app launch. Loads products from StoreKit (which the
     /// scheme's local .storekit file backs in development), then starts
@@ -85,32 +106,42 @@ final class Entitlements {
     }
 
     /// Re-derive `isPremium` from local Transaction history. A user is Premium
-    /// if either (a) they own the non-consumable lifetime product, or
-    /// (b) they have an unexpired auto-renewing subscription in the group.
+    /// if they hold a verified, unrevoked entitlement to any product in
+    /// `ProductID` — lifetime non-consumable or an active subscription.
+    ///
+    /// We match strictly by `productID` rather than `subscriptionGroupID` for
+    /// subscriptions: `Transaction.subscriptionGroupID` returns the numeric
+    /// group ID App Store Connect generates (e.g. "21342156"), not the human
+    /// reference name ("weft_premium") — so the old `== subscriptionGroup`
+    /// check silently failed in production for monthly/yearly buyers.
     func refresh() async {
-        if Self.debugPremiumOverride {
-            isPremium = true
-            renewalDate = nil
-            return
-        }
+        #if DEBUG
+            if Self.debugPremiumOverride {
+                let plan = Self.debugSimulatedPlan
+                activeProductID = plan.id
+                renewalDate = plan.renewal
+                isPremium = true
+                return
+            }
+        #endif
         var premium = false
         var renewal: Date?
+        var active: ProductID?
         for await result in Transaction.currentEntitlements {
-            guard case .verified(let txn) = result else { continue }
-            guard txn.revocationDate == nil else { continue }
-            if txn.productID == ProductID.lifetime.rawValue {
-                premium = true
-                // Lifetime has no renewal date.
-                renewal = nil
-                continue
-            }
-            if txn.subscriptionGroupID == Self.subscriptionGroup {
-                premium = true
-                renewal = txn.expirationDate
+            guard case .verified(let txn) = result,
+                  txn.revocationDate == nil,
+                  let pid = ProductID(rawValue: txn.productID)
+            else { continue }
+            premium = true
+            // Lifetime wins if the user somehow holds both a sub and lifetime.
+            if active == nil || pid == .lifetime {
+                active = pid
+                renewal = pid.isSubscription ? txn.expirationDate : nil
             }
         }
         isPremium = premium
         renewalDate = renewal
+        activeProductID = active
     }
 
     /// Returns true if the purchase resulted in entitlement.
@@ -163,11 +194,7 @@ final class Entitlements {
         /// unavailable there. Entitlements is otherwise shared between targets so the
         /// widget can read `cachedIsPremiumKey` and `debugPremiumOverride`.
         func presentRedeemSheet() async {
-            guard let scene = UIApplication.shared.connectedScenes
-                .compactMap({ $0 as? UIWindowScene })
-                .first(where: { $0.activationState == .foregroundActive })
-                ?? UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first
-            else {
+            guard let scene = activeWindowScene else {
                 logger.error("Redeem sheet: no active window scene")
                 return
             }
@@ -176,6 +203,26 @@ final class Entitlements {
             } catch {
                 logger.error("Redeem sheet failed: \(error.localizedDescription)")
             }
+        }
+
+        /// Presents Apple's native subscription-management sheet (cancel, change
+        /// plan, see renewal). Only meaningful for auto-renewing subscriptions;
+        /// the status screen hides the entry for Lifetime owners.
+        func presentManageSubscriptions() async {
+            guard let scene = activeWindowScene else {
+                logger.error("Manage subscriptions: no active window scene")
+                return
+            }
+            do {
+                try await AppStore.showManageSubscriptions(in: scene)
+            } catch {
+                logger.error("Manage subscriptions failed: \(error.localizedDescription)")
+            }
+        }
+
+        private var activeWindowScene: UIWindowScene? {
+            let scenes = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
+            return scenes.first { $0.activationState == .foregroundActive } ?? scenes.first
         }
     #endif
 

@@ -8,17 +8,31 @@ struct AddNoteForm: View {
     @Environment(Entitlements.self) private var entitlements
     @Query(sort: \Person.name) private var people: [Person]
 
+    private let editingNote: Note?
+
     @State private var selectedPersonID: UUID?
     @State private var noteText: String = ""
     @State private var followUp = false
+    @State private var followUpText: String = "Follow up"
     @State private var followUpDate: Date = Calendar.current.date(byAdding: .day, value: 7, to: .now) ?? .now
     @State private var photoPickerItem: PhotosPickerItem?
     @State private var photoData: Data?
     @State private var showPaywall = false
     @FocusState private var editorFocused: Bool
 
-    init(prefilledPerson: Person? = nil) {
-        _selectedPersonID = State(initialValue: prefilledPerson?.id)
+    init(prefilledPerson: Person? = nil, editing: Note? = nil) {
+        self.editingNote = editing
+        if let editing {
+            _selectedPersonID = State(initialValue: editing.person?.id)
+            _noteText = State(initialValue: editing.body)
+            _photoData = State(initialValue: editing.photoData)
+        } else {
+            _selectedPersonID = State(initialValue: prefilledPerson?.id)
+        }
+    }
+
+    private var isEditing: Bool {
+        editingNote != nil
     }
 
     var body: some View {
@@ -29,6 +43,7 @@ struct AddNoteForm: View {
                     ForEach(people) { Text($0.name).tag(Optional($0.id)) }
                 }
                 .pickerStyle(.menu)
+                .disabled(isEditing)
             }
 
             Section("Note") {
@@ -40,11 +55,16 @@ struct AddNoteForm: View {
                 photoRow
             }
 
-            Section {
-                Toggle("Follow up on this", isOn: $followUp.animation(.weftSpring))
-                if followUp {
-                    DatePicker("Remind on", selection: $followUpDate, displayedComponents: .date)
-                        .datePickerStyle(.compact)
+            if !isEditing {
+                Section {
+                    Toggle("Follow up on this", isOn: $followUp.animation(.weftSpring))
+                    if followUp {
+                        TextField("Follow up", text: $followUpText)
+                            .font(WeftFont.body)
+                            .submitLabel(.done)
+                        DatePicker("Remind on", selection: $followUpDate, displayedComponents: .date)
+                            .datePickerStyle(.compact)
+                    }
                 }
             }
         }
@@ -140,6 +160,14 @@ struct AddNoteForm: View {
               let person = people.first(where: { $0.id == pid })
         else { return }
         let trimmed = noteText.trimmingCharacters(in: .whitespacesAndNewlines)
+        if let editingNote {
+            editingNote.body = trimmed
+            editingNote.photoData = photoData
+            try? context.save()
+            Haptic.success.play()
+            dismiss()
+            return
+        }
         // Photos attached during an active Premium session are kept regardless
         // of the user's current tier. If they downgrade later, the picker
         // surface gates *future* additions — but existing photos stay theirs
@@ -148,8 +176,9 @@ struct AddNoteForm: View {
         context.insert(note)
         context.insert(Touchpoint(kind: .note, person: person))
         if followUp {
+            let body = followUpText.trimmingCharacters(in: .whitespacesAndNewlines)
             context.insert(Thread(
-                body: "Follow up",
+                body: body.isEmpty ? "Follow up" : body,
                 dueDate: followUpDate,
                 person: person,
                 sourceNoteId: note.id

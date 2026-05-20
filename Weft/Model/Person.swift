@@ -11,6 +11,12 @@ final class Person {
     var relationship = RelationshipType.other
     var rhythm = Rhythm.none
     var birthday: Date?
+    /// `true` when the user supplied a real birth year; `false` when only
+    /// month + day is known. Defaults `true` so existing rows (which were
+    /// always year+month+day) keep their meaning across the lightweight
+    /// schema migration. Read by display formatters; ScoringService already
+    /// compared month+day only so it needs no change.
+    var birthdayYearKnown: Bool = true
     var avatarPaletteRaw: String = AvatarPalette.sage.rawValue
     var createdAt = Date.now
     var pinned: Bool = false
@@ -32,6 +38,7 @@ final class Person {
         relationship: RelationshipType,
         rhythm: Rhythm,
         birthday: Date? = nil,
+        birthdayYearKnown: Bool = true,
         avatarPalette: AvatarPalette = .sage,
         pinned: Bool = false
     ) {
@@ -40,6 +47,7 @@ final class Person {
         self.relationship = relationship
         self.rhythm = rhythm
         self.birthday = birthday
+        self.birthdayYearKnown = birthdayYearKnown
         self.avatarPaletteRaw = avatarPalette.rawValue
         self.createdAt = .now
         self.pinned = pinned

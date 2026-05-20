@@ -10,6 +10,7 @@ struct AddPersonForm: View {
     @State private var rhythm: Rhythm = .monthly
     @State private var includeBirthday = false
     @State private var birthday: Date = .now
+    @State private var birthdayYearKnown = true
 
     var body: some View {
         Form {
@@ -35,7 +36,7 @@ struct AddPersonForm: View {
             Section {
                 Toggle("Birthday", isOn: $includeBirthday.animation(.weftSpring))
                 if includeBirthday {
-                    DatePicker("Date", selection: $birthday, displayedComponents: .date)
+                    BirthdayField(date: $birthday, yearKnown: $birthdayYearKnown)
                 }
             }
         }
@@ -53,7 +54,8 @@ struct AddPersonForm: View {
             name: name.trimmingCharacters(in: .whitespaces),
             relationship: relationship,
             rhythm: rhythm,
-            birthday: includeBirthday ? birthday : nil
+            birthday: includeBirthday ? birthday : nil,
+            birthdayYearKnown: includeBirthday ? birthdayYearKnown : true
         )
         context.insert(person)
         Haptic.success.play()
