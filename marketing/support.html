@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title data-i18n="pages.support.title">Support — Weft Personal CRM for iOS</title>
+  <meta name="description" content="Help with Weft for iOS. Refunds, lost data, iCloud sync, subscription management, contacting the developer. A real person reads every message." data-i18n-attr="content:pages.support.description" />
+  <meta property="og:title" content="Weft — Support" data-i18n-attr="content:pages.support.title" />
+  <meta property="og:description" content="Help with Weft for iOS. Refunds, sync, subscriptions, and contacting the developer." data-i18n-attr="content:pages.support.description" />
+  <link rel="canonical" href="https://getweft.xyz/support" />
+  <link rel="alternate" hreflang="en" href="https://getweft.xyz/support" />
+  <link rel="alternate" hreflang="ja" href="https://getweft.xyz/support?lang=ja" />
+  <link rel="alternate" hreflang="x-default" href="https://getweft.xyz/support" />
+  <meta property="og:url" content="https://getweft.xyz/support" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#F8F5EF" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#161410" media="(prefers-color-scheme: dark)" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" />
+  <link rel="stylesheet" href="css/site.css" />
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="shortcut icon" href="/assets/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="Weft" />
+  <meta property="og:image" content="https://getweft.xyz/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Weft — A quiet place for the people who matter." />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ja_JP" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://getweft.xyz/assets/og-image.png" />
+  <meta name="twitter:image:alt" content="Weft — A quiet place for the people who matter." />
+
+  <!-- Search engine + app meta -->
+  <meta name="application-name" content="Weft" />
+  <meta name="apple-mobile-web-app-title" content="Weft" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Weft" />
+  <script src="js/controls.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/site.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Weft", "item": "https://getweft.xyz/" },
+      { "@type": "ListItem", "position": 2, "name": "Support", "item": "https://getweft.xyz/support" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I get a refund?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Apple handles all subscription and in-app purchase refunds. Open iOS Settings → tap your name → Subscriptions → Weft → Cancel, then request a refund at reportaproblem.apple.com. If Apple denies it and the reason feels unfair, email hello@getweft.xyz and we'll back you up." }
+      },
+      {
+        "@type": "Question",
+        "name": "I lost my notes. Can you recover them?",
+        "acceptedAnswer": { "@type": "Answer", "text": "If iCloud sync was enabled, reinstall Weft on any device signed into the same Apple ID — your data syncs back automatically. If sync was off and you deleted the app, the local data is gone. Weft is on-device by design; nothing ever leaves your iCloud, so we never had a copy to recover." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I restore a purchase after reinstalling?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Open Settings inside Weft → Subscription → Restore purchase. Make sure you're signed in to the same Apple ID you used to buy. Premium activates within a few seconds." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I cancel my subscription?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Open iOS Settings → tap your name → Subscriptions → Weft → Cancel Subscription. You'll keep access until the end of the current billing period." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Weft work on Android or the web?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Weft is iOS-only and uses native Apple frameworks (SwiftData, CloudKit, WidgetKit) end to end. There are no plans to ship Android or web." }
+      },
+      {
+        "@type": "Question",
+        "name": "How long until I hear back?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Usually within a day or two — sometimes faster. Weft is built by one person in Tokyo; the same person answers email." }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">
+        <svg viewBox="0 0 1024 1024" aria-hidden="true">
+          <rect width="1024" height="1024" fill="#F4EFE3"/>
+          <path d="M 252 600 Q 512 320 772 600" fill="none" stroke="#5C7A66" stroke-width="42" stroke-linecap="round"/>
+          <circle cx="252" cy="600" r="56" fill="#5C7A66"/>
+          <circle cx="772" cy="600" r="56" fill="#5C7A66"/>
+        </svg>
+      </span>
+      <span>Weft<span class="dot">.</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html#feel" data-i18n="nav.howItFeels">How it feels</a>
+      <a href="index.html#pricing" data-i18n="nav.pricing">Pricing</a>
+      <a href="feature-requests" data-i18n="nav.requests">Requests</a>
+      <span data-nav-controls></span>
+      <a class="nav-cta" href="index.html#download" data-i18n="nav.getApp">Get the app</a>
+    </nav>
+  </div>
+</header>
+
+<section class="doc">
+  <div class="wrap">
+    <div class="doc-head reveal-fade">
+      <span class="updated" data-i18n="pages.support.updated">Help & how to reach us</span>
+      <h1 style="margin-top: 14px;"><span data-i18n="pages.support.h1Lead">Get </span><em data-i18n="pages.support.h1Accent">help.</em></h1>
+      <p class="muted" style="max-width: 56ch; margin: 18px auto 0; font-size: 17px; line-height: 1.6;" data-i18n="pages.support.intro">Most questions have a short answer below. If yours doesn't, the form at the bottom goes straight to the developer's inbox — usually a reply within a day or two.</p>
+    </div>
+
+    <div class="doc-body">
+      <h2 data-i18n="pages.support.faq.h">Common questions</h2>
+
+      <div class="faq-list" style="margin: 24px auto 48px;">
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            <span data-i18n="pages.support.faq.refund.q">How do I get a refund?</span>
+            <span class="marker">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <div class="faq-a" data-i18n="pages.support.faq.refund.a" data-i18n-html>Apple handles all subscription and in-app purchase refunds. Open <strong>iOS Settings → your name → Subscriptions → Weft → Cancel</strong>, then request a refund at <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener">reportaproblem.apple.com</a>. If Apple denies it and the reason feels unfair, email <a href="mailto:hello@getweft.xyz">hello@getweft.xyz</a> and we'll back you up.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            <span data-i18n="pages.support.faq.lost.q">I lost my notes. Can you recover them?</span>
+            <span class="marker">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <div class="faq-a" data-i18n="pages.support.faq.lost.a" data-i18n-html>If iCloud sync was enabled, reinstall Weft on any device signed into the same Apple ID — your data syncs back automatically. If sync was off and you deleted the app, the local data is gone. Weft is on-device by design; nothing ever leaves your iCloud, so we never had a copy to recover.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            <span data-i18n="pages.support.faq.restore.q">How do I restore a purchase after reinstalling?</span>
+            <span class="marker">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <div class="faq-a" data-i18n="pages.support.faq.restore.a" data-i18n-html>Inside Weft, open <strong>Settings → Subscription → Restore purchase</strong>. Make sure you're signed into the same Apple ID you used to buy. Premium activates within a few seconds.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            <span data-i18n="pages.support.faq.cancel.q">How do I cancel my subscription?</span>
+            <span class="marker">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <div class="faq-a" data-i18n="pages.support.faq.cancel.a" data-i18n-html>Open <strong>iOS Settings → your name → Subscriptions → Weft → Cancel Subscription</strong>. You keep access until the end of the current billing period. Lifetime is a one-time purchase — there's nothing to cancel.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            <span data-i18n="pages.support.faq.sync.q">iCloud sync isn't working. What can I check?</span>
+            <span class="marker">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <div class="faq-a" data-i18n="pages.support.faq.sync.a" data-i18n-html>Three things to check, in order: (1) the same Apple ID is signed in on every device; (2) iCloud Drive is on in iOS Settings → your name → iCloud; (3) inside Weft, Settings → iCloud sync is enabled. Sync requires Premium. After flipping any of these, relaunch Weft once.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            <span data-i18n="pages.support.faq.platforms.q">Does Weft work on Android or the web?</span>
+            <span class="marker">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <div class="faq-a" data-i18n="pages.support.faq.platforms.a" data-i18n-html>No. Weft is iOS-only and uses native Apple frameworks (SwiftData, CloudKit, WidgetKit) end to end. There are no plans for Android or web. If you switch platforms, you can export your data from <strong>Settings → Export PDF or Markdown</strong>.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            <span data-i18n="pages.support.faq.privacy.q">What data does Weft collect?</span>
+            <span class="marker">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <div class="faq-a" data-i18n="pages.support.faq.privacy.a" data-i18n-html>None on our servers. Your notes live on your device and in your iCloud, never in our infrastructure. We have no analytics, no telemetry, no third-party SDKs. The full breakdown is in our <a href="privacy">privacy policy</a>.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            <span data-i18n="pages.support.faq.reply.q">How long until I hear back?</span>
+            <span class="marker">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <div class="faq-a" data-i18n="pages.support.faq.reply.a" data-i18n-html>Usually within a day or two — sometimes faster. Weft is built by one person in Tokyo; the same person answers email. If you don't hear back within a week, your message was eaten by a spam filter — please resend to <a href="mailto:hello@getweft.xyz">hello@getweft.xyz</a>.</div>
+        </details>
+
+      </div>
+
+      <h2 data-i18n="pages.support.contact.h" style="margin-top: 48px;">Still need help? Write to us.</h2>
+      <p data-i18n="pages.support.contact.intro">The form below goes straight to the developer's inbox. We read every message and answer with a real reply — no tickets, no chatbots.</p>
+    </div>
+
+    <div class="form-wrap reveal-fade" style="margin-top: 24px;">
+      <form data-w3form action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="df9d67e4-b214-416b-894d-f09168e171a5" />
+        <input type="hidden" name="subject" value="Weft — support" data-i18n-value="pages.support.form.subjectValue" />
+        <input type="hidden" name="from_name" value="Weft support form" data-i18n-value="pages.support.form.fromName" />
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
+
+        <div class="form-row">
+          <label data-i18n="pages.support.form.topicLabel">What's going on?</label>
+          <div class="form-pillrow">
+            <input type="radio" id="t-bug" name="topic" value="bug" checked />
+            <label for="t-bug" data-i18n="pages.support.form.topicBug">Something's broken</label>
+
+            <input type="radio" id="t-billing" name="topic" value="billing" />
+            <label for="t-billing" data-i18n="pages.support.form.topicBilling">Billing or refund</label>
+
+            <input type="radio" id="t-data" name="topic" value="data" />
+            <label for="t-data" data-i18n="pages.support.form.topicData">Lost data / sync</label>
+
+            <input type="radio" id="t-other" name="topic" value="other" />
+            <label for="t-other" data-i18n="pages.support.form.topicOther">Something else</label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="email" data-i18n="pages.support.form.emailLabel">Your email</label>
+          <input type="email" id="email" name="email" placeholder="so we can write back" autocomplete="email" required data-i18n-attr="placeholder:pages.support.form.emailPlaceholder" />
+          <span class="hint" data-i18n="pages.support.form.emailHint">We only use this to reply. You won't be added to a list.</span>
+        </div>
+
+        <div class="form-row">
+          <label for="msg" data-i18n="pages.support.form.messageLabel">Describe the issue</label>
+          <textarea id="msg" name="msg" placeholder="Device model, iOS version, what you did, what happened. The more detail, the better the reply." required data-i18n-attr="placeholder:pages.support.form.messagePlaceholder"></textarea>
+        </div>
+
+        <button type="submit" class="form-submit"
+          data-i18n="pages.support.form.submit"
+          data-i18n-attr="data-w3-label-sending:pages.support.form.submitSending, data-w3-label-sent:pages.support.form.submitSent, data-w3-label-failed:pages.support.form.submitFailed">Send it</button>
+
+        <p class="form-note" data-i18n="pages.support.form.footer" data-i18n-html>Or email <a href="mailto:hello@getweft.xyz" style="color: var(--sage); border-bottom: 1px solid var(--sage-soft);">hello@getweft.xyz</a> directly. Replies usually within a day or two.</p>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">
+            <svg viewBox="0 0 1024 1024" aria-hidden="true">
+              <rect width="1024" height="1024" fill="#F4EFE3"/>
+              <path d="M 252 600 Q 512 320 772 600" fill="none" stroke="#5C7A66" stroke-width="42" stroke-linecap="round"/>
+              <circle cx="252" cy="600" r="56" fill="#5C7A66"/>
+              <circle cx="772" cy="600" r="56" fill="#5C7A66"/>
+            </svg>
+          </span>
+          <span>Weft<span class="dot">.</span></span>
+        </a>
+        <p data-i18n="footer.tagline">A quiet place for the people who matter. Made with care for iOS 26.</p>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="footer.headings.app">App</h5>
+        <ul>
+          <li><a href="index.html#feel" data-i18n="footer.links.howItFeels">How it feels</a></li>
+          <li><a href="index.html#pricing" data-i18n="footer.links.pricing">Pricing</a></li>
+          <li><a href="index.html#faq" data-i18n="footer.links.faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="footer.headings.help">Help</h5>
+        <ul>
+          <li><a href="support" data-i18n="footer.links.support">Support</a></li>
+          <li><a href="feedback" data-i18n="footer.links.feedback">Send feedback</a></li>
+          <li><a href="feature-requests" data-i18n="footer.links.featureRequests">Request a feature</a></li>
+          <li><a href="about" data-i18n="footer.links.about">About</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="footer.headings.smallPrint">Small print</h5>
+        <ul>
+          <li><a href="privacy" data-i18n="footer.links.privacy">Privacy</a></li>
+          <li><a href="terms" data-i18n="footer.links.terms">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© <span data-year>2026</span> Weft. All rights reserved.</span>
+      <span data-i18n="footer.madeIn">Designed and built in Tokyo.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -27,6 +27,7 @@
       "pricing": "料金",
       "faq": "よくある質問",
       "download": "ダウンロード",
+      "support": "サポート",
       "feedback": "フィードバックを送る",
       "featureRequests": "機能をリクエスト",
       "about": "Weftについて",
@@ -454,6 +455,73 @@
           "h": "お問い合わせ",
           "p": "ご質問、苦情、法的通知: <a href=\"mailto:hello@getweft.xyz\">hello@getweft.xyz</a>。たいてい1〜2日で返信します。"
         }
+      }
+    },
+
+    "support": {
+      "title": "サポート — Weft パーソナルCRM (iOS版)",
+      "description": "Weft for iOSのヘルプ。返金、データ消失、iCloud同期、サブスクリプション管理、開発者への連絡方法。すべてのメッセージを実在の人間が読みます。",
+      "updated": "ヘルプとお問い合わせ",
+      "h1Lead": "ヘルプを",
+      "h1Accent": "見る。",
+      "intro": "ほとんどのご質問には、下に短い答えがあります。見つからない場合、下部のフォームは開発者の受信箱に直接届きます — たいてい1〜2日で返信します。",
+      "faq": {
+        "h": "よくあるご質問",
+        "refund": {
+          "q": "返金はどうやって受けますか?",
+          "a": "サブスクリプションとアプリ内課金の返金はすべてAppleが扱います。<strong>iOSの設定 → お名前 → サブスクリプション → Weft → キャンセル</strong>、そして<a href=\"https://reportaproblem.apple.com\" target=\"_blank\" rel=\"noopener\">reportaproblem.apple.com</a>から返金をリクエスト。Appleが断って不当に感じたら、<a href=\"mailto:hello@getweft.xyz\">hello@getweft.xyz</a>へご連絡ください。お手伝いします。"
+        },
+        "lost": {
+          "q": "メモがなくなりました。復元できますか?",
+          "a": "iCloud同期がオンだった場合、同じApple IDのデバイスにWeftを再インストールすると、データは自動的に同期で戻ります。同期がオフでアプリを削除した場合、ローカルデータは消えています。Weftは設計上オンデバイスで、何もWeftのインフラには入らないため、復元する控えはありません。"
+        },
+        "restore": {
+          "q": "再インストール後の購入の復元方法は?",
+          "a": "Weftアプリ内で<strong>設定 → サブスクリプション → 購入を復元</strong>を開きます。購入に使った同じApple IDでサインインしていることを確認してください。プレミアムは数秒で有効になります。"
+        },
+        "cancel": {
+          "q": "サブスクリプションのキャンセル方法は?",
+          "a": "<strong>iOSの設定 → お名前 → サブスクリプション → Weft → サブスクリプションをキャンセル</strong>を開きます。現在の請求期間の終了までアクセスは残ります。ライフタイムは1回限りの購入で、キャンセルするものはありません。"
+        },
+        "sync": {
+          "q": "iCloud同期が動きません。何を確認すれば?",
+          "a": "順に3つ: (1) 全デバイスで同じApple IDにサインインしている; (2) iOSの設定 → お名前 → iCloudでiCloud Driveがオン; (3) Weft内で設定 → iCloud同期がオン。同期にはプレミアムが必要です。設定を変更した後はWeftを一度再起動してください。"
+        },
+        "platforms": {
+          "q": "WeftはAndroidやWebで動きますか?",
+          "a": "いいえ。WeftはiOS専用で、Appleのネイティブフレームワーク(SwiftData、CloudKit、WidgetKit)を一貫して使用しています。AndroidやWeb版の予定はありません。プラットフォームを移る場合、<strong>設定 → PDFまたはMarkdownでエクスポート</strong>からデータを書き出せます。"
+        },
+        "privacy": {
+          "q": "Weftはどんなデータを収集しますか?",
+          "a": "サーバーには何も。メモはあなたのデバイスとあなたのiCloudにあり、Weftのインフラには入りません。アナリティクス、テレメトリ、サードパーティSDKはありません。詳細は<a href=\"privacy\">プライバシーポリシー</a>に。"
+        },
+        "reply": {
+          "q": "返信までどのくらいかかりますか?",
+          "a": "たいてい1〜2日 — もっと早いことも。Weftは東京で一人で作っており、メールに答えるのも同じ人です。1週間返信がなければスパムフィルタに飲まれた可能性があります — <a href=\"mailto:hello@getweft.xyz\">hello@getweft.xyz</a>へ再送してください。"
+        }
+      },
+      "contact": {
+        "h": "それでも解決しないときは、ご連絡ください。",
+        "intro": "下のフォームは開発者の受信箱に直接届きます。すべてのメッセージを読み、人間が返信します — チケットもチャットボットもありません。"
+      },
+      "form": {
+        "topicLabel": "どうされましたか?",
+        "topicBug": "何かが壊れている",
+        "topicBilling": "請求 / 返金",
+        "topicData": "データ消失 / 同期",
+        "topicOther": "その他",
+        "emailLabel": "あなたのメールアドレス",
+        "emailPlaceholder": "返信できるように",
+        "emailHint": "返信にだけ使います。リストに追加しません。",
+        "messageLabel": "問題の内容",
+        "messagePlaceholder": "機種、iOSのバージョン、何をしたか、何が起きたか。詳細であるほど、返信も的確になります。",
+        "submit": "送信",
+        "submitSending": "送信中…",
+        "submitSent": "送信しました — ありがとう",
+        "submitFailed": "送信できませんでした — メールでお願いします",
+        "footer": "または、<a href=\"mailto:hello@getweft.xyz\" style=\"color: var(--sage); border-bottom: 1px solid var(--sage-soft);\">hello@getweft.xyz</a>に直接メールを。たいてい1〜2日で返信します。",
+        "subjectValue": "Weft — サポート",
+        "fromName": "Weft サポートフォーム"
       }
     },
 

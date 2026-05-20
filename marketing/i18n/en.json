@@ -27,6 +27,7 @@
       "pricing": "Pricing",
       "faq": "FAQ",
       "download": "Download",
+      "support": "Support",
       "feedback": "Send feedback",
       "featureRequests": "Request a feature",
       "about": "About",
@@ -454,6 +455,73 @@
           "h": "Contact",
           "p": "Questions, complaints, or legal notices: <a href=\"mailto:hello@getweft.xyz\">hello@getweft.xyz</a>. Replies usually within a day or two."
         }
+      }
+    },
+
+    "support": {
+      "title": "Support — Weft Personal CRM for iOS",
+      "description": "Help with Weft for iOS. Refunds, lost data, iCloud sync, subscription management, contacting the developer. A real person reads every message.",
+      "updated": "Help & how to reach us",
+      "h1Lead": "Get ",
+      "h1Accent": "help.",
+      "intro": "Most questions have a short answer below. If yours doesn't, the form at the bottom goes straight to the developer's inbox — usually a reply within a day or two.",
+      "faq": {
+        "h": "Common questions",
+        "refund": {
+          "q": "How do I get a refund?",
+          "a": "Apple handles all subscription and in-app purchase refunds. Open <strong>iOS Settings → your name → Subscriptions → Weft → Cancel</strong>, then request a refund at <a href=\"https://reportaproblem.apple.com\" target=\"_blank\" rel=\"noopener\">reportaproblem.apple.com</a>. If Apple denies it and the reason feels unfair, email <a href=\"mailto:hello@getweft.xyz\">hello@getweft.xyz</a> and we'll back you up."
+        },
+        "lost": {
+          "q": "I lost my notes. Can you recover them?",
+          "a": "If iCloud sync was enabled, reinstall Weft on any device signed into the same Apple ID — your data syncs back automatically. If sync was off and you deleted the app, the local data is gone. Weft is on-device by design; nothing ever leaves your iCloud, so we never had a copy to recover."
+        },
+        "restore": {
+          "q": "How do I restore a purchase after reinstalling?",
+          "a": "Inside Weft, open <strong>Settings → Subscription → Restore purchase</strong>. Make sure you're signed into the same Apple ID you used to buy. Premium activates within a few seconds."
+        },
+        "cancel": {
+          "q": "How do I cancel my subscription?",
+          "a": "Open <strong>iOS Settings → your name → Subscriptions → Weft → Cancel Subscription</strong>. You keep access until the end of the current billing period. Lifetime is a one-time purchase — there's nothing to cancel."
+        },
+        "sync": {
+          "q": "iCloud sync isn't working. What can I check?",
+          "a": "Three things to check, in order: (1) the same Apple ID is signed in on every device; (2) iCloud Drive is on in iOS Settings → your name → iCloud; (3) inside Weft, Settings → iCloud sync is enabled. Sync requires Premium. After flipping any of these, relaunch Weft once."
+        },
+        "platforms": {
+          "q": "Does Weft work on Android or the web?",
+          "a": "No. Weft is iOS-only and uses native Apple frameworks (SwiftData, CloudKit, WidgetKit) end to end. There are no plans for Android or web. If you switch platforms, you can export your data from <strong>Settings → Export PDF or Markdown</strong>."
+        },
+        "privacy": {
+          "q": "What data does Weft collect?",
+          "a": "None on our servers. Your notes live on your device and in your iCloud, never in our infrastructure. We have no analytics, no telemetry, no third-party SDKs. The full breakdown is in our <a href=\"privacy\">privacy policy</a>."
+        },
+        "reply": {
+          "q": "How long until I hear back?",
+          "a": "Usually within a day or two — sometimes faster. Weft is built by one person in Tokyo; the same person answers email. If you don't hear back within a week, your message was eaten by a spam filter — please resend to <a href=\"mailto:hello@getweft.xyz\">hello@getweft.xyz</a>."
+        }
+      },
+      "contact": {
+        "h": "Still need help? Write to us.",
+        "intro": "The form below goes straight to the developer's inbox. We read every message and answer with a real reply — no tickets, no chatbots."
+      },
+      "form": {
+        "topicLabel": "What's going on?",
+        "topicBug": "Something's broken",
+        "topicBilling": "Billing or refund",
+        "topicData": "Lost data / sync",
+        "topicOther": "Something else",
+        "emailLabel": "Your email",
+        "emailPlaceholder": "so we can write back",
+        "emailHint": "We only use this to reply. You won't be added to a list.",
+        "messageLabel": "Describe the issue",
+        "messagePlaceholder": "Device model, iOS version, what you did, what happened. The more detail, the better the reply.",
+        "submit": "Send it",
+        "submitSending": "Sending…",
+        "submitSent": "Sent — thank you",
+        "submitFailed": "Didn't send — try email instead",
+        "footer": "Or email <a href=\"mailto:hello@getweft.xyz\" style=\"color: var(--sage); border-bottom: 1px solid var(--sage-soft);\">hello@getweft.xyz</a> directly. Replies usually within a day or two.",
+        "subjectValue": "Weft — support",
+        "fromName": "Weft support form"
       }
     },
 

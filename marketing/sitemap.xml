@@ -60,6 +60,14 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://getweft.xyz/about?lang=ja"/>
   </url>
   <url>
+    <loc>https://getweft.xyz/support</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getweft.xyz/support"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getweft.xyz/support?lang=ja"/>
+  </url>
+  <url>
     <loc>https://getweft.xyz/feedback</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
