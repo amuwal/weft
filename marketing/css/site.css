@@ -442,6 +442,16 @@ html:not([data-i18n-booted]) [data-i18n].brand-text {
 }
 .hero h1 .accent { color: var(--sage); font-style: italic; font-weight: 400; }
 
+.hero-foryou {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(16px, 1.3vw, 18px);
+  color: var(--sage-deep);
+  line-height: 1.5;
+  max-width: 30em;
+  margin: 0 0 22px;
+}
+
 .hero-sub {
   font-size: clamp(17px, 1.4vw, 19px);
   color: var(--muted);
@@ -450,6 +460,14 @@ html:not([data-i18n-booted]) [data-i18n].brand-text {
   margin: 0 0 36px;
 }
 .hero-sub em { color: var(--ink); font-style: normal; font-weight: 500; }
+
+.hero-microcopy {
+  margin: 16px 0 0;
+  font-family: var(--rounded);
+  font-size: 13.5px;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
 
 .hero-ctas {
   display: flex;

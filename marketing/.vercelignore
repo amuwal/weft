@@ -12,3 +12,8 @@ assets/og-blog-*.svg
 _head.snippet.html
 scripts/
 SEO-CHECKLIST.md
+
+# Screenshot-generation tool (Next.js) — build-time dev tool, ~518MB, not part of
+# the live site (nothing in the deployed HTML/CSS/JS references it). Excluding it
+# keeps the deploy to the ~5MB static site.
+screenshot-gen/

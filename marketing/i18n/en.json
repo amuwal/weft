@@ -53,12 +53,15 @@
 
       "hero": {
         "eyebrow": "On-device · iOS 26 · no account needed",
-        "titleLead": "A quiet place for the people",
-        "titleAccent": " who matter.",
-        "sub": "Weft is a small, private notebook for the <em>five to twenty-five people</em> you actually care about. Open it, see who's on your mind, write a sentence about your last conversation, close. Two seconds. The app remembers what you can't.",
-        "meta1": "No cloud by default",
-        "meta2": "No analytics, no ads, ever",
-        "meta3": "7-day free trial · $18.99/yr or $39.99 lifetime",
+        "titleLead": "Remember the people you love —",
+        "titleAccent": " one line at a time.",
+        "forYou": "For when you realize it's been months since you talked to someone you love.",
+        "sub": "Add the <em>5–25 people</em> who matter. Write a line after you talk. Weft quietly surfaces who you've drifted from — on your phone, never in the cloud.",
+        "ctaNote": "Free for up to 7 people, forever. No account.",
+        "meta1": "No account",
+        "meta2": "No analytics",
+        "meta3": "No third-party SDKs",
+        "meta4": "No AI on your notes",
         "phone": {
           "date": "Wednesday · May 15",
           "title": "Who's on your<br/>mind today?",
@@ -304,6 +307,22 @@
           "shortcuts": {
             "q": "Does Weft work with Siri and Shortcuts?",
             "a": "Yes — three native actions ship out of the box: <em>Add a Weft note</em>, <em>Open a person in Weft</em>, and <em>Who's on my mind today</em>. Run them from the Shortcuts app, the Action Button, lock-screen widgets, Spotlight search, or just by saying \"Hey Siri…\". No setup; they appear automatically the first time you launch Weft. All three are free."
+          },
+          "bestPrivate": {
+            "q": "What's the best private personal CRM for iPhone?",
+            "a": "If \"private\" matters more than \"powerful,\" Weft is built for exactly that. It keeps notes on the 5–25 people who matter most — on-device by default, with optional end-to-end-encrypted iCloud sync, no analytics, and no cloud AI ever reading your words. Free for up to 7 people, then $2.99/mo, $18.99/yr (7-day trial), or $39.99 lifetime. iPhone, iOS 26+."
+          },
+          "noAi": {
+            "q": "Is there a personal CRM that doesn't use AI?",
+            "a": "Yes — Weft. No cloud LLM ever reads your notes, and nothing is auto-summarized or enriched; you write the sentence, the app simply remembers it. It's a small, on-device notebook for 5–25 close people. Free for up to 7, then $2.99/mo, $18.99/yr (7-day trial), or $39.99 lifetime, on iPhone with iOS 26+."
+          },
+          "keepInTouch": {
+            "q": "How do I remember to keep in touch with friends and family?",
+            "a": "Add the 5–25 people who matter most, write a line after you talk, and let Weft quietly surface who you've drifted from — no streaks, no pressure. It's a calm, on-device notebook for friends and family, not a network of thousands. Free for up to 7 people, then $2.99/mo, $18.99/yr (7-day trial), or $39.99 lifetime. iPhone, iOS 26+."
+          },
+          "calmerDex": {
+            "q": "What's a calmer alternative to Dex?",
+            "a": "Weft. Where Dex is built for networkers keeping up with thousands of professional contacts, Weft caps at 25 close people, uses journal vocabulary instead of sales vocabulary, and stays on-device with no cloud AI. It's far cheaper too: free for up to 7 people, then $2.99/mo, $18.99/yr (7-day trial), or $39.99 lifetime. See the full <a href=\"vs/dex\">Weft vs Dex comparison</a>."
           }
         }
       },
