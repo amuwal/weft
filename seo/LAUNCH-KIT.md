@@ -37,10 +37,15 @@ ping only changed paths. Pinging unchanged URLs gets the key throttled.
 These are the cheapest real links available. None require a launch date.
 
 ### AlternativeTo — `TODO`
+*Name verified 2026-08-12 against the iTunes Lookup API: the store listing is now
+**Weft: Personal CRM Journal** (it was "Weft — Stay Close" when this kit was written). Use the
+current name — a directory entry that disagrees with the App Store gets rejected or de-duplicated.
+The store URL slug is still `weft-stay-close`, which is fine and should not be "corrected".*
+
 https://alternativeto.net/manage/new-app/ — list Weft as an alternative to Dex, Mesh, Monica,
 Notion. High domain authority, and it is a common source for AI answer engines.
 
-> **Name:** Weft — Stay Close
+> **Name:** Weft: Personal CRM Journal
 > **Category:** Personal CRM / Productivity · **Platform:** iOS
 > **License:** Freemium
 > **Short description:** A private, on-device personal CRM for iOS. Weft holds the 5-25 people you
@@ -127,6 +132,10 @@ Small, personal, one at a time. Include a promo code. Never BCC a list.
 - **9to5Mac** / **iMore** tips lines
 - **Six Colors** (Jason Snell) — occasional indie roundups
 - **Japanese Mac/iOS blogs** — an underused angle: solo dev in Tokyo, bilingual site
+
+**Verified app facts (2026-08-12, iTunes Lookup API) — reuse these, do not re-derive:**
+name `Weft: Personal CRM Journal` · v1.0.2 (2026-08-04) · first released 2026-05-21 ·
+requires iOS 26.0 · free with IAP · Lifestyle / Productivity · 0 ratings.
 
 > **Pitch (keep it this short):**
 > Weft is a personal CRM for iOS that caps you at ~25 people on purpose. No account, no server, no

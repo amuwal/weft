@@ -1,3 +1,4 @@
 date,site_indexed,h1_phrase_found,gsc_verified,gsc_impressions,gsc_clicks,indexed_pages,referring_domains,appstore_ratings,notes
 2026-08-10,no,no,unknown,blind,blind,0,0,0,baseline from prior task notes
 2026-08-11,no,no,NO,blind,blind,0,0,0,GSC confirmed unverified for getweft.xyz; Bing not signed in
+2026-08-12,no,no,unknown,blind,blind,0,0,0,"Day 3 flat. 08-11 fixes still unpushed; live site still serving stale competitor facts. Chrome bridge dead (example.com also timed out) so GSC unconfirmed. Mesh/Folk/Dex/Notion re-verified. App Store 0 ratings confirmed via iTunes API; app renamed to Weft: Personal CRM Journal"

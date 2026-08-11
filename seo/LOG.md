@@ -4,6 +4,112 @@ Newest entries at the top. One entry per run. Be specific and be honest about fl
 
 ---
 
+## 2026-08-12
+
+**Index check — NO CHANGE. Still not indexed.** Day 3 of measurement, flat.
+
+- `site:getweft.xyz` → no results for the domain; only generic `.xyz` TLD pages.
+- Exact H1 `"Remember the people you love — one line at a time"` → no results, only unrelated
+  quote-collection pages.
+
+Flat is the expected reading. Nothing upstream has changed that would make indexing possible.
+
+### 🔴 The main finding: yesterday's corrections never shipped
+
+`origin/main` is still at `469be0b`. Branch `seo/2026-08-11` is **not on GitHub** —
+`git ls-remote --heads origin` lists only `main`, `release/1.0.2` and `seo/sitemap-lastmod`.
+The branch was landed into the owner's local checkout on 2026-08-11 and never pushed.
+
+Confirmed against the live site rather than assumed. `https://getweft.xyz/vs/clay` today still
+serves `Mac-first` three times and links `clay.earth` twice; `/vs/folk` still says
+`$216+/year`; `/vs/dex` still says `$144/year ($12/month)`. So for a second day the site has been
+publishing three false claims about competitors, including an entire comparison page written
+against a product name that was retired in June 2025.
+
+Nothing about yesterday's diagnosis was wrong. The work simply did not reach production, and a
+day of it was nearly lost — the only copy was an unpushed branch in a scratch clone that a
+container reset would have destroyed.
+
+**Recovered.** Yesterday's commit was extracted with `git format-patch` and re-applied onto
+`seo/2026-08-12`, which now carries both days' work. Re-verified after applying: no `Mac-first`
+and no live `clay.earth` reference survives except the one deliberate sentence on `/vs/clay`
+explaining the rename.
+
+### GSC + Bing: blind this run
+
+The Chrome bridge was connected (one macOS browser, local) but unusable. Search Console never
+settled; Bing Webmaster returned `Frame with ID 0 was removed`; and a control navigation to
+`example.com` also timed out after 45s waiting for `document_idle`. So this is the bridge or a
+sleeping/locked desktop, not a GSC-specific problem — a scheduled run at 07:00 with nobody there
+to clear a pending extension prompt is the likely cause.
+
+**Stated plainly: this run could not confirm whether GSC verification has happened since
+yesterday.** That is weaker information than yesterday, when the answer was a definitive "not
+verified." Recorded as `unknown`, not carried forward as `NO`.
+
+### Competitor facts — all four re-verified today, first-hand
+
+Re-verified rather than trusted, because this run re-ships yesterday's claims and the runbook
+forbids reporting anything not actually checked this run. Each against the vendor's own page:
+
+- **Mesh** (me.sh/pricing) — Personal free up to 1,000 contacts, credit card required; Pro $10/mo;
+  Team $40/seat/mo. Site footer lists macOS, web, Windows & iOS. Matches what shipped. ✅
+- **Folk** (folk.app/pricing) — Standard $24/member/mo billed yearly, shown on the page as
+  **$288 billed yearly**, or $30/mo billed monthly. Confirms the correction from `$216+`. ✅
+- **Dex** (getdex.com/pricing) — Premium **$12/mo**, Professional **$20/mo**, with an
+  Annual (40% off) / Quarterly (20% off) / Monthly toggle. The annual total still is not
+  derivable from the page, so quoting per-month rates remains the honest call. Page also states
+  "Start a 7-day free trial today," confirming the free-tier fix. ✅
+- **Notion** (notion.com/pricing) — Free $0, Plus **$10/member/mo**, Business $20. The `/vs/notion`
+  claims are correct. **Clears the oldest open maintenance item** — unchecked since May 2026.
+
+The Automattic acquisition claim was also sourced properly this time: TechCrunch, 2025-06-12,
+"Automattic acquires relationship manager Clay." Safe to state in the crm.org email.
+
+### App Store: 0 ratings confirmed — and the app has been renamed
+
+Queried the iTunes Lookup API directly (the HTML listing returns 0 bytes to this sandbox):
+
+- `userRatingCount: 0`, `averageUserRating: 0` — **independently confirmed, no longer carried
+  forward from notes.** Clears a backlog item.
+- `releaseDate: 2026-05-21`, so the app is ~2.7 months old, not 3.
+- `version: 1.0.2`, released 2026-08-04. `minimumOsVersion: 26.0` — confirms the "iOS 26 only"
+  line in the Show HN draft. `formattedPrice: Free`. Genre Lifestyle / Productivity.
+- **`trackName` is now `Weft: Personal CRM Journal`.** The launch kit was written when the app was
+  "Weft — Stay Close."
+
+That rename matters more than it looks. The AlternativeTo submission copy carried a name that no
+longer matches the store listing, and a directory entry whose name disagrees with the App Store is
+the kind of mismatch that gets a listing rejected or quietly de-duplicated. Fixed in LAUNCH-KIT §1,
+with the old name kept as a former-name note since the store URL slug is still `weft-stay-close`.
+
+### Competitive signal worth recording
+
+Searching the Clay rebrand surfaced **trywend.io** — a rival personal CRM running this exact
+playbook and winning it: "What Happened to Clay (clay.earth)? Clay Is Now Mesh", "Mesh (formerly
+Clay) Alternatives in 2026", "Wend vs Mesh, formerly Clay (2026)". Dex is also ranking a
+`/blog/mesh-review/` page.
+
+Two honest readings. The strategy is sound — the rename genuinely is live search intent, and
+`/vs/clay` is aimed at it correctly. But competitors are already indexed and answering that query
+today, so this window is being consumed while Weft is invisible. It is an argument for urgency on
+verification and links, not for writing more pages.
+
+### Content
+
+None. Correct number while unindexed — this is the third run in a row where the ceiling is zero
+and the reason has not changed.
+
+### Next run
+
+1. Re-check index status.
+2. **Check whether `seo/2026-08-12` was pushed.** If two days of corrections are still unshipped,
+   say so first and loudly — it outranks everything else in this file.
+3. Re-attempt GSC/Bing. If the bridge works, the first question is still verification + sitemap.
+4. If GSC is verified: AlternativeTo and the crm.org correction email, in that order.
+
+---
+
 ## 2026-08-11
 
 **Index check — NO CHANGE. Still not indexed.**
