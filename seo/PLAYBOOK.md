@@ -27,8 +27,13 @@ Measured in GSC on 2026-08-12:
    discovered. This is the one part of the old diagnosis that was real, and it is now fixed.
 4. **Every query is brand or a typo of it.** `weft app` (16 impr), `w0yft` (7), `welft` (1).
    Zero generic category terms.
-5. **Zero referring domains, and 0 App Store ratings** at ~2.7 months
-   (`userRatingCount: 0`, iTunes Lookup API, confirmed 2026-08-12).
+5. **NOT zero referring domains — that was the third false premise.** GSC Links, read
+   2026-08-12: **33 external links from 3 domains** — `apple.com` 28 (the App Store "developer
+   website" link, in several languages), **`reddit.com` 3**, `appagg.com` 2. All point at the
+   homepage. Someone has already mentioned Weft on Reddit unprompted.
+6. **Internal links: 1.** Google found exactly one internal link across the entire site. This
+   independently corroborates the orphan finding and was the real constraint on crawling.
+7. **0 App Store ratings** at ~2.7 months (`userRatingCount: 0`, iTunes Lookup API, 2026-08-12).
 
 ### Methodology correction — this caused the error, do not repeat it
 

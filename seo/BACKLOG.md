@@ -29,7 +29,17 @@ Ordered by value. Move items to `LOG.md` when done.
 - [ ] **Add a post-deploy check that every sitemap URL returns 200.** Both bugs above were
       invisible in GSC's summary and took ten seconds to find by fetching the sitemap URLs.
       Cheap, and it would have caught this months ago.
-- [ ] **Investigate the remaining exclusion reasons** once more URLs are discovered: 2 "Alternate page
+- [x] ~~"Alternate page with proper canonical" (2)~~ — identified 2026-08-12: an AppAgg referral
+      URL (benign) and `?q={search_term_string}` from a bogus `SearchAction` in the homepage
+      schema. The site has no search; the block is removed. Should clear on re-crawl.
+- [x] ~~"Page with redirect" (1)~~ — it is `http://getweft.xyz/` → HTTPS. **Normal. Do not
+      "fix" it and do not run Validate Fix expecting it to clear.**
+- [ ] **Request indexing on `/` and `/vs` — AFTER the current fixes deploy.** Doing it before
+      deploy would re-cache the old pages.
+- [ ] **Find the 3 Reddit threads linking to getweft.xyz.** GSC will not show source URLs for a
+      domain property. Someone posted about Weft unprompted; joining an existing thread is far
+      better than a cold self-promo post, and it changes how §5 of LAUNCH-KIT should be played.
+- [ ] **Investigate the remaining exclusion reason** once more URLs are discovered: 2 "Alternate page
       with proper canonical" (probably the en/ja hreflang pairs — likely benign), 1 "Page with
       redirect", 1 "Crawled - currently not indexed" (the meaningful one: a quality/authority
       signal, not a technical fault).

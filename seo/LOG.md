@@ -139,6 +139,63 @@ sitemap and feed parse, all HTML tags balanced, `en.json` matches the inlined HT
 imbalance on `/feature-requests`. It was the grep — it missed `<ul class="...">`. An
 attribute-aware check shows every tag balanced. Do not trust bare-tag greps for markup checks.
 
+### GSC drilldown — two more corrections, and a real bug
+
+Stopped inferring and read the actual excluded URLs.
+
+**I was wrong about the redirect exclusion.** Earlier today I said `/vs/` was "almost certainly"
+the "Page with redirect" entry. It is not. The affected URL is **`http://getweft.xyz/`** — the
+plain-HTTP homepage redirecting to HTTPS. That is normal, correct, and present on every HTTPS
+site. Nothing to fix. The `/vs/` trailing-slash fix was still worth making on its own merits, but
+it did not cause this and the exclusion will not clear because of it. Flagged so a future run does
+not "validate fix" and wonder why nothing changes.
+
+**"Alternate page with proper canonical tag" (2)** — both are homepage variants, both correctly
+canonicalised, both benign:
+
+- `https://getweft.xyz/?from=AppAgg.com&utm_campaign=AppAgg.com&utm_medium=referral&utm_source=AppAgg.com`
+- `https://getweft.xyz/?q={search_term_string}`
+
+The first is benign *and informative* — it is a referral URL, i.e. evidence of an inbound link.
+
+**The second is a real bug, now fixed.** The homepage `WebSite` schema declared a
+`potentialAction: SearchAction` with `urlTemplate: https://getweft.xyz/?q={search_term_string}`.
+**The site has no search feature at all** — zero forms, no search input. So the markup advertised
+a capability that does not exist, and Google dutifully crawled the literal placeholder as a URL.
+Removed the `potentialAction` block; the other five schema types on the page are untouched and all
+16 JSON-LD blocks across the site still parse.
+
+### 🟢 Third false premise dead: the site is NOT at zero referring domains
+
+GSC Links: **33 external links from 3 domains.**
+
+| Linking site | Links |
+|---|---|
+| apple.com | 28 |
+| **reddit.com** | **3** |
+| appagg.com | 2 |
+
+All target the homepage. The apple.com links are the App Store listing's "developer website"
+field (the anchor text appears in English, Arabic, Spanish and Italian, which is the App Store
+localising that label) — low value individually, but they are real and they are almost certainly
+how Google discovered the site in the first place.
+
+**The Reddit links are the interesting ones.** Three links, unprompted, before any outreach. GSC
+will not reveal the source URLs for a domain property, so finding the threads is a manual job —
+but somebody has already talked about this app somewhere, and that is a warmer starting point for
+the LAUNCH-KIT Reddit section than a cold post.
+
+**Internal links: 1.** Google found exactly one internal link across the whole site. That is the
+single most damning number in this log, it corroborates the orphan finding precisely, and the
+footer work done today is the direct fix for it.
+
+### Deliberately NOT done: Request Indexing
+
+Considered and rejected for now. Requesting indexing crawls the page *as it is at that moment*,
+and the fixes from this run are committed but **not yet deployed**. Requesting now would have
+Google re-cache the pre-fix pages. The correct order is deploy first, then request indexing on
+`/` and `/vs`. Left for the owner or the next run.
+
 ### Next run
 
 1. **GSC first, via `/u/1/`, with `&hl=en`.** Did the sitemap flip to "Success"? Did discovered
