@@ -4,7 +4,6 @@
     "ja": "日本語",
     "switchTo": "Switch to English"
   },
-
   "nav": {
     "howItFeels": "How it feels",
     "whatItIsnt": "What it isn't",
@@ -14,7 +13,6 @@
     "feedback": "Feedback",
     "getApp": "Get the app"
   },
-
   "footer": {
     "tagline": "A quiet place for the people who matter. Made with care for iOS 26.",
     "headings": {
@@ -37,7 +35,6 @@
     "copyright": "© {year} Weft. All rights reserved.",
     "madeIn": "Designed and built in Tokyo."
   },
-
   "common": {
     "downloadApp": "Download on App Store",
     "seeHowItFeels": "See how it feels →",
@@ -45,12 +42,10 @@
     "startTrial": "Start the trial",
     "tellUsWhatsMissing": "Tell us what's missing →"
   },
-
   "pages": {
     "index": {
-      "title": "Weft — A Calm Personal CRM for iOS · Stay Close to the People Who Matter",
-      "description": "Weft is a quiet, private personal CRM for iOS. Remember friends, family, and the 5–25 people who matter most — on-device, no cloud, no AI, no streaks. A calm alternative to Dex, Clay, and Folk.",
-
+      "title": "Weft — A Calm, Private Personal CRM for iOS",
+      "description": "A quiet, private personal CRM for iOS. Remember the 5–25 people who matter most — on-device, no cloud, no AI, no streaks.",
       "hero": {
         "eyebrow": "On-device · iOS 26 · no account needed",
         "titleLead": "Remember the people you love —",
@@ -82,7 +77,6 @@
           "tabSearch": "Search"
         }
       },
-
       "manifesto": {
         "h2Line1": "Most apps want your attention.",
         "h2Line2": "Weft asks for ",
@@ -91,7 +85,6 @@
         "p2": "Weft holds those notes for you. Quietly. On your phone. Without ads, without leaderboards, without asking you to invite three friends.",
         "sig": "— a small studio of one"
       },
-
       "glance1": {
         "eyebrow": "A daily moment",
         "h3Lead": "Open. ",
@@ -108,7 +101,6 @@
           "tabSearch": "Search"
         }
       },
-
       "glance2": {
         "eyebrow": "Quick capture",
         "h3Lead": "Write ",
@@ -126,7 +118,6 @@
           "save": "Save"
         }
       },
-
       "glance3": {
         "eyebrow": "Open threads",
         "h3Lead": "Tomorrow,",
@@ -151,7 +142,6 @@
           "tabLog": "Log"
         }
       },
-
       "negation": {
         "h2Line1": "Weft is one small thing,",
         "h2Line2": "so it can be a ",
@@ -185,7 +175,6 @@
           }
         }
       },
-
       "features": {
         "eyebrow": "Calm by design",
         "h2": "Small things, done with care.",
@@ -217,7 +206,6 @@
           }
         }
       },
-
       "pricing": {
         "eyebrow": "A fair, sustainable price",
         "h2Line1": "Free to begin.",
@@ -267,7 +255,6 @@
           "foot": "Family sharing enabled. Cancel anytime."
         }
       },
-
       "faq": {
         "eyebrow": "Honest answers",
         "h2": "Things people ask.",
@@ -326,13 +313,11 @@
           }
         }
       },
-
       "cta": {
         "h2Line1": "Keep the people",
         "h2Accent": "who keep you.",
         "p": "Free for up to seven. Forever. No account, no card, no email."
       },
-
       "learn": {
         "eyebrow": "Background",
         "h2": "What's a personal CRM, and why a quiet one?",
@@ -365,7 +350,6 @@
         }
       }
     },
-
     "privacy": {
       "title": "Privacy Policy — Weft Personal CRM for iOS",
       "description": "Weft's privacy policy. On-device by default. End-to-end encrypted iCloud sync is opt-in. No analytics, no third-party SDKs, no AI training on your notes — ever.",
@@ -419,10 +403,9 @@
         }
       }
     },
-
     "terms": {
       "title": "Terms of Service — Weft Personal CRM for iOS",
-      "description": "Weft's terms of service in plain English. Short, fair, and free of dark patterns. $0 free tier, $18.99/year Premium or $39.99 lifetime via Apple. Refunds through App Store.",
+      "description": "Weft's terms of service in plain English. Short, fair, free of dark patterns. $18.99/year or $39.99 lifetime via Apple, refunds via App Store.",
       "updated": "Last updated · 15 May 2026",
       "h1Lead": "Terms, ",
       "h1Accent": "short and fair.",
@@ -476,7 +459,6 @@
         }
       }
     },
-
     "support": {
       "title": "Support — Weft Personal CRM for iOS",
       "description": "Help with Weft for iOS. Refunds, lost data, iCloud sync, subscription management, contacting the developer. A real person reads every message.",
@@ -543,7 +525,6 @@
         "fromName": "Weft support form"
       }
     },
-
     "feedback": {
       "title": "Send Feedback — Weft Personal CRM",
       "description": "Email the developer directly. Bug reports, kind words, refund help — a real person reads every message. No support tickets, no chatbots.",
@@ -577,7 +558,6 @@
         "lost": "<strong>Lost your notes?</strong> If you had iCloud sync enabled, sign in with the same Apple ID on a fresh install and the data will sync back. If you turned sync off and deleted the app, the local data is gone — and we genuinely cannot recover it. We never had it."
       }
     },
-
     "featureRequests": {
       "title": "Feature Requests + Roadmap — Weft Personal CRM",
       "description": "What's shipping next in Weft, what's under consideration, and what's been shelved. Submit your own idea — every request reaches the developer.",
@@ -637,7 +617,6 @@
         "fromName": "Weft feature-request form"
       }
     },
-
     "about": {
       "title": "About the Developer — Weft Personal CRM for iOS",
       "description": "Weft is a one-person indie iOS app made in Tokyo. The why behind the design, the principles, the colophon. Single-developer project, made with care.",

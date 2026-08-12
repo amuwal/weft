@@ -17,6 +17,9 @@ Ordered by value. Move items to `LOG.md` when done.
       with 0 discovered pages. Server side is clean (Googlebot 200, valid XML, robots allows).
       Almost certainly transient — but verify it flips to "Success" within ~48h, and chase it if
       not.
+- [x] ~~Root cause of the low page count~~ — **found 2026-08-12: 3 orphan pages and a homepage
+      that linked only 5 content pages, which is exactly the 5 URLs GSC knows.** Fixed; `/vs`
+      now has 7 inbound links, `/press` 14, `/52-weeks` 7.
 - [ ] **Get the indexed count off 1.** Google knows 5 of 15 URLs and indexes 1. Watch discovered
       pages after the sitemap is processed.
 - [x] ~~"Page with redirect" (1)~~ — **found and fixed 2026-08-12.** Sitemap + canonical +

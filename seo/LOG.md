@@ -102,6 +102,43 @@ the sitemap. Worth repeating after any deploy: **fetch every sitemap URL and ass
 
 Validated after editing: all JSON-LD parses, sitemap and feed parse as XML, 15 URLs intact.
 
+### Full technical audit + fixes — the discovery problem, found and fixed
+
+Crawled all 15 sitemap URLs as Googlebot and rebuilt the internal link graph. The finding
+explains the indexing numbers almost exactly.
+
+**Three pages were unreachable by crawl — zero internal links, from anywhere:**
+`/vs` (the comparison hub), `/press`, `/52-weeks`. They existed only in a sitemap that had
+never been submitted, so there was no path to them at all.
+
+**And the arithmetic lines up.** The homepage's only content links were `/vs/clay`, `/vs/dex`,
+`/vs/folk`, `/vs/notion` and `/blog/why-another-personal-crm`. That is 5 pages — and GSC knows
+about exactly 5 URLs. Google indexed the homepage and crawled what the homepage pointed at.
+Everything else was invisible: no links in, no sitemap. This was never a penalty or a quality
+problem. It was a plumbing problem.
+
+Fixed:
+
+- **`/vs` linked from 7 pages** (was 0) — "All comparisons" at the top of every Compare column.
+  A hub page with no inbound links is the worst kind of orphan; it is the page meant to
+  distribute authority to the four comparisons.
+- **`/52-weeks` linked from 7 pages** (was 0), **`/press` from 14** (was 0).
+- **42 schemeless relative hrefs made absolute** (`href="support"` → `/support`). They resolved
+  correctly from `/` but would silently break from any nested path.
+- **8 titles over Google's ~62-char display limit, shortened.** The worst was `/vs/clay` at 85
+  chars — a third of it never displayed. Meaning and keywords preserved.
+- **9 meta descriptions over ~160 chars, shortened.** Same reason.
+- **Footer label "vs Clay" → "vs Mesh (Clay)"**, catching a spot the rename sweep had missed.
+- **`en.json` kept in sync** for the two i18n-bound pages (`/`, `/terms`) so
+  `inline-i18n-defaults.mjs` stays a no-op rather than reverting the new titles.
+
+Verified after: 0 orphans, 0 titles over 62c, 0 descriptions over 160c, all JSON-LD parses,
+sitemap and feed parse, all HTML tags balanced, `en.json` matches the inlined HTML.
+
+*One false alarm worth recording so it is not re-investigated:* a naive `<ul>` grep reported an
+imbalance on `/feature-requests`. It was the grep — it missed `<ul class="...">`. An
+attribute-aware check shows every tag balanced. Do not trust bare-tag greps for markup checks.
+
 ### Next run
 
 1. **GSC first, via `/u/1/`, with `&hl=en`.** Did the sitemap flip to "Success"? Did discovered
