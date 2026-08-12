@@ -2,16 +2,24 @@
 
 ## Every run, in order
 
-1. **Index check first.** Use the WebSearch tool, not curl — engines block scrapers.
-   - `site:getweft.xyz`
-   - the exact H1: `"Remember the people you love — one line at a time"`
-   Record both in `LOG.md` as an explicit line and as a row in `metrics.csv`.
-   **The day this flips to real results, say so loudly** and shift the balance toward content.
+1. **Read GSC first — it is the ground truth.** Through the owner's logged-in Chrome
+   (`mcp__claude-in-chrome__*`, load via ToolSearch). **The property lives under the SECOND
+   Google account: use `/u/1/` in every URL.** `/u/0/` returns "you do not have access" and has
+   already caused one false "not verified" conclusion.
 
-2. **Try GSC + Bing Webmaster** through the owner's logged-in Chrome
-   (`mcp__claude-in-chrome__*`, load via ToolSearch). Only works when their desktop is connected.
-   If you cannot reach it, write "blind" in the log — never invent numbers.
-   First check every time: is the domain verified and the sitemap submitted?
+   - Page indexing: `https://search.google.com/u/1/search-console/index?resource_id=sc-domain%3Agetweft.xyz&hl=en`
+   - Performance:   `.../u/1/search-console/performance/search-analytics?resource_id=...&num_of_days=90`
+   - Sitemaps:      `.../u/1/search-console/sitemaps?resource_id=...`
+
+   Append `&hl=en` — the account's default UI language is Japanese.
+   Record indexed count, not-indexed count + reasons, impressions, clicks, CTR, position, and
+   sitemap status. If the bridge is down, write "blind" — never invent numbers, and never
+   substitute a `WebSearch` result for a GSC number.
+
+2. **Do NOT use `WebSearch` as an index check.** It does not honour the `site:` operator; it
+   returns generic `.xyz` pages regardless of reality, and three runs misread that as "not
+   indexed." It is still fine for finding *external mentions* and competitor facts — just never
+   for index state.
 
 3. **Work `LAUNCH-KIT.md` top-down.** Log what you actually submitted and what came back.
 
@@ -54,6 +62,20 @@ the owner pushes.
 
 Safe procedure — never disturb their working tree or current branch (they are often mid-release
 on `release/1.0.2` with uncommitted files):
+
+**Clean up after yourself.** A `git fetch` (or even `git status`) run from the sandbox against the
+mounted checkout can strand a zero-byte `.git/index.lock`. One from 2026-08-11 sat for ~18 hours
+and blocked the owner's `git checkout` the next day. The sandbox usually **cannot delete it**
+(the mount refuses cross-user unlink), so the owner has to. Always finish by checking, and if one
+is present say so in the report with the exact `rm` command:
+
+```bash
+ls -la /sessions/<session>/mnt/weft/.git/index.lock 2>/dev/null && \
+  echo "STALE LOCK — owner must run: rm -f ~/Developer/weft/.git/index.lock"
+```
+
+Prefer `git push origin <branch>:main` from the owner's machine over
+`checkout main && merge` — it needs no index and cannot be blocked by a lock.
 
 ```bash
 # work in a scratch clone

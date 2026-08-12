@@ -4,7 +4,87 @@ Newest entries at the top. One entry per run. Be specific and be honest about fl
 
 ---
 
-## 2026-08-12
+## 2026-08-12 (later) — 🟢 MAJOR CORRECTION: the site IS verified and IS indexed
+
+The owner opened Search Console and it was simply there. Everything below was then read
+first-hand from GSC. **The core premise of the previous three runs was wrong.**
+
+### What was wrong, and why
+
+- **"Not verified in GSC" — false.** `sc-domain:getweft.xyz` has existed all along, under the
+  owner's **second** Google account (`/u/1/`). The 08-11 run checked `/u/0/`
+  (`amitmuwal@cuon.co.jp`), got "you do not have access," and reported a root cause. The playbook
+  had explicitly flagged "it may be verified under a different Google account" as a caveat — and
+  the run under-weighted its own caveat and led with the confident version. That is the actual
+  process failure worth remembering, more than the wrong fact.
+- **"Not indexed" — false.** GSC shows 1 page indexed and real search traffic.
+- **Root cause of the wrong reading:** the `WebSearch` tool does not honour `site:`. Three runs
+  fed it `site:getweft.xyz`, got generic `.xyz` TLD marketing pages, and scored that as "no
+  results → not indexed." An unrelated result set was never evidence of anything. Recorded as a
+  hard rule in PLAYBOOK and RUNBOOK: **GSC is the only source for index state.**
+
+### The real numbers (GSC, read 2026-08-12)
+
+**Page indexing:** 1 indexed · 4 not indexed —
+2 "Alternate page with proper canonical tag", 1 "Page with redirect",
+1 "Crawled - currently not indexed". So Google knows **5 URLs; the sitemap lists 15.**
+
+**Performance, last 90 days:** 93 impressions · 5 clicks · 5.4% CTR · average position 12.1.
+
+**Top queries:** `weft app` 16 impr · `w0yft` 7 · `welft` 1. All brand-navigational or typos.
+Zero generic category terms — consistent with 1 indexed page and no authority.
+
+### Shipped: sitemap submitted
+
+Sitemaps was empty — `0 of 0`. **This part of the old diagnosis was real.** Submitted
+`https://getweft.xyz/sitemap.xml` with the owner's explicit approval; GSC confirmed
+"Sitemap submitted successfully" and the row now reads 1 of 1.
+
+Status immediately after submission: **"Couldn't fetch", 0 discovered pages.** Checked the
+obvious server-side causes and found none — as Googlebot: HTTP 200, `application/xml`, 4054 bytes,
+zero redirects, parses as XML, 15 `<loc>` entries, no BOM before `<?xml`; `robots.txt` both
+allows all and declares the sitemap. This is most likely the familiar transient state GSC shows
+before it has actually attempted a fetch. **Not treating that as settled — next run must confirm
+it flipped to "Success".** If it has not within ~48h, it is real and worth chasing.
+
+That single submission plausibly matters more than anything else done this week: 10 of 15 URLs
+were undiscovered purely because nothing ever told Google they existed.
+
+### What this changes strategically
+
+The framing shifts from "invisible to Google" to **"discovered, thin, and losing its own brand."**
+
+- Position **12.1 for the site's own name** is the sharpest problem. A brand query should return
+  1-3. `weft` is a textile term and `weft.io` is an established logistics company, so the brand
+  SERP is contested. This is the most winnable near-term fight — and it is won with links and
+  mentions, not pages.
+- 1 indexed page and 0 referring domains. "Crawled - currently not indexed" is Google saying it
+  looked and was unimpressed. More pages do not answer that; external signals do.
+- The content ceiling stays at ~0-1/day for now. The reason changed but the answer did not.
+
+### Also this run
+
+- The competitor corrections were finally pushed as `seo/2026-08-12`, but the merge to `main`
+  failed on a stale `.git/index.lock` **left by our own 08-11 run** — 0 bytes, ~18h old, owned by
+  the sandbox user. The sandbox could not delete it (mount refuses cross-user unlink). Handed the
+  owner `rm -f` plus `git push origin seo/2026-08-12:main`, which needs no checkout and cannot be
+  lock-blocked. RUNBOOK now carries a cleanup check and that push form.
+- Inline `#` comments in paste-ready command blocks broke on the owner's zsh
+  (`interactive_comments` off) and were parsed as arguments. No comments in command blocks.
+- **As of this entry the live site still serves the stale competitor facts** — the merge had not
+  landed yet.
+
+### Next run
+
+1. **GSC first, via `/u/1/`, with `&hl=en`.** Did the sitemap flip to "Success"? Did discovered
+   pages rise? Did indexed rise off 1?
+2. Confirm `main` merged and the Clay/Folk/Dex corrections are actually live.
+3. Bing Webmaster — import from GSC now that the property is confirmed.
+4. Then LAUNCH-KIT top-down. Links are now the main lever, not a prerequisite.
+
+---
+
+## 2026-08-12 (earlier)
 
 **Index check — NO CHANGE. Still not indexed.** Day 3 of measurement, flat.
 

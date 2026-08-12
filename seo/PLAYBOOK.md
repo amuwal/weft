@@ -7,44 +7,63 @@ Goal: grow organic traffic. Long-run target 10,000 visits/day — see "Honest ex
 
 ---
 
-## Diagnosis (as of 2026-08-11)
+## Diagnosis (as of 2026-08-12) — corrected, read the correction notice
 
-Three facts, all measured rather than assumed:
+> **Correction notice.** The 2026-08-10 and 08-11 versions of this file said the site was *not
+> indexed* and *not verified in Google Search Console*. **Both were wrong.** They were corrected
+> on 2026-08-12 by reading GSC directly. If you are an agent resuming this work, discard any
+> memory of "the site is invisible to Google" — it is not, and acting on that premise wastes runs.
 
-1. **The site is not indexed.** `site:getweft.xyz` returns nothing. An exact-phrase search of the
-   homepage H1 returns nothing. No page anywhere on the web mentions the domain.
-2. **The domain is not verified in Google Search Console.** Confirmed 2026-08-11 by loading GSC in
-   the owner's browser: both `sc-domain:getweft.xyz` and `https://getweft.xyz/` return
-   "You do not have access to this property" under `amitmuwal@cuon.co.jp`. That account has
-   `kurogane.app` verified, so the login works — getweft.xyz was simply never added.
-   *Caveat: it may be verified under a different Google account. Confirm before re-verifying.*
-3. **Zero referring domains, and the App Store listing has 0 ratings after 3 months.**
+Measured in GSC on 2026-08-12:
 
-Crawlers are **not** blocked — Googlebot, bingbot, GPTBot, ClaudeBot and PerplexityBot all get
-HTTP 200. `robots.txt` is permissive, `sitemap.xml` is well-formed and lists 15 URLs, the homepage
-H1 is server-rendered in the HTML (verified via a Googlebot user-agent fetch), and JSON-LD parses.
+1. **The domain IS verified.** Property `sc-domain:getweft.xyz` exists and is live. It sits under
+   the owner's **second** Google account — the console URL is `/u/1/`, not `/u/0/`. The 08-11 run
+   checked only `/u/0/` (`amitmuwal@cuon.co.jp`), found no access, and wrongly concluded the
+   property had never been created. **Always check `/u/1/` before concluding anything is missing.**
+2. **The site IS indexed, and ranking.** Page indexing: **1 indexed**, 4 not indexed.
+   Last 90 days: **93 impressions, 5 clicks, 5.4% CTR, average position 12.1.**
+3. **The sitemap had never been submitted.** Sitemaps was empty (`0 of 0`) until it was submitted
+   on 2026-08-12. Google knew about **5 URLs; `sitemap.xml` lists 15.** Ten pages were never
+   discovered. This is the one part of the old diagnosis that was real, and it is now fixed.
+4. **Every query is brand or a typo of it.** `weft app` (16 impr), `w0yft` (7), `welft` (1).
+   Zero generic category terms.
+5. **Zero referring domains, and 0 App Store ratings** at ~2.7 months
+   (`userRatingCount: 0`, iTunes Lookup API, confirmed 2026-08-12).
 
-**So this is not an on-page SEO problem.** A 3-month-old `.xyz` domain with zero referring domains
-gives Google no discovery path and no trust signal, and nothing was ever submitted to tell Google
-the site exists.
+### Methodology correction — this caused the error, do not repeat it
 
-### What follows from the diagnosis
+**The `WebSearch` tool is not a reliable index check.** Three consecutive runs ran
+`site:getweft.xyz`, got back generic `.xyz` TLD marketing pages, and recorded "not indexed."
+Returning unrelated results for a `site:` query is the signature of a tool that **does not honour
+the `site:` operator at all** — it was never evidence of anything.
 
-- **Verification and links outrank writing new pages** until the index check flips.
-- Do not respond to flat traffic numbers by publishing more pages. Pages that aren't indexed
-  cannot receive traffic, and adding more does not make the existing ones index faster.
-- One real inbound link from a site Google already crawls is worth more than a week of writing.
+**GSC is the ground truth for index state. Read it. Never report index status from `WebSearch`
+alone, and never report a number that came from a tool you have not confirmed answers the
+question you asked.**
 
----
+### What actually follows
+
+The problem was never "Google does not know this site exists." It is:
+
+- **Discovery** — 10 of 15 URLs were undiscovered. Just fixed via sitemap submission; the next
+  runs should watch discovered-pages climb and the indexed count rise off 1.
+- **A weak brand SERP** — position **12.1 for the site's own name** is poor; a brand query should
+  return position 1-3. `weft` is a common textile term and `weft.io` is an established logistics
+  company, so the brand SERP is genuinely contested. This is the most winnable near-term fight,
+  and it is winnable with links and mentions rather than pages.
+- **Thinness and no authority** — 1 indexed page and 0 referring domains. "Crawled - currently
+  not indexed" on a URL is Google saying it saw the page and did not think it worth keeping.
+  More pages will not fix that; external signals will.
 
 ## Priority order
 
-1. **Verify GSC + submit the sitemap.** The single highest-value action available, and it is
-   blocked on the owner — an agent should not verify domains or touch DNS. Until this is done
-   every run is flying blind and Google may not know the site exists at all.
-2. **Bing Webmaster Tools.** Bing is what ChatGPT search runs on, and it participates in IndexNow.
-   Not signed in as of 2026-08-11.
-3. **Links and distribution.** Work `LAUNCH-KIT.md` top-down.
+1. ~~Verify GSC + submit the sitemap.~~ **Both done.** Verified all along (under `/u/1/`);
+   sitemap submitted 2026-08-12. Now: **watch it.** Confirm the sitemap status flips from
+   "Couldn't fetch" to "Success", and watch discovered pages and the indexed count (currently 1).
+2. **Bing Webmaster Tools** — still not set up. Import the property from GSC, which is fast now
+   that GSC is confirmed. Bing is what ChatGPT search runs on and participates in IndexNow.
+3. **Links and distribution.** Work `LAUNCH-KIT.md` top-down. This is now the *main* lever:
+   the site is indexed but has no authority and loses its own brand SERP.
 4. **Keep existing pages factually correct.** Competitor facts decay fast in this category.
 5. **Only then, content.**
 
@@ -80,8 +99,9 @@ better and where Weft's own approach costs you something. No superlatives, no ur
 Compounding daily traffic multiplication is not achievable through SEO. Indexing alone takes
 weeks, and this site is starting from zero with no links.
 
-- **Brand search** ("Weft personal CRM") — reachable within weeks of indexing *plus* any external
-  mention.
+- **Brand search** ("Weft personal CRM") — already partly working: 93 impressions in 90 days at
+  position 12.1. Getting that to top-3 is the nearest realistic win and needs external mentions,
+  not pages.
 - **Generic high-intent terms** ("personal CRM iOS") — 6-12 months minimum against Dex and Mesh,
   who have years of links and reviews.
 - **The realistic near-term win is AI surfaces.** ChatGPT search runs on Bing, which indexes far

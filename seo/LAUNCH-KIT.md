@@ -9,18 +9,18 @@ in `LOG.md` with the date and what came back.
 
 ## 0. Blocked on the owner — do these first, they gate everything
 
-### 0a. Google Search Console — `TODO` 🔴
-Verified 2026-08-11: getweft.xyz is **not** a property under `amitmuwal@cuon.co.jp`.
+### 0a. Google Search Console — `DONE (2026-08-12)` ✅
+**The 08-11 entry here was wrong.** The property has existed all along under the owner's
+**second** Google account — console URL `/u/1/`. Sitemap submitted 2026-08-12
+(it had never been submitted; that part was real). Add `&hl=en`, the UI defaults to Japanese.
+Nothing to do here but monitor.
 
-1. https://search.google.com/search-console → Add property → Domain → `getweft.xyz`
-2. Verify via DNS TXT at the registrar (domain property), or upload the HTML file (URL-prefix).
-3. Sitemaps → submit `https://getweft.xyz/sitemap.xml`
-4. URL Inspection on `https://getweft.xyz/` → Request Indexing.
+Still open here: **URL Inspection → Request Indexing** on the highest-value URLs once the sitemap
+is processed. Ask the owner before doing it — it is a write action in their account.
 
-*Agents must not do this.* It requires DNS/registrar access and is an account-settings change.
-
-### 0b. Bing Webmaster Tools — `TODO` 🔴
-Not signed in as of 2026-08-11. https://www.bing.com/webmasters → add `getweft.xyz` → submit
+### 0b. Bing Webmaster Tools — `TODO` 🔴 (now the top blocked item)
+Not signed in as of 2026-08-12. **Import the property from GSC** — fast, now that GSC is confirmed
+real and under `/u/1/`. https://www.bing.com/webmasters → add `getweft.xyz` → submit
 sitemap. You can import the property directly from GSC once 0a is done, which is much faster.
 Bing matters disproportionately here: it indexes faster than Google and it is what ChatGPT
 search reads.

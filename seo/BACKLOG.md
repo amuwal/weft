@@ -10,11 +10,27 @@ Ordered by value. Move items to `LOG.md` when done.
       This is now the single most valuable action available, ahead of GSC verification, because
       the fix already exists and is just sitting there.
 
-- [ ] **Verify getweft.xyz in Google Search Console + submit sitemap.** See LAUNCH-KIT §0a.
-      Everything else is guesswork until this exists. Check the personal Gmail account first in
-      case it is already verified there.
+- [x] ~~Verify getweft.xyz in GSC + submit sitemap.~~ **Both resolved 2026-08-12.** It was
+      verified all along under the second Google account (`/u/1/`); the sitemap was genuinely
+      missing and is now submitted.
+- [ ] **Confirm the sitemap fetch succeeded.** Status was "Couldn't fetch" right after submission
+      with 0 discovered pages. Server side is clean (Googlebot 200, valid XML, robots allows).
+      Almost certainly transient — but verify it flips to "Success" within ~48h, and chase it if
+      not.
+- [ ] **Get the indexed count off 1.** Google knows 5 of 15 URLs and indexes 1. Watch discovered
+      pages after the sitemap is processed.
+- [ ] **Investigate the 3 exclusion reasons** once more URLs are discovered: 2 "Alternate page
+      with proper canonical" (probably the en/ja hreflang pairs — likely benign), 1 "Page with
+      redirect", 1 "Crawled - currently not indexed" (the meaningful one: a quality/authority
+      signal, not a technical fault).
 - [ ] **Sign in to Bing Webmaster Tools and add the site.** Import from GSC once 0a is done.
       Bing is the fastest path to being visible to ChatGPT search.
+
+## Now the main lever — brand SERP and links
+
+- [ ] **Position 12.1 for the site's own brand name.** Should be 1-3. Contested by `weft.io`
+      (logistics) and "weft" the textile term. Winnable with mentions and links, not with pages.
+      This is now the clearest measurable target: watch average position on `weft app`.
 
 ## Next up (agent-executable once the above unblocks)
 

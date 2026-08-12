@@ -1,4 +1,4 @@
 date,site_indexed,h1_phrase_found,gsc_verified,gsc_impressions,gsc_clicks,indexed_pages,referring_domains,appstore_ratings,notes
-2026-08-10,no,no,unknown,blind,blind,0,0,0,baseline from prior task notes
-2026-08-11,no,no,NO,blind,blind,0,0,0,GSC confirmed unverified for getweft.xyz; Bing not signed in
-2026-08-12,no,no,unknown,blind,blind,0,0,0,"Day 3 flat. 08-11 fixes still unpushed; live site still serving stale competitor facts. Chrome bridge dead (example.com also timed out) so GSC unconfirmed. Mesh/Folk/Dex/Notion re-verified. App Store 0 ratings confirmed via iTunes API; app renamed to Weft: Personal CRM Journal"
+2026-08-10,INVALID,INVALID,unknown,blind,blind,0,0,0,"INVALID - site_indexed/h1 derived from WebSearch site: which does not honour the operator. Site was in fact indexed"
+2026-08-11,INVALID,INVALID,INVALID,blind,blind,0,0,0,"INVALID - checked only /u/0/; property exists under /u/1/. Bing genuinely not signed in"
+2026-08-12,YES,n/a,YES,93,5,1,0,0,"CORRECTED: verified all along under 2nd Google account (/u/1/); 1 indexed + 4 not (2 canonical-alt, 1 redirect, 1 crawled-not-indexed); 90d 93 impr / 5 clicks / 5.4% CTR / pos 12.1; queries all brand+typos; sitemap SUBMITTED today (was 0 of 0), status Couldn-t-fetch pending. WebSearch site: check proven unreliable - prior no/no rows are invalid"
