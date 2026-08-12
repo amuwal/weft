@@ -7,7 +7,7 @@ Goal: grow organic traffic. Long-run target 10,000 visits/day — see "Honest ex
 
 ---
 
-## Diagnosis (as of 2026-08-12) — corrected, read the correction notice
+## Diagnosis (as of 2026-08-13) — corrected twice, read the correction notice
 
 > **Correction notice.** The 2026-08-10 and 08-11 versions of this file said the site was *not
 > indexed* and *not verified in Google Search Console*. **Both were wrong.** They were corrected
@@ -30,7 +30,10 @@ Measured in GSC on 2026-08-12:
 5. **NOT zero referring domains — that was the third false premise.** GSC Links, read
    2026-08-12: **33 external links from 3 domains** — `apple.com` 28 (the App Store "developer
    website" link, in several languages), **`reddit.com` 3**, `appagg.com` 2. All point at the
-   homepage. Someone has already mentioned Weft on Reddit unprompted.
+   homepage. **Corrected 2026-08-13: the 3 Reddit links are our own self-posts**
+   (`u/Cold-Tear-968` in r/apps — 1 upvote, 0 comments — and r/sideprojects). Nobody has
+   mentioned Weft on Reddit unprompted. Do not plan outreach around a warm thread that
+   does not exist.
 6. **Internal links: 1.** Google found exactly one internal link across the entire site. This
    independently corroborates the orphan finding and was the real constraint on crawling.
 7. **0 App Store ratings** at ~2.7 months (`userRatingCount: 0`, iTunes Lookup API, 2026-08-12).
@@ -46,16 +49,31 @@ the `site:` operator at all** — it was never evidence of anything.
 alone, and never report a number that came from a tool you have not confirmed answers the
 question you asked.**
 
+**Second rule, added 2026-08-13: never clear a crawler-access question with a spoofed
+user-agent.** `getweft.xyz` sits behind **Cloudflare** in front of Vercel, and Cloudflare
+classifies bots by IP and reverse DNS, not by the `User-Agent` string. `curl -A Googlebot`
+from the sandbox proves nothing about what real Googlebot sees. The check that actually
+settles it is **GSC → URL Inspection → TEST LIVE URL**, which fetches from Google's own
+infrastructure.
+
 ### What actually follows
 
 The problem was never "Google does not know this site exists." It is:
 
 - **Discovery** — 10 of 15 URLs were undiscovered. Just fixed via sitemap submission; the next
   runs should watch discovered-pages climb and the indexed count rise off 1.
-- **A weak brand SERP** — position **12.1 for the site's own name** is poor; a brand query should
-  return position 1-3. `weft` is a common textile term and `weft.io` is an established logistics
-  company, so the brand SERP is genuinely contested. This is the most winnable near-term fight,
-  and it is winnable with links and mentions rather than pages.
+- **A crowded brand name** — position **12 for the site's own name**. Measured on the live
+  `weft app` SERP 2026-08-13, and it is worse than "contested": page one is full of **other live
+  products called Weft** — `getweft.app` (a wardrobe app, **one TLD from our domain**),
+  `letsweft.com` (a Scrumban task manager), Weft.ai (price tracker), Weft: Mind Maps, WEFT FM
+  (community radio), Cityweft. Five-plus active same-name products.
+
+  **So the bare term `weft app` is probably not worth fighting for** — most of its volume is not
+  looking for this product, and winning it would take authority we will not have for a year.
+  Target the **qualified** query instead: `weft personal CRM`, `weft journal app`. On an exact
+  `"getweft.xyz"` query the site already ranks **#1** with a correct AI Overview, so the entity
+  is understood; what is missing is volume on qualified terms, which is a content-and-links
+  problem rather than a brand-defence one.
 - **Thinness and no authority** — 1 indexed page and 0 referring domains. "Crawled - currently
   not indexed" on a URL is Google saying it saw the page and did not think it worth keeping.
   More pages will not fix that; external signals will.
@@ -104,9 +122,10 @@ better and where Weft's own approach costs you something. No superlatives, no ur
 Compounding daily traffic multiplication is not achievable through SEO. Indexing alone takes
 weeks, and this site is starting from zero with no links.
 
-- **Brand search** ("Weft personal CRM") — already partly working: 93 impressions in 90 days at
-  position 12.1. Getting that to top-3 is the nearest realistic win and needs external mentions,
-  not pages.
+- **Brand search** ("Weft personal CRM") — partly working: 94 impressions in 90 days at position
+  12. But see the crowded-name finding above: top-3 on the bare word `weft` is **not** the cheap
+  win it was recorded as, because five other products carry the name. Qualified brand terms are
+  the realistic target.
 - **Generic high-intent terms** ("personal CRM iOS") — 6-12 months minimum against Dex and Mesh,
   who have years of links and reviews.
 - **The realistic near-term win is AI surfaces.** ChatGPT search runs on Bing, which indexes far

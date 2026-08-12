@@ -9,7 +9,7 @@ in `LOG.md` with the date and what came back.
 
 ## 0. Blocked on the owner — do these first, they gate everything
 
-### 0a. Google Search Console — `DONE (2026-08-12)` ✅
+### 0a. Google Search Console — `DONE (2026-08-12)` ✅ · sitemap fetch still pending
 **The 08-11 entry here was wrong.** The property has existed all along under the owner's
 **second** Google account — console URL `/u/1/`. Sitemap submitted 2026-08-12
 (it had never been submitted; that part was real). Add `&hl=en`, the UI defaults to Japanese.
@@ -37,10 +37,18 @@ ping only changed paths. Pinging unchanged URLs gets the key throttled.
 These are the cheapest real links available. None require a launch date.
 
 ### AlternativeTo — `TODO`
-*Name verified 2026-08-12 against the iTunes Lookup API: the store listing is now
-**Weft: Personal CRM Journal** (it was "Weft — Stay Close" when this kit was written). Use the
-current name — a directory entry that disagrees with the App Store gets rejected or de-duplicated.
-The store URL slug is still `weft-stay-close`, which is fine and should not be "corrected".*
+*Name re-verified 2026-08-13 against the iTunes Lookup API: **Weft: Personal CRM Journal**
+(it was "Weft — Stay Close" when this kit was written). Use the current name — a directory entry
+that disagrees with the App Store gets rejected or de-duplicated.*
+
+***Slug correction (2026-08-13):** the 08-12 note said the URL slug was still `weft-stay-close`
+and should not be corrected. That is now false — Apple has moved it, and
+`…/weft-stay-close/id6770074864` **301s** to `…/weft-personal-crm-journal/id6770074864`. Always
+link the canonical form:*
+`https://apps.apple.com/us/app/weft-personal-crm-journal/id6770074864`
+
+*Note when writing listings: **five-plus other live products are called Weft**, including
+`getweft.app` (a wardrobe app one TLD away). Always use the full name, never the bare word.*
 
 https://alternativeto.net/manage/new-app/ — list Weft as an alternative to Dex, Mesh, Monica,
 Notion. High domain authority, and it is a common source for AI answer engines.
@@ -146,6 +154,16 @@ requires iOS 26.0 · free with IAP · Lifestyle / Productivity · 0 ratings.
 ---
 
 ## 5. Reddit — `TODO`, read the rules first
+
+**Cold start, corrected 2026-08-13.** The 3 Reddit links GSC reports are **our own** — two
+self-posts by `u/Cold-Tear-968` in **r/apps** (1 upvote, 0 comments) and **r/sideprojects**. An
+earlier note claimed these were unprompted third-party mentions and a warm entry point. They are
+not; there is no existing thread to join.
+
+**Treat the r/apps result as a test that failed.** "[iOS] I made Weft — a calm personal CRM for
+the 5–25 people you actually care about (no AI, no streaks)" earned 1 upvote and no comments.
+Do not recycle that framing. The problem-story approach below is untested and is the next thing
+to try.
 
 **~39% of the obvious subreddits ban self-promotion outright. A ban is permanent and public.**
 Check each subreddit's rules page and posting history before writing anything.
