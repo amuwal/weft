@@ -74,6 +74,34 @@ The framing shifts from "invisible to Google" to **"discovered, thin, and losing
 - **As of this entry the live site still serves the stale competitor facts** — the merge had not
   landed yet.
 
+### Post-deploy audit — found and fixed the "Page with redirect" exclusion
+
+The competitor corrections deployed (Vercel, commit `7a2a604`) and were verified live: `/vs/clay`
+now titles "Weft vs Mesh (formerly Clay)" with zero `Mac-first`, `/vs/folk` reads $288/year,
+`/vs/dex` reads $12/$20 per month. Only the one deliberate `clay.earth` rename sentence remains.
+
+While checking, `/vs/` returned **308**. Chased it, and it is a real self-inflicted indexing bug
+that maps directly onto a GSC exclusion:
+
+- `vercel.json` sets `"trailingSlash": false`, so `/vs/` permanently redirects to `/vs`.
+- But `sitemap.xml` listed `https://getweft.xyz/vs/`, and `marketing/vs/index.html` pointed its
+  **canonical, both hreflang alternates, and `og:url`** at the same trailing-slash form — plus the
+  four comparison pages linked `/vs/` in their breadcrumb JSON-LD.
+
+So every self-reference for that page named a URL that redirects. That is almost certainly the
+**"Page with redirect" = 1** exclusion, and plausibly feeds the canonical-alternate count too.
+Fixed across 6 files; sitemap now has 0 trailing-slash URLs other than the root.
+
+Second bug found the same way: `/blog/` → 308 → `/blog` → **404**. It appeared only inside the
+blog post's `BreadcrumbList` JSON-LD as a "Blog" item — a breadcrumb asserting an index page that
+has never existed. Removed the phantom item and renumbered; there is exactly one post, so the
+honest breadcrumb is Weft > post.
+
+Neither was findable from GSC's summary alone — both surfaced from auditing the live site against
+the sitemap. Worth repeating after any deploy: **fetch every sitemap URL and assert 200.**
+
+Validated after editing: all JSON-LD parses, sitemap and feed parse as XML, 15 URLs intact.
+
 ### Next run
 
 1. **GSC first, via `/u/1/`, with `&hl=en`.** Did the sitemap flip to "Success"? Did discovered

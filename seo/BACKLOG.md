@@ -19,7 +19,14 @@ Ordered by value. Move items to `LOG.md` when done.
       not.
 - [ ] **Get the indexed count off 1.** Google knows 5 of 15 URLs and indexes 1. Watch discovered
       pages after the sitemap is processed.
-- [ ] **Investigate the 3 exclusion reasons** once more URLs are discovered: 2 "Alternate page
+- [x] ~~"Page with redirect" (1)~~ — **found and fixed 2026-08-12.** Sitemap + canonical +
+      hreflang + og:url all named `/vs/`, which 308s to `/vs` under `trailingSlash: false`.
+      Also fixed a phantom `/blog/` breadcrumb pointing at a 404. Re-check GSC in a few days to
+      confirm the exclusion clears.
+- [ ] **Add a post-deploy check that every sitemap URL returns 200.** Both bugs above were
+      invisible in GSC's summary and took ten seconds to find by fetching the sitemap URLs.
+      Cheap, and it would have caught this months ago.
+- [ ] **Investigate the remaining exclusion reasons** once more URLs are discovered: 2 "Alternate page
       with proper canonical" (probably the en/ja hreflang pairs — likely benign), 1 "Page with
       redirect", 1 "Crawled - currently not indexed" (the meaningful one: a quality/authority
       signal, not a technical fault).
