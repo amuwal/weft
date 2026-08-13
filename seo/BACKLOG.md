@@ -5,33 +5,38 @@ Ordered by value. Move items to `LOG.md` when done.
 ## Blocked on the owner (highest value, cannot be agent-executed)
 
 - [ ] 🔴 **Remove the stale git lock — do this before anything else.**
-      `rm -f ~/Developer/weft/.git/lock`
-      0 bytes, dated **Aug 12 11:48**, left by our own 08-12 run, and it blocks `checkout`,
-      `merge` and `add`. **Probably the reason the two commits below were never pushed.** Second
-      occurrence in three days; the sandbox cannot delete it itself.
+      ```
+      rm -f ~/Developer/weft/.git/index.lock
+      ```
+      0 bytes, dated **Aug 12 11:48**, left by our own 08-12 run. Still present on 2026-08-14,
+      ~50 hours old. It blocks `checkout`, `merge` and `add`, and is the most likely mechanical
+      reason nothing has been pushed since. **Third consecutive run reporting it.** The sandbox
+      cannot delete it (`rm` → "Operation not permitted"; the mount refuses a cross-user unlink).
 
-- [ ] 🔴 **Push `55045ae` and `f33d66d` (+ today's `seo/2026-08-13`).** `origin/main` is at
-      `64e0047`. The competitor corrections did land and are live. But two commits after them
-      exist **only** in the owner's local checkout and were never pushed:
-      `55045ae` (orphan-page fix, absolute hrefs, title/description lengths) and
-      `f33d66d` (removes the bogus `SearchAction`, records backlink data).
-      Confirmed unshipped 2026-08-13 by fetching the live site: `search_term_string` still
-      present, footer still `vs Clay`, `href="about"` still schemeless, `/vs/clay` title still
-      85 chars.
-      **`55045ae` is the direct fix for GSC's "internal links = 1"**, which is the single worst
-      number in the log. This is the highest-value action available and it is pure delivery —
-      the work is already done.
+- [ ] 🔴 **Push three days of finished work.** `origin/main` is still `64e0047`. Local-only:
+      | Branch | Adds | Contains |
+      |---|---|---|
+      | `seo/2026-08-12` | `55045ae`, `f33d66d` | orphan-page fix, 42 absolute hrefs, title/desc lengths; removes bogus `SearchAction` |
+      | `seo/2026-08-13` | `6b6a5aa` | canonical App Store slug, brand-SERP + Reddit corrections |
+      | `seo/2026-08-14` | today's commit | 44 `index.html` links → `/`, root favicon rewrite, `vs/notion` x-default |
+
+      Use the lock-proof form, which needs no index and cannot be blocked:
+      ```
+      git push origin seo/2026-08-14:main
+      ```
+      This is pure delivery — the work is done, verified, and invisible until this runs.
 
 - [x] ~~Verify getweft.xyz in GSC + submit sitemap.~~ **Both resolved 2026-08-12.** It was
       verified all along under the second Google account (`/u/1/`); the sitemap was genuinely
       missing and is now submitted.
-- [ ] **Sitemap still "Couldn't fetch" at ~26h (checked 2026-08-13).** Type `Unknown`, no
-      `Last read`, 0 discovered. **Server side is now definitively clear**: URL Inspection →
-      TEST LIVE URL on `sitemap.xml` returns *"URL is available to Google"*, a real fetch from
-      Google's own infrastructure. Inspection also reports the file as "unknown to Google",
-      last crawl `N/A` — Google has never fetched it, which fits a queue delay, not a rejection.
-      **Do not chase the server.** If it has not flipped by **2026-08-14**, remove the sitemap in
-      GSC and re-submit.
+- [ ] **Sitemap still "Couldn't fetch" — re-submitted 2026-08-14.** Type `Unknown`, `Last read`
+      still empty, 0 discovered, 48h after the original submission. Server side is definitively
+      clear (08-13 URL Inspection live test: *"URL is available to Google"*; 08-14 Crawl Stats
+      host status: *"No problems"*, 491 successful requests). **Do not chase the server.**
+      Re-submitted today (additive, not deleted) — GSC confirmed "Sitemap submitted successfully"
+      and the Submitted date moved to Aug 14. **If it has still not flipped by ~2026-08-16, the
+      remaining lever is to delete the entry and re-add it.**
+
 - [x] ~~Root cause of the low page count~~ — **found 2026-08-12: 3 orphan pages and a homepage
       that linked only 5 content pages, which is exactly the 5 URLs GSC knows.** Fixed; `/vs`
       now has 7 inbound links, `/press` 14, `/52-weeks` 7.
@@ -64,6 +69,36 @@ Ordered by value. Move items to `LOG.md` when done.
       signal, not a technical fault).
 - [ ] **Sign in to Bing Webmaster Tools and add the site.** Import from GSC once 0a is done.
       Bing is the fastest path to being visible to ChatGPT search.
+
+- [x] ~~**The 20% redirect share in Crawl Stats.**~~ **Found and fixed 2026-08-14.** 44 links
+      across 6 pages pointed at `index.html`, which 308s to `/` under `cleanUrls` +
+      `trailingSlash: false`. A fifth of Google's crawl budget was spent on a redirect we aimed
+      it at. All 298 internal hrefs are now root-absolute. **Measurable prediction: after this
+      deploys, the 301 share should fall well below 20% and Discovery should rise off 2%.**
+      Check Crawl Stats a few days post-deploy — if it does not move, the diagnosis was wrong.
+
+- [x] ~~Root `/favicon.ico` 404~~ — **fixed 2026-08-14** with a Vercel rewrite to
+      `/assets/favicon.ico`. The HTML always pointed at the asset path, but browsers and crawlers
+      request the root path by convention.
+
+- [ ] 🚫 **`/app-ads.txt` 404 — deliberately declined, do not "fix" this.** AdsBot requests it
+      once a day and has since May; it is ~85 of the ~93 404s in Crawl Stats. Weft sells no ads,
+      so publishing an `app-ads.txt` would be a file asserting nothing. Google states a missing
+      `app-ads.txt` does not affect Search. Recorded here so future runs stop re-discovering it.
+
+- [ ] ❓ **Owner decision: the `ja` hreflang points at pages that serve English.** Seven pages
+      declare `hreflang="ja"` → `?lang=ja`, but that URL returns **byte-identical English HTML**
+      (67,046 bytes, zero CJK, `<html lang="en">`, canonical back to the English URL). The i18n
+      layer is client-side, so a crawler never sees Japanese. Two options, and this is a product
+      call, not an SEO one:
+      **(a)** drop the `ja` annotations until Japanese is server-rendered — honest today, loses
+      nothing real, stops Google crawling 7 duplicate URLs;
+      **(b)** server-render the Japanese pages — the i18n data already exists in `i18n/ja.json`.
+      Deliberately not changed by the agent. Low urgency: Google is handling the duplicates
+      correctly and no real page is blocked.
+
+- [x] ~~`vs/notion.html` missing `x-default`~~ — **fixed 2026-08-14.** It declared `hreflang="en"`
+      alone among the five `/vs` pages.
 
 ## Now the main lever — brand SERP and links
 

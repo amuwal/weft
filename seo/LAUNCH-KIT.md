@@ -32,6 +32,18 @@ ping only changed paths. Pinging unchanged URLs gets the key throttled.
 
 ---
 
+> ### ⚠️ Everything below §1 is owner-gated. Read this before wondering why nothing moves.
+>
+> As of 2026-08-14 these items have sat at TODO for four consecutive runs. That is not neglect —
+> **no scheduled agent run can clear them.** AlternativeTo, SaaSHub and Indie Hackers require
+> *creating an account*; the crm.org correction requires *sending mail as the owner*; Reddit,
+> Show HN and Product Hunt require *posting publicly as the owner*. An automated run is not
+> permitted to do any of those, and should not be.
+>
+> The copy below is written, fact-checked and ready to paste. **The bottleneck is 20 minutes of
+> the owner's time, not more agent work.** With the site indexed but holding 0 referring domains
+> that it did not get from Apple, this queue is now the binding constraint on the whole project.
+
 ## 1. Directory listings — no gatekeeper, permanent, crawled
 
 These are the cheapest real links available. None require a launch date.

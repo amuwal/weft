@@ -4,6 +4,147 @@ Newest entries at the top. One entry per run. Be specific and be honest about fl
 
 ---
 
+## 2026-08-14 — 🔴 THREE days unpushed; found the redirect leak; first read of Crawl Stats
+
+Flat again, and flat is honest — nothing has reached production since 2026-08-12. The lock we
+left is still there, and it is now the whole story.
+
+### 🔴 Read this first: our own stale lock has blocked the repo for ~50 hours
+
+`/Users/amuwal_1/Developer/weft/.git/index.lock` — 0 bytes, timestamped **Aug 12 11:48**, still
+present. Third consecutive run reporting it. The sandbox cannot delete it (`rm` → "Operation not
+permitted"; the mount refuses the unlink even though our uid owns the file).
+
+**Owner action, before anything else:**
+```
+rm -f ~/Developer/weft/.git/index.lock
+```
+
+Because of it, **three branches of finished work now exist only on the owner's Mac**:
+
+| Branch | Commits ahead of `origin/main` | Status |
+|---|---|---|
+| `seo/2026-08-12` (local) | `55045ae`, `f33d66d` | not on GitHub |
+| `seo/2026-08-13` | + `6b6a5aa` | not on GitHub |
+| `seo/2026-08-14` (today) | + today's commit | landed locally, not on GitHub |
+
+`origin/main` is still `64e0047`. Everything below from 08-13 and today is written, verified, and
+invisible to the public site.
+
+### 🟡 Process failure worth fixing: this run nearly redid a whole day of work
+
+The run began by cloning **GitHub**, where 08-13's commits do not exist. So it independently
+re-derived the bogus `SearchAction` and the schemeless-href findings that 08-13 had already made
+and fixed. The duplication was caught only when the owner's checkout was inspected directly.
+
+**New rule, added to RUNBOOK:** before any analysis, list `seo/*` branches in the owner's
+connected checkout and diff them against `origin/main`. The connected checkout — not GitHub — is
+the real head of this work while pushes are blocked.
+
+### GSC, read today via `/u/1/` — flat on every axis
+
+| | 08-12 | 08-13 | 08-14 |
+|---|---|---|---|
+| Indexed | 1 | 1 | **1** |
+| Not indexed | 4 | 4 | **4** |
+| Impressions (90d) | 93 | 94 | **94** |
+| Clicks (90d) | 5 | 5 | **5** |
+| Avg position | 12.1 | 12 | **12** |
+| External links | 33 | 33 | **33** |
+| Internal links | 1 | 1 | **1** |
+| Sitemap | Couldn't fetch | Couldn't fetch | **Couldn't fetch** |
+
+Queries unchanged: `weft app` 16 · `w0yft` 7 · `welft` 1. Exclusions unchanged: 2 "Alternate page
+with proper canonical", 1 "Page with redirect", 1 "Crawled - currently not indexed".
+
+**Sitemap re-submitted today**, per 08-13's 48h trigger. GSC returned "Sitemap submitted
+successfully" and the Submitted date moved to Aug 14; status still reads "Couldn't fetch" and
+`Last read` is still empty. Re-submitted rather than deleted-and-re-added — additive, reversible.
+Next run: if still not fetched, the delete-and-re-add is the remaining lever.
+
+### 🟢 First-ever read of Crawl Stats — and it found a real leak
+
+Nobody had opened Settings → Crawl stats before. 495 requests over 90 days, avg 254 ms.
+
+- **Host status: "No problems"** for both `getweft.xyz` (491) and `www.getweft.xyz` (4). This is
+  independent confirmation of 08-13's live-test result: there is no server-side fetch problem.
+- **By response: 200 = 56% · 301 = 20% · 404 = 19% · 304 = 4% · DNS error <1%.**
+- **By purpose: Refresh 98%, Discovery 2%.** Google is re-reading the homepage and finding
+  almost nothing new. That is the number that matches "1 indexed of 15".
+
+**The 20% redirect share had a single cause, and it was ours.** Six pages linked the homepage as
+`href="index.html"` — 44 links in all (`index.html`, `#feel`, `#pricing`, `#faq`, `#not`, plus one
+`vs/dex`). Under `cleanUrls: true` + `trailingSlash: false`, `/index.html` **308s to `/`**.
+Verified live: `curl /index.html` → `308 → /`. So a fifth of Google's crawl budget was being
+spent re-discovering a redirect we pointed it at.
+
+This is the same class of bug as the `/vs/` trailing-slash canonical found on 08-12 — a
+self-reference naming a URL that redirects. **Fixed: all 44 now root-absolute.** Combined with
+08-13's 42 schemeless hrefs, every internal `<a href>` on the site (298 of them) is now
+root-absolute and resolves to a real page.
+
+**The 404s are only two URLs**, both harmless-looking and now understood:
+- `/app-ads.txt` — AdsBot, once daily since May, 85 of the ~93 404s. **Deliberately not fixed.**
+  Weft sells no ads; publishing an app-ads.txt to silence a crawler would be a file that asserts
+  nothing. Google states a missing app-ads.txt does not affect Search. Recorded as declined, not
+  as an open item, so future runs stop re-finding it.
+- `/favicon.ico` — real, small, and ours. The HTML points at `/assets/favicon.ico`, but browsers
+  and crawlers request `/favicon.ico` at the root by convention, and that 404s. **Fixed** with a
+  Vercel rewrite (no redirect).
+
+### 🟡 The `ja` hreflang promises a page that does not exist — documented, NOT changed
+
+Seven pages declare `hreflang="ja"` pointing at `?lang=ja`. Fetched
+`https://getweft.xyz/?lang=ja` as Googlebot: **byte-identical to the English page** (67,046 bytes
+both), **zero CJK characters**, `<html lang="en">`, canonical back to `/`. The i18n layer is
+client-side, so a crawler never sees Japanese.
+
+This is a **third** candidate for the 2 "Alternate page with proper canonical tag" exclusions.
+08-13 already attributed them to the AppAgg referral URL and `?q={search_term_string}`; both of
+those are real, and the `SearchAction` is now removed. So this is an additional duplicate source,
+not a replacement diagnosis, and there are now more candidate URLs than there are exclusions —
+which means at most some of them are actually counted. Whichever it is, Google is handling the
+duplicate *correctly*: this is not a fault and is not blocking any real page.
+
+**Not changed, on purpose.** Removing the `ja` annotations would be honest, but the owner is a
+Tokyo developer with a `ja.json` in the tree, and whether Japanese gets server-rendered is a
+product decision, not an SEO one. Two options for the owner in BACKLOG.
+
+### Also fixed
+
+`vs/notion.html` declared `hreflang="en"` with no `x-default`, alone among the five `/vs` pages.
+Added.
+
+### App Store — re-checked, unchanged
+
+iTunes Lookup API: `Weft: Personal CRM Journal` · v1.0.2 (2026-08-04) · first released 2026-05-21
+· iOS 26.0+ · Free · Lifestyle/Productivity · **`userRatingCount: 0`**. Still zero at ~2.8 months.
+Canonical slug remains `weft-personal-crm-journal`; the old `weft-stay-close` slug still 301s, and
+**the live site still serves the old one** — 08-13's fix for that is in the unpushed branch.
+
+### Launch kit: nothing moved, and the reason is structural
+
+AlternativeTo, SaaSHub and Indie Hackers all require **creating an account**; the crm.org
+correction requires **sending mail as the owner**; Reddit and Show HN require **posting publicly**.
+A scheduled run is not permitted to do any of those autonomously, and should not be. They have sat
+at TODO for four runs because no agent run can clear them — only the owner can.
+
+Stated plainly so it stops reading like neglect: **the link-building queue is owner-gated, and it
+is now the binding constraint on the whole project.** The copy is written and waiting in
+LAUNCH-KIT §1 and §3.
+
+### Next run
+
+1. `rm -f ~/Developer/weft/.git/index.lock`, then push. Nothing else matters until `origin/main`
+   moves off `64e0047`.
+2. Check the owner's checkout for unpushed `seo/*` branches **before** analysing anything.
+3. Did the sitemap flip to Success after the 08-14 re-submit? If not, delete and re-add.
+4. After deploy, re-check whether the 301 share falls from 20% and whether Discovery rises off 2%.
+   That is the measurable prediction from today's fix.
+5. Bing Webmaster is still not set up. Owner-gated.
+
+---
+
 ## 2026-08-13 — flat numbers; two commits still unshipped; the brand name is crowded
 
 Sitemap fetch failure definitively cleared as a server-side problem. Two strategic corrections:

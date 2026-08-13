@@ -2,6 +2,25 @@
 
 ## Every run, in order
 
+0. **Before any analysis, find the real head of this work.** It is usually **not** GitHub. While
+   pushes are blocked, finished branches live only in the owner's connected checkout. A run that
+   clones GitHub and starts diagnosing will re-derive findings that were made and fixed days ago —
+   this happened on 2026-08-14, which independently re-found the `SearchAction` and schemeless-href
+   bugs that 08-13 had already fixed.
+
+   ```
+   ls /sessions/<session>/mnt/weft/.git/refs/heads/seo/
+   git clone -q --no-checkout /sessions/<session>/mnt/weft /tmp/owner && cd /tmp/owner
+   git log --oneline origin/main..refs/remotes/origin/seo/<latest>
+   ```
+
+   Build today's branch on the newest local `seo/*` branch, not on `origin/main`.
+   Then check the lock (it blocks the owner, not you) and report it if present:
+   ```
+   ls -la /sessions/<session>/mnt/weft/.git/index.lock
+   ```
+
+
 1. **Read GSC first — it is the ground truth.** Through the owner's logged-in Chrome
    (`mcp__claude-in-chrome__*`, load via ToolSearch). **The property lives under the SECOND
    Google account: use `/u/1/` in every URL.** `/u/0/` returns "you do not have access" and has
