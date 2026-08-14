@@ -56,10 +56,18 @@ git add -A && git commit -m "SEO: <what and why>"
 git push -u origin seo/$(date +%F)   # then merge to main; Vercel auto-deploys from marketing/
 ```
 
-After merging, if pages changed:
+After merging, always:
 ```bash
-sh marketing/scripts/indexnow.sh /vs/clay /vs/dex   # ONLY changed paths
+sh marketing/scripts/check-live-urls.sh              # every sitemap URL must be a clean 200
 ```
+
+Then, if pages changed:
+```bash
+sh marketing/scripts/indexnow.sh /vs/clay /vs/dex    # ONLY changed paths
+```
+As of 2026-08-15 `indexnow.sh` actually honours these arguments — before that it silently ignored
+them and pinged a hardcoded 10-URL list every time. It now also refuses to submit any path that
+does not return 200.
 Pinging unchanged URLs gets the key throttled. Google does not participate in IndexNow; Bing does,
 and Bing is what ChatGPT search runs on.
 
@@ -124,11 +132,22 @@ of the report.
 
 ## Scripts
 
-Present in `marketing/scripts/`: `indexnow.sh`, `iap-promo-images.py`, `inline-i18n-defaults.mjs`.
+Present in `marketing/scripts/`: `indexnow.sh` (argument-driven since 2026-08-15),
+`check-live-urls.sh` (added 2026-08-15), `iap-promo-images.py`, `inline-i18n-defaults.mjs`.
 
 **Not present**, though earlier task notes referenced them: `build_page.py`, `update_sitemap.py`.
 Either write them or edit `sitemap.xml` by hand and copy an existing page shell. If you hand-edit
 the sitemap, keep the `xhtml:link hreflang` alternates intact for every URL.
+
+## Is it actually deployed?
+
+One-second check, and use it before believing any fix is live:
+
+```bash
+curl -s -o /dev/null -w '%{http_code}\n' https://getweft.xyz/favicon.ico
+```
+
+404 = the 2026-08-14 branch has not been pushed. 200 = it has.
 
 ## Verification before reporting
 

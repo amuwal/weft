@@ -4,6 +4,160 @@ Newest entries at the top. One entry per run. Be specific and be honest about fl
 
 ---
 
+## 2026-08-15 — flat for a fifth run; the blocker is unchanged and it is not technical
+
+Nothing has reached production since 2026-08-12. Every measurable number is inside noise. The
+honest summary of today is: **the site is fine, the work is done, and none of it is live.**
+
+### 🔴 Unchanged blockers — both are owner actions, both are one command
+
+**1. Our stale lock, now ~75 hours old.** Fourth consecutive run reporting it.
+
+```
+rm -f ~/Developer/weft/.git/index.lock
+```
+
+0 bytes, `Aug 12 11:48`. Attempted removal again from the sandbox today:
+`rm: cannot remove ... Operation not permitted`. The mount refuses the cross-user unlink even
+though our uid owns the file. This cannot be fixed from here.
+
+**2. Four commits still only on the Mac.** `origin/main` is `64e0047`; `seo/2026-08-15` is
+`+4` on top of it. Lock-proof form, needs no index and cannot be blocked:
+
+```
+git push origin seo/2026-08-15:main
+```
+
+**Confirmed undeployed by direct measurement, not assumed:** `https://getweft.xyz/favicon.ico`
+still returns **404**. That is the rewrite committed on 08-14. If the push had landed, it would
+be a 200.
+
+### GSC, read today via `/u/1/`
+
+| | 08-12 | 08-13 | 08-14 | 08-15 |
+|---|---|---|---|---|
+| Indexed | 1 | 1 | 1 | **1** |
+| Not indexed | 4 | 4 | 4 | **4** |
+| Impressions (90d) | 93 | 94 | 94 | **96** |
+| Clicks (90d) | 5 | 5 | 5 | **5** |
+| Avg position | 12.1 | 12.0 | 12.0 | **11.8** |
+| External links | 33 | 33 | 33 | **33** |
+| Internal links | 1 | 1 | 1 | **1** |
+| Sitemap | Couldn't fetch | Couldn't fetch | Couldn't fetch | **Couldn't fetch** |
+
+**Do not read the position move as progress.** 12.0 → 11.8 and 94 → 96 impressions come from a
+*rolling* 90-day window: the window slid forward two days, dropping two old days and adding two
+new ones. A two-impression change on a base of 94 is arithmetic, not a trend. Queries are byte
+identical to the last three runs: `weft app` 16 · `w0yft` 7 · `welft` 1. Still zero generic terms,
+still zero clicks on any of them.
+
+Exclusion reasons unchanged: 2 "Alternate page with proper canonical", 1 "Page with redirect",
+1 "Crawled - currently not indexed".
+
+**Sitemap: still `Couldn't fetch`, `Type: Unknown`, `Last read` empty, 0 discovered pages** —
+72h after the first submission and 24h after the 08-14 re-submission. Server side re-confirmed
+clean today and I will not chase it further: `HTTP/2 200`, `content-type: application/xml`,
+4,053 bytes, 15 `<loc>` entries, valid XML, `robots.txt` allows all and names the sitemap.
+
+Per the 08-14 trigger the remaining lever is **delete the sitemap entry and re-add it**. I did
+**not** pull it today. The re-submission was only 24 hours ago, and deleting now would destroy the
+only evidence of whether that re-submission works. **Trigger stands for 2026-08-16: if `Last read`
+is still empty tomorrow, delete and re-add.**
+
+### 🟡 A number that did move, in the wrong direction
+
+Crawl stats total requests over the trailing 90 days: **495 (08-14) → 454 (08-15)**. Same window
+length, ~8% fewer requests. Google is crawling this site slightly *less* than it was. With
+Discovery still at **2%** and Refresh at 98%, the picture is consistent and unflattering: Google
+re-reads the homepage, finds nothing new, and gradually loses interest. Both hosts still report
+"No problems" (getweft.xyz 450, www 4) and average response is 259 ms, so this is not a health
+signal — it is an interest signal, and it is the thing the four unpushed commits were built to fix.
+
+### First read of "By Googlebot type" — and the app-ads.txt decline is now settled for good
+
+AdsBot **34%** · Page resource load 30% · Smartphone 20% · Image 11% · Desktop 5%.
+
+So a third of all crawl traffic is AdsBot hitting `/app-ads.txt` daily and getting a 404 — which
+is where the 20% 404 share comes from. **08-14 declined to fix this and that decision stands.**
+Checked properly rather than re-litigated: crawl budget is only a constraint on large sites, and
+at ~5 requests/day this site is nowhere near any budget. The 404s are cosmetic, Google states a
+missing app-ads.txt does not affect Search, and publishing one for a product that sells no ads
+would be a file asserting nothing. **Closed. Future runs: stop rediscovering this.**
+
+### 🟢 Shipped: `indexnow.sh` was broken in exactly the way the runbook warns about
+
+Opened the script to close the outstanding key-verification item and found a real defect.
+
+**The script took no arguments.** Both the task procedure and `RUNBOOK.md` document it as
+`sh marketing/scripts/indexnow.sh /changed/path` — it silently ignored anything passed to it and
+POSTed a **hardcoded list of 10 URLs on every run**. That is precisely the "pinging unchanged URLs
+gets the key throttled" failure both documents warn against, sitting inside the tool meant to
+prevent it. The hardcoded list had also drifted out of date: it missed 5 of the site's 15 URLs
+(`/vs`, `/vs/notion`, `/52-weeks`, `/press`, `/support`).
+
+Rewritten. It now takes paths as arguments, rejects anything not starting with `/`, and — the part
+that actually matters — **verifies each path returns 200 before submitting**, refusing the whole
+batch otherwise. A 404 or a redirect inside an IndexNow payload is worse than no ping at all.
+`--all` still exists for genuine site-wide changes, reading the live sitemap rather than a stale
+literal. All three guard paths tested: no args → exit 2, `vs/clay` → exit 2, `/does-not-exist-xyz`
+→ exit 1 with no POST.
+
+**IndexNow key verified — closing BACKLOG 0c.** `https://getweft.xyz/0325d2ef1f3c51e28992f5b343647609.txt`
+returns 200 and its body is exactly the key the script sends. The mechanism is sound; it just has
+nothing to announce until a deploy happens.
+
+### 🟢 Shipped: `marketing/scripts/check-live-urls.sh`
+
+The 15/15 sitemap check has been run by hand three times and has caught two real bugs. It is now a
+script, with the false-positive gotcha baked in (fresh `mktemp -d`, never a fixed `/tmp` path) and
+deliberately no `curl -L`, so a redirect reports as a redirect instead of being followed to a
+misleading 200. **Run today: 15/15 return 200, zero redirects.**
+
+### Re-verified, unchanged
+
+App Store (iTunes Lookup): `Weft: Personal CRM Journal` · v1.0.2 · released 2026-05-21 ·
+**`userRatingCount: 0`** · minimum iOS 26.0. Still zero ratings at ~2.9 months. Name unchanged
+since the 08-13 slug correction.
+
+Links report: 33 external from 3 domains — apple.com 28, reddit.com 3 (**our own self-posts**),
+appagg.com 2. 1 internal. Identical for four runs. There is still no third-party link to this site.
+
+Competitor facts not re-verified: next due **2026-09-11**, per schedule.
+
+### Competitive watch — the Clay→Mesh window is getting more crowded
+
+`trywend.io` still holds three ranking pages on the rebrand intent. New since 08-12: **`use-apify.com`**
+now ranks two more ("Clay (Mesh) Alternatives", "Clay Personal CRM Review 2026 — Now Called Mesh"),
+alongside Dex's `/blog/mesh-review/` and a OnePageCRM roundup.
+
+**This does not argue for writing pages.** Weft has one indexed page and no links; adding a sixth
+comparison page to an unindexed site is the exact reflex the playbook forbids. It argues that the
+distribution queue is time-sensitive, and that queue is entirely owner-gated.
+
+### Nothing from LAUNCH-KIT was submitted, and nothing could be
+
+AlternativeTo, SaaSHub and Indie Hackers require **creating an account**. The crm.org correction
+requires **sending mail as the owner**. Reddit, Show HN and Product Hunt require **posting publicly
+as the owner**. An automated run is not permitted to do any of those, and should not be. The copy
+is written and fact-checked. Fifth consecutive run where this section reads the same.
+
+### Recommendation: this task should pause, not repeat
+
+Five runs, five flat entries. The site has no unfixed technical fault that an agent can find —
+the last four runs each found and fixed one, and all four fixes are sitting unpushed. Continuing
+to run this daily generates log entries, not traffic.
+
+**The whole project is gated on roughly 20 minutes of owner time**, in this order:
+
+1. `rm -f ~/Developer/weft/.git/index.lock`
+2. `git push origin seo/2026-08-15:main` — ships four days of fixes
+3. Sign in to Bing Webmaster Tools, import the property from GSC, submit the sitemap
+4. Create the AlternativeTo listing (copy is ready in LAUNCH-KIT §1)
+
+Suggest pausing the daily run, or dropping it to weekly, until at least 1 and 2 are done. Resume
+daily once there is something new to measure.
+
+
 ## 2026-08-14 — 🔴 THREE days unpushed; found the redirect leak; first read of Crawl Stats
 
 Flat again, and flat is honest — nothing has reached production since 2026-08-12. The lock we

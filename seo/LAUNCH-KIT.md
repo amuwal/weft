@@ -25,16 +25,25 @@ sitemap. You can import the property directly from GSC once 0a is done, which is
 Bing matters disproportionately here: it indexes faster than Google and it is what ChatGPT
 search reads.
 
-### 0c. IndexNow key — `TODO`
-`marketing/scripts/indexnow.sh` exists. Confirm the key file at
-`https://getweft.xyz/0325d2ef1f3c51e28992f5b343647609.txt` matches the key the script sends, then
-ping only changed paths. Pinging unchanged URLs gets the key throttled.
+### 0c. IndexNow key — `DONE (2026-08-15)` ✅
+Key file verified: `https://getweft.xyz/0325d2ef1f3c51e28992f5b343647609.txt` returns 200 and its
+body is exactly the key `indexnow.sh` sends.
+
+`indexnow.sh` was **also rewritten on 2026-08-15** — it had been ignoring its arguments and
+pinging a hardcoded, out-of-date list of 10 URLs on every run, which is the throttling behaviour
+this note warned about. It is now argument-driven and pre-checks each path for a 200:
+
+```
+sh marketing/scripts/indexnow.sh /vs/clay /vs/dex     # only what changed
+```
+
+Nothing to ping until a deploy happens.
 
 ---
 
 > ### ⚠️ Everything below §1 is owner-gated. Read this before wondering why nothing moves.
 >
-> As of 2026-08-14 these items have sat at TODO for four consecutive runs. That is not neglect —
+> As of 2026-08-15 these items have sat at TODO for **five** consecutive runs. That is not neglect —
 > **no scheduled agent run can clear them.** AlternativeTo, SaaSHub and Indie Hackers require
 > *creating an account*; the crm.org correction requires *sending mail as the owner*; Reddit,
 > Show HN and Product Hunt require *posting publicly as the owner*. An automated run is not
