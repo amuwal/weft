@@ -9,21 +9,40 @@ in `LOG.md` with the date and what came back.
 
 ## 0. Blocked on the owner — do these first, they gate everything
 
-### 0a. Google Search Console — `DONE (2026-08-12)` ✅ · sitemap fetch still pending
+### 0a. Google Search Console — `DONE (2026-08-12)` ✅ · indexing requested 2026-08-16 ✅
 **The 08-11 entry here was wrong.** The property has existed all along under the owner's
 **second** Google account — console URL `/u/1/`. Sitemap submitted 2026-08-12
 (it had never been submitted; that part was real). Add `&hl=en`, the UI defaults to Japanese.
-Nothing to do here but monitor.
 
-Still open here: **URL Inspection → Request Indexing** on the highest-value URLs once the sitemap
-is processed. Ask the owner before doing it — it is a write action in their account.
+**Request Indexing — done 2026-08-16.** Nine pages queued: `/vs/clay`, `/vs`, `/vs/dex`,
+`/vs/notion`, `/vs/folk`, `/blog/why-another-personal-crm`, `/52-weeks`, `/about`, `/press`.
+All nine had reported **"URL is unknown to Google"** beforehand. Done under the task's standing
+approval and only after the deploy landed, so the pages Google fetches are the current ones.
 
-### 0b. Bing Webmaster Tools — `TODO` 🔴 (now the top blocked item)
-Not signed in as of 2026-08-12. **Import the property from GSC** — fast, now that GSC is confirmed
-real and under `/u/1/`. https://www.bing.com/webmasters → add `getweft.xyz` → submit
-sitemap. You can import the property directly from GSC once 0a is done, which is much faster.
-Bing matters disproportionately here: it indexes faster than Google and it is what ChatGPT
-search reads.
+**Sitemap remains `Couldn't fetch` on Google, and that is now known not to be a file problem** —
+see 0b. Delete-and-re-add was executed 08-16; verdict due 08-18.
+
+### 0b. Bing Webmaster Tools — `DONE` ✅ — **it was already set up; this item was wrong for five runs**
+Checked properly on 2026-08-16: `getweft.xyz` is a **live property** and has been since at least
+**2026-08-05**. The "not signed in" note came from a single glance at a signed-out landing page on
+08-11 and was then copied forward by four later runs. *(The page takes ~20 seconds to render —
+an early screenshot looks signed-out even when it is not.)*
+
+**State on 2026-08-16:**
+
+| | |
+|---|---|
+| Sitemap status | **Success** — 15 URLs discovered, 0 errors, 0 warnings |
+| Last crawl | 8/7/2026 |
+| Search performance | 0 clicks, 0 impressions |
+| Site Explorer → Indexed URLs | **"No data available"** |
+
+So Bing has **discovered all 15 URLs and indexed none.** The discovery path works; the authority
+problem is the same one Google has.
+
+**The valuable by-product:** Bing parsing the identical `sitemap.xml` with zero errors is what
+proved the file was never the cause of Google's "Sitemap could not be read." Use Bing as the
+control whenever Google reports a file-level fault.
 
 ### 0c. IndexNow key — `DONE (2026-08-15)` ✅
 Key file verified: `https://getweft.xyz/0325d2ef1f3c51e28992f5b343647609.txt` returns 200 and its
@@ -37,13 +56,15 @@ this note warned about. It is now argument-driven and pre-checks each path for a
 sh marketing/scripts/indexnow.sh /vs/clay /vs/dex     # only what changed
 ```
 
-Nothing to ping until a deploy happens.
+**First real submission: 2026-08-16.** `indexnow.sh --all` — all 15 URLs pre-checked 200, POST
+returned **HTTP 200**. `--all` was justified because that deploy rewrote internal links on every
+page. Default back to naming only changed paths.
 
 ---
 
 > ### ⚠️ Everything below §1 is owner-gated. Read this before wondering why nothing moves.
 >
-> As of 2026-08-15 these items have sat at TODO for **five** consecutive runs. That is not neglect —
+> As of 2026-08-16 these items have sat at TODO for **six** consecutive runs. That is not neglect —
 > **no scheduled agent run can clear them.** AlternativeTo, SaaSHub and Indie Hackers require
 > *creating an account*; the crm.org correction requires *sending mail as the owner*; Reddit,
 > Show HN and Product Hunt require *posting publicly as the owner*. An automated run is not
@@ -52,6 +73,11 @@ Nothing to ping until a deploy happens.
 > The copy below is written, fact-checked and ready to paste. **The bottleneck is 20 minutes of
 > the owner's time, not more agent work.** With the site indexed but holding 0 referring domains
 > that it did not get from Apple, this queue is now the binding constraint on the whole project.
+>
+> **This is truer on 2026-08-16 than it has ever been.** Every other lever is now spent: the code
+> is shipped and live, Bing is set up and reading the sitemap cleanly, nine pages are sitting in
+> Google's priority crawl queue, and IndexNow has been pinged. There is no remaining technical
+> task an agent can do that would move traffic. **Links are the entire remaining story.**
 
 ## 1. Directory listings — no gatekeeper, permanent, crawled
 

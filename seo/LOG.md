@@ -4,6 +4,222 @@ Newest entries at the top. One entry per run. Be specific and be honest about fl
 
 ---
 
+## 2026-08-16 — 🟢 THE PUSH LANDED. Bing was set up all along and reads the sitemap fine.
+
+First non-flat run in six. Two premises that shaped the last four runs were **both wrong**, and
+both were disproved by direct measurement today.
+
+### 🟢 Four days of work is live
+
+`origin/main` on GitHub is now **`67e587c`** — the tip of `seo/2026-08-15`. All five SEO commits
+(`55045ae`, `f33d66d`, `6b6a5aa`, `4214ae7`, `67e587c`) are shipped and Vercel has deployed them.
+
+Confirmed by measurement, not assumption: **`https://getweft.xyz/favicon.ico` returns 200.** That
+is the rewrite committed on 08-14; it was 404 on every run from 08-14 through 08-15. The runbook's
+one-second deploy check flipped. `check-live-urls.sh`: **15/15 return 200, zero redirects.**
+
+*Note for the next run:* the **owner's local `main` is stale** (469be0b). Their checkout has not
+been fetched since the push. Today's branch was therefore based on **GitHub's** `main`, not the
+local one. Check both before branching — `git log origin/main` inside the mounted checkout reads
+their stale local ref.
+
+### 🔴🟢 Correction: Bing Webmaster Tools has been set up the whole time
+
+Five consecutive runs recorded "Bing not set up — still the #2 priority." **That was wrong.**
+Opened it today: `getweft.xyz` is a live property, and it has been since at least August 5.
+
+This is the **same class of error as the GSC `/u/0/` vs `/u/1/` mistake**: the 08-11 run loaded
+Bing once, landed on a signed-out marketing page, wrote "not signed in," and four later runs
+copied that forward without rechecking. **A signed-out landing page is evidence about the browser
+session, not about whether the property exists.** Re-check adverse findings before inheriting them.
+
+### 🟢 The single most useful measurement today: Bing reads the same sitemap perfectly
+
+Bing → Sitemaps, `https://getweft.xyz/sitemap.xml`:
+
+| | |
+|---|---|
+| Status | **Success** |
+| URLs discovered | **15** |
+| Last submit | 8/5/2026 |
+| Last crawl | 8/7/2026 |
+| Sitemaps with errors | **0** |
+| Sitemaps with warnings | **0** |
+
+**This kills the "the sitemap file is broken" hypothesis outright.** A second independent search
+engine fetches the identical file, parses it, and finds all 15 URLs with zero errors. Four days
+of runs have been chasing a file defect that does not exist.
+
+Sandbox checks agree and are now redundant: no BOM (first bytes are `<?xml`), strict
+`ElementTree` parse OK, 15 `<loc>`, zero illegal control bytes, zero non-ASCII, `content-type:
+application/xml`, correct `br`/identity encoding negotiation, `robots.txt` names the sitemap.
+
+**Conclusion: Google's "Sitemap could not be read" is a Google-side condition, not a site defect.
+Stop debugging the file.**
+
+### 🟡 The GSC sitemap `Last read` column is blank but the drill-down is not
+
+Worth writing down because it caused a real misdiagnosis. The **Sitemaps list view** shows
+`Last read` as **empty**. Clicking through to the sitemap's own page shows **`Last read: 8/14/26`**
+with the error **"Sitemap could not be read."**
+
+Prior runs read the blank list column and concluded "Google never fetched it → server-side
+problem." Google *did* fetch it. **Always open the drill-down.**
+
+Also ran **URL Inspection → TEST LIVE URL on the sitemap URL itself** (new this run — prior runs
+only live-tested the homepage). Result: **"URL is available to Google," tested Aug 16 07:09.**
+Google's own infrastructure fetches the sitemap cleanly *right now*. So: file valid, Bing parses
+it, Google's live fetcher reaches it — and the Sitemaps report still says it cannot be read. That
+combination points at a stuck GSC record rather than anything reachable from our side.
+
+### 🟢 Executed the 08-16 delete-and-re-add trigger
+
+The trigger set by 08-15 fired (`Last read` still absent from the list view). Done today:
+
+- **Removed** the sitemap (the `⋮` menu on the **drill-down page** has "Remove sitemap"; the
+  kebab on the **list row** does **not** — its only two entries are greyed-out indexing links).
+- **Re-added** immediately: *"Sitemap submitted successfully."* Submitted date now **Aug 16, 2026**.
+- Status still displayed **Couldn't fetch** seconds after the fresh submit, with `Last read` blank.
+  Recording that plainly rather than reading it as failure — it is too early to mean anything.
+
+**This lever is now spent.** If the fresh record still reads "Couldn't fetch" with no `Last read`
+in ~48h (**check 2026-08-18**), the remaining options are external, not on-site: leave the
+sitemap alone and rely on internal links + `robots.txt` discovery, which is what Bing already
+does successfully. Do not delete-and-re-add a second time; it produced no new information.
+
+### 🟢 The real work today: 9 pages pushed into Google's priority crawl queue
+
+With sitemap discovery dead for four days and only 1 of 15 pages indexed, **URL Inspection →
+Request Indexing bypasses the sitemap entirely.** Newly justified this run because the pages
+genuinely changed for the first time since 08-12.
+
+Inspected each page first. **Every single one returned "URL is unknown to Google"** — with
+`Last crawl: N/A`, `Sitemaps: No referring sitemaps detected`, and `Referring page: None detected`.
+That is page-by-page confirmation that the discovery failure is **total**, not partial: Google has
+never seen these URLs at all.
+
+All nine returned *"Indexing requested — URL was added to a priority crawl queue"*:
+
+1. `/vs/clay` — most time-sensitive (the Clay→Mesh rebrand intent competitors are already ranking for)
+2. `/vs` — the hub; crawling it hands Google the internal links to the other four
+3. `/vs/dex`
+4. `/vs/notion`
+5. `/vs/folk`
+6. `/blog/why-another-personal-crm`
+7. `/52-weeks`
+8. `/about`
+9. `/press`
+
+Not requested (low value, quota): `/support`, `/feedback`, `/feature-requests`, `/privacy`,
+`/terms`. `/` is already the one indexed page.
+
+**This is the first run that has done something Google must respond to.** Next run's most
+important number: does *Indexed* move off 1?
+
+*Operational note for whoever automates this next:* the GSC inspection box is a controlled React
+input. `form_input` sets the DOM value but React ignores it, and a plain click after dismissing a
+modal does not focus it. What works reliably: **`triple_click` the box, then `type` the URL with a
+trailing newline.** And the "Indexing requested" dialog is **modal** — `Escape` does not close it;
+you must click **Dismiss** before touching the search box, or the next click lands on
+`REQUEST AGAIN` and burns quota re-submitting the page you just did. That happened twice today.
+
+### 🟢 IndexNow: first submission with something real to announce
+
+`sh marketing/scripts/indexnow.sh --all` → all 15 URLs pre-checked 200, POST returned **HTTP 200**.
+
+`--all` is the right call exactly once here and the reasoning should not be reused casually: this
+deploy rewrote internal links on **every** page (44 `index.html` hrefs + 42 schemeless hrefs) plus
+17 App Store links. That is a genuine site-wide change, which is the documented condition for
+`--all`. Bing participates in IndexNow; Google does not.
+
+### GSC numbers — flat, and flat is the honest word
+
+| | 08-12 | 08-13 | 08-14 | 08-15 | 08-16 |
+|---|---|---|---|---|---|
+| Indexed | 1 | 1 | 1 | 1 | **1** |
+| Not indexed | 4 | 4 | 4 | 4 | **4** |
+| Impressions (90d) | 93 | 94 | 94 | 96 | **96** |
+| Clicks (90d) | 5 | 5 | 5 | 5 | **5** |
+| Avg position | 12.1 | 12.0 | 12.0 | 11.8 | **11.8** |
+| External links | 33 | 33 | 33 | 33 | **33** |
+| Internal links | 1 | 1 | 1 | 1 | **1** |
+
+**Byte-identical to 08-15** — not even rolling-window drift this time. Queries unchanged for a
+fifth run: `weft app` 16 · `w0yft` 7 · `welft` 1. Exclusions unchanged: 2 "Alternate page with
+proper canonical", 1 "Page with redirect", 1 "Crawled - currently not indexed".
+
+**None of today's work can appear in these numbers yet.** The deploy, the nine indexing requests
+and the IndexNow ping all happened today; GSC reports on a 2-3 day lag. Judging them before
+2026-08-19 would be reading noise.
+
+Links: 33 external from 3 domains — apple.com 28, reddit.com 3 (**still our own self-posts**),
+appagg.com 2. 1 internal. Identical for five runs. **There is still no third-party link.**
+
+**Bing performance: 0 clicks, 0 impressions.** Site Explorer → Indexed URLs: **"No data available."**
+So Bing has discovered all 15 URLs and indexed none of them. The discovery path works there; the
+authority problem is identical. Bing being clean is not the same as Bing being useful yet.
+
+### 🟡 New, small, real: `www.getweft.xyz` has no DNS record
+
+`dig +short www.getweft.xyz` returns nothing; `curl` fails with "Could not resolve host". DNS
+resolution works fine in the sandbox generally, so this is a real absence, not a tooling artifact.
+
+It plausibly explains the **"DNS error <1%"** line in the 08-14 Crawl Stats read: for a `sc-domain`
+property Google tries `www` too, and there is nothing to resolve. Impact is small and it is
+**not** a cause of the indexing problem. Adding a `www` CNAME to the apex would silence it. DNS is
+the owner's to change — logged, not actioned.
+
+### ❌ A test that proved nothing — recorded so nobody repeats it
+
+`curl http://getweft.xyz/` (port 80) returned "Connection refused," which looks alarming. It is
+**not a finding**: `curl http://example.com` fails the same way from this sandbox, so **outbound
+port 80 is blocked in the VM**. Discarded. Same discipline as the `curl -A Googlebot` lesson —
+a check that cannot distinguish the hypothesis from the tooling is not evidence.
+
+### Re-verified, unchanged
+
+App Store (iTunes Lookup): `Weft: Personal CRM Journal` · v1.0.2 · released 2026-05-21 · current
+version 2026-08-04 · **`userRatingCount: 0`** · `averageUserRating: 0` · min iOS 26.0.
+**Still zero ratings at ~3 months.**
+
+Competitor facts not re-verified — next due **2026-09-11**, per schedule. Nothing published today,
+so nothing new could be wrong.
+
+### Content
+
+None. Correct number: the site now has nine pages sitting in a crawl queue and one indexed page.
+Adding a tenth page would dilute the very signal we just asked Google to look at.
+
+### 🔴 Still blocked on the owner — now down to one item
+
+The push happened, which clears the biggest blocker. What remains:
+
+**1. Our stale lock, now ~96 hours old.** Fifth consecutive run reporting it. 0 bytes,
+`Aug 12 11:48`. The sandbox still cannot unlink it (the mount refuses cross-user delete).
+
+```
+rm -f ~/Developer/weft/.git/index.lock
+```
+
+**2. Distribution is still entirely owner-gated and still untouched after six runs.**
+AlternativeTo, SaaSHub and Indie Hackers need an account created; the crm.org correction needs
+mail sent as the owner; Reddit, Show HN and Product Hunt need posting publicly as the owner. An
+automated run may not do any of those and should not. The copy in `LAUNCH-KIT.md` is written and
+fact-checked and has been for five runs.
+
+With the technical work now genuinely shipped and nine pages queued, **the link problem is the
+whole remaining story.** 33 external links, 3 domains, zero of them third-party.
+
+### Next run (2026-08-17)
+
+1. **Indexed count — off 1 or not?** That is the headline. Also check whether the nine requested
+   URLs have moved from "unknown to Google" to crawled.
+2. Sitemap: fresh record's `Last read` — **check the drill-down, not the list column.** Real
+   verdict due 2026-08-18; do not delete-and-re-add again.
+3. Bing: has Site Explorer moved off "No data available" after the IndexNow ping?
+4. Do not publish content. Do not re-diagnose the sitemap file — Bing parses it, it is fine.
+
+
 ## 2026-08-15 — flat for a fifth run; the blocker is unchanged and it is not technical
 
 Nothing has reached production since 2026-08-12. Every measurable number is inside noise. The

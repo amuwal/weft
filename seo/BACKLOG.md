@@ -8,47 +8,47 @@ Ordered by value. Move items to `LOG.md` when done.
       ```
       rm -f ~/Developer/weft/.git/index.lock
       ```
-      0 bytes, dated **Aug 12 11:48**, left by our own 08-12 run. Still present on 2026-08-15,
-      **~75 hours old**. It blocks `checkout`, `merge` and `add`, and is the most likely mechanical
-      reason nothing has been pushed since. **Fourth consecutive run reporting it.** The sandbox
-      cannot delete it — re-attempted 2026-08-15, `rm` → "Operation not permitted"; the mount
-      refuses a cross-user unlink even though our own uid owns the file.
+      0 bytes, dated **Aug 12 11:48**, left by our own 08-12 run. Still present on 2026-08-16,
+      **~96 hours old**. **Fifth consecutive run reporting it.** The sandbox cannot delete it —
+      the mount refuses a cross-user unlink even though our own uid owns the file.
+      **Note: the push happened anyway**, so the lock was never the reason nothing shipped —
+      that inference (recorded on 08-14 and 08-15) was wrong. It is still worth clearing, but it
+      is now housekeeping, not a blocker.
 
-- [ ] 🔴 **Push three days of finished work.** `origin/main` is still `64e0047`. Local-only:
-      | Branch | Adds | Contains |
-      |---|---|---|
-      | `seo/2026-08-12` | `55045ae`, `f33d66d` | orphan-page fix, 42 absolute hrefs, title/desc lengths; removes bogus `SearchAction` |
-      | `seo/2026-08-13` | `6b6a5aa` | canonical App Store slug, brand-SERP + Reddit corrections |
-      | `seo/2026-08-14` | `4214ae7` | 44 `index.html` links → `/`, root favicon rewrite, `vs/notion` x-default |
-      | `seo/2026-08-15` | today's commit | arg-driven `indexnow.sh` (was pinging a stale hardcoded list), new `check-live-urls.sh` |
-
-      Use the lock-proof form, which needs no index and cannot be blocked:
-      ```
-      git push origin seo/2026-08-15:main
-      ```
-      This is pure delivery — the work is done, verified, and invisible until this runs.
-      **Proof it has not shipped, measured 2026-08-15:** `https://getweft.xyz/favicon.ico`
-      still returns **404**. That rewrite was committed on 08-14; a successful push makes it 200.
-      Use that URL as the one-second check for whether the push landed.
+- [x] ~~🔴 **Push three days of finished work.**~~ **SHIPPED 2026-08-16.** `origin/main` on
+      GitHub is now **`67e587c`** — the tip of `seo/2026-08-15`, carrying all five SEO commits.
+      Verified by the one-second check rather than assumed: **`https://getweft.xyz/favicon.ico`
+      returns 200** (it was 404 on 08-14 and 08-15). `check-live-urls.sh`: 15/15 200, no redirects.
+      ⚠️ **The owner's *local* `main` is stale at `469be0b`** — their checkout has not been fetched
+      since. Base new branches on **GitHub's** `main`, and do not trust `origin/main` as read from
+      inside the mounted checkout.
 
 - [x] ~~Verify getweft.xyz in GSC + submit sitemap.~~ **Both resolved 2026-08-12.** It was
       verified all along under the second Google account (`/u/1/`); the sitemap was genuinely
       missing and is now submitted.
-- [ ] **Sitemap still "Couldn't fetch" — re-submitted 2026-08-14.** Type `Unknown`, `Last read`
-      still empty, 0 discovered, 48h after the original submission. Server side is definitively
-      clear (08-13 URL Inspection live test: *"URL is available to Google"*; 08-14 Crawl Stats
-      host status: *"No problems"*, 491 successful requests). **Do not chase the server.**
-      Re-submitted 2026-08-14 (additive, not deleted) — GSC confirmed "Sitemap submitted
-      successfully" and the Submitted date moved to Aug 14.
+- [ ] 🟢 **Sitemap: the FILE IS FINE. Stop debugging it.** Settled 2026-08-16 by external
+      evidence: **Bing Webmaster Tools reads the identical file with Status `Success`, 15 URLs
+      discovered, 0 errors, 0 warnings** (last crawl 8/7/2026). A second search engine parsing it
+      cleanly ends the file-defect hypothesis that four runs spent time on.
 
-      **2026-08-15: still `Couldn't fetch`, `Type: Unknown`, `Last read` empty, 0 discovered** —
-      72h after the first submission, 24h after the re-submission. Server re-confirmed clean
-      again today (`HTTP/2 200`, `application/xml`, 4,053 bytes, 15 `<loc>`, valid XML, robots
-      allows and names it). **The delete-and-re-add lever was deliberately NOT pulled today** —
-      the re-submission was only 24h old and deleting would have destroyed the evidence of
-      whether it works. 🔴 **TRIGGER: if `Last read` is still empty on 2026-08-16, delete the
-      sitemap entry and re-add it.** That is the last remaining lever; after it, escalate to
-      accepting that discovery must come from links instead.
+      Sandbox checks concur and are now redundant: no BOM, strict XML parse OK, 15 `<loc>`, no
+      illegal control bytes, no non-ASCII, `application/xml`, correct encoding negotiation.
+
+      **Two reading errors to not repeat:**
+      1. The GSC Sitemaps **list view** shows `Last read` **blank**; the **drill-down page** shows
+         **`Last read: 8/14/26`** with *"Sitemap could not be read."* Google fetched it and failed
+         to parse. Prior runs read the blank column as "never fetched." **Open the drill-down.**
+      2. **URL Inspection → TEST LIVE URL on the sitemap URL itself** (first done 08-16) returns
+         **"URL is available to Google."** Google's own infrastructure fetches it fine right now.
+
+      **Delete-and-re-add executed 2026-08-16** — the 08-15 trigger fired. ("Remove sitemap" lives
+      on the **drill-down** `⋮` menu; the list-row kebab has no delete.) Re-added immediately:
+      *"Sitemap submitted successfully"*, Submitted = Aug 16. Status still read `Couldn't fetch`
+      seconds later, which is too early to mean anything.
+      🔴 **Verdict due 2026-08-18.** If the fresh record still shows no `Last read` in the
+      drill-down by then, **accept it and move on** — discovery must come from links and internal
+      crawling, exactly as it already does on Bing. **Do not delete-and-re-add again;** the lever
+      is spent and produced no new information.
 
 - [x] ~~Root cause of the low page count~~ — **found 2026-08-12: 3 orphan pages and a homepage
       that linked only 5 content pages, which is exactly the 5 URLs GSC knows.** Fixed; `/vs`
@@ -69,8 +69,22 @@ Ordered by value. Move items to `LOG.md` when done.
       schema. The site has no search; the block is removed. Should clear on re-crawl.
 - [x] ~~"Page with redirect" (1)~~ — it is `http://getweft.xyz/` → HTTPS. **Normal. Do not
       "fix" it and do not run Validate Fix expecting it to clear.**
-- [ ] **Request indexing on `/` and `/vs` — AFTER the current fixes deploy.** Doing it before
-      deploy would re-cache the old pages.
+- [x] ~~**Request indexing on `/` and `/vs` — AFTER the current fixes deploy.**~~ **Done
+      2026-08-16, and went far wider than planned.** The deploy landed, so this unblocked. **Nine
+      pages** were pushed into Google's priority crawl queue: `/vs/clay`, `/vs`, `/vs/dex`,
+      `/vs/notion`, `/vs/folk`, `/blog/why-another-personal-crm`, `/52-weeks`, `/about`, `/press`.
+      All nine returned *"Indexing requested — URL was added to a priority crawl queue."*
+
+      **Every one of them first reported "URL is unknown to Google"**, with `Last crawl: N/A`,
+      `Sitemaps: No referring sitemaps detected` and `Referring page: None detected`. That is
+      page-by-page proof the discovery failure is **total**. `/` was skipped (already the one
+      indexed page); `/support`, `/feedback`, `/feature-requests`, `/privacy`, `/terms` skipped as
+      low value.
+
+      *Gotchas for next time:* the inspection box is a controlled React input — `form_input` does
+      not take and a post-modal click does not focus it; **`triple_click` then `type` with a
+      trailing newline** works. The "Indexing requested" dialog is **modal** and `Escape` does not
+      close it — click **Dismiss** first, or the next click hits `REQUEST AGAIN` and burns quota.
 - [x] ~~Find the 3 Reddit threads linking to getweft.xyz.~~ **Found 2026-08-13, and they are
       ours.** Two self-posts by `u/Cold-Tear-968`: r/apps (**1 upvote, 0 comments**) and
       r/sideprojects. There is **no** unprompted third-party thread. LAUNCH-KIT §5 is a cold
@@ -80,8 +94,18 @@ Ordered by value. Move items to `LOG.md` when done.
       with proper canonical" (probably the en/ja hreflang pairs — likely benign), 1 "Page with
       redirect", 1 "Crawled - currently not indexed" (the meaningful one: a quality/authority
       signal, not a technical fault).
-- [ ] **Sign in to Bing Webmaster Tools and add the site.** Import from GSC once 0a is done.
-      Bing is the fastest path to being visible to ChatGPT search.
+- [x] ~~**Sign in to Bing Webmaster Tools and add the site.**~~ 🔴 **IT WAS ALREADY DONE —
+      this item was wrong for five runs.** Opened Bing 2026-08-16: `getweft.xyz` is a live
+      property and has been since at least **2026-08-05**, with the sitemap submitted and crawled.
+      The 08-11 run loaded Bing once, hit a signed-out landing page, wrote "not signed in," and
+      four later runs copied that forward. **Same error class as the GSC `/u/0/` vs `/u/1/`
+      mistake: a signed-out page is evidence about the browser session, not about whether the
+      property exists.** Re-check adverse findings before inheriting them.
+
+      **Current Bing state (2026-08-16):** sitemap `Success`, **15 URLs discovered**, 0 errors.
+      Search Performance **0 clicks / 0 impressions**. Site Explorer → Indexed URLs:
+      **"No data available"** — so Bing has discovered all 15 and **indexed 0**. Discovery works
+      there; the authority problem is identical to Google's.
 
 - [x] ~~**The 20% redirect share in Crawl Stats.**~~ **Found and fixed 2026-08-14.** 44 links
       across 6 pages pointed at `index.html`, which 308s to `/` under `cleanUrls` +
@@ -98,6 +122,13 @@ Ordered by value. Move items to `LOG.md` when done.
       Google gradually losing interest in a site where it never finds anything new. Watch this
       number each run. It should recover after the unpushed fixes deploy; if it keeps falling
       *after* a deploy, that is a real signal and not noise.
+
+- [ ] 🟡 **`www.getweft.xyz` has no DNS record.** Found 2026-08-16: `dig +short www.getweft.xyz`
+      returns nothing and `curl` reports "Could not resolve host". Not a sandbox artifact — plain
+      DNS resolution works fine there. This plausibly explains the **"DNS error <1%"** line in the
+      08-14 Crawl Stats read, since a `sc-domain` property makes Google try `www` too. **Impact is
+      small and it is NOT a cause of the indexing problem.** A `www` CNAME to the apex would
+      silence it. DNS is the owner's to change.
 
 - [x] ~~Root `/favicon.ico` 404~~ — **fixed 2026-08-14** with a Vercel rewrite to
       `/assets/favicon.ico`. The HTML always pointed at the asset path, but browsers and crawlers
@@ -198,23 +229,38 @@ Ordered by value. Move items to `LOG.md` when done.
 - [ ] `marketing/scripts/update_sitemap.py` — same. Must preserve `xhtml:link hreflang`
       alternates for every URL.
 
-## 🔴 Process — read this before running again
+## Process — read this before running again
 
-**Five consecutive runs, five flat entries.** Each of the last four found and fixed a real
-technical defect; **all four fixes are unpushed.** There is no remaining agent-findable technical
-fault that is worth a daily run, and everything in `LAUNCH-KIT.md` requires creating accounts,
-sending mail as the owner, or posting publicly — none of which an automated run may do.
+**2026-08-16 changed the picture.** The push landed, so the six-run stalemate is broken and the
+"pause the daily run" recommendation from 08-15 is **withdrawn** — there is now something real to
+measure for the next few days.
 
-**The project is gated on ~20 minutes of owner time, in this order:**
+**Two premises inherited across multiple runs turned out to be false**, both disproved by simply
+looking again:
 
-1. `rm -f ~/Developer/weft/.git/index.lock`
-2. `git push origin seo/2026-08-15:main` — ships four days of fixes
-3. Bing Webmaster Tools: sign in, import the property from GSC, submit the sitemap
-4. AlternativeTo listing — copy is ready in LAUNCH-KIT §1
+| Believed | Actually |
+|---|---|
+| Bing was never set up (5 runs) | Live property since ~Aug 5, sitemap crawled |
+| The sitemap file is broken (4 runs) | Bing parses it perfectly — 15 URLs, 0 errors |
 
-**Recommendation: pause the daily run, or drop it to weekly, until 1 and 2 are done.** Resume the
-daily cadence when there is something new to measure. Running daily against a blocked queue
-produces log entries, not traffic.
+Both came from a single adverse observation that was never re-tested. **The standing lesson —
+now with three instances, counting the GSC `/u/0/` mistake — is: re-verify a blocking negative
+before building a run's plan on it.**
+
+**What actually matters now, in order:**
+
+1. **Watch the indexed count.** Nine pages are in Google's priority crawl queue as of 08-16 and
+   the site's internal links were fixed site-wide in the same deploy. If *Indexed* does not move
+   off **1** within about a week, the problem is authority, not plumbing, and no further on-site
+   work will help.
+2. **Links. This is the whole remaining story.** 33 external links from 3 domains, and **zero are
+   third-party** (28 Apple, 3 our own Reddit self-posts, 2 appagg). Everything in `LAUNCH-KIT.md`
+   is owner-gated — creating accounts, sending mail as the owner, posting publicly — and has been
+   untouched for six runs.
+3. `rm -f ~/Developer/weft/.git/index.lock` — housekeeping now, not a blocker.
+
+**Do not publish new content** while nine pages sit unindexed in a crawl queue. Adding a tenth
+page dilutes the exact signal we just asked Google to evaluate.
 
 ## Competitive watch
 

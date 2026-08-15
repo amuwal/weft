@@ -15,6 +15,11 @@
    ```
 
    Build today's branch on the newest local `seo/*` branch, not on `origin/main`.
+
+   ⚠️ **The owner's local refs go stale.** On 2026-08-16 their local `main` was `469be0b` while
+   **GitHub's `main` was `67e587c`** — they had not fetched since the push. A clone of the mounted
+   checkout therefore branches from four-day-old code. **Compare the mounted checkout against a
+   fresh GitHub clone and branch from whichever is genuinely newer.**
    Then check the lock (it blocks the owner, not you) and report it if present:
    ```
    ls -la /sessions/<session>/mnt/weft/.git/index.lock
@@ -35,6 +40,23 @@
    sitemap status. If the bridge is down, write "blind" — never invent numbers, and never
    substitute a `WebSearch` result for a GSC number.
 
+   ⚠️ **On the Sitemaps report, always click through to the sitemap's own page.** The list view
+   leaves `Last read` blank even when a read happened; the drill-down shows the real date and the
+   real error string. Four runs misdiagnosed this. "Remove sitemap" also lives only on the
+   drill-down `⋮` menu.
+
+1b. **Read Bing Webmaster Tools too — it is set up and it is the cheapest second opinion.**
+   `https://www.bing.com/webmasters/home` (the owner is signed in; the page takes ~20s to render,
+   do not conclude "signed out" from an early screenshot). Check **Sitemaps** (status, URLs
+   discovered) and **Site Explorer → Indexed URLs**.
+
+   As of 2026-08-16: sitemap `Success`, **15 URLs discovered, 0 errors**; Site Explorer
+   **"No data available"** — discovered 15, indexed 0; 0 clicks / 0 impressions.
+
+   **Bing is the control experiment.** When Google reports a problem with a file, check whether
+   Bing reports the same problem. On 08-16 it did not, which is what proved `sitemap.xml` was
+   never the fault.
+
 2. **Do NOT use `WebSearch` as an index check.** It does not honour the `site:` operator; it
    returns generic `.xyz` pages regardless of reality, and three runs misread that as "not
    indexed." It is still fine for finding *external mentions* and competitor facts — just never
@@ -46,6 +68,28 @@
    the competitor's own page.
 
 5. **Only then, content.** Ceiling 1-2 new pages/day; usually zero while unindexed.
+
+## Requesting indexing (the lever that bypasses a broken sitemap)
+
+When pages are undiscovered and the sitemap is not delivering, **URL Inspection → Request
+Indexing** puts a URL straight into Google's priority crawl queue. Nine pages were queued this way
+on 2026-08-16. Quota is roughly 10-12/day per property, so spend it on pages with real content.
+
+**Only do this after a deploy that actually changed the pages** — requesting a re-crawl of
+unchanged pages wastes quota and tells Google nothing new.
+
+The UI is fiddly; this recipe works:
+
+1. **`triple_click`** the inspection box at the top, then **`type` the URL with a trailing
+   newline.** Do not use `form_input` — the box is a controlled React input and ignores a
+   programmatic value set. A plain click straight after closing a dialog does not focus it either.
+2. Wait ~10s for the inspection to resolve, and **check the URL shown under the header** before
+   clicking anything.
+3. Click **REQUEST INDEXING**, then wait ~25-30s through the "Testing if live URL can be indexed"
+   modal until **"Indexing requested"** appears.
+4. **Click `Dismiss`.** That dialog is modal and **`Escape` does not close it.** If you skip this,
+   your next click lands on `REQUEST AGAIN` and re-submits the page you just did. That burned two
+   requests on 08-16.
 
 ## Shipping
 
@@ -135,6 +179,10 @@ of the report.
 Present in `marketing/scripts/`: `indexnow.sh` (argument-driven since 2026-08-15),
 `check-live-urls.sh` (added 2026-08-15), `iap-promo-images.py`, `inline-i18n-defaults.mjs`.
 
+`indexnow.sh --all` was used once, on 2026-08-16, and the bar for reusing it is high: that deploy
+rewrote internal links on every page, which is the documented site-wide condition. Default to
+naming changed paths.
+
 **Not present**, though earlier task notes referenced them: `build_page.py`, `update_sitemap.py`.
 Either write them or edit `sitemap.xml` by hand and copy an existing page shell. If you hand-edit
 the sitemap, keep the `xhtml:link hreflang` alternates intact for every URL.
@@ -148,6 +196,8 @@ curl -s -o /dev/null -w '%{http_code}\n' https://getweft.xyz/favicon.ico
 ```
 
 404 = the 2026-08-14 branch has not been pushed. 200 = it has.
+**As of 2026-08-16 this returns 200** — the push landed and `origin/main` is `67e587c`. Keep the
+check: it is the fastest way to tell whether the newest branch is actually live.
 
 ## Verification before reporting
 

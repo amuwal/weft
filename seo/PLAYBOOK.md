@@ -7,12 +7,21 @@ Goal: grow organic traffic. Long-run target 10,000 visits/day — see "Honest ex
 
 ---
 
-## Diagnosis (as of 2026-08-13) — corrected twice, read the correction notice
+## Diagnosis (as of 2026-08-16) — corrected three times, read the correction notice
 
-> **Correction notice.** The 2026-08-10 and 08-11 versions of this file said the site was *not
-> indexed* and *not verified in Google Search Console*. **Both were wrong.** They were corrected
-> on 2026-08-12 by reading GSC directly. If you are an agent resuming this work, discard any
-> memory of "the site is invisible to Google" — it is not, and acting on that premise wastes runs.
+> **Correction notice — now three separate false premises, all found the same way.** Each was
+> a blocking negative that got recorded once and copied forward without re-testing.
+>
+> | Believed | For how long | Actually | Disproved |
+> |---|---|---|---|
+> | Site not indexed / not verified in GSC | 08-10 → 08-11 | Verified all along, under `/u/1/` | 08-12 |
+> | Zero referring domains | 08-10 → 08-11 | 33 links from 3 domains | 08-12 |
+> | **Bing Webmaster Tools never set up** | **08-11 → 08-15 (5 runs)** | **Live property since ~Aug 5** | **08-16** |
+> | **The sitemap file is broken/unreadable** | **08-12 → 08-15 (4 runs)** | **Bing parses it: 15 URLs, 0 errors** | **08-16** |
+>
+> If you are an agent resuming this work: discard any memory of "the site is invisible to Google,"
+> "Bing is not set up," or "the sitemap is malformed." **Before you build a run around a blocking
+> negative, spend one minute re-testing it.** Three times now, the blocker was not real.
 
 Measured in GSC on 2026-08-12:
 
@@ -49,6 +58,16 @@ the `site:` operator at all** — it was never evidence of anything.
 alone, and never report a number that came from a tool you have not confirmed answers the
 question you asked.**
 
+**Third rule, added 2026-08-16: a blank column in a list view is not a measurement.** The GSC
+Sitemaps list showed `Last read` empty for four runs and was read as "Google never fetched it."
+The **drill-down page for the same sitemap** said `Last read: 8/14/26` — it had fetched and failed
+to parse. **Open the detail view before concluding anything from a summary table.**
+
+**Fourth rule, added 2026-08-16: when one engine disagrees with another about the same file,
+believe the file.** Bing reads `sitemap.xml` with `Success` / 15 URLs / 0 errors. That single
+external fact ended four runs of file debugging. **A second search engine is the cheapest
+independent check available — use it early, not last.**
+
 **Second rule, added 2026-08-13: never clear a crawler-access question with a spoofed
 user-agent.** `getweft.xyz` sits behind **Cloudflare** in front of Vercel, and Cloudflare
 classifies bots by IP and reverse DNS, not by the `User-Agent` string. `curl -A Googlebot`
@@ -60,8 +79,13 @@ infrastructure.
 
 The problem was never "Google does not know this site exists." It is:
 
-- **Discovery** — 10 of 15 URLs were undiscovered. Just fixed via sitemap submission; the next
-  runs should watch discovered-pages climb and the indexed count rise off 1.
+- **Discovery — worse than "10 of 15 undiscovered," and now measured page by page.** On
+  2026-08-16 every page inspected individually returned **"URL is unknown to Google"** with
+  `Last crawl: N/A`, `No referring sitemaps detected` and `Referring page: None detected` —
+  `/vs`, `/vs/clay`, `/vs/dex`, `/vs/folk`, `/vs/notion`, `/blog/why-another-personal-crm`,
+  `/52-weeks`, `/about`, `/press`. The failure is **total**, not partial. Two causes, both now
+  addressed: the sitemap never delivered discovery on Google's side, and internal links were
+  broken until the 08-16 deploy. All nine were manually pushed into the priority crawl queue.
 - **A crowded brand name** — position **12 for the site's own name**. Measured on the live
   `weft app` SERP 2026-08-13, and it is worse than "contested": page one is full of **other live
   products called Weft** — `getweft.app` (a wardrobe app, **one TLD from our domain**),
@@ -80,15 +104,18 @@ The problem was never "Google does not know this site exists." It is:
 
 ## Priority order
 
-1. ~~Verify GSC + submit the sitemap.~~ **Both done.** Verified all along (under `/u/1/`);
-   sitemap submitted 2026-08-12. Now: **watch it.** Confirm the sitemap status flips from
-   "Couldn't fetch" to "Success", and watch discovered pages and the indexed count (currently 1).
-2. **Bing Webmaster Tools** — still not set up. Import the property from GSC, which is fast now
-   that GSC is confirmed. Bing is what ChatGPT search runs on and participates in IndexNow.
-3. **Links and distribution.** Work `LAUNCH-KIT.md` top-down. This is now the *main* lever:
-   the site is indexed but has no authority and loses its own brand SERP.
-4. **Keep existing pages factually correct.** Competitor facts decay fast in this category.
-5. **Only then, content.**
+1. ~~Verify GSC + submit the sitemap.~~ **Done** (08-12).
+2. ~~Bing Webmaster Tools.~~ **It was already set up** — confirmed 08-16. Property live since
+   ~Aug 5; sitemap `Success`, 15 URLs discovered, 0 errors. Bing has indexed **0** of them.
+3. ~~Ship the pending fixes.~~ **Done 08-16** — `origin/main` = `67e587c`, favicon 200, 15/15 live.
+4. **Watch the indexed count.** Nine pages entered Google's priority crawl queue on 08-16, and
+   the site-wide internal-link fix deployed the same day. This is the live experiment. If
+   *Indexed* has not moved off **1** within about a week, plumbing is not the constraint.
+5. **Links and distribution — the main lever, and now essentially the only one.** Work
+   `LAUNCH-KIT.md` top-down. Every item is owner-gated, and it has been untouched for six runs.
+6. **Keep existing pages factually correct.** Competitor facts decay fast in this category.
+7. **Content last, and currently zero.** Nine pages are sitting unindexed in a crawl queue;
+   a tenth dilutes the signal we just asked Google to evaluate.
 
 ---
 
