@@ -7,8 +7,27 @@ Goal: grow organic traffic. Long-run target 10,000 visits/day — see "Honest ex
 
 ---
 
-## Diagnosis (as of 2026-08-16) — corrected three times, read the correction notice
+## Diagnosis (as of 2026-08-17) — discovery is SOLVED; read the top block first
 
+> **🟢 2026-08-17 — THE DISCOVERY PROBLEM IS SOLVED, AND THE SITEMAP WAS NEVER THE ANSWER.**
+> Indexed pages went **1 → 10 in 24 hours.** All nine URLs filed through **URL Inspection →
+> Request Indexing** on 08-16 now report "URL is on Google — Page is indexed." `/support`, the
+> control page nobody requested, still reports "URL is not on Google." Same domain, same sitemap,
+> same deploy, same internal links — the only difference is the request. **That is causal:
+> Request Indexing did it. Not the sitemap, not IndexNow, not the deploy.**
+>
+> Google has *still* never successfully read the sitemap, and it did not matter.
+>
+> **Two standing corollaries:**
+> 1. **Request Indexing is the discovery mechanism on this site.** When a page is genuinely new
+>    or genuinely changed, file it. Do not wait on the sitemap and do not debug the sitemap.
+> 2. **The remaining problem is authority, not discovery.** Ten indexed pages, zero third-party
+>    links, position ~12 on the site's own brand name. Only links move that, and none of the
+>    link work is agent-executable.
+>
+> ⚠️ **The Page indexing report lags URL Inspection by 2–3 days.** On 08-17 it still read
+> "Indexed 1" while inspection showed ten. Trust inspection; treat the aggregate report as history.
+>
 > **Correction notice — now three separate false premises, all found the same way.** Each was
 > a blocking negative that got recorded once and copied forward without re-testing.
 >
@@ -18,6 +37,8 @@ Goal: grow organic traffic. Long-run target 10,000 visits/day — see "Honest ex
 > | Zero referring domains | 08-10 → 08-11 | 33 links from 3 domains | 08-12 |
 > | **Bing Webmaster Tools never set up** | **08-11 → 08-15 (5 runs)** | **Live property since ~Aug 5** | **08-16** |
 > | **The sitemap file is broken/unreadable** | **08-12 → 08-15 (4 runs)** | **Bing parses it: 15 URLs, 0 errors** | **08-16** |
+> | **The sitemap is what blocks discovery** | **08-12 → 08-16 (5 runs)** | **Irrelevant — 10 pages indexed without it** | **08-17** |
+> | **Bing indexes faster than Google** | **08-10 → 08-16** | **Bing has crawled 0 pages in 12 days** | **08-17** |
 >
 > If you are an agent resuming this work: discard any memory of "the site is invisible to Google,"
 > "Bing is not set up," or "the sitemap is malformed." **Before you build a run around a blocking
@@ -98,9 +119,10 @@ The problem was never "Google does not know this site exists." It is:
   `"getweft.xyz"` query the site already ranks **#1** with a correct AI Overview, so the entity
   is understood; what is missing is volume on qualified terms, which is a content-and-links
   problem rather than a brand-defence one.
-- **Thinness and no authority** — 1 indexed page and 0 referring domains. "Crawled - currently
-  not indexed" on a URL is Google saying it saw the page and did not think it worth keeping.
-  More pages will not fix that; external signals will.
+- **No authority** — as of 08-17, **10 indexed pages and still 0 third-party referring domains**
+  (33 external links: 28 Apple, 3 our own Reddit self-posts, 2 appagg). Indexing was the
+  bottleneck; it no longer is. "Crawled - currently not indexed" is Google saying it saw a page
+  and did not think it worth keeping. More pages will not fix that; external signals will.
 
 ## Priority order
 
@@ -108,14 +130,16 @@ The problem was never "Google does not know this site exists." It is:
 2. ~~Bing Webmaster Tools.~~ **It was already set up** — confirmed 08-16. Property live since
    ~Aug 5; sitemap `Success`, 15 URLs discovered, 0 errors. Bing has indexed **0** of them.
 3. ~~Ship the pending fixes.~~ **Done 08-16** — `origin/main` = `67e587c`, favicon 200, 15/15 live.
-4. **Watch the indexed count.** Nine pages entered Google's priority crawl queue on 08-16, and
-   the site-wide internal-link fix deployed the same day. This is the live experiment. If
-   *Indexed* has not moved off **1** within about a week, plumbing is not the constraint.
-5. **Links and distribution — the main lever, and now essentially the only one.** Work
-   `LAUNCH-KIT.md` top-down. Every item is owner-gated, and it has been untouched for six runs.
+4. ~~Watch the indexed count.~~ **ANSWERED 08-17: 1 → 10.** All nine requested pages indexed;
+   the unrequested control `/support` is not. Plumbing was never the constraint. **Request
+   Indexing is the discovery mechanism here** — use it deliberately for genuinely new or
+   genuinely changed pages.
+5. **🔴 Links and distribution — now the ONLY lever left.** Work `LAUNCH-KIT.md` top-down. Every
+   on-site action an agent can take has been taken. Ten indexed pages with zero third-party links
+   still rank ~12 for their own brand name. Every item is owner-gated; untouched for seven runs.
 6. **Keep existing pages factually correct.** Competitor facts decay fast in this category.
-7. **Content last, and currently zero.** Nine pages are sitting unindexed in a crawl queue;
-   a tenth dilutes the signal we just asked Google to evaluate.
+7. **Content last, and still zero — but for a new reason.** The nine freshly indexed pages have
+   not yet earned a single impression. Measure how they perform before writing a tenth.
 
 ---
 
@@ -149,15 +173,19 @@ better and where Weft's own approach costs you something. No superlatives, no ur
 Compounding daily traffic multiplication is not achievable through SEO. Indexing alone takes
 weeks, and this site is starting from zero with no links.
 
-- **Brand search** ("Weft personal CRM") — partly working: 94 impressions in 90 days at position
-  12. But see the crowded-name finding above: top-3 on the bare word `weft` is **not** the cheap
+- **Brand search** ("Weft personal CRM") — partly working: 97 impressions in 90 days at position
+  11.7. But see the crowded-name finding above: top-3 on the bare word `weft` is **not** the cheap
   win it was recorded as, because five other products carry the name. Qualified brand terms are
   the realistic target.
 - **Generic high-intent terms** ("personal CRM iOS") — 6-12 months minimum against Dex and Mesh,
   who have years of links and reviews.
-- **The realistic near-term win is AI surfaces.** ChatGPT search runs on Bing, which indexes far
-  faster than Google and participates in IndexNow. `llms.txt` and the FAQ JSON-LD are already in
-  place. Getting into Bing is the cheapest path to first traffic.
+- **"Bing indexes far faster than Google" — measured FALSE for this site on 2026-08-17.** Google
+  went 1 → 10 indexed pages in 24 hours off Request Indexing. Bing has had a cleanly parsed
+  sitemap since Aug 5, received all 15 URLs via IndexNow on Aug 16, and has **crawled zero pages**
+  — its own URL Inspection reads "Discovered but not crawled." The AI-surfaces thesis may still be
+  right about *value*, but it is wrong about *speed*, and no run should assume Bing is the quick
+  path to first traffic. `llms.txt` and the FAQ JSON-LD are in place regardless. 10 URLs were
+  submitted through Bing URL Submission on 08-17 — that experiment is still open.
 
 Report flat and down days plainly. Distinguish a one-off spike (a launch, a link) from the
 underlying trend.

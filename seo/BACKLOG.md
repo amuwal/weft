@@ -45,16 +45,33 @@ Ordered by value. Move items to `LOG.md` when done.
       on the **drill-down** `⋮` menu; the list-row kebab has no delete.) Re-added immediately:
       *"Sitemap submitted successfully"*, Submitted = Aug 16. Status still read `Couldn't fetch`
       seconds later, which is too early to mean anything.
-      🔴 **Verdict due 2026-08-18.** If the fresh record still shows no `Last read` in the
-      drill-down by then, **accept it and move on** — discovery must come from links and internal
-      crawling, exactly as it already does on Bing. **Do not delete-and-re-add again;** the lever
-      is spent and produced no new information.
+      🟢 **VERDICT IN, one day early — 2026-08-17. CLOSED.** The drill-down `Last read` moved
+      **8/14/26 → 8/16/26** and the error is unchanged: *"Sitemap could not be read."* Google
+      fetched the freshly re-added record on the day it was added and failed to parse it again.
+      The delete-and-re-add lever is **spent and answered — do not pull it a third time.**
+
+      One last new check before closing, deliberately not a repeat of the BOM/parse/content-type
+      checks: the hypothesis that Google's stricter parser rejects an `xhtml:link` namespace Bing
+      tolerates. **It does not apply** — the root declares both
+      `xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"` and
+      `xmlns:xhtml="http://www.w3.org/1999/xhtml"`, and the only tags present are `urlset`, `url`,
+      `loc`, `lastmod`, `changefreq`, `priority`, `xhtml:link` — all legal.
+
+      **And it stopped mattering the same day.** Ten pages are indexed via a sitemap Google has
+      never successfully read. This was treated as a blocker for five runs and was never on the
+      critical path. **Stop investigating the sitemap.**
 
 - [x] ~~Root cause of the low page count~~ — **found 2026-08-12: 3 orphan pages and a homepage
       that linked only 5 content pages, which is exactly the 5 URLs GSC knows.** Fixed; `/vs`
       now has 7 inbound links, `/press` 14, `/52-weeks` 7.
-- [ ] **Get the indexed count off 1.** Google knows 5 of 15 URLs and indexes 1. Watch discovered
-      pages after the sitemap is processed.
+- [x] ~~**Get the indexed count off 1.**~~ 🟢 **DONE 2026-08-17 — it is 10.** All nine pages
+      requested on 08-16 report "URL is on Google / Page is indexed" in URL Inspection. The
+      control page `/support`, deliberately not requested, still reports "URL is not on Google" —
+      which is what makes this causal rather than coincidental. **Request Indexing did it; the
+      sitemap, IndexNow and the deploy did not.**
+      ⚠️ The **Page indexing report still displayed "Indexed 1"** on 08-17 — it lags inspection by
+      2–3 days. Expect it to catch up ~08-18/19. Do not re-request pages inspection already shows
+      as indexed.
 - [x] ~~"Page with redirect" (1)~~ — **found and fixed 2026-08-12.** Sitemap + canonical +
       hreflang + og:url all named `/vs/`, which 308s to `/vs` under `trailingSlash: false`.
       Also fixed a phantom `/blog/` breadcrumb pointing at a 404. Re-check GSC in a few days to
@@ -102,10 +119,27 @@ Ordered by value. Move items to `LOG.md` when done.
       mistake: a signed-out page is evidence about the browser session, not about whether the
       property exists.** Re-check adverse findings before inheriting them.
 
-      **Current Bing state (2026-08-16):** sitemap `Success`, **15 URLs discovered**, 0 errors.
-      Search Performance **0 clicks / 0 impressions**. Site Explorer → Indexed URLs:
-      **"No data available"** — so Bing has discovered all 15 and **indexed 0**. Discovery works
-      there; the authority problem is identical to Google's.
+      **Current Bing state (2026-08-17) — worse than 08-16 recorded.** URL Inspection on `/`
+      reads **"Discovered but not crawled — URL cannot appear on Bing."** Bing has not merely
+      failed to index the homepage, it has **never fetched it.** (`Discovered on 01 Jan 2006` is
+      a null placeholder, not a real date.) Site Explorer still "No data available"; Search
+      Performance 0/0. Sitemap still `Success` / 15 URLs / 0 errors.
+
+      Delivery is definitively not the problem: the **IndexNow panel shows all 15 URLs received
+      2026-08-16 at 07:29, source "Self."** IndexNow worked and produced zero crawls.
+
+      🟢 **ACTED 2026-08-17:** submitted the 10 priority URLs via **Bing URL Submission**
+      (URL Inspection → Request indexing), which is a *different* mechanism from IndexNow and is
+      what Bing's own remediation text points at. Verified afterwards in the submission log:
+      **10 rows, no duplicates, quota 90/100 remaining**, resets in 22h.
+      🔴 **Open question for the next run: did that produce a crawl?** Re-inspect `/`. If 24h of
+      Request Indexing does nothing on Bing when it worked overnight on Google, that asymmetry is
+      itself the finding.
+
+      Also worth watching, unexplained: `/vs/notion`, `/vs/folk` and `/blog/why-another-personal-crm`
+      report **"known to Bing but has some issues which are preventing indexation"** (discovered
+      11 Aug 2026), a different state from the homepage's. Bing does not say what the issues are.
+      Do not guess at it — wait to see whether the submissions clear it.
 
 - [x] ~~**The 20% redirect share in Crawl Stats.**~~ **Found and fixed 2026-08-14.** 44 links
       across 6 pages pointed at `index.html`, which 308s to `/` under `cleanUrls` +
@@ -116,12 +150,15 @@ Ordered by value. Move items to `LOG.md` when done.
       **Still unverifiable on 2026-08-15: the fix has not deployed, so 301 remains 21% and
       Discovery 2%.** The prediction stands untested until the push happens.
 
-- [ ] 🟡 **Crawl rate is falling.** Total requests over the trailing 90 days went **495 (08-14)
-      → 454 (08-15)** — same window length, ~8% fewer. Hosts report "No problems" and response
-      time is 259 ms, so this is not a health problem; with Discovery stuck at 2% it reads as
-      Google gradually losing interest in a site where it never finds anything new. Watch this
-      number each run. It should recover after the unpushed fixes deploy; if it keeps falling
-      *after* a deploy, that is a real signal and not noise.
+- [x] ~~🟡 **Crawl rate is falling.**~~ **Recovered 2026-08-17.** 495 (08-14) → 454 (08-15) →
+      **486 (08-17)**, +7%, reversing the decline. **Discovery 2% → 3%.** Hosts "No problems",
+      251 ms. The prediction that it would recover post-deploy held.
+- [ ] ⏳ **The internal-link fix is NOT yet testable — recheck 2026-08-25.** The 08-14 prediction
+      was that the 301 share would fall well below 20% once the `index.html` links deployed. On
+      08-17 the mix is **unchanged at 200=55% / 404=20% / 301=20%**. **This is not evidence of
+      failure:** Crawl Stats is a trailing **90-day** window and the deploy is one day old — a
+      single clean day cannot move a 90-day average. Written down explicitly so a future run does
+      not call the fix failed on this data.
 
 - [ ] 🟡 **`www.getweft.xyz` has no DNS record.** Found 2026-08-16: `dig +short www.getweft.xyz`
       returns nothing and `curl` reports "Could not resolve host". Not a sandbox artifact — plain
@@ -174,6 +211,14 @@ Ordered by value. Move items to `LOG.md` when done.
       not move GSC, but it means distribution is running. Is it paid UGC, a creator programme, or
       organic? If it is driving installs and still yielding **0 ratings**, the bottleneck is the
       in-app review ask, not reach.
+
+- [ ] 🟢 **Directory/roundup inclusion targets found 2026-08-17.** A web search for the app
+      surfaced live "best personal CRM" roundups that accept or periodically refresh entries:
+      **Dex's "Personal CRMs in 2026: The Complete List (60+ Apps Compared)"** (a competitor, but
+      the format is a genuine catch-all list), plus `yourpond.io/blog/best-personal-crm-apps-2026`
+      and `blablanote.com/blog/best-personal-crm-apps/`. These are **inclusion** targets, not
+      pages to outrank — a mention is a link. Each needs an email sent as the owner, so it is
+      owner-gated like the rest of LAUNCH-KIT. Add the copy there before the next run.
 
 ## Next up (agent-executable once the above unblocks)
 
@@ -231,9 +276,11 @@ Ordered by value. Move items to `LOG.md` when done.
 
 ## Process — read this before running again
 
-**2026-08-16 changed the picture.** The push landed, so the six-run stalemate is broken and the
-"pause the daily run" recommendation from 08-15 is **withdrawn** — there is now something real to
-measure for the next few days.
+**2026-08-17 changed it again, and this time in the numbers.** Indexed pages went **1 → 10**.
+The "pause the daily run" recommendation from 08-15 stays **withdrawn** — the next three runs have
+something real to watch (does the aggregate report catch up; do the new pages earn impressions;
+does Bing crawl). After that, if links are still zero, the honest recommendation is that the
+bottleneck is entirely owner-gated and a daily agent run adds little.
 
 **Two premises inherited across multiple runs turned out to be false**, both disproved by simply
 looking again:
@@ -242,6 +289,8 @@ looking again:
 |---|---|
 | Bing was never set up (5 runs) | Live property since ~Aug 5, sitemap crawled |
 | The sitemap file is broken (4 runs) | Bing parses it perfectly — 15 URLs, 0 errors |
+| The sitemap is what blocks discovery (5 runs) | **Irrelevant — 10 pages indexed without it (08-17)** |
+| Bing indexes faster than Google | **Bing has crawled 0 pages in 12 days (08-17)** |
 
 Both came from a single adverse observation that was never re-tested. **The standing lesson —
 now with three instances, counting the GSC `/u/0/` mistake — is: re-verify a blocking negative
@@ -249,18 +298,19 @@ before building a run's plan on it.**
 
 **What actually matters now, in order:**
 
-1. **Watch the indexed count.** Nine pages are in Google's priority crawl queue as of 08-16 and
-   the site's internal links were fixed site-wide in the same deploy. If *Indexed* does not move
-   off **1** within about a week, the problem is authority, not plumbing, and no further on-site
-   work will help.
-2. **Links. This is the whole remaining story.** 33 external links from 3 domains, and **zero are
-   third-party** (28 Apple, 3 our own Reddit self-posts, 2 appagg). Everything in `LAUNCH-KIT.md`
-   is owner-gated — creating accounts, sending mail as the owner, posting publicly — and has been
-   untouched for six runs.
-3. `rm -f ~/Developer/weft/.git/index.lock` — housekeeping now, not a blocker.
+1. ~~Watch the indexed count.~~ **Answered 08-17: 1 → 10, causally attributable to Request
+   Indexing.** Now watch the *second-order* question: do those ten pages earn any impressions?
+   Check Performance → **PAGES**, not just QUERIES.
+2. **🔴 Links. This is now the ENTIRE remaining story.** 33 external links from 3 domains, and
+   **zero are third-party** (28 Apple, 3 our own Reddit self-posts, 2 appagg). A web search on
+   08-17 for the domain and the app's full name returned **nothing** — no page anywhere mentions
+   this site. Every on-site lever an agent can pull has now been pulled. Everything in
+   `LAUNCH-KIT.md` is owner-gated and has been untouched for **seven** runs.
+3. `rm -f ~/Developer/weft/.git/index.lock` — housekeeping, ~119h old.
 
-**Do not publish new content** while nine pages sit unindexed in a crawl queue. Adding a tenth
-page dilutes the exact signal we just asked Google to evaluate.
+**Do not publish new content.** The reason has changed and is now stronger: nine pages were
+indexed within 24 hours and **not one has earned an impression yet.** Writing a tenth before
+reading that data is guessing. Measure first.
 
 ## Competitive watch
 

@@ -57,10 +57,34 @@
    Bing reports the same problem. On 08-16 it did not, which is what proved `sitemap.xml` was
    never the fault.
 
-2. **Do NOT use `WebSearch` as an index check.** It does not honour the `site:` operator; it
-   returns generic `.xyz` pages regardless of reality, and three runs misread that as "not
-   indexed." It is still fine for finding *external mentions* and competitor facts — just never
-   for index state.
+1b. **URL Inspection: one URL per round trip, and verify the header.** Added 2026-08-17 after a
+   near-miss. Batching four inspections with short waits returned, for every one of them, the
+   *previous* URL's data under the new URL's header — `/vs` came back carrying `/vs/clay`'s
+   canonical, which would have been logged as a canonical bug and "fixed." The GSC SPA swaps the
+   header before the detail panel. **Wait ≥15s and confirm the URL printed in the page header
+   matches what you typed before recording any verdict.**
+
+   Filing a request: **`triple_click` the box, then `type` the URL with a trailing newline**
+   (it is a controlled React input; `form_input` does not take). The confirmation dialog is
+   **modal** — click **Dismiss**, or the next click lands on `REQUEST AGAIN` and burns quota.
+
+1c. **Request Indexing is the discovery mechanism on this site — the sitemap is not.** Proven
+   2026-08-17: nine requested pages indexed within 24h, the unrequested control did not. When a
+   page is genuinely new or genuinely changed, file it through URL Inspection. Do not wait on
+   the sitemap, and do not debug the sitemap; that investigation is closed.
+
+   Bing has the same feature (URL Inspection → **Request indexing**, ~100 URLs/day) and it is
+   **not** the same thing as an IndexNow ping — on 08-17 Bing showed URLs as IndexNow-received
+   *and* "Discovered but not crawled." Its dialog carries the same two hazards: verify the URL
+   inside the dialog before clicking Submit (a mistyped entry silently re-fires the previous
+   URL — one duplicate was caught and cancelled), and the window can resize mid-session, moving
+   the Submit button.
+
+2. **Do NOT use `WebSearch` for anything requiring operator precision.** It honours **neither
+   `site:` nor quoted exact phrases.** The `site:` failure fooled three runs into "not indexed."
+   The exact-phrase failure was demonstrated on 2026-08-17: a `"..."` query returned a page that
+   could not contain the phrase. It is fine for discovering that external pages exist on a topic,
+   and for competitor facts — never for index state, ranking, or presence/absence of a page.
 
 3. **Work `LAUNCH-KIT.md` top-down.** Log what you actually submitted and what came back.
 

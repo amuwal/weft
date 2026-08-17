@@ -19,10 +19,18 @@ in `LOG.md` with the date and what came back.
 All nine had reported **"URL is unknown to Google"** beforehand. Done under the task's standing
 approval and only after the deploy landed, so the pages Google fetches are the current ones.
 
-**Sitemap remains `Couldn't fetch` on Google, and that is now known not to be a file problem** —
-see 0b. Delete-and-re-add was executed 08-16; verdict due 08-18.
+🟢 **RESULT, 2026-08-17: all nine are indexed.** Each now reports "URL is on Google — Page is
+indexed"; the control page `/support`, which was deliberately not requested, still reports "URL is
+not on Google." Indexed pages went **1 → 10 in 24 hours** and the cause is unambiguous.
+**Request Indexing is the discovery mechanism on this site.** File genuinely new or genuinely
+changed pages through it; do not wait on the sitemap.
 
-### 0b. Bing Webmaster Tools — `DONE` ✅ — **it was already set up; this item was wrong for five runs**
+**Sitemap: CLOSED 2026-08-17.** The drill-down `Last read` moved 8/14 → 8/16 with the same
+"Sitemap could not be read" error, so the delete-and-re-add is answered and **spent — do not
+repeat it.** It also stopped mattering: ten pages are indexed via a sitemap Google has never
+read.
+
+### 0b. Bing Webmaster Tools — `DONE` ✅ · 10 URLs submitted 2026-08-17 · **crawl still pending**
 Checked properly on 2026-08-16: `getweft.xyz` is a **live property** and has been since at least
 **2026-08-05**. The "not signed in" note came from a single glance at a signed-out landing page on
 08-11 and was then copied forward by four later runs. *(The page takes ~20 seconds to render —
@@ -43,6 +51,23 @@ problem is the same one Google has.
 **The valuable by-product:** Bing parsing the identical `sitemap.xml` with zero errors is what
 proved the file was never the cause of Google's "Sitemap could not be read." Use Bing as the
 control whenever Google reports a file-level fault.
+
+**2026-08-17 — Bing is further behind than 08-16 recorded, and it has now been acted on.**
+URL Inspection on `/` reads **"Discovered but not crawled — URL cannot appear on Bing."** Bing has
+never fetched the homepage. The IndexNow panel shows **all 15 URLs received 08-16 at 07:29
+(source "Self")** — so delivery works and produced zero crawls.
+
+**Submitted the 10 priority URLs via Bing URL Submission** (URL Inspection → *Request indexing*),
+which is a different mechanism from IndexNow and is what Bing's own error text recommends.
+Verified: **10 rows in the submission log, no duplicates, quota 90/100 left**, resets in 22h.
+Quota is generous — ~100/day — so this is repeatable if it proves to work.
+
+*Gotchas:* verify the URL inside the confirmation dialog before clicking Submit — typing a new URL
+while the previous dialog is closing silently fails and the next request re-fires the **previous**
+URL (one duplicate `/vs/folk` was caught and cancelled). The window can also resize mid-session,
+moving the Submit button.
+
+🔴 **Next run: re-inspect `/`. Did the submissions produce a crawl?**
 
 ### 0c. IndexNow key — `DONE (2026-08-15)` ✅
 Key file verified: `https://getweft.xyz/0325d2ef1f3c51e28992f5b343647609.txt` returns 200 and its
@@ -177,6 +202,38 @@ and often earns a mention.
 **Rule:** send the correction because it is true and useful. Do not condition it on coverage.
 
 ---
+
+## 3b. Roundup inclusion emails — `TODO` (found 2026-08-17)
+
+Three live "best personal CRM" roundups that already rank and that periodically refresh their
+entries. A mention in any of them is a real third-party link — currently the site has **zero**.
+These are *inclusion* requests, not attempts to outrank the page.
+
+- **Dex — "Personal CRMs in 2026: The Complete List (60+ Apps Compared)"**
+  `getdex.com/blog/personal-crm-list/` — a competitor, but the page's whole premise is
+  exhaustiveness, which makes inclusion a reasonable ask rather than a favour.
+- **`yourpond.io/blog/best-personal-crm-apps-2026`**
+- **`blablanote.com/blog/best-personal-crm-apps/`**
+
+Draft — keep it short, factual, and easy to say yes to. Send as the owner.
+
+> Subject: Weft (iOS) for your personal CRM roundup
+>
+> Hi — I build Weft, a personal CRM for iOS. I saw your roundup of personal CRM apps and
+> wondered whether it's worth a line.
+>
+> The short version: it's on-device only, no account and no sync server, so notes about people
+> never leave the phone. Free, iOS 26+. It's a one-person project, released May 2026.
+>
+> https://getweft.xyz · https://apps.apple.com/us/app/weft-personal-crm-journal/id6770074864
+>
+> Happy to send a promo code if you'd like to try it, and no hard feelings if it isn't a fit —
+> it's a young app and I know it's a crowded list.
+>
+> — Amit
+
+**Rules:** one email each, no follow-up chasing, and never offer anything in exchange for a link.
+Log what comes back.
 
 ## 4. Indie iOS press — `TODO`
 

@@ -4,6 +4,210 @@ Newest entries at the top. One entry per run. Be specific and be honest about fl
 
 ---
 
+## 2026-08-17 — 🟢 IT WORKED. Indexed pages: 1 → 10. Request Indexing is the discovery path; the sitemap is not.
+
+The single most important result in eight runs, and it is causal rather than suggestive.
+
+### 🟢 All nine pages requested on 08-16 are indexed. The control page is not.
+
+Checked one at a time in URL Inspection, each with the inspected URL visible in the page header
+(see the methodology note below — the first attempt produced garbage and was discarded):
+
+| URL | 08-16 | 08-17 |
+|---|---|---|
+| `/vs/clay` | unknown to Google | **URL is on Google — indexed** |
+| `/vs` | unknown to Google | **indexed** |
+| `/vs/dex` | unknown to Google | **indexed** |
+| `/vs/notion` | unknown to Google | **indexed** |
+| `/vs/folk` | unknown to Google | **indexed** |
+| `/blog/why-another-personal-crm` | unknown to Google | **indexed** |
+| `/52-weeks` | unknown to Google | **indexed** |
+| `/about` | unknown to Google | **indexed** |
+| `/press` | unknown to Google | **indexed** |
+| `/` | indexed | indexed |
+| **`/support` — NOT requested (control)** | — | **"URL is not on Google"** |
+
+**The control is what makes this a finding rather than a coincidence.** `/support` sits in the same
+sitemap, on the same domain, with the same internal links and the same deploy, and it is the one
+page nobody requested. It is still invisible. Everything requested is in; the one thing not
+requested is out. **Request Indexing did this — not the sitemap, not the deploy, not IndexNow.**
+
+Last crawl timestamps confirm the mechanism: Aug 16, 07:16–07:18, Googlebot smartphone, page fetch
+successful — minutes after the requests were filed.
+
+### 🟡 The Page indexing report still says "Indexed 1". Do not be fooled by it.
+
+`Indexed 1 / Not indexed 4`, byte-identical to the last five runs, with the same three exclusion
+reasons. **That report lags URL Inspection by 2–3 days.** URL Inspection is live; the aggregate
+report is batch. **Next run: expect Indexed to jump toward 10 around 2026-08-18/19. If it does
+not, re-check by inspection before concluding anything went wrong.**
+
+### 🔴 The sitemap verdict arrived a day early, and it is a "no"
+
+The drill-down (not the list column — that lesson holds) now reads **`Last read: 8/16/26`**, up
+from `8/14/26`, with the same error: **"Sitemap could not be read."**
+
+So Google *did* fetch the freshly re-added record, on the day it was added, and failed to parse it
+again. The 08-15 trigger has now fired and been answered. **The delete-and-re-add lever is spent.
+Do not pull it a third time.**
+
+One genuinely new check before closing this out — not a repeat of the BOM/parse/content-type
+checks, which were already redundant. The hypothesis was that Google's stricter sitemap parser
+might reject an `xhtml:link` namespace that Bing tolerates. It does not apply: the root element
+declares both `xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"` and
+`xmlns:xhtml="http://www.w3.org/1999/xhtml"`, and the only tags in the file are `urlset`, `url`,
+`loc`, `lastmod`, `changefreq`, `priority`, `xhtml:link` — all legal. **The file is correct.
+Closing the sitemap investigation permanently.**
+
+**And it no longer matters.** That is the real conclusion. Ten pages are indexed with a sitemap
+Google has never successfully read. The sitemap was treated as a blocker for five runs; it was
+never on the critical path. Discovery here is Request Indexing plus internal links.
+
+### 🟢 Acted on Bing — and found it is in worse shape than recorded
+
+Yesterday's entry said Bing "discovered all 15 and indexed 0." The truth is worse. URL Inspection
+on the homepage: **"Discovered but not crawled — URL cannot appear on Bing."** Bing has never
+fetched the page at all. (`Discovered on 01 Jan 2006` is a null placeholder, not a real date.)
+
+The IndexNow panel confirms delivery is not the problem: **all 15 URLs received yesterday at
+07:29, source "Self."** So IndexNow worked, and produced zero crawls. Bing's own remediation text
+on that same screen points at the **Request indexing** button, which is a different mechanism.
+
+**Submitted the same 10 priority URLs through Bing URL Submission.** Verified in the submission
+log afterwards: **10 rows, no duplicates, quota 90/100 remaining**, resets in 22h.
+
+`/`, `/vs`, `/vs/clay`, `/vs/dex`, `/vs/notion`, `/vs/folk`, `/blog/why-another-personal-crm`,
+`/52-weeks`, `/about`, `/press`
+
+Deliberately **not** re-pinged via IndexNow: those URLs were already submitted yesterday and
+nothing on the site changed today. Re-pinging unchanged URLs is the throttle risk the runbook
+warns about, and the Bing panel proves the message was received.
+
+Also noted: Bing reports different states per page. `/` is "discovered but not crawled"; but
+`/vs/notion`, `/vs/folk` and `/blog/why-another-personal-crm` say **"known to Bing but has some
+issues which are preventing indexation,"** discovered 11 Aug 2026. Bing does not say what the
+issues are. Worth watching, not worth guessing at.
+
+### 🔴 Methodology: a tool artifact that nearly went into this log as fact
+
+The first pass inspected four URLs in one batch with 7-second waits and read the results with
+`get_page_text`. **Every result was the previous URL's data** — `/vs` came back carrying
+`/vs/clay`'s canonical. The SPA swaps the header before the detail panel, so a fast read captures
+a stale body under a fresh URL.
+
+Caught because `/vs` reported a user-declared canonical of `/vs/clay`, which is impossible. Had
+the batch been one URL longer, or the pages more similar, it would have been recorded as a real
+canonical bug and "fixed."
+
+**Rule, added to RUNBOOK: inspect one URL per round trip, wait ≥15s, and confirm the URL printed
+in the page header matches what you asked for before recording the verdict.** Every row in today's
+table was re-checked that way.
+
+Same class of error as the `curl -A Googlebot` and `site:` lessons: a tool that answers
+confidently without answering the question asked.
+
+### ❌ Attempted independent cross-check of the indexing claim — inconclusive, and discarded
+
+"Indexed in GSC" and "findable on Google" are different claims, so the headline deserved a check
+from outside GSC. Ran an exact-phrase search for `/vs/clay`'s title, `"Weft vs Mesh (formerly
+Clay)"`. **getweft.xyz did not appear.**
+
+**This is not evidence against the finding, because the tool did not run the query asked.** Among
+the results was *"Woven Wire Mesh vs. Welded Wire Mesh"* — a page that cannot contain the quoted
+phrase. **`WebSearch` ignores quoted exact-phrase operators, the same way it ignores `site:`.**
+A check that cannot distinguish the hypothesis from the tooling is not evidence, so it is
+discarded — the same discipline applied to `curl -A Googlebot` and to port 80.
+
+**RUNBOOK updated: `WebSearch` honours neither `site:` nor quoted phrases.** It is usable for
+discovering that external pages exist on a topic, and for nothing that requires operator
+precision.
+
+**What this does mean, stated carefully:** today's evidence supports *indexed*, which is what URL
+Inspection reports and what the `/support` control isolates. It does **not** establish that the
+pages rank or are discoverable for any query. Those are the next questions, and Performance →
+PAGES is where they get answered — not a search box.
+
+### GSC numbers — flat, as expected, and not the story today
+
+| | 08-13 | 08-14 | 08-15 | 08-16 | 08-17 |
+|---|---|---|---|---|---|
+| Indexed (report) | 1 | 1 | 1 | 1 | **1** (lagging) |
+| Not indexed | 4 | 4 | 4 | 4 | **4** |
+| Impressions (90d) | 94 | 94 | 96 | 96 | **97** |
+| Clicks (90d) | 5 | 5 | 5 | 5 | **5** |
+| Avg position | 12.0 | 12.0 | 11.8 | 11.8 | **11.7** |
+| External links | 33 | 33 | 33 | 33 | **33** |
+| Internal links | 1 | 1 | 1 | 1 | **1** |
+
+97 impressions and position 11.7 are **rolling-window drift**, same as every prior run — the
+window slid a day. Queries byte-identical for a sixth run: `weft app` 16 · `w0yft` 7 · `welft` 1.
+Zero generic terms, zero clicks on any of them.
+
+### 🟢 Crawl stats: the 08-14 prediction is trending right, but is not yet testable
+
+Total requests **454 (08-15) → 486 (08-17)**, +7%, reversing the 8% decline that 08-15 flagged.
+**Discovery 2% → 3%**, Refresh 97%. Hosts "No problems", 251 ms.
+
+Response mix is **unchanged at 200=55% / 404=20% / 301=20%**. That is *not* evidence the
+internal-link fix failed: this is a trailing **90-day** window and the fix has been live for one
+day. One clean day cannot move a 90-day average. **Re-check around 2026-08-25**, when there is
+enough post-deploy history to read. Stated so a future run does not call the fix a failure early.
+
+### Links: still zero third-party, sixth run running
+
+33 external from 3 domains (apple.com 28, reddit.com 3 — **our own self-posts**, appagg.com 2),
+1 internal. A web search for `"getweft.xyz"` and the app's full name returns **nothing** — no page
+anywhere mentions this site. Independent of GSC, and it agrees.
+
+Search did surface the shape of the opportunity: Dex's "Personal CRMs in 2026: The Complete List
+(60+ Apps Compared)", plus roundups at `yourpond.io` and `blablanote.com`. These are inclusion
+targets, not competitors to outrank — added to BACKLOG.
+
+### Re-verified, unchanged
+
+App Store (iTunes Lookup): `Weft: Personal CRM Journal` · v1.0.2 · released 2026-05-21 ·
+**`userRatingCount: 0`** · min iOS 26.0 · Free · Lifestyle. **Still zero ratings at ~3 months.**
+`weft-stay-close` still 301s to `weft-personal-crm-journal`; site links already use the canonical.
+
+`check-live-urls.sh`: **15/15 return 200, zero redirects.**
+
+Competitor facts not re-verified — next due **2026-09-11**. Nothing published today.
+
+### Content
+
+None. Correct number, and for a better reason than previous runs: nine pages were indexed within
+24 hours and none has been evaluated on merit yet. Adding a page now would add an unindexed URL to
+a site whose freshly-indexed pages have not yet earned a single impression. Wait for the data.
+
+### 🔴 Still blocked on the owner — unchanged, and now the only thing left
+
+**1. The stale lock, now ~119 hours.** Sixth consecutive run reporting it. Housekeeping, not a
+blocker (the 08-16 push proved that), but it is still sitting in their repo.
+```
+rm -f ~/Developer/weft/.git/index.lock
+```
+
+**2. Distribution. Seventh run untouched, and now it is the entire remaining story.** The site has
+ten indexed pages and **zero third-party links**. Every technical lever an agent can pull has now
+been pulled. AlternativeTo, SaaSHub and Indie Hackers need an account created; the crm.org
+correction needs mail sent as the owner; Reddit, Show HN and Product Hunt need posting publicly as
+the owner. The copy has been written and fact-checked for six runs.
+
+Indexed pages with no authority rank at position 12 for their own brand name. **Links are the only
+input that changes that, and none of them are agent-executable.**
+
+### Next run (2026-08-18)
+
+1. **Does the Page indexing report catch up to 10?** Expected 08-18/19. If it lags, re-verify by
+   inspection — do not re-request pages that inspection already shows as indexed.
+2. **First impressions on a non-homepage URL?** Check Performance → PAGES, not just QUERIES. Nine
+   pages became eligible yesterday; this is the first run where a non-brand query could appear.
+3. **Bing: did the 10 URL submissions cause a crawl?** Re-inspect `/` — "discovered but not
+   crawled" should become crawled. If 24h of Request Indexing does nothing on Bing when it worked
+   overnight on Google, that is a real asymmetry worth recording.
+4. Do not touch the sitemap. Do not publish content. Do not re-ping IndexNow.
+
+
 ## 2026-08-16 — 🟢 THE PUSH LANDED. Bing was set up all along and reads the sitemap fine.
 
 First non-flat run in six. Two premises that shaped the last four runs were **both wrong**, and
