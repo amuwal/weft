@@ -196,6 +196,26 @@ the owner. The copy has been written and fact-checked for six runs.
 Indexed pages with no authority rank at position 12 for their own brand name. **Links are the only
 input that changes that, and none of them are agent-executable.**
 
+### ⚠️ Operational note — I left a second stale lock. Sorry; here is the exact fix.
+
+Landing today's branch, an amended commit needed a force-update of the ref. `git update-ref -d`
+from the sandbox failed silently and left a **zero-byte ref lock**, which the mount then refused
+to let me delete — same cross-user unlink restriction as the 08-12 `index.lock`.
+
+**Net effect: today's work is on `seo/2026-08-17-final`, NOT `seo/2026-08-17`.**
+`seo/2026-08-17` points at a superseded commit (`b80869a`) that is missing the discarded-cross-check
+section. **Use `-final`.**
+
+Owner cleanup — both files, both one command:
+```
+rm -f ~/Developer/weft/.git/index.lock
+rm -f ~/Developer/weft/.git/refs/heads/seo/2026-08-17.lock
+git -C ~/Developer/weft branch -D seo/2026-08-17     # superseded, after the lock is gone
+```
+
+**Rule for future runs: never `git update-ref -d` or force-fetch inside the mounted checkout.**
+If a commit needs amending, land it under a **new branch name** instead. Added to RUNBOOK.
+
 ### Next run (2026-08-18)
 
 1. **Does the Page indexing report catch up to 10?** Expected 08-18/19. If it lags, re-verify by

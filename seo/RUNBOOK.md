@@ -158,6 +158,13 @@ the owner pushes.
 Safe procedure — never disturb their working tree or current branch (they are often mid-release
 on `release/1.0.2` with uncommitted files):
 
+**Never force-update or delete a ref inside the mounted checkout.** Added 2026-08-17 after doing
+exactly that: an amended commit needed a force-fetch, `git update-ref -d` failed silently, and it
+stranded a zero-byte `refs/heads/<branch>.lock` that the sandbox cannot delete — a second stale
+lock on top of the 08-12 `index.lock`. **If a commit needs amending after it has been landed,
+fetch it under a NEW branch name** (`seo/YYYY-MM-DD-final`) and tell the owner which one is real.
+Cheap; leaves nothing behind.
+
 **Clean up after yourself.** A `git fetch` (or even `git status`) run from the sandbox against the
 mounted checkout can strand a zero-byte `.git/index.lock`. One from 2026-08-11 sat for ~18 hours
 and blocked the owner's `git checkout` the next day. The sandbox usually **cannot delete it**
