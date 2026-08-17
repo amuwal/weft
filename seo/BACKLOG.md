@@ -8,8 +8,9 @@ Ordered by value. Move items to `LOG.md` when done.
       ```
       rm -f ~/Developer/weft/.git/index.lock
       ```
-      0 bytes, dated **Aug 12 11:48**, left by our own 08-12 run. Still present on 2026-08-16,
-      **~96 hours old**. **Fifth consecutive run reporting it.** The sandbox cannot delete it —
+      0 bytes, dated **Aug 12 11:48**, left by our own 08-12 run. Still present on 2026-08-18,
+      **~143 hours old**. **Seventh consecutive run reporting it.** A second stranded lock,
+      `refs/heads/seo/2026-08-17.lock`, is also still there (see LOG 08-17). The sandbox cannot delete it —
       the mount refuses a cross-user unlink even though our own uid owns the file.
       **Note: the push happened anyway**, so the lock was never the reason nothing shipped —
       that inference (recorded on 08-14 and 08-15) was wrong. It is still worth clearing, but it
@@ -132,14 +133,26 @@ Ordered by value. Move items to `LOG.md` when done.
       (URL Inspection → Request indexing), which is a *different* mechanism from IndexNow and is
       what Bing's own remediation text points at. Verified afterwards in the submission log:
       **10 rows, no duplicates, quota 90/100 remaining**, resets in 22h.
-      🔴 **Open question for the next run: did that produce a crawl?** Re-inspect `/`. If 24h of
-      Request Indexing does nothing on Bing when it worked overnight on Google, that asymmetry is
-      itself the finding.
+      🟢 **ANSWERED 2026-08-18: it produced NO crawl, and the Bing technical thread is CLOSED.**
+      `/` is still *"Discovered but not crawled"* (null `01 Jan 2006` placeholder); `/vs/notion`
+      was discovered **11 Aug** and has still never been fetched — seven days. The asymmetry the
+      08-17 run predicted would "itself be the finding" is confirmed: **Request Indexing worked
+      overnight on Google and has done nothing on Bing in 24h.**
 
-      Also worth watching, unexplained: `/vs/notion`, `/vs/folk` and `/blog/why-another-personal-crm`
-      report **"known to Bing but has some issues which are preventing indexation"** (discovered
-      11 Aug 2026), a different state from the homepage's. Bing does not say what the issues are.
-      Do not guess at it — wait to see whether the submissions clear it.
+      ~~Also worth watching, unexplained: `/vs/notion`, `/vs/folk` and
+      `/blog/why-another-personal-crm` report **"known to Bing but has some issues which are
+      preventing indexation"**.~~ 🟢 **DISPROVED 2026-08-18 — it is boilerplate, not a defect.**
+      Bing's own **Live URL** test on `/vs/notion` (and on `/`) returns **"URL can be indexed by
+      Bing"** and **"No SEO/GEO issues found."** The index tab's warning string contradicts Bing's
+      own live fetch of the same URL. **Fifth inherited blocking-negative to evaporate on
+      re-test.** Stop watching it.
+
+      🟢 **BING IS CLOSED AS A TECHNICAL THREAD (2026-08-18).** Sitemap parses (Success/15/0),
+      IndexNow delivered 15/15, 10 URLs submitted and logged, live fetch clean, zero SEO issues —
+      and **0 pages crawled in 13 days.** Nothing testable is red and no agent-executable lever
+      remains. Bing's crawl scheduling for an unknown domain is a **trust judgment**, i.e. the
+      same authority problem as Google's ranking. **Do not re-submit, do not re-investigate.**
+      Re-read state occasionally; treat any change as news, not as something to chase.
 
 - [x] ~~**The 20% redirect share in Crawl Stats.**~~ **Found and fixed 2026-08-14.** 44 links
       across 6 pages pointed at `index.html`, which 308s to `/` under `cleanUrls` +
@@ -193,6 +206,28 @@ Ordered by value. Move items to `LOG.md` when done.
 
 - [x] ~~`vs/notion.html` missing `x-default`~~ — **fixed 2026-08-14.** It declared `hreflang="en"`
       alone among the five `/vs` pages.
+
+- [ ] 🔴 **Natural discovery is still not running — Request Indexing is currently the ONLY path.**
+      Found 2026-08-18. Two days after the deploy that made all 298 internal hrefs root-absolute,
+      the control page `/support` still reports `Referring page: None detected` and
+      `No referring sitemaps detected`, and **GSC Links still shows internal links = 1** (seventh
+      unchanged run). Google has registered no internal link on this site. **Consequence: any new
+      or genuinely changed page must be filed through URL Inspection or it will not be found.**
+      Re-check whether internal links ever register — that is the signal that natural discovery
+      has come alive.
+
+- [ ] ⏳ **THE measurement, due ~2026-08-19/20: do the nine indexed pages earn impressions?**
+      **Not answerable on 08-18** — GSC's Performance window ended **08-15** and the pages were
+      indexed **08-16**, so an empty PAGES table was *no data*, not a zero. (Nearly logged as a
+      false negative; see LOG 08-18.) Once the window reaches 08-16, read **Performance → PAGES**.
+      This is the decision point for content: impressions ⇒ the pages have merit and writing can
+      resume; a genuine zero over a real window ⇒ indexed but worthless without links, which
+      points at LAUNCH-KIT harder still.
+
+- [ ] 🧪 **Keep `/support` as the unrequested control.** Deliberately NOT requested on 08-18
+      despite the temptation. It is the only instrument measuring whether natural discovery ever
+      starts working, and that question is live. Spending it would buy the indexing of a support
+      page. Revisit only once internal links register or it gets discovered on its own.
 
 ## Now the main lever — brand SERP and links
 

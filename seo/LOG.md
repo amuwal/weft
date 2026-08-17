@@ -4,6 +4,183 @@ Newest entries at the top. One entry per run. Be specific and be honest about fl
 
 ---
 
+## 2026-08-18 — Bing's technical investigation CLOSES; the impressions question is not yet answerable (and nearly became a false negative)
+
+No traffic change, and none was possible. Two of the three questions this run was set to answer
+came back "not yet"; the third came back clean and closed a five-run thread.
+
+### 🟡 Page indexing report: still `Indexed 1 / Not indexed 4`. Not a failure — not yet.
+
+Byte-identical to the last six runs, same three exclusion reasons (2 alternate-canonical, 1
+redirect, 1 crawled-not-indexed). The 08-17 prediction was that it would catch up to ~10 on
+**08-18/19**. It is 08-18 and it has not. **That is inside the predicted window, not outside it.**
+Re-judge 08-19/20. Do not re-request pages that inspection already shows as indexed.
+
+### 🟢 The indexing held, and the control is still clean 48h on
+
+Spot-checked by inspection, one URL per round trip, header verified against the screenshot
+(`get_page_text` again returned the *previous* page's body under the new URL — the 08-17 artifact
+is reproducible, and **screenshots are the reliable read on this SPA**):
+
+| URL | Verdict |
+|---|---|
+| `/vs/clay` | **URL is on Google — Page is indexed** |
+| `/support` (control, never requested) | **URL is not on Google — URL is unknown to Google** |
+
+So the 08-17 causal finding survives a second day: everything requested is in, the one thing not
+requested is out.
+
+**New, and it matters more than the confirmation.** `/support` still reports:
+
+```
+Sitemaps:      No referring sitemaps detected
+Referring page: None detected
+Last crawl:    N/A
+```
+
+**Two days after the deploy that made all 298 internal hrefs root-absolute, Google has registered
+no internal link to this page at all.** GSC → Links agrees: **internal links = 1**, unchanged for
+a seventh run. Natural discovery on this site is not merely slow, it is still not running.
+Request Indexing is not just *the fastest* path here — as of today it is the *only* path.
+
+### 🔴 "Do the nine pages earn impressions?" — CANNOT BE ANSWERED YET. I nearly logged a false negative.
+
+Performance → PAGES, 90 days, returns three rows and all three are the homepage:
+
+| Page | Clicks | Impressions |
+|---|---|---|
+| `https://getweft.xyz/` | 5 | 95 |
+| `https://getweft.xyz/?lang=ja` | 0 | 2 |
+| `http://getweft.xyz/` | 0 | 2 |
+
+Zero rows for any of the nine. The obvious reading — "they were indexed and earned nothing" — is
+**wrong**, and it is the reading this run was set up to produce.
+
+**The data window ends 2026-08-15.** Chart caption *"from May 16, 2026 to August 15, 2026"*, read
+identically on three separate page loads; "Last update: 5.5 hours ago". **The nine pages were
+indexed on 08-16.** The window therefore contains **zero days** in which any of them could have
+earned an impression. There is no data, which is not the same as data showing zero.
+
+**Earliest answerable date: ~2026-08-19/20**, when the window reaches 08-16. Written down
+explicitly so the next run does not read an empty PAGES table as a verdict on page quality.
+Same error class as `site:`, `curl -A Googlebot` and the blank `Last read` column: **a report that
+cannot yet contain the answer is not evidence about the answer.**
+
+Totals moved as expected by drift only: **98 impressions / 5 clicks / 5.1% CTR / position 11.6**
+(97/5/5.2%/11.7 yesterday). Queries byte-identical for a seventh run — `weft app` 16, `w0yft` 7,
+`welft` 1. Zero generic terms.
+
+### 🟢 Bing: the 08-17 submissions produced nothing — and the technical investigation is now CLOSED
+
+The 08-17 run asked: did submitting 10 URLs cause a crawl? **No.**
+
+- `/` — still **"Discovered but not crawled — URL cannot appear on Bing."** `Discovered on
+  01 Jan 2006` (null placeholder) unchanged, 24h+ after submission.
+- `/vs/notion` — **"Discovered but not crawled,"** discovered **11 Aug 2026**. Seven days,
+  never fetched.
+
+**The decisive new check — Bing's own Live URL test, which no prior run had run.** It is the exact
+analogue of GSC's TEST LIVE URL that settled the server-side question for Google. Run on both
+pages today at 07:10 and 07:11:
+
+> ✅ **URL can be indexed by Bing** — "It can appear on Bing Search results given it passes quality
+> checks and gets indexed by Bing"
+> ✅ **No SEO/GEO issues found**
+> ℹ️ 2 markup types found
+
+**This disproves the "issues preventing indexation" message.** On 08-17, `/vs/notion`, `/vs/folk`
+and `/blog/why-another-personal-crm` reported *"known to Bing but has some issues which are
+preventing indexation,"* and that was logged as unexplained and worth watching. Bing's own live
+fetch of `/vs/notion` reports **zero** issues. **The message is generic boilerplate, not a
+page-level defect.** Stop watching it.
+
+**That is the fifth inherited blocking-negative in this project to evaporate on re-test** — after
+GSC `/u/0/`, "zero referring domains", "Bing not set up", and "the sitemap is broken". The
+standing lesson holds and is now overwhelming.
+
+**Everything testable on Bing is green, and Bing has crawled 0 pages in 13 days:**
+
+| Check | State |
+|---|---|
+| Sitemap | Success — 15 URLs, 0 errors |
+| IndexNow delivery | 15/15 received 08-16 07:29, source Self |
+| URL Submission | 10 rows logged 08-17, no duplicates |
+| Live fetch | **URL can be indexed by Bing** |
+| SEO/GEO issues | **None found** |
+| **Pages crawled** | **0** |
+
+**Conclusion: there is no technical fault left to find on Bing, and no agent-executable lever
+left to pull.** Delivery works, submission works, the file parses, the page fetches clean. Bing
+simply has not scheduled a crawl, and crawl scheduling for an unknown domain is a **trust
+judgment** — the same authority problem Google has, arriving through a different door.
+**Closing the Bing technical thread the way the sitemap thread was closed.** Re-check state
+occasionally; do not investigate further, and do not re-submit the same URLs expecting a
+different result.
+
+### Deliberate decision: `/support` stays the control
+
+It was tempting to request indexing on it now that it has served its purpose twice. **Held.**
+It is the only instrument measuring whether natural discovery ever starts working on this site,
+that question is live and unanswered, and spending it would buy the indexing of a support page.
+Cheap to keep, expensive to replace. Revisit once natural discovery shows any sign of life.
+
+### Re-verified this run
+
+- `check-live-urls.sh` — **15/15 return 200, zero redirects.**
+- App Store (iTunes Lookup): `Weft: Personal CRM Journal` · v1.0.2 · released 2026-05-21 ·
+  **`userRatingCount: 0`** · min iOS 26.0 · Free. **Still zero ratings at just under 3 months.**
+- `favicon.ico` → 200, so the deploy is still live.
+- Links: **33 external / 3 domains / 1 internal**, unchanged for a seventh run. Still zero
+  third-party.
+- Web search for the domain and full app name: **no page anywhere mentions this site** (8th run).
+  The search did surface **Weft Studio** (App Store `id6759333048`), the wardrobe app — further
+  corroboration of the crowded-brand finding, and a reminder to always write the full name
+  "Weft: Personal CRM Journal" in any listing.
+
+Competitor facts not re-verified — next due **2026-09-11**, per schedule.
+
+### Content
+
+**None.** The reason is sharper than previous runs: the measurement that would justify a tenth
+page is one to two days away. Writing now would be guessing with the answer in sight.
+
+### Nothing was shipped to the site
+
+No sitemap change, no IndexNow ping (nothing changed — pinging unchanged URLs is the documented
+throttle risk), no re-request of already-indexed pages, no new pages. Only `seo/` memory changed.
+On a run where every lever is either spent or owner-gated, **not acting is the correct output.**
+
+### 🔴 Still blocked on the owner — unchanged, and it is the whole story now
+
+**1. Distribution. Eighth run untouched.** Ten indexed pages, zero third-party links, position
+~12 on the site's own name. `LAUNCH-KIT.md` is written, fact-checked and ready; every item needs
+an account created, mail sent, or a public post made **as the owner**. No agent run can clear it,
+and none should.
+
+**2. Two stale locks** (from our own runs — apologies):
+```
+rm -f ~/Developer/weft/.git/index.lock
+rm -f ~/Developer/weft/.git/refs/heads/seo/2026-08-17.lock
+git -C ~/Developer/weft branch -D seo/2026-08-17     # superseded by -final, after the lock is gone
+```
+`index.lock` is now ~143h old. Housekeeping, not a blocker.
+
+**3. The owner's local `main` is still stale** at `469be0b`; GitHub is at `715f41d`. Today's
+branch is based on GitHub's `main`.
+
+### Next run (2026-08-19)
+
+1. **Page indexing report — caught up to ~10 yet?** If still 1 on 08-19, that is now outside the
+   predicted window and worth a proper look.
+2. **Performance → PAGES, once the window reaches 08-16.** This is the first real read on whether
+   the nine indexed pages are worth anything. Check PAGES, not just QUERIES.
+3. Do **not** touch the sitemap, re-submit to Bing, ping IndexNow, or publish content.
+4. If PAGES shows impressions, that is the signal to resume content. If it shows a genuine zero
+   over a real window, the pages are indexed but worthless without links — which points at
+   LAUNCH-KIT even harder.
+
+---
+
 ## 2026-08-17 — 🟢 IT WORKED. Indexed pages: 1 → 10. Request Indexing is the discovery path; the sitemap is not.
 
 The single most important result in eight runs, and it is causal rather than suggestive.

@@ -7,7 +7,7 @@ Goal: grow organic traffic. Long-run target 10,000 visits/day — see "Honest ex
 
 ---
 
-## Diagnosis (as of 2026-08-17) — discovery is SOLVED; read the top block first
+## Diagnosis (as of 2026-08-18) — discovery is SOLVED; read the top block first
 
 > **🟢 2026-08-17 — THE DISCOVERY PROBLEM IS SOLVED, AND THE SITEMAP WAS NEVER THE ANSWER.**
 > Indexed pages went **1 → 10 in 24 hours.** All nine URLs filed through **URL Inspection →
@@ -17,6 +17,15 @@ Goal: grow organic traffic. Long-run target 10,000 visits/day — see "Honest ex
 > Request Indexing did it. Not the sitemap, not IndexNow, not the deploy.**
 >
 > Google has *still* never successfully read the sitemap, and it did not matter.
+>
+> **2026-08-18 update — three things, all confirmatory:**
+> (a) The **Page indexing report still reads `Indexed 1`** on 08-18. That is inside the predicted
+>     08-18/19 catch-up window; re-judge on 08-19/20 before treating it as a problem.
+> (b) The control `/support` is **still unknown to Google after 48h**, and still reports
+>     `Referring page: None detected` two days after the internal-link deploy. GSC Links still
+>     reports **1 internal link**. So Request Indexing is not merely the *fastest* discovery path
+>     here — **right now it is the only one.**
+> (c) **The Bing technical investigation is CLOSED.** See "Honest expectations" below.
 >
 > **Two standing corollaries:**
 > 1. **Request Indexing is the discovery mechanism on this site.** When a page is genuinely new
@@ -39,6 +48,7 @@ Goal: grow organic traffic. Long-run target 10,000 visits/day — see "Honest ex
 > | **The sitemap file is broken/unreadable** | **08-12 → 08-15 (4 runs)** | **Bing parses it: 15 URLs, 0 errors** | **08-16** |
 > | **The sitemap is what blocks discovery** | **08-12 → 08-16 (5 runs)** | **Irrelevant — 10 pages indexed without it** | **08-17** |
 > | **Bing indexes faster than Google** | **08-10 → 08-16** | **Bing has crawled 0 pages in 12 days** | **08-17** |
+> | **Bing sees "issues preventing indexation" on 3 pages** | **08-17 → 08-18** | **Bing's own Live URL test: "No SEO/GEO issues found"** | **08-18** |
 >
 > If you are an agent resuming this work: discard any memory of "the site is invisible to Google,"
 > "Bing is not set up," or "the sitemap is malformed." **Before you build a run around a blocking
@@ -127,8 +137,12 @@ The problem was never "Google does not know this site exists." It is:
 ## Priority order
 
 1. ~~Verify GSC + submit the sitemap.~~ **Done** (08-12).
-2. ~~Bing Webmaster Tools.~~ **It was already set up** — confirmed 08-16. Property live since
-   ~Aug 5; sitemap `Success`, 15 URLs discovered, 0 errors. Bing has indexed **0** of them.
+2. ~~Bing Webmaster Tools.~~ **Set up all along, and now CLOSED as a technical thread (08-18).**
+   Sitemap `Success` (15 URLs, 0 errors), IndexNow delivered 15/15, 10 URLs submitted 08-17, and
+   Bing's **Live URL test returns "URL can be indexed by Bing / No SEO/GEO issues found"** on both
+   `/` and `/vs/notion`. Everything testable is green and Bing has still **crawled 0 pages in 13
+   days.** No technical fault remains and no agent lever remains — Bing's crawl scheduling is a
+   trust judgment, i.e. the same authority problem. **Do not re-submit or re-investigate.**
 3. ~~Ship the pending fixes.~~ **Done 08-16** — `origin/main` = `67e587c`, favicon 200, 15/15 live.
 4. ~~Watch the indexed count.~~ **ANSWERED 08-17: 1 → 10.** All nine requested pages indexed;
    the unrequested control `/support` is not. Plumbing was never the constraint. **Request
@@ -138,8 +152,10 @@ The problem was never "Google does not know this site exists." It is:
    on-site action an agent can take has been taken. Ten indexed pages with zero third-party links
    still rank ~12 for their own brand name. Every item is owner-gated; untouched for seven runs.
 6. **Keep existing pages factually correct.** Competitor facts decay fast in this category.
-7. **Content last, and still zero — but for a new reason.** The nine freshly indexed pages have
-   not yet earned a single impression. Measure how they perform before writing a tenth.
+7. **Content last, and still zero.** ⚠️ **Corrected 08-18: it is NOT yet true that the nine pages
+   "have not earned an impression."** GSC's Performance window ended **08-15** and the pages were
+   indexed **08-16**, so no eligible data existed yet — an empty PAGES table was *no data*, not a
+   zero. Earliest real read ~**08-19/20**. Measure then, and let that decide whether to resume.
 
 ---
 
@@ -184,8 +200,14 @@ weeks, and this site is starting from zero with no links.
   sitemap since Aug 5, received all 15 URLs via IndexNow on Aug 16, and has **crawled zero pages**
   — its own URL Inspection reads "Discovered but not crawled." The AI-surfaces thesis may still be
   right about *value*, but it is wrong about *speed*, and no run should assume Bing is the quick
-  path to first traffic. `llms.txt` and the FAQ JSON-LD are in place regardless. 10 URLs were
-  submitted through Bing URL Submission on 08-17 — that experiment is still open.
+  path to first traffic. `llms.txt` and the FAQ JSON-LD are in place regardless.
+  🟢 **The 08-17 URL-submission experiment is CLOSED as of 08-18: it produced no crawl.** `/` is
+  still "Discovered but not crawled"; `/vs/notion` was discovered 11 Aug and has never been
+  fetched. The decisive check was **Bing's Live URL test** — *"URL can be indexed by Bing"* and
+  *"No SEO/GEO issues found"* on both pages — which also **disproved** the "issues preventing
+  indexation" message that 08-17 flagged as unexplained. Delivery, submission, parsing and
+  fetching all work; only the crawl is missing. **That is authority, not plumbing. Stop working
+  Bing technically.**
 
 Report flat and down days plainly. Distinguish a one-off spike (a launch, a link) from the
 underlying trend.

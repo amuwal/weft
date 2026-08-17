@@ -30,7 +30,7 @@ changed pages through it; do not wait on the sitemap.
 repeat it.** It also stopped mattering: ten pages are indexed via a sitemap Google has never
 read.
 
-### 0b. Bing Webmaster Tools — `DONE` ✅ · 10 URLs submitted 2026-08-17 · **crawl still pending**
+### 0b. Bing Webmaster Tools — `DONE` ✅ · **CLOSED 2026-08-18 — nothing technical left to do**
 Checked properly on 2026-08-16: `getweft.xyz` is a **live property** and has been since at least
 **2026-08-05**. The "not signed in" note came from a single glance at a signed-out landing page on
 08-11 and was then copied forward by four later runs. *(The page takes ~20 seconds to render —
@@ -67,7 +67,26 @@ while the previous dialog is closing silently fails and the next request re-fire
 URL (one duplicate `/vs/folk` was caught and cancelled). The window can also resize mid-session,
 moving the Submit button.
 
-🔴 **Next run: re-inspect `/`. Did the submissions produce a crawl?**
+🟢 **ANSWERED 2026-08-18 — no, and this section is now CLOSED.** `/` is still *"Discovered but
+not crawled"*; `/vs/notion`, discovered **11 Aug**, has still never been fetched. The submissions
+changed nothing in 24h, on the same site where Google's Request Indexing worked overnight.
+
+**The decisive check was Bing's own Live URL tab**, which no prior run had used — the analogue of
+GSC's TEST LIVE URL. On both `/` and `/vs/notion`, today at 07:10–07:11:
+
+> ✅ **URL can be indexed by Bing** · ✅ **No SEO/GEO issues found** · ℹ️ 2 markup types
+
+That also **disproves** the "known to Bing but has some issues which are preventing indexation"
+message recorded on 08-17 — Bing's live fetch of that exact URL finds zero issues. Boilerplate,
+not a defect.
+
+**Everything testable on Bing is green and Bing has crawled 0 pages in 13 days.** Sitemap parses,
+IndexNow delivers, submissions log, the page fetches clean. There is no technical fault left and
+no agent-executable lever left. Bing's crawl scheduling for an unknown domain is a **trust
+judgment — the same authority problem as everything below §1.**
+
+🚫 **Do not re-submit these URLs and do not re-investigate Bing.** Doing the same thing again is
+not a finding. Re-read the state occasionally; treat a change as news.
 
 ### 0c. IndexNow key — `DONE (2026-08-15)` ✅
 Key file verified: `https://getweft.xyz/0325d2ef1f3c51e28992f5b343647609.txt` returns 200 and its
@@ -98,6 +117,10 @@ page. Default back to naming only changed paths.
 > The copy below is written, fact-checked and ready to paste. **The bottleneck is 20 minutes of
 > the owner's time, not more agent work.** With the site indexed but holding 0 referring domains
 > that it did not get from Apple, this queue is now the binding constraint on the whole project.
+>
+> **Truer again on 2026-08-18: Bing is now closed too.** With the Bing technical thread shut, the
+> sitemap thread shut, the deploy live and ten pages indexed, **there is no remaining engine-side
+> work of any kind.** The queue below is not one of several options — it is the only one.
 >
 > **This is truer on 2026-08-16 than it has ever been.** Every other lever is now spent: the code
 > is shipped and live, Bing is set up and reading the sitemap cleanly, nine pages are sitting in

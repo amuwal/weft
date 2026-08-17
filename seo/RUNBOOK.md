@@ -80,6 +80,26 @@
    URL — one duplicate was caught and cancelled), and the window can resize mid-session, moving
    the Submit button.
 
+1d. **Before reading Performance as a verdict, read the WINDOW.** Added 2026-08-18 after nearly
+   logging a false negative. The Performance chart caption states its own range — *"from May 16,
+   2026 to August 15, 2026"* — and GSC data lags **~3 days**. On 08-18 the nine pages indexed on
+   **08-16** could not appear in *any* Performance report, so the empty PAGES table meant **no
+   data**, not zero impressions. **Check the caption's end date against the date the thing you
+   are measuring started. If the window predates it, the report cannot answer your question —
+   say so and stop.**
+
+1e. **On GSC, trust the SCREENSHOT, not `get_page_text`.** Added 2026-08-18, second occurrence.
+   `get_page_text` repeatedly returned the *previous* page's body under the new page's URL — on
+   08-18 the Links page body came back after navigating into URL Inspection. The 08-17 note
+   framed this as a batching problem; it is broader than that. **Take a screenshot and read the
+   verdict off the pixels, with the URL visible in the header.**
+
+1f. **Bing's Live URL tab is the analogue of GSC's TEST LIVE URL — use it before believing any
+   Bing page-level complaint.** Added 2026-08-18. Bing's *index* tab said `/vs/notion` had
+   "some issues which are preventing indexation"; the **Live URL** tab on the same URL returned
+   *"URL can be indexed by Bing"* and *"No SEO/GEO issues found."* The scary string was generic
+   boilerplate. Same lesson as `curl -A Googlebot` and the blank `Last read` column.
+
 2. **Do NOT use `WebSearch` for anything requiring operator precision.** It honours **neither
    `site:` nor quoted exact phrases.** The `site:` failure fooled three runs into "not indexed."
    The exact-phrase failure was demonstrated on 2026-08-17: a `"..."` query returned a page that
